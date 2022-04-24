@@ -41,7 +41,7 @@ public class WebController {
 ## 연동 확인
 spring 프로젝트 실행시켜 8080포트 켜고
 
-브라우저에서 http://localhost:8080/signUp UIR로 접근
+브라우저에서 http://localhost:8080/signUp URI로 접근
 
 아래처럼 나오면 성공임
 
