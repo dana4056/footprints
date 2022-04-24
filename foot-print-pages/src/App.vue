@@ -1,28 +1,22 @@
 <template>
-  <div id="wrap">
-    <div id="logo">
-      <img src="./assets/logo.png">
-      <h3>발자취</h3>
-    </div>
-    <SignUpSNS></SignUpSNS>
-    <InputData></InputData>
+  <div>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-import InputData from './components/InputData.vue'
-import SignUpSNS from './components/SignUpSNS.vue'
+// import InputData from './components/InputData.vue'
+// import SignUpSNS from './components/SignUpSNS.vue'
+//import NavigationBar from './components/common/NavigationBar.vue'
 
 export default {
-  components: {
-    InputData,
-    SignUpSNS
-  }
+
 }
 </script>
 
 <style>
 body {
+  margin: 0px;
   text-align: center;
   font-family: 'Noto Sans KR', sans-serif;
 }
@@ -44,7 +38,7 @@ h3{
 #wrap {
     width: 360px;
     margin: 0 auto;
-    padding: 130px 0;
+    padding: 100px 0;
 }
 ul{
   list-style: none;
