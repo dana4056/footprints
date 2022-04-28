@@ -1,11 +1,13 @@
 <template>
-  <div id="inputData">
+  <div id="inputData" th:replace="fragments/bodyHeader :: bodyHeader">
 
     <form @submit.prevent="onSubmit" action="/members/new" th:object="${memberForm}">
     <div class="inputDiv">
-      <label>아이디</label>
+      <label th:for="id">아이디</label>
       <div class="idGroup">
-        <span><input th:field="*{name}" id='userId1' class="idItem" v-model="Id1" type="text" placeholder="아이디" required></span>
+        <span><input th:field="*{id}" 
+        id='userId1' class="idItem" v-model="Id1" type="text" placeholder="아이디" required
+        th:class="${#fields.hasErrors('id')}? 'form-control fieldError' : 'form-control'"></span>
         <span class="idItem">@</span>
         <span class="idItem">
           <select name="domain" id='userId2' v-model="Id2">
@@ -18,11 +20,12 @@
     </div>
 
     <div class="inputDiv" v-bind:class="{errorType:isDirrentPw}">
-      <label>비밀번호</label>
+      <label th:for="pw">비밀번호</label>
       <input id='password1' 
       v-on:focusout="checkPw"
       v-model="Pw1" type="password" 
       placeholder="비밀번호 (영어, 숫자, 특수문자 포함 8~20자)" 
+      th:field="*{pw}"
       required>
     </div>
 
@@ -36,17 +39,18 @@
     </div>
 
     <div class="inputDiv" v-bind:class="{errorType:isValidNick()}">
-      <label>닉네임</label>
+      <label th:for="nick">닉네임</label>
       <input id='nickname' 
+      th:field="*{nick}"
       v-model="Nick" type="text" 
       placeholder="별명 (2~8자)" required>
       <span class="errortype" v-if="isValidNick()">닉네임은 2~8글자이어야 합니다.</span>
     </div>
 
     <div class="inputDiv">
-      <label>휴대폰 번호</label>
+      <label th:for="phone">휴대폰 번호</label>
       <div class="phoneGroup">
-        <span class="phoneItem"><input id='userPhone' v-model="Phone" type="text" placeholder="전화번호"></span>
+        <span class="phoneItem"><input th:field="*{phone}" id='userPhone' v-model="Phone" type="text" placeholder="전화번호"></span>
         <span class="phoneItem"><button class="btn">인증번호 받기</button></span>
       </div>
       <div class="phoneGroup">
@@ -56,8 +60,8 @@
     </div>
 
     <div class="inputDiv">
-      <label>지역설정</label>
-      <input id='userArea' v-model="Area" type="text" placeholder="지역명(ex. 성북구 정릉동)">
+      <label th:for="area">지역설정</label>
+      <input th:field="*{area}" id='userArea' v-model="Area" type="text" placeholder="지역명(ex. 성북구 정릉동)">
       <input id='RuserArea' type="text">
     </div>
 
