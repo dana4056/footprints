@@ -1,11 +1,11 @@
 <template>
   <div id="inputData">
 
-    <form @submit.prevent="onSubmit">
+    <form @submit.prevent="onSubmit" action="/members/new" th:object="${memberForm}">
     <div class="inputDiv">
       <label>아이디</label>
       <div class="idGroup">
-        <span><input id='userId1' class="idItem" v-model="Id1" type="text" placeholder="아이디" required></span>
+        <span><input th:field="*{name}" id='userId1' class="idItem" v-model="Id1" type="text" placeholder="아이디" required></span>
         <span class="idItem">@</span>
         <span class="idItem">
           <select name="domain" id='userId2' v-model="Id2">
