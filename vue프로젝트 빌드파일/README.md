@@ -13,10 +13,11 @@
 ## 경로
 spring 프로젝트 resources아래로 파일 옮기기
 
-*static아래에 html파일 있으면 그 페이지는 홈페이지(http://localhost:8080 으로 접근)
-*templates 아래에 html파일 있으면 그 페이지는 thymeleaf 사용하여 접근할 페이지 (http://localhost:8080/signUp 으로 접근)
+~~*static아래에 html파일 있으면 그 페이지는 홈페이지(http://localhost:8080 으로 접근)
+*templates 아래에 html파일 있으면 그 페이지는 thymeleaf 사용하여 접근할 페이지 (http://localhost:8080/signUp 으로 접근)~~
 
-![](1.png)
+**그냥 static아래로 파일 넣으면 됨**
+
 
 
 ## controller 생성
