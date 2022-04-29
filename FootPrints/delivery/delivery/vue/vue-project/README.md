@@ -5,20 +5,21 @@
 npm install
 ```
 
-### Compiles and hot-reloads for development
+### vue 프로젝트 빌드
 ```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
+// vueROOT경로에서 실행해야 함 
+npm run build 
 ```
 
-### Lints and fixes files
-```
-npm run lint
-```
+위의 명령어로 빌드하면 spring 프로젝트(springROOT/src/main/resources/static)으로 빌드파일 저장
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+### 경로 설정한 부분
+vueROOT/vue.config.js
+```
+...
+const path = require("path");
+module.exports = {
+  outputDir: path.resolve(__dirname, "../../src/main/resources/static"),
+}
+
+```
