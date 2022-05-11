@@ -38,17 +38,17 @@
                     </div>
                 </div>
 
-                <div class="inputDiv" v-bind:class="{errorType:isDirrentPw}">
+                <div class="inputDiv" v-bind:class="{errorType:isDiferrentPw}">
                     <label>비밀번호</label>
                     <input id='password1' v-on:focusout="checkPw"  autocomplete="off"
                     v-model="Pw1" type="password" placeholder="비밀번호 (영어, 숫자, 특수문자 포함 8~20자)" required>
                 </div>
 
-                <div class="inputDiv" v-bind:class="{errorType:isDirrentPw}">
+                <div class="inputDiv" v-bind:class="{errorType:isDiferrentPw}">
                     <label>비밀번호 확인</label>
                     <input id='password2' v-on:focusout="checkPw"  autocomplete="off"
                     v-model="Pw2" type="password" placeholder="비밀번호 재입력" required>
-                    <span class="errortype" v-if="isDirrentPw">비밀번호가 일치하지 않습니다.</span>
+                    <span class="errortype" v-if="isDiferrentPw">비밀번호가 일치하지 않습니다.</span>
                 </div>
 
                 <div class="inputDiv" v-bind:class="{errorType:isValidNick()}">
@@ -82,7 +82,8 @@
 </template>
 
 <script>
-import axios from "axios"
+// import axios from "axios"
+
 export default {
   data(){
     return {
@@ -93,13 +94,13 @@ export default {
       Nick: "",
       Phone: "",
       Area: "",
-      isDirrentPw: false
+      isDiferrentPw: false
     }
   },
   methods:{
     submitData(){
       if(this.isValidAll()){
-        const Member = {
+        const member = {
           email: this.Id1+"@"+this.Id2,
           pw: this.Pw1,
           nick: this.Nick,
@@ -107,14 +108,19 @@ export default {
           area: this.Area
         }
 
-        axios.post('http://localhost:8080/signup', Member)
-        .then(response =>{
-          console.log(response.data);
-          this.clearAll();
-          this.$router.replace("/signup-completed");
-        }).catch(error=>{
-            console.log(error);
-        })
+        //store에 member 저장
+        this.$store.commit('SET_MEMBER', member);
+
+        this.$router.replace("/signup-completed");
+
+        // //back으로 member post요청
+        // axios.post('http://localhost:8080/signup', member)
+        // .then(response =>{
+        //   console.log(response);
+        //   this.$router.replace("/signup-completed");
+        // }).catch(error=>{
+        //     console.log(error);
+        // })
       }
       else{
         alert("입력한 정보들을 확인해주세요");
@@ -123,7 +129,7 @@ export default {
     isValidAll(){  // 최종 양식 확인
       if(this.Id1 != "" && this.Id2 != "" && this.Pw1 != "" && this.Pw2 != "" &&
       this.Nick != "" && this.Phone != "" && this.Area != ""){
-        if(!this.isValidNick() && !this.isDirrentPw){
+        if(!this.isValidNick() && !this.isDiferrentPw){
           return true;
         }
         return false;
@@ -134,12 +140,7 @@ export default {
     },
     checkPw(){      // 비밀번호 & 비밀번호 확인란 일치 여부
       if(this.Pw1 != "" && this.Pw2 != ""){
-        if(this.Pw1 != this.Pw2){
-          this.isDirrentPw = true;
-        }
-        else{
-          this.isDirrentPw = false;
-        }
+        this.isDiferrentPwj = (this.Pw1 != this.Pw2) ? true : false;
       }
     },
     isValidNick(){   // 닉네임 형식 판단
@@ -151,16 +152,6 @@ export default {
           return true;
         }
       }
-    },
-    clearAll(){
-      this.Id1 =  "",
-      this.Id2 =  "",
-      this.Pw1 =  "",
-      this.Pw2 =  "",
-      this.Nick =  "",
-      this.Phone =  "",
-      this.Area =  "",
-      this.isDirrentPw =  false
     }
   }
 }

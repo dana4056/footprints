@@ -5,10 +5,6 @@
 </template>
 
 <script>
-// import InputData from './components/InputData.vue'
-// import SignUpSNS from './components/SignUpSNS.vue'
-//import NavigationBar from './components/common/NavigationBar.vue'
-
 export default {
 
 }
