@@ -52,18 +52,18 @@
             <span class="errorType" v-if="isDiferrentPw()">비밀번호가 일치하지 않습니다.</span>
           </div>
 
-          <div class="inputDiv" v-bind:class="{errorType:isValidNick()}">
+          <div class="inputDiv" v-bind:class="{errorType:!isValidNick()}">
             <label>닉네임</label>
             <input id='nickname' v-model="Nick" v-on:focusout="checkNick"
                    type="text" placeholder="별명 (2~8자)" required>
-            <span class="errortype" v-if="isValidNick()">닉네임은 2~8글자이어야 합니다.</span>
+            <span class="errortype" v-if="!isValidNick()">닉네임은 2~8글자이어야 합니다.</span>
           </div>
 
           <div class="inputDiv">
             <label>휴대폰 번호</label>
             <div class="phoneGroup">
               <span class="phoneItem"><input id='userPhone' v-model="Phone" type="text" placeholder="전화번호"></span>
-              <span class="phoneItem"><button class="btn1">인증번호 받기</button></span>
+              <span class="phoneItem"><button class="btn1" v-on:click.prevent="sendAuthenticCode">인증번호 받기</button></span>
             </div>
             <div class="phoneGroup">
               <span class="phoneItem"><input id='certiNum' type="text" placeholder="인증번호"></span>
@@ -113,6 +113,13 @@ export default {
             .catch(error=>{ console.log(error);})
       }
     },
+    sendAuthenticCode(){
+      if(this.Phone != ""){
+        axios.post('http://localhost:8080/signup/authentic-code', this.Phone)
+            .then(response =>{ console.log(response);})
+            .catch(error=>{ console.log(error);})
+      }
+    },
     submitData(){
       if(this.isValidAll()){
         const member = {
@@ -142,10 +149,12 @@ export default {
     isValidAll(){  // 최종 양식 확인
       if(this.Id1 != "" && this.Id2 != "" && this.Pw1 != "" && this.Pw2 != "" &&
           this.Nick != "" && this.Phone != "" && this.Area != ""){
-        if(!this.isValidNick() && !this.isDiferrentPw){
+        if(this.isValidNick() && !this.isDiferrentPw()){
           return true;
         }
-        return false;
+        else{
+          return false;
+        }
       }
       else{
         return false;
@@ -164,11 +173,14 @@ export default {
     isValidNick(){   // 닉네임 형식 판단
       if(this.Nick != ""){
         if(this.Nick.length >=2 && this.Nick.length <= 8){
-          return false;
-        }
-        else{
           return true;
         }
+        else{
+          return false;
+        }
+      }
+      else{
+        return true;
       }
     },
     searchArea() {  // 지역 검색

@@ -16,21 +16,8 @@ import org.springframework.web.bind.annotation.*;
 public class MemberController {
 
     private final MemberService memberService;
-    //@GetMapping(value = "/signup")
-//    @GetMapping(value = "/signup")
-//    public String signup(){
-//        return "signUp";
-//    }
 
-//    @PostMapping(value = "/signup")
-//    public String create(MemberForm memberform){
-//        Member member = new Member();
-//        member.setNick(memberform.getName());
-//        log.info("member 이름 {}", member.getNick());
-//        memberService.join(member);
-//        return "redirect:/";
-//    }
-
+    //회원가입 정보
     @PostMapping(value = "/signup")
     public ResponseEntity<String> create(@RequestBody Member member){
         log.info("member 이름 {}", member.getNick());
@@ -38,12 +25,25 @@ public class MemberController {
         return new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
     }
 
-    @ResponseBody
-    @GetMapping(value = "/signup-completed")
-    public String sendNick(@RequestBody Member member){
+    //이메일 받아온 부분
+    @PostMapping(value = "/signup/check-email")
+    public ResponseEntity<String> checkEmail(@RequestBody String email){
+        log.info("--------email:{}", email);
+        return new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+    }
 
+    //닉네임 받아온 부분
+    @PostMapping(value = "/signup/check-nick")
+    public ResponseEntity<String> checkNick(@RequestBody String nick){
+        log.info("--------nick:{}", nick);
+        return new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+    }
 
-        return "hi";
+    //전화번호 받아온 부분
+    @PostMapping(value = "/signup/authentic-code")
+    public ResponseEntity<String> sendCode(@RequestBody String phone){
+        log.info("--------Phone:{}", phone);
+        return new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
     }
 }
 
