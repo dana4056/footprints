@@ -1,4 +1,5 @@
 import Vuex from 'vuex'
+import actions from './actions'
 
 export const store = new Vuex.Store({
     state:{
@@ -15,9 +16,7 @@ export const store = new Vuex.Store({
             return state.member;
         }
     },
-    actions:{
-
-    },
+    actions,
     mutations:{
         SET_MEMBER(state, member){
             state.member = member;
