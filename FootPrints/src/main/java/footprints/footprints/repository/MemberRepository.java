@@ -15,6 +15,5 @@ public class MemberRepository {
     private EntityManager em;
     public void save(Member member) {
         em.persist(member);
-        log.info("======3. save {}", member.getUser_id());
     }
 }

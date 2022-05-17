@@ -115,7 +115,7 @@ export default {
     },
     sendAuthenticCode() {
       if (this.Phone != "") {
-        this.$store.dispatch('POST_PHONE', this.Nick);
+        this.$store.dispatch('POST_PHONE', this.Phone);
       }
     },
     submitData() {

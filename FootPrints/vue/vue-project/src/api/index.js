@@ -9,15 +9,27 @@ const config = {
 
 // 2. API 함수들을 정리
 function postEmail(email){
-    return axios.post(`${config.baseUrl}/signup/check-email`, email);
+    return axios.post(`${config.baseUrl}/signup/check-email`, email, {
+        headers: {
+            'Content-Type': 'text/plain'
+        }
+    });
 }
 
 function postNick(nick){
-    return axios.post(`${config.baseUrl}/signup/check-nick`, nick);
+    return axios.post(`${config.baseUrl}/signup/check-nick`, nick, {
+        headers: {
+            'Content-Type': 'text/plain'
+        }
+    });
 }
 
 function postPhone(phone){
-    return axios.post(`${config.baseUrl}/signup/authentic-code`, phone);
+    return axios.post(`${config.baseUrl}/signup/authentic-code`, phone, {
+        headers: {
+            'Content-Type': 'text/plain'
+        }
+    });
 }
 
 function postMemberInfo(member){

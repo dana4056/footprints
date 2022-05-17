@@ -18,7 +18,6 @@ public class MemberService {
     private final MemberRepository memberRepository;
 
     public void join(Member member){
-        log.info("======2. save {}", member.getUser_id());
         memberRepository.save(member);
     }
 }

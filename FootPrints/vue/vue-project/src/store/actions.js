@@ -2,17 +2,17 @@ import { postEmail, postNick, postPhone, postMemberInfo } from "../api/index.js"
 import { router } from '../routes/index.js';
 
 export default{
-    POST_EMAIL(email){
+    POST_EMAIL(context, email){
         postEmail(email)
             .then(response =>{ console.log(response); })
             .catch(error=>{ console.log(error); })
     },
-    POST_NICK(nick){
+    POST_NICK(context, nick){
         postNick(nick)
             .then(response =>{ console.log(response);})
             .catch(error=>{ console.log(error);})
     },
-    POST_PHONE(phone){
+    POST_PHONE(context, phone){
         postPhone(phone)
             .then(response =>{ console.log(response);})
             .catch(error=>{ console.log(error);})
