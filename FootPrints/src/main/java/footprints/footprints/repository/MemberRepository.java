@@ -1,19 +1,15 @@
 package footprints.footprints.repository;
 
 import footprints.footprints.domain.Member;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Repository;
+import footprints.footprints.domain.MemberDTO;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+public interface MemberRepository {
 
-@Repository
-@Slf4j
-public class MemberRepository {
+    void save(MemberDTO memberDTO);
 
-    @PersistenceContext
-    private EntityManager em;
-    public void save(Member member) {
-        em.persist(member);
-    }
+    boolean canLogin(MemberDTO memberDTO);
+
+    boolean existsByEmail(MemberDTO memberDTO);
+
+    boolean existsByNick(MemberDTO memberDTO);
 }
