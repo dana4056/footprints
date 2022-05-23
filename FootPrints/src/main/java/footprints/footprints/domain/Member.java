@@ -30,13 +30,4 @@ public class Member {
         this.area = area;
     }
 
-    public Member toEntity() {
-        return Member.builder()
-                .email(email)
-                .pw(pw)
-                .nick(nick)
-                .phone(phone)
-                .area(area)
-                .build();
-    }
 }
