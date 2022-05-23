@@ -1,4 +1,5 @@
 import { postEmail, postNick, postPhone, postMemberInfo } from "../api/index.js"
+import { fetchSido, fetchSigoongu, fetchEupmyeondong } from "../api/index.js"
 import { router } from '../routes/index.js';
 
 export default{
@@ -25,4 +26,28 @@ export default{
           router.replace("/signup-completed");})
         .catch( error=>{console.log(error);} )
   },
+  FETCH_SIDO({commit}){
+    fetchSido()
+    .then(response =>{ 
+      const sidoList = response.data.response.result.featureCollection.features;
+      commit("SET_SIDO_LIST", sidoList);
+      })
+    .catch(error => {console.log(error)})
+  },
+  FETCH_SIGOONGU({commit}, code){
+    fetchSigoongu(code)
+    .then(response =>{ 
+      const sigoonguList = response.data.response.result.featureCollection.features;
+      commit("SET_SIGOONGU_LIST", sigoonguList);
+      })
+    .catch(error => {console.log(error)})
+  },
+  FETCH_EUPMYEONDONG({commit}, code){
+    fetchEupmyeondong(code)
+    .then(response =>{ 
+      const eupmyeondongList = response.data.response.result.featureCollection.features;
+      commit("SET_EUPMYEONDONG_LIST", eupmyeondongList);
+      })
+    .catch(error => {console.log(error)})
+  }
 }
