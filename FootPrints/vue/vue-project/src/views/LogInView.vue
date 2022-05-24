@@ -5,14 +5,14 @@
     
       <div class="Div">
         <div v-bind:class="{errorType:!isValidEmail}">
-          <input id="email" v-on:focusout="checkEmail" autocomplete="off" v-model="email" type="text" placeholder="이메일" required>
+          <input id="Id" autocomplete="off" v-model="Id" type="text" placeholder="이메일" required>
         </div>
 
         <div v-bind:class="{errorType:!isValidPassword}">
-          <input id="password" v-on:focusout="checkPassword" autocomplete="off" maxlength="20" v-model="password" type="password" placeholder="비밀번호" required>
+          <input id="Pw" v-on:focusout="checkPassword" autocomplete="off" maxlength="20" v-model="Pw" type="password" placeholder="비밀번호" required>
         </div>
         
-        <button type="submit" v-on:click.prevent="login">로그인</button>
+        <button type="submit" v-on:click.prevent="checkLogin">로그인</button>
       </div>
       <div class="Div">
          <router-link to="/findID" class="link">아이디 찾기</router-link>
@@ -36,39 +36,60 @@
 export default {
 	data() {
 		return {
-			email: "",
-			password: "",
+			Id: "",
+			Pw: "",
       isValidEmail: true,
       isValidPassword: true,
 		}
 	},
   methods: {
-    login() {
-			if (this.submitData()){
-				alert("로그인이 완료되었습니다.")
-				this.$router.replace("/home");
-			}
-      else 
-				alert("[로그인 실패]\n이메일 또는 비밀번호 오류입니다.")
-    },
-		submitData() {	// 이 함수 코드를 구현해야 합니다!!
-			console.log(this.email, this.password);
-			return true;
-    },
-    checkEmail() {  // 임시로 구현한 이메일 형식 검사
-      const email = this.email;
-      if (email != ""){
-        if (email.includes('@') && email.includes('.'))
-          this.isValidEmail = true;
-        else
-          this.isValidEmail = false;
+    checkLogin(){
+      if(this.PostValid()){
+        const member = {
+          email: this.Id,
+          pwd: this.Pwd,
+          nick: 'nick',
+          phone: 'phone',
+          area: 'area'
+        }
+        this.$store.dispatch('POST_LOGIN', member)
+        console.log(this.Pwd);
       }
     },
+    PostValid(){
+      if(this.Id != "" && this.Pwd != ""){
+        return true;
+      }
+      else{
+        alert("빈 칸을 두면 로그인이 안돼요.")
+      }
+    },
+    // login() {
+		// 	if (this.submitData()){
+		// 		alert("로그인이 완료되었습니다.")
+		// 		this.$router.replace("/home");
+		// 	}
+    //   else 
+		// 		alert("[로그인 실패]\n이메일 또는 비밀번호 오류입니다.")
+    // },
+		// submitData() {	// 이 함수 코드를 구현해야 합니다!!
+		// 	console.log(this.Id, this.Pw);
+		// 	return true;
+    // },
+    // checkEmail() {  // 임시로 구현한 이메일 형식 검사
+    //   const Id = this.Id;
+    //   if (Id != ""){
+    //     if (Id.includes('@') && Id.includes('.'))
+    //       this.isValidEmail = true;
+    //     else
+    //       this.isValidEmail = false;
+    //   }
+    // },
     checkPassword() {
       const pattern1 = /[0-9]/;
 			const pattern2 = /[a-zA-Z]/;
 			const pattern3 = /[~!@#\\$%<>^&*]/;
-      const pwd = this.password;
+      const pwd = this.Pw;
       if (pwd != ""){
         if (pwd.length < 8 || !pattern1.test(pwd) || !pattern2.test(pwd) || !pattern3.test(pwd))
           this.isValidPassword = false;
@@ -117,11 +138,11 @@ input{
     box-sizing: border-box;
     padding: 8px 15px 9px;
 }
-#email{
+#Id{
     border-bottom: 1px;
     border-radius: 10px 10px 0px 0px;
 }
-#password{
+#Pw{
     border-radius: 0px 0px 10px 10px;
 }
 button{

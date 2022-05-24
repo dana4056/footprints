@@ -47,6 +47,7 @@ public class MemberServiceImpl implements MemberService {
             return false; // 아이디 생성 불가
     }
 
+
     @Override
     public boolean nickOverlapCheck(MemberDTO memberDTO) {
         boolean emailDuplicate = memberRepository.existsByNick(memberDTO);

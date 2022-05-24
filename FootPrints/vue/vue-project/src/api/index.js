@@ -20,31 +20,44 @@ const areaConfig={
     geomfilter:"BOX(13663271.680031825,3894007.9689600193,14817776.555251127,4688953.0631258525)",
   }	
 
+  const member = {
+    email: "",
+    pw: "",
+    nick: "",
+    phone: "",
+    area: ""
+  }
 
 // 2. API 함수들을 정리
 function postEmail(email){
-    return axios.post(`${config.baseUrl}/signup/check-email`, email, {
+    member.emial = email;
+    return axios.post(`${config.baseUrl}/signup/check-email`, member, {
         headers: {
-            'Content-Type': 'text/plain'
+            'Content-Type': 'application/json'
         }
     });
 }
 
 function postNick(nick){
-    return axios.post(`${config.baseUrl}/signup/check-nick`, nick, {
+    member.nick = nick;
+    return axios.post(`${config.baseUrl}/signup/check-nick`, member, {
         headers: {
-            'Content-Type': 'text/plain'
+            'Content-Type': 'application/json'
         }
     });
 }
 
-function postPhone(phone){
-    return axios.post(`${config.baseUrl}/signup/authentic-code`, phone, {
-        headers: {
-            'Content-Type': 'text/plain'
-        }
-    });
+function postLogin(member){
+    return axios.post(`${config.baseUrl}/login-s`, member);
 }
+
+// function postPhone(phone){
+//     return axios.post(`${config.baseUrl}/signup/authentic-code`, phone, {
+//         headers: {
+//             'Content-Type': 'application/json'
+//         }
+//     });
+// }
 
 function postMemberInfo(member){
     return axios.post(`${config.baseUrl}/signup`, member);
@@ -71,7 +84,8 @@ function fetchEupmyeondong(code){
 export{
     postEmail,
     postNick,
-    postPhone,
+    // postPhone,
+    postLogin,
     postMemberInfo,
     fetchSido,
     fetchSigoongu,

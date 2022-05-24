@@ -23,6 +23,13 @@
         <form>
           <div className="inputDiv">
             <label>아이디</label>
+            <input v-model="Id" v-bind:class="{errorType:isDiferrentPw()|!isValidPw()}" 
+            placeholder="아이디(형식 미정)" required>
+            <span className="errorType" v-if="!isValidPw()">아이디는 ~~여야 합니다.</span>
+          </div>
+
+          <div className="inputDiv">
+            <label>아이디</label>
             <div className="idGroup">
                         <span>
                             <input id='userId1' className="idItem" v-model="Id1" type="text" placeholder="아이디" required>
@@ -115,8 +122,9 @@
 export default {
   data() {
     return {
-      Id1: "",
-      Id2: "",
+      Id: "",
+      Email1: "",
+      Email2: "",
       Pw1: "",
       Pw2: "",
       Nick: "",
@@ -130,7 +138,7 @@ export default {
   },
   computed: {
     email() {
-      return this.Id1 + "@" + this.Id2;
+      return this.Email1 + "@" + this.Email2;
     },
     area(){
       return this.sido.ctp_kor_nm + " " + this.sigoongu.sig_kor_nm + " " + this.eupmyeondong.emd_kor_nm;
