@@ -17,11 +17,7 @@ public class MemberRepositoryImpl implements MemberRepository {
 
     @Override
     public void save(MemberDTO memberDTO) {
-        Member member = new Member(memberDTO.getEmail(),
-                                   memberDTO.getPw(),
-                                   memberDTO.getNick(),
-                                   memberDTO.getPhone(),
-                                   memberDTO.getArea());
+        Member member = memberDTO.toEntity();
         em.persist(member);
     }
 

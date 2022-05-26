@@ -30,14 +30,14 @@ public class Post {
 
     @Builder
     public Post(String post_name, String post_content, String category, String take_loc,
-                int person_num, int valid_time, LocalDateTime createdDate){
+                int person_num, int valid_time){
         this.post_name = post_name;
         this.post_content = post_content;
         this.category = category;
         this.take_loc = take_loc;
         this.person_num = person_num;
         this.valid_time = valid_time;
-        this.createdDate = createdDate;
+        //this.createdDate = createdDate;
     }
 }
 
