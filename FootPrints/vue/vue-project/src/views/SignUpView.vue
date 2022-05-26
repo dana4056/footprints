@@ -23,6 +23,13 @@
         <form>
           <div className="inputDiv">
             <label>아이디</label>
+            <input v-model="Id" v-bind:class="{errorType:isDiferrentPw()|!isValidPw()}" 
+            placeholder="아이디(형식 미정)" required>
+            <span className="errorType" v-if="!isValidPw()">아이디는 ~~여야 합니다.</span>
+          </div>
+
+          <div className="inputDiv">
+            <label>아이디</label>
             <div className="idGroup">
                         <span>
                             <input id='userId1' className="idItem" v-model="Id1" type="text" placeholder="아이디" required>
@@ -40,10 +47,11 @@
             </div>
           </div>
 
-          <div className="inputDiv" v-bind:class="{errorType:isDiferrentPw()}">
+          <div className="inputDiv" v-bind:class="{errorType:isDiferrentPw()|!isValidPw()}">
             <label>비밀번호</label>
-            <input id='password1' autoComplete="off"
+            <input id='password1' autoComplete="off" v-on:focusout="isValidPw"
                    v-model="Pw1" type="password" placeholder="비밀번호 (영어, 숫자, 특수문자 포함 8~20자)" required>
+            <span className="errorType" v-if="!isValidPw()">비밀번호는 영어, 숫자, 특수문자 포함 8~20자여야 합니다.</span>
           </div>
 
           <div className="inputDiv" v-bind:class="{errorType:isDiferrentPw()}">
@@ -57,7 +65,7 @@
             <label>닉네임</label>
             <input id='nickname' v-model="Nick" v-on:focusout="checkNick"
                    type="text" placeholder="별명 (2~8자)" required>
-            <span className="errortype" v-if="!isValidNick()">닉네임은 2~8글자이어야 합니다.</span>
+            <span className="errorType" v-if="!isValidNick()">닉네임은 2~8글자이어야 합니다.</span>
           </div>
 
           <div className="inputDiv">
@@ -78,26 +86,29 @@
             <input id='userArea' v-model="Area" type="text" readOnly placeholder="지역명(ex. 성북구 정릉동)">
             <button type="button" className="btn2" v-on:click="searchBox">지역 검색</button>
           </div>
-          <div v-if="visable">
+          <div v-if="visable" class="search">
             <p>지역 검색</p>
-            <select v-model="sido" v-on:change="serachSigoongu">
-              <option value="시/도">시/도</option>
-              <option v-for="i in sidoList" v-bind:key="i.properties.ctprvn_cd" v-bind:value="i.properties">
-                {{ i.properties.ctp_kor_nm }}
-              </option>
-            </select>
-            <select v-model="sigoongu" v-on:change="serachEupmyeondong">
-              <option value="시/군/구">시/군/구</option>
-              <option v-for="i in sigoonguList" v-bind:key="i.properties.sig_cd" 
-              v-bind:value="i.properties">{{ i.properties.sig_kor_nm }}</option>
-            </select>
-            <select v-model="eupmyeondong">
-              <option value="읍/면/동">읍/면/동</option>
-              <option v-for="i in eupmyeondongList" v-bind:key="i.properties.emd_cd" 
-              v-bind:value="i.properties">{{ i.properties.emd_kor_nm }}</option>
-            </select>
-            <button type="button" className="btn2" v-on:click="fixArea">확인</button>
+            <div class="select-box">
+              <select v-model="sido" v-on:change="serachSigoongu" class="sido">
+                <option value="시/도" selected="selected">시/도</option>
+                <option v-for="i in this.$store.state.sidoList" v-bind:key="i.properties.ctprvn_cd" v-bind:value="i.properties">
+                  {{ i.properties.ctp_kor_nm }}
+                </option>
+              </select>
+              <select v-model="sigoongu" v-on:change="serachEupmyeondong" class="sigoon">
+                <option value="시/군/구" selected="selected">시/군/구</option>
+                <option v-for="i in this.$store.state.sigoonguList" v-bind:key="i.properties.sig_cd" 
+                v-bind:value="i.properties">{{ i.properties.sig_kor_nm }}</option>
+              </select>
+              <select v-model="eupmyeondong">
+                <option value="읍/면/동" selected="selected" >읍/면/동</option>
+                <option v-for="i in this.$store.state.eupmyeondongList" v-bind:key="i.properties.emd_cd" 
+                v-bind:value="i.properties">{{ i.properties.emd_kor_nm }}</option>
+              </select>
+              <button type="button" className="btn2" v-on:click="fixArea">확인</button>
+            </div>
           </div>
+
           <button type="submit" className="submitBtn" v-on:click.prevent="submitData">회원가입하기</button>
         </form>
       </div>
@@ -106,30 +117,28 @@
 </template>
 
 <script>
-import axios from 'axios';
+// import axios from 'axios';
 
 export default {
   data() {
     return {
-      Id1: "",
-      Id2: "",
+      Id: "",
+      Email1: "",
+      Email2: "",
       Pw1: "",
       Pw2: "",
       Nick: "",
       Phone: "",
-      sidoList:{},
-      sigoonguList:{},
-      eupmyeondongList:{},
+      Area: "",
       sido:{},
       sigoongu:{},
       eupmyeondong:{},
-      Area: "",
       visable:false
     }
   },
   computed: {
     email() {
-      return this.Id1 + "@" + this.Id2;
+      return this.Email1 + "@" + this.Email2;
     },
     area(){
       return this.sido.ctp_kor_nm + " " + this.sigoongu.sig_kor_nm + " " + this.eupmyeondong.emd_kor_nm;
@@ -202,89 +211,34 @@ export default {
         return true;
       }
     },
-    // searchArea() {  // 지역 검색
-    //   new window.daum.Postcode({
-    //     oncomplete: (data) => {
-    //       this.Area = data.sido + " " + data.sigungu + " " + data.bname;
-    //     }
-    //   }).open();
-    // },
-    searchSido(){  
-      const config={
-        key:"CEB52025-E065-364C-9DBA-44880E3B02B8",
-        domain:"http://localhost:8080",
-        service:"data",
-        version:"2.0",
-        request:"getfeature",
-        format:"json",
-        size:"1000",
-        page:"1",
-        attribue:"true",
-        crs:"EPSG:3857",
-        geomfilter:"BOX(13663271.680031825,3894007.9689600193,14817776.555251127,4688953.0631258525)",
-        data:"LT_C_ADSIDO_INFO"
+    isValidPw() {   // 비밀번호 형식 판단
+      const pattern1 = /[0-9]/;
+      const pattern2 = /[a-zA-Z]/;
+      const pattern3 = /[~!@#\\$%<>^&*]/;
+      const pwd = this.Pw1;
+      if(pwd != ""){
+        if (pwd.length < 8 || !pattern1.test(pwd) || !pattern2.test(pwd) || !pattern3.test(pwd))
+          return false;
+        else
+          return true;
+      }else{
+        return true;
       }
-    
-      axios.get(`/req/data?key=${config.key}&domain=${config.domain}&service=${config.service}&version=${config.version}&request=${config.request}&format=${config.format}&size=${config.size}&page=${config.page}&attribute=${config.attribue}&crs=${config.crs}&geomfilter=${config.geomfilter}&data=${config.data} `)
-        .then(response =>{ 
-          this.sidoList = response.data.response.result.featureCollection.features;
-          console.log(this.sidoList);
-          })
-        .catch(error => {console.log(error)})
+    },
+    searchSido(){     
+      this.$store.dispatch('FETCH_SIDO');
     },
     serachSigoongu(){
-      const config={
-        key:"CEB52025-E065-364C-9DBA-44880E3B02B8",
-        domain:"http://localhost:8080",
-        service:"data",
-        version:"2.0",
-        request:"getfeature",
-        format:"json",
-        size:"1000",
-        page:"1",
-        attribue:"true",
-        crs:"EPSG:3857",
-        geomfilter:"BOX(13663271.680031825,3894007.9689600193,14817776.555251127,4688953.0631258525)",
-        data:"LT_C_ADSIGG_INFO",
-        attrFilter:`sig_cd:like:${this.sido.ctprvn_cd}`
-      }		
-      
-      axios.get(`/req/data?key=${config.key}&domain=${config.domain}&service=${config.service}&version=${config.version}&request=${config.request}&format=${config.format}&size=${config.size}&page=${config.page}&attribute=${config.attribue}&crs=${config.crs}&geomfilter=${config.geomfilter}&data=${config.data}&attrFilter=${config.attrFilter} `)
-        .then(response =>{ 
-          this.sigoonguList = response.data.response.result.featureCollection.features;
-          console.log(this.sigoonguList);
-          })
-        .catch(error => {console.log(error)})
+      this.$store.dispatch('FETCH_SIGOONGU', this.sido.ctprvn_cd);
     },
-    serachEupmyeondong(){
-      const config={
-        key:"CEB52025-E065-364C-9DBA-44880E3B02B8",
-        domain:"http://localhost:8080",
-        service:"data",
-        version:"2.0",
-        request:"getfeature",
-        format:"json",
-        size:"1000",
-        page:"1",
-        attribue:"true",
-        crs:"EPSG:3857",
-        geomfilter:"BOX(13663271.680031825,3894007.9689600193,14817776.555251127,4688953.0631258525)",
-        data:"LT_C_ADEMD_INFO",
-        attrFilter:`emd_cd:like:${this.sigoongu.sig_cd}`
-      }		
-      
-      axios.get(`/req/data?key=${config.key}&domain=${config.domain}&service=${config.service}&version=${config.version}&request=${config.request}&format=${config.format}&size=${config.size}&page=${config.page}&attribute=${config.attribue}&crs=${config.crs}&geomfilter=${config.geomfilter}&data=${config.data}&attrFilter=${config.attrFilter} `)
-        .then(response =>{ 
-          this.eupmyeondongList = response.data.response.result.featureCollection.features;
-          console.log(response);
-          })
-        .catch(error => {console.log(error)})
+    serachEupmyeondong(){   
+      this.$store.dispatch('FETCH_EUPMYEONDONG', this.sigoongu.sig_cd);
     },
     fixArea(){
       this.Area = this.area;
     },
     searchBox(){
-      this.visable = true;
+      this.visable = !this.visable;
     }
   }
 }
@@ -466,10 +420,31 @@ button {
 }
 
 .search{
-  background-color:#669270;  
+  margin: 0 0 30px;
+  border-radius: 10px;
+  background-color: #dfebe2;
+}
+.search p{
+  color: white;
+  font-weight: bold;
+  font-size: 14px;
+  padding: 10px;
+  border-radius: 10px 10px 0 0;
+  background-color: #669270;
+}
+.search select{
+  margin: 0 0 10px;
 }
 
-
-
-
+.search .sido{
+  float: left;
+  width: 48%;
+}
+.search .sigoon{
+  float: right;
+  width: 48%;
+}
+.select-box{
+  padding: 10px 10px 20px 10px;
+}
 </style>

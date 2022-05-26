@@ -7,6 +7,8 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
+import java.util.List;
 
 @Repository
 @Slf4j
@@ -37,24 +39,29 @@ public class MemberRepositoryImpl implements MemberRepository {
                 return false; //안돼
             }
         }
-
     }
 
     @Override
     public boolean existsByEmail(MemberDTO memberDTO) {
         String email = memberDTO.getEmail();
-        Member member = em.find(Member.class, email);
 
-        if (member == null) return true; //아이디 생성 가능
-        else return false; // 아이디 생성 불가
+        TypedQuery<Member> memberTypedQuery = em.createQuery("select m from Member m where m.email = :email", Member.class)
+                .setParameter("email", email);
+        List<Member> resultList = memberTypedQuery.getResultList();
+
+        if (resultList.size() == 0) return true;
+        else return false;
     }
 
     @Override
     public boolean existsByNick(MemberDTO memberDTO) {
         String nick = memberDTO.getNick();
-        Member member = em.find(Member.class, nick);
 
-        if (member == null) return true;
+        TypedQuery<Member> memberTypedQuery = em.createQuery("select m from Member m where m.nick = :nick", Member.class)
+                .setParameter("nick", nick);
+        List<Member> resultList = memberTypedQuery.getResultList();
+
+        if (resultList.size() == 0) return true;
         else return false;
     }
 }

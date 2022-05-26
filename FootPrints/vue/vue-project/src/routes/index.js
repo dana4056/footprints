@@ -3,8 +3,14 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomePage from '../views/HomePage.vue'
 import ItemListView from '../views/ItemListView.vue'
 import LogInView from '../views/LogInView.vue'
+import LogInView_S from '../views/LogInView_S.vue'
 import SignUpView from '../views/SignUpView.vue'
 import SignUpCompleted from '../views/SignUpCompleted'
+import FindID from '../views/FindID'
+import FindPW from '../views/FindPW'
+import GetID from '../views/GetID'
+import ChangePW from '../views/ChangePW'
+
 
 const routes = [
     //path: url에 대한 정보
@@ -13,8 +19,13 @@ const routes = [
     {   path: '/home', component: HomePage  },
     {   path: '/itemlist', component: ItemListView    },
     {   path: '/login', component: LogInView  },
+    {   path: '/login-s', component: LogInView_S  },
     {   path: '/signup', component: SignUpView  },
-    {   path: '/signup-completed', component: SignUpCompleted  }
+    {   path: '/signup-completed', component: SignUpCompleted  },
+    {   path: '/findID', component: FindID  },
+    {   path: '/findPW', component: FindPW  },
+    {   path: '/getID', component: GetID  },
+    {   path: '/changePW', component: ChangePW  },
 ]
 
 export const router = new createRouter({
