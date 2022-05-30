@@ -15,27 +15,24 @@ public class Member {
     @Id
     @GeneratedValue
     private Long user_id;
+    private String nick;
     private String email;
     private String pw;
-    private String nick;
-    private String phone;
     private String area;
 
     @Builder
-    public Member(String email, String pw, String nick, String phone, String area){
+    public Member(String nick, String email, String pw, String area){
+        this.nick = nick;
         this.email = email;
         this.pw = pw;
-        this.nick = nick;
-        this.phone = phone;
         this.area = area;
     }
 
     public Member toEntity() {
         return Member.builder()
+                .nick(nick)
                 .email(email)
                 .pw(pw)
-                .nick(nick)
-                .phone(phone)
                 .area(area)
                 .build();
     }

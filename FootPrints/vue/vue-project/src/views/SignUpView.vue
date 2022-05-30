@@ -1,90 +1,76 @@
 <template>
-  <div className="body">
+  <div class="body">
     <!-- <NavigationBar></NavigationBar> -->
     <header>
-      <div className="header">
+      <div class="header">
         <!-- router-link는 자동으로 a태그로 변환하고 부가적인 기능 제공 -->
-        <router-link to="/home" className="logo"><img src="../assets/logo.png">발자취</router-link>
+        <router-link to="/home" class="logo"><img src="../assets/logo.png">발자취</router-link>
       </div>
     </header>
     <div id="wrap">
       <!-- SNS 회원가입 -->
       <h3>회원가입</h3>
-      <div className="SnsBox">
-        <div className="tinytext">SNS로 간편 회원가입</div>
+      <div class="SnsBox">
+        <div class="tinytext">SNS로 간편 회원가입</div>
         <ul>
-          <li><img className="brandLogo" src="../assets/kakaoLogo.png"></li>
-          <li><img className="brandLogo" src="../assets/NaverLogo.png"></li>
-          <li><img className="brandLogo" src="../assets/facebookLogo.png"></li>
+          <li><img class="brandLogo" src="../assets/kakaoLogo.png"></li>
+          <li><img class="brandLogo" src="../assets/NaverLogo.png"></li>
+          <li><img class="brandLogo" src="../assets/facebookLogo.png"></li>
         </ul>
       </div>
       <!-- 일반 회원가입 form -->
       <div id="inputData">
         <form>
-          <div className="inputDiv">
-            <label>아이디</label>
-            <input v-model="Id" v-bind:class="{errorType:isDiferrentPw()|!isValidPw()}" 
-            placeholder="아이디(형식 미정)" required>
-            <span className="errorType" v-if="!isValidPw()">아이디는 ~~여야 합니다.</span>
+          <div class="inputDiv" v-bind:class="{errorType:!isValidNick() | this.isDupliNick, 
+                                                   correctType:this.isUniqNick}">
+            <label>닉네임</label>
+            <input id='nickname' v-model="Nick" v-on:focus="ignoreInputN" v-on:focusout="checkNick()" 
+                   type="text" placeholder="별명 (2~8자)" autoComplete="off" required>
+            <span class="errorType" v-if="!isValidNick()">닉네임은 2~8글자이어야 합니다.</span>
+            <span class="errorType" v-if="this.isDupliNick">이미 사용 중인 닉네임입니다.</span>
+            <span class="correctType" v-if="this.isUniqNick">사용 가능한 닉네임입니다.</span>
           </div>
 
-          <div className="inputDiv">
-            <label>아이디</label>
-            <div className="idGroup">
-                        <span>
-                            <input id='userId1' className="idItem" v-model="Id1" type="text" placeholder="아이디" required>
-                        </span>
-              <span className="idItem">@</span>
-              <span className="idItem">
-                <select name="domain" id='userId2' v-model="Id2" v-on:focusout="checkEmail">
+          <div class="inputDiv" v-bind:class="{errorType:this.isDupliEmail,
+                                                   correctType:this.isUniqEmail}">
+            <label>이메일</label>
+            <div class="emailGroup">
+              <span>
+                  <input class="emailItem1" v-on:focus="ignoreInputE" v-model="Email1" type="text" 
+                  autoComplete="off" placeholder="아이디" required>
+              </span>
+              <span><span class="emailItem2">@</span></span>
+              <span>
+                <select class="emailItem3" name="domain" id='userId2' v-model="Email2" v-on:focus="ignoreInputE" v-on:focusout="checkEmail">
                     <option value="" selected="selected" disabled hidden>----- 선택 -----</option>
                     <option value="naver.com">naver.com</option>
                     <option value="gmail.com">gmail.com</option>
                     <option value="skuniv.ac.kr">skuniv.ac.kr</option>
                 </select>
-                <!-- <span className="errorType" v-if="">사용할 수 없는 아이디입니다. </span> -->
               </span>
             </div>
+            <span class="errorType" v-if="this.isDupliEmail">이미 사용 중인 이메일입니다. </span>
+            <span class="correctType" v-if="this.isUniqEmail">사용 가능한 이메일입니다. </span>
           </div>
 
-          <div className="inputDiv" v-bind:class="{errorType:isDiferrentPw()|!isValidPw()}">
+          <div class="inputDiv" v-bind:class="{errorType:isDiferrentPw()|!isValidPw()}">
             <label>비밀번호</label>
             <input id='password1' autoComplete="off" v-on:focusout="isValidPw"
                    v-model="Pw1" type="password" placeholder="비밀번호 (영어, 숫자, 특수문자 포함 8~20자)" required>
-            <span className="errorType" v-if="!isValidPw()">비밀번호는 영어, 숫자, 특수문자 포함 8~20자여야 합니다.</span>
+            <span class="errorType" v-if="!isValidPw()">비밀번호는 영어, 숫자, 특수문자 포함 8~20자여야 합니다.</span>
           </div>
 
-          <div className="inputDiv" v-bind:class="{errorType:isDiferrentPw()}">
+          <div class="inputDiv" v-bind:class="{errorType:isDiferrentPw()}">
             <label>비밀번호 확인</label>
             <input id='password2' autoComplete="off"
                    v-model="Pw2" type="password" placeholder="비밀번호 재입력" required>
-            <span className="errorType" v-if="isDiferrentPw()">비밀번호가 일치하지 않습니다.</span>
+            <span class="errorType" v-if="isDiferrentPw()">비밀번호가 일치하지 않습니다.</span>
           </div>
 
-          <div className="inputDiv" v-bind:class="{errorType:!isValidNick()}">
-            <label>닉네임</label>
-            <input id='nickname' v-model="Nick" v-on:focusout="checkNick"
-                   type="text" placeholder="별명 (2~8자)" required>
-            <span className="errorType" v-if="!isValidNick()">닉네임은 2~8글자이어야 합니다.</span>
-          </div>
-
-          <div className="inputDiv">
-            <label>휴대폰 번호</label>
-            <div className="phoneGroup">
-              <span className="phoneItem"><input id='userPhone' v-model="Phone" type="text" placeholder="전화번호"></span>
-              <span className="phoneItem"><button className="btn1"
-                                                  v-on:click.prevent="sendAuthenticCode">인증번호 받기</button></span>
-            </div>
-            <div className="phoneGroup">
-              <span className="phoneItem"><input id='certiNum' type="text" placeholder="인증번호"></span>
-              <span className="phoneItem"><button className="btn1">확인</button></span>
-            </div>
-          </div>
-
-          <div className="inputDiv">
+          <div class="inputDiv">
             <label>지역설정</label>
             <input id='userArea' v-model="Area" type="text" readOnly placeholder="지역명(ex. 성북구 정릉동)">
-            <button type="button" className="btn2" v-on:click="searchBox">지역 검색</button>
+            <button type="button" class="btn2" v-on:click="searchBox">지역 검색</button>
           </div>
           <div v-if="visable" class="search">
             <p>지역 검색</p>
@@ -105,11 +91,11 @@
                 <option v-for="i in this.$store.state.eupmyeondongList" v-bind:key="i.properties.emd_cd" 
                 v-bind:value="i.properties">{{ i.properties.emd_kor_nm }}</option>
               </select>
-              <button type="button" className="btn2" v-on:click="fixArea">확인</button>
+              <button type="button" class="btn2" v-on:click="fixArea">확인</button>
             </div>
           </div>
 
-          <button type="submit" className="submitBtn" v-on:click.prevent="submitData">회원가입하기</button>
+          <button type="submit" class="submitBtn" v-on:click.prevent="submitData">회원가입하기</button>
         </form>
       </div>
     </div>
@@ -122,22 +108,25 @@
 export default {
   data() {
     return {
-      Id: "",
+      Nick: "",
       Email1: "",
       Email2: "",
       Pw1: "",
       Pw2: "",
-      Nick: "",
-      Phone: "",
       Area: "",
       sido:{},
       sigoongu:{},
       eupmyeondong:{},
-      visable:false
+      visable:false,
+      isUniqNick:false,
+      isDupliNick:false,
+      isUniqEmail:false,
+      isDupliEmail:false,
     }
   },
   computed: {
     email() {
+      console.log("computed: email()");
       return this.Email1 + "@" + this.Email2;
     },
     area(){
@@ -148,14 +137,63 @@ export default {
     this.searchSido();
   },
   methods: {
-    checkEmail() {   //이메일 중복체크 위해 보냄
-      if (this.Id1 != "" && this.Id2 != "") {
-        this.$store.dispatch('POST_EMAIL', this.email);
-      }
+    ignoreInputN() {
+      console.log("ignoreInputN");
+      this.isUniqNick = false;
+      this.isDupliNick = false;
+      console.log("isUniqNick: ", this.isUniqNick);
+      console.log("isDupliNick: ", this.isDupliNick);
+      console.log("-----------------------------");
     },
-    checkNick() {   //닉네임 중복체크 위해 보냄
-      if (this.Nick != "") {
-        this.$store.dispatch('POST_NICK', this.Nick);
+    ignoreInputE(){
+      this.isUniqEmail = false;
+      this.isDupliEmail = false;
+    },
+    // checkNick() {   //닉네임 중복체크 위해 보냄
+    //   console.log("checkNick")
+    //   if (this.Nick != "") {
+    //     console.log("checkNick post")
+    //     this.$store.dispatch('POST_NICK', this.Nick);
+    //     console.log("isUniqNick: ", this.isUniqNick);
+    //     console.log("isDupliNick: ", this.isDupliNick);
+    //     console.log("-----------------------------");
+    //     // this.isDupliNick =  this.$store.state.isDuplicateNick;
+    //     // this.isUniqNick = !this.isDupliNick;
+    //   }
+    // },
+    checkNick() {
+      console.log("checkNick")
+      if(this.Nick != ""){
+        try {
+          this.$store.dispatch('POST_NICK', this.Nick)
+          .then(()=>{
+            this.test();
+          })
+          .catch(()=>{
+            this.test();
+          })
+          
+          // this.isDupliNick =  this.$store.state.isDuplicateNick;
+          // this.isUniqNick = !this.isDupliNick;
+        } catch(error) { // 연산 실패로 에러발생 -> rejected
+          console.log('Rejected!')
+        }
+      }
+
+    },
+    test(){
+      console.log("test")
+      this.isDupliNick =  this.$store.state.isDuplicateNick;
+      this.isUniqNick = !this.isDupliNick;
+      console.log("isUniqNick: ", this.isUniqNick);
+      console.log("isDupliNick: ", this.isDupliNick);
+      console.log("-----------------------------");
+    },
+    checkEmail() {   //이메일 중복체크 위해 보냄
+      if (this.Email1 != "" && this.Email2 != "") {
+        this.$store.dispatch('POST_EMAIL', this.email);
+        this.isDupliEmail =  this.$store.state.isDuplicateEmail;
+        this.isUniqEmail = !this.isDupliEmail;
       }
     },
     sendAuthenticCode() {
@@ -166,10 +204,9 @@ export default {
     submitData() {
       if (this.isValidAll()) {
         const member = {
+          nick: this.Nick,
           email: this.email,
           pw: this.Pw1,
-          nick: this.Nick,
-          phone: this.Phone,
           area: this.area
         }
 
@@ -205,6 +242,7 @@ export default {
         if (this.Nick.length >= 2 && this.Nick.length <= 8) {
           return true;
         } else {
+          this.isUniqNick = false;
           return false;
         }
       } else {
@@ -336,8 +374,8 @@ input, select {
 
 input:focus {
   outline: none;
-  border-color: #737beb;
-  background: #e8f0fe;
+  border-color: #999999;
+  background: #F3F3F3;
 }
 
 input:hover {
@@ -349,7 +387,7 @@ input::placeholder {
   font-weight: 100;
 }
 
-.errorType input {
+.errorType input, .errorType select{
   background: #fff6f6;
   outline: none;
   border-color: #eb7373;
@@ -360,7 +398,16 @@ input::placeholder {
   font-size: 12px;
   color: #eb7373;
 }
-
+.correctType input, .correctType select{
+  background: #e8f0fe;
+  outline: none;
+  border-color: #6ea7f2;
+}
+.correctType span {
+  text-align: left;
+  font-size: 12px;
+  color: #6ea7f2;
+}
 button {
   font-family: 'Noto Sans KR', sans-serif;
   width: 100%;
@@ -394,29 +441,15 @@ button {
 .submitBtn:hover {
   background: #669270;
 }
-
-.idGroup {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+.emailItem1 {
+  width:45%;
 }
-
-.idItem {
-  flex-grow: 1;
+.emailItem2 {
+  width:10%;
+  padding:0 10px 0 10px;
 }
-
-.phoneGroup {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.phoneItem:nth-child(1) {
-  flex-grow: 3;
-}
-
-.phoneItem:nth-child(2) {
-  flex-grow: 1;
+.emailItem3 {
+  width:45%;
 }
 
 .search{

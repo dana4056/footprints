@@ -39,8 +39,8 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public boolean emailOverlapCheck(MemberDTO memberDTO) {
-        boolean emailDuplicate = memberRepository.existsByEmail(memberDTO);
+    public boolean emailOverlapCheck(String email) {
+        boolean emailDuplicate = memberRepository.existsByEmail(email);
         if (emailDuplicate)
             return true; // 아이디 생성 가능
         else
@@ -49,8 +49,8 @@ public class MemberServiceImpl implements MemberService {
 
 
     @Override
-    public boolean nickOverlapCheck(MemberDTO memberDTO) {
-        boolean emailDuplicate = memberRepository.existsByNick(memberDTO);
+    public boolean nickOverlapCheck(String nick) {
+        boolean emailDuplicate = memberRepository.existsByNick(nick);
         if (emailDuplicate) {
             return true;  // 아이디 생성 가능
         }

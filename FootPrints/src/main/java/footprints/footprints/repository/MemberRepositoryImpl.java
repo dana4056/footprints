@@ -19,10 +19,9 @@ public class MemberRepositoryImpl implements MemberRepository {
 
     @Override
     public void save(MemberDTO memberDTO) {
-        Member member = new Member(memberDTO.getEmail(),
+        Member member = new Member(memberDTO.getNick(),
+                                   memberDTO.getEmail(),
                                    memberDTO.getPw(),
-                                   memberDTO.getNick(),
-                                   memberDTO.getPhone(),
                                    memberDTO.getArea());
         em.persist(member);
     }
@@ -46,8 +45,7 @@ public class MemberRepositoryImpl implements MemberRepository {
     }
 
     @Override
-    public boolean existsByEmail(MemberDTO memberDTO) {
-        String email = memberDTO.getEmail();
+    public boolean existsByEmail(String email) {
 
         TypedQuery<Member> memberTypedQuery = em.createQuery("select m from Member m where m.email = :email", Member.class)
                 .setParameter("email", email);
@@ -58,8 +56,7 @@ public class MemberRepositoryImpl implements MemberRepository {
     }
 
     @Override
-    public boolean existsByNick(MemberDTO memberDTO) {
-        String nick = memberDTO.getNick();
+    public boolean existsByNick(String nick) {
 
         TypedQuery<Member> memberTypedQuery = em.createQuery("select m from Member m where m.nick = :nick", Member.class)
                 .setParameter("nick", nick);

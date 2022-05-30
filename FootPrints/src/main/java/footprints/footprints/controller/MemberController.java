@@ -27,9 +27,9 @@ public class MemberController {
 
     //이메일 받아온 부분
     @PostMapping(value = "/signup/check-email")
-    public ResponseEntity<String> checkEmail(@RequestBody MemberDTO memberDTO){
-        log.info("--------email:{}", memberDTO.getEmail());
-        boolean duplication = memberService.emailOverlapCheck(memberDTO);
+    public ResponseEntity<String> checkEmail(@RequestBody String email){
+        log.info("--------email:{}", email);
+        boolean duplication = memberService.emailOverlapCheck(email);
 
         if(duplication) {
             return new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
@@ -43,9 +43,9 @@ public class MemberController {
 
     //닉네임 받아온 부분
     @PostMapping(value = "/signup/check-nick")
-    public ResponseEntity<String> checkNick(@RequestBody MemberDTO memberDTO){
-        log.info("--------nick:{}", memberDTO.getNick());
-        boolean duplication = memberService.nickOverlapCheck(memberDTO);
+    public ResponseEntity<String> checkNick(@RequestBody String nick){
+        log.info("--------nick:{}", nick);
+        boolean duplication = memberService.nickOverlapCheck(nick);
         if(duplication) {
             return new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
         }

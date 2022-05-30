@@ -9,7 +9,7 @@ public interface MemberRepository {
 
     boolean canLogin(MemberDTO memberDTO);
 
-    boolean existsByEmail(MemberDTO memberDTO);
+    boolean existsByEmail(String email);
 
-    boolean existsByNick(MemberDTO memberDTO);
+    boolean existsByNick(String nick);
 }
