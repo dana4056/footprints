@@ -36,7 +36,11 @@ export default{
             console.log(response);
             router.replace("/home");
         })
-        .catch(error => { console.log(error); })
+        .catch(error => { 
+          const code = error.response.status;
+          if(code == 400) alert("존재하지 않는 닉네임입니다.");
+          else if(code == 404) alert("비밀번호가 일치하지 않습니다.");
+        })
   },
   FETCH_SIDO({commit}){
     fetchSido()

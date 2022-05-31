@@ -7,7 +7,7 @@ public interface MemberRepository {
 
     void save(MemberDTO memberDTO);
 
-    boolean canLogin(MemberDTO memberDTO);
+    int canLogin(MemberDTO memberDTO);
 
     boolean existsByEmail(String email);
 

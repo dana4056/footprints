@@ -26,16 +26,19 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     @Transactional(readOnly = true)
-    public boolean loginCheck(MemberDTO memberDTO) {
-        boolean canLogin = memberRepository.canLogin(memberDTO);
+    public int loginCheck(MemberDTO memberDTO) {
+        int canLogin = memberRepository.canLogin(memberDTO);
 
-        if(canLogin){
-            return true; // 로그인 성공
+        if(canLogin == 1){
+            return 1;
         }
-        else{
-            return false;
-            //            throw new IllegalStateException("비밀번호가 일치하지 않습니다.");
+        else if(canLogin == 0){  //아이디 존재x
+            return 0;
         }
+        else { //비번 불일치
+            return -1;
+        }
+        // return canLogin; //가독성 떨어져?
     }
 
     @Override

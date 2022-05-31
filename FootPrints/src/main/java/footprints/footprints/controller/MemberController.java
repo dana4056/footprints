@@ -56,14 +56,18 @@ public class MemberController {
 
     @PostMapping(value = "/login")
     public ResponseEntity<String> checkLogin(@RequestBody MemberDTO memberDTO){
-        log.info("--------Id:{}", memberDTO.getEmail());
-        log.info("--------Pwd:{}", memberDTO.getPw());
-        boolean checkLogin = memberService.loginCheck(memberDTO);
-        if(checkLogin){
+        log.info("--------Nick:{}", memberDTO.getNick());
+        log.info("--------Pw:{}", memberDTO.getPw());
+        int checkLogin = memberService.loginCheck(memberDTO);
+        if(checkLogin == 1){  //로그인 성공
+            log.info("로그인 성공");
             return new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
         }
-        else{
-            return new ResponseEntity<String>("LOGIN_FAILED", HttpStatus.OK);
+        else if(checkLogin == 0){ // 해당 닉네임 없음(없는 계정)
+            return new ResponseEntity<String>("LOGIN_FAILED:NO_ID", HttpStatus.BAD_REQUEST);
+        }
+        else{  // 비밀번호 불일치
+            return new ResponseEntity<String>("LOGIN_FAILED:NOT_MATCH_PW", HttpStatus.NOT_FOUND);
         }
     }
 }

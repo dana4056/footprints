@@ -46,7 +46,7 @@ function postNick(nick){
 }
 
 function postLogin(member){
-    return axios.post(`${config.baseUrl}/login-s`, member);
+    return axios.post(`${config.baseUrl}/login`, member);
 }
 
 function postMemberInfo(member){

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+import java.util.Arrays;
 import java.util.List;
 
 @Repository
@@ -27,19 +28,25 @@ public class MemberRepositoryImpl implements MemberRepository {
     }
 
     @Override
-    public boolean canLogin(MemberDTO memberDTO){
-        Member my_member = em.find(Member.class, memberDTO.getEmail());
+    public int canLogin(MemberDTO memberDTO){
 
-        if(my_member == null){
-            return false; //안돼
+        TypedQuery<Member> memberTypedQuery = em.createQuery("select m from Member m where m.nick = :nick", Member.class)
+                .setParameter("nick", memberDTO.getNick());
+        List<Member> resultList = memberTypedQuery.getResultList();
+        //Member my_member = em.find(Member.class, memberDTO.getEmail());
+
+        if(resultList.size() == 0){
+            log.info("존재하지 않는 닉네임");
+            return 0; //안돼
         }
         else{
-            String real_pwd = my_member.getPw();
-            if(memberDTO.getPw() == real_pwd){
-                return true; //로그인 됨
+            String real_pwd = resultList.get(0).getPw();
+            if(memberDTO.getPw().equals(real_pwd)){
+                return 1; //로그인 됨
             }
             else{
-                return false; //안돼
+                log.info("비밀번호가 일치하지 않음");
+                return -1; //안돼
             }
         }
     }

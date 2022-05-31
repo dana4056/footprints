@@ -5,7 +5,7 @@ import footprints.footprints.domain.MemberDTO;
 
 public interface MemberService {
     void join(MemberDTO memberDTO);
-    boolean loginCheck(MemberDTO memberDTO);
+    int loginCheck(MemberDTO memberDTO);
     boolean emailOverlapCheck(String email);
     boolean nickOverlapCheck(String nick);
 }

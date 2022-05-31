@@ -126,7 +126,6 @@ export default {
   },
   computed: {
     email() {
-      console.log("computed: email()");
       return this.Email1 + "@" + this.Email2;
     },
     area(){
@@ -138,56 +137,20 @@ export default {
   },
   methods: {
     ignoreInputN() {
-      console.log("ignoreInputN");
       this.isUniqNick = false;
       this.isDupliNick = false;
-      console.log("isUniqNick: ", this.isUniqNick);
-      console.log("isDupliNick: ", this.isDupliNick);
-      console.log("-----------------------------");
     },
     ignoreInputE(){
       this.isUniqEmail = false;
       this.isDupliEmail = false;
     },
-    // checkNick() {   //닉네임 중복체크 위해 보냄
-    //   console.log("checkNick")
-    //   if (this.Nick != "") {
-    //     console.log("checkNick post")
-    //     this.$store.dispatch('POST_NICK', this.Nick);
-    //     console.log("isUniqNick: ", this.isUniqNick);
-    //     console.log("isDupliNick: ", this.isDupliNick);
-    //     console.log("-----------------------------");
-    //     // this.isDupliNick =  this.$store.state.isDuplicateNick;
-    //     // this.isUniqNick = !this.isDupliNick;
-    //   }
-    // },
-    checkNick() {
-      console.log("checkNick")
-      if(this.Nick != ""){
-        try {
-          this.$store.dispatch('POST_NICK', this.Nick)
-          .then(()=>{
-            this.test();
-          })
-          .catch(()=>{
-            this.test();
-          })
-          
-          // this.isDupliNick =  this.$store.state.isDuplicateNick;
-          // this.isUniqNick = !this.isDupliNick;
-        } catch(error) { // 연산 실패로 에러발생 -> rejected
-          console.log('Rejected!')
-        }
-      }
+    checkNick() {   //닉네임 중복체크 위해 보냄
+      if (this.Nick != "") {
+        this.$store.dispatch('POST_NICK', this.Nick);
 
-    },
-    test(){
-      console.log("test")
-      this.isDupliNick =  this.$store.state.isDuplicateNick;
-      this.isUniqNick = !this.isDupliNick;
-      console.log("isUniqNick: ", this.isUniqNick);
-      console.log("isDupliNick: ", this.isDupliNick);
-      console.log("-----------------------------");
+        this.isDupliNick =  this.$store.state.isDuplicateNick;
+        this.isUniqNick = !this.isDupliNick;
+      }
     },
     checkEmail() {   //이메일 중복체크 위해 보냄
       if (this.Email1 != "" && this.Email2 != "") {
@@ -209,10 +172,9 @@ export default {
           pw: this.Pw1,
           area: this.area
         }
-
-        //back으로 member post요청
         this.$store.dispatch('POST_MEMBER', member);
-      } else {
+      }
+      else {
         alert("입력한 정보들을 확인해주세요");
       }
     },
