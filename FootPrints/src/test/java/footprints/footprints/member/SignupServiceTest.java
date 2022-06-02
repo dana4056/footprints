@@ -1,9 +1,8 @@
 package footprints.footprints.member;
 
-import footprints.footprints.domain.Member;
-import footprints.footprints.domain.MemberDTO;
-import footprints.footprints.repository.MemberRepositoryImpl;
-import footprints.footprints.service.MemberServiceImpl;
+import footprints.footprints.domain.member.MemberDTO;
+import footprints.footprints.domain.repository.member.MemberRepositoryImpl;
+import footprints.footprints.domain.service.signup.SignupServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -13,11 +12,11 @@ import javax.transaction.Transactional;
 
 @SpringBootTest
 @Transactional
-public class MemberServiceTest {
+public class SignupServiceTest {
 
 
     @Autowired
-    MemberServiceImpl memberService;
+    SignupServiceImpl memberService;
     @Autowired
     MemberRepositoryImpl memberRepository;
 

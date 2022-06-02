@@ -1,4 +1,4 @@
-package footprints.footprints.domain;
+package footprints.footprints.domain.member;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
