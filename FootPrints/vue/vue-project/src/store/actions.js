@@ -1,46 +1,65 @@
-import { postEmail, postNick, postLogin, postMemberInfo } from "../api/index.js"
+import { postEmail, postNick, postLogin, postLogout, postMemberInfo } from "../api/index.js"
 import { fetchSido, fetchSigoongu, fetchEupmyeondong } from "../api/index.js"
 import { router } from '../routes/index.js';
 
 export default{
-  POST_EMAIL(context, email){
+  POST_EMAIL({commit}, email){
     postEmail(email)
-        .then(response =>{ console.log(response); 
-              alert("사용가능한 이메일입니다.");})
-        .catch(error=>{ console.log(error); 
-              alert("중복된 이메일입니다.");})
-  },
-  POST_NICK(context, nick){
-    postNick(nick)
-        .then(response =>{ console.log(response);
-          alert("사용가능한 닉네임입니다.");})
+        .then(response =>{ console.log(response);})
         .catch(error=>{ console.log(error);
-          alert("중복된 닉네임입니다.");})
+                        return new Promise((resolve) => {
+                          setTimeout(() => {
+                            commit('SET_DUPLI_EMAIL', true)
+                            resolve()
+                          }, 1000)
+                        })
+                      }
+              )
   },
-  // POST_PHONE(context, phone){
-  //   postPhone(phone)
-  //       .then(response =>{ console.log(response);})
-  //       .catch(error=>{ console.log(error);})
-  // },
-  POST_MEMBER({commit}, member){
+  POST_NICK({commit}, nick){
+    postNick(nick)
+        .then(response =>{ console.log(response);})
+        .catch(error=>{ console.log(error);
+                        commit('SET_DUPLI_NICK', true)})
+  },
+  POST_MEMBER(context, member){
     postMemberInfo(member)
         .then(response =>{
           console.log(response);
-          commit('SET_MEMBER', member);
-          router.replace("/signup-completed");})
+          // commit('SET_MEMBER', member);
+          router.replace({
+            name:"signupCompleted",
+            query:{nickName:member.nick,}
+          });})
         .catch( error=>{console.log(error);} )
   }, 
-  POST_LOGIN(context, member) {
+  POST_LOGIN({commit}, member) {
     postLogin(member)
         .then(response => {
             console.log(response);
+            
+            commit('SET_MEMBER', member);
             router.replace("/home");
         })
-        .catch(error => { console.log(error); })
+        .catch(error => { 
+          const code = error.response.status;
+          if(code == 400) alert("존재하지 않는 닉네임입니다.");
+          else if(code == 404) alert("비밀번호가 일치하지 않습니다.");
+        })
+  },
+  POST_LOGOUT() {
+    postLogout()
+        .then(response => {
+          console.log(response);
+        })
+        .catch(error => { 
+          console.log(error);
+        })
   },
   FETCH_SIDO({commit}){
     fetchSido()
     .then(response =>{ 
+      console.log(response);
       const sidoList = response.data.response.result.featureCollection.features;
       commit("SET_SIDO_LIST", sidoList);
       })

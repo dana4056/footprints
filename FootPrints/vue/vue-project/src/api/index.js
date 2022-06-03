@@ -20,44 +20,39 @@ const areaConfig={
     geomfilter:"BOX(13663271.680031825,3894007.9689600193,14817776.555251127,4688953.0631258525)",
   }	
 
-  const member = {
-    email: "",
-    pw: "",
-    nick: "",
-    phone: "",
-    area: ""
-  }
+//   const member = {
+//     email: "",
+//     pw: "",
+//     nick: "",
+//     phone: "",
+//     area: ""
+//   }
 
 // 2. API 함수들을 정리
 function postEmail(email){
-    member.emial = email;
-    return axios.post(`${config.baseUrl}/signup/check-email`, member, {
+    return axios.post(`${config.baseUrl}/signup/check-email`, email, {
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'text/plain'
         }
     });
 }
 
 function postNick(nick){
-    member.nick = nick;
-    return axios.post(`${config.baseUrl}/signup/check-nick`, member, {
+    return axios.post(`${config.baseUrl}/signup/check-nick`, nick, {
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'text/plain'
         }
     });
 }
 
 function postLogin(member){
-    return axios.post(`${config.baseUrl}/login-s`, member);
+    return axios.post(`${config.baseUrl}/login`, member);
 }
 
-// function postPhone(phone){
-//     return axios.post(`${config.baseUrl}/signup/authentic-code`, phone, {
-//         headers: {
-//             'Content-Type': 'application/json'
-//         }
-//     });
-// }
+function postLogout(){
+    console.log("api/index/postLogout");
+    return axios.post(`${config.baseUrl}/logout`);
+}
 
 function postMemberInfo(member){
     return axios.post(`${config.baseUrl}/signup`, member);
@@ -65,7 +60,11 @@ function postMemberInfo(member){
 
 function fetchSido(){
     const data = "LT_C_ADSIDO_INFO";
-    return axios.get(`/req/data?key=${areaConfig.key}&domain=${areaConfig.domain}&service=${areaConfig.service}&version=${areaConfig.version}&request=${areaConfig.request}&format=${areaConfig.format}&size=${areaConfig.size}&page=${areaConfig.page}&attribute=${areaConfig.attribue}&crs=${areaConfig.crs}&geomfilter=${areaConfig.geomfilter}&data=${data}`)
+    return axios.get(`/req/data?key=${areaConfig.key}&domain=${areaConfig.domain}&service=${areaConfig.service}&version=${areaConfig.version}&request=${areaConfig.request}&format=${areaConfig.format}&size=${areaConfig.size}&page=${areaConfig.page}&attribute=${areaConfig.attribue}&crs=${areaConfig.crs}&geomfilter=${areaConfig.geomfilter}&data=${data}`,{
+        headers:{
+
+        }
+    });
 }
 
 function fetchSigoongu(code){
@@ -84,8 +83,8 @@ function fetchEupmyeondong(code){
 export{
     postEmail,
     postNick,
-    // postPhone,
     postLogin,
+    postLogout,
     postMemberInfo,
     fetchSido,
     fetchSigoongu,

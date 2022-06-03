@@ -12,6 +12,7 @@ module.exports = {
         target: 'https://api.vworld.kr',
         changeOrigin: true
       }
-    }
+    },
   }
 };
+
