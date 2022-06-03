@@ -2,7 +2,9 @@ package footprints.footprints.controller;
 
 import footprints.footprints.domain.Member;
 import footprints.footprints.domain.MemberDTO;
+import footprints.footprints.domain.PostDTO;
 import footprints.footprints.service.MemberServiceImpl;
+import footprints.footprints.service.PostServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 public class MemberController {
 
     private final MemberServiceImpl memberService;
+    private final PostServiceImpl postService;
 
     //회원가입 정보
     @PostMapping(value = "/signup")
@@ -65,6 +68,22 @@ public class MemberController {
         else{
             return new ResponseEntity<String>("LOGIN_FAILED", HttpStatus.OK);
         }
+    }
+
+    @PostMapping(value = "/post")
+    public ResponseEntity<String> post(@RequestBody PostDTO postDTO){
+        log.info("--------Id:{}", postDTO.getPost_name());
+        log.info("--------Id:{}", postDTO.getCategory());
+        postService.join(postDTO);
+        return new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/update")
+    public ResponseEntity<String> update(@RequestBody PostDTO postDTO){
+        log.info("--------Id:{}", postDTO.getPost_name());
+        log.info("--------Id:{}", postDTO.getCategory());
+        postService.update(postDTO);
+        return new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
     }
 }
 

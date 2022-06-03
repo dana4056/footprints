@@ -10,6 +10,10 @@ import org.springframework.test.annotation.Rollback;
 
 import javax.transaction.Transactional;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
@@ -22,6 +26,7 @@ class PostServiceTest {
 
     @Test
     void save() {
+
         PostDTO postDTO = new PostDTO("글제목", "글내용", "카테고리", "장소", 3, 3);
 
         postRepository.save(postDTO);

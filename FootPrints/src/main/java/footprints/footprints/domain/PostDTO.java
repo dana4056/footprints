@@ -6,12 +6,16 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import javax.persistence.EntityListeners;
 import java.time.LocalDateTime;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter @Setter
+@EntityListeners(AuditingEntityListener.class)
+
 public class PostDTO {
 
     private String post_name;   //글 제목
@@ -20,8 +24,6 @@ public class PostDTO {
     private String take_loc;    //음식 나눌 장소
     private int person_num; //모집 인원
     private int valid_time; //게시물 유효 시간
-//    @CreatedDate
-//    private LocalDateTime createdDate;  //게시물 등록 시간
 
 
     public Post toEntity() {
@@ -32,7 +34,6 @@ public class PostDTO {
                 .take_loc(take_loc)
                 .person_num(person_num)
                 .valid_time(valid_time)
-                //.createdDate()
                 .build();
     }
 }

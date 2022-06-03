@@ -20,4 +20,6 @@ public class PostRepositoryImpl implements PostRepository{
         Post post = postDTO.toEntity();
         em.persist(post);
     }
+
+
 }

@@ -16,7 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Slf4j
 public class MemberServiceImpl implements MemberService {
 
-    @Autowired
+
     private final MemberRepositoryImpl memberRepository;
 
     @Override
