@@ -1,7 +1,10 @@
 package footprints.footprints.controller.login;
 
+import footprints.footprints.SessionConst;
+import footprints.footprints.domain.member.Member;
 import footprints.footprints.domain.member.MemberDTO;
-import footprints.footprints.domain.service.login.LoginService;
+import footprints.footprints.repository.member.MemberRepositoryImpl;
+import footprints.footprints.service.login.LoginService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -11,7 +14,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @Controller
 @RequiredArgsConstructor
@@ -19,12 +24,23 @@ import javax.servlet.http.HttpServletResponse;
 public class LoginController {
 
     private final LoginService loginService;
+    private final MemberRepositoryImpl memberRepository;
 
     @PostMapping(value = "/login")
-    public ResponseEntity<String> checkLogin(@RequestBody MemberDTO memberDTO, HttpServletResponse response){
+    public ResponseEntity<String> login(@RequestBody MemberDTO memberDTO, HttpServletResponse response, HttpServletRequest request){
         int checkLogin = loginService.loginCheck(memberDTO);
         if(checkLogin == 1){  //로그인 성공
             log.info("로그인 성공");
+
+            Member loginMember = memberRepository.findByNick(memberDTO.getNick());
+
+            //세션이 있으면 있는 세션 반환, 없으면 신규 세션 생성
+            HttpSession session = request.getSession();
+            //세션에 로그인 회원 정보 보관
+            session.setAttribute(SessionConst.LOGIN_MEMBER, loginMember);
+
+            Cookie mySessionCookie = new Cookie("JSESSIONID", session.getId());
+            response.addCookie(mySessionCookie);
 
             return new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
         }
@@ -37,5 +53,17 @@ public class LoginController {
             return new ResponseEntity<String>("LOGIN_FAILED:NOT_MATCH_PW", HttpStatus.NOT_FOUND);
         }
     }
+
+
+    @PostMapping("/logout")
+    public ResponseEntity<String> logout(HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            session.invalidate();
+        }
+        log.info("로그아웃 성공(세션 종료)");
+        return new ResponseEntity<String>("SUCCESS LOGOUT", HttpStatus.OK);
+    }
+
 
 }

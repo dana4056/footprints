@@ -6,20 +6,23 @@ export const store = new Vuex.Store({
         isDuplicateNick:false,
         isDuplicateEmail:false,
         member:{
+            nick: "",
             email: "",
             pw: "",
-            nick: "",
-            phone: "",
             area: ""
         },
         sidoList:{},
         sigoonguList:{},
         eupmyeondongList:{},
+        sessionId:"",
     },
     getters:{
         GET_MEMBER(state){
             return state.member;
-        }
+        },
+        // GET_SESSIONID(state){
+        //     return state.sessionId;
+        // }
     },
     actions,
     mutations:{
@@ -41,5 +44,8 @@ export const store = new Vuex.Store({
         SET_EUPMYEONDONG_LIST(state, List){
             state.eupmyeondongList = List;
         },
+        // SET_SESSIONID(state, id){
+        //     state.sessionId = id;
+        // }
     }
 });

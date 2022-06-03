@@ -1,8 +1,8 @@
-package footprints.footprints.domain.service.signup;
+package footprints.footprints.service.signup;
 
 import footprints.footprints.domain.member.Member;
 import footprints.footprints.domain.member.MemberDTO;
-import footprints.footprints.domain.repository.member.MemberRepositoryImpl;
+import footprints.footprints.repository.member.MemberRepositoryImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

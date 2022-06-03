@@ -1,8 +1,8 @@
 package footprints.footprints.member;
 
 import footprints.footprints.domain.member.MemberDTO;
-import footprints.footprints.domain.repository.member.MemberRepositoryImpl;
-import footprints.footprints.domain.service.signup.SignupServiceImpl;
+import footprints.footprints.repository.member.MemberRepositoryImpl;
+import footprints.footprints.service.signup.SignupServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

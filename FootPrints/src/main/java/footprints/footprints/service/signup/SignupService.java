@@ -1,4 +1,4 @@
-package footprints.footprints.domain.service.signup;
+package footprints.footprints.service.signup;
 
 import footprints.footprints.domain.member.MemberDTO;
 

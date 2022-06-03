@@ -1,4 +1,4 @@
-import { postEmail, postNick, postLogin, postMemberInfo } from "../api/index.js"
+import { postEmail, postNick, postLogin, postLogout, postMemberInfo } from "../api/index.js"
 import { fetchSido, fetchSigoongu, fetchEupmyeondong } from "../api/index.js"
 import { router } from '../routes/index.js';
 
@@ -22,24 +22,38 @@ export default{
         .catch(error=>{ console.log(error);
                         commit('SET_DUPLI_NICK', true)})
   },
-  POST_MEMBER({commit}, member){
+  POST_MEMBER(context, member){
     postMemberInfo(member)
         .then(response =>{
           console.log(response);
-          commit('SET_MEMBER', member);
-          router.replace("/signup-completed");})
+          // commit('SET_MEMBER', member);
+          router.replace({
+            name:"signupCompleted",
+            query:{nickName:member.nick,}
+          });})
         .catch( error=>{console.log(error);} )
   }, 
-  POST_LOGIN(context, member) {
+  POST_LOGIN({commit}, member) {
     postLogin(member)
         .then(response => {
             console.log(response);
+            
+            commit('SET_MEMBER', member);
             router.replace("/home");
         })
         .catch(error => { 
           const code = error.response.status;
           if(code == 400) alert("존재하지 않는 닉네임입니다.");
           else if(code == 404) alert("비밀번호가 일치하지 않습니다.");
+        })
+  },
+  POST_LOGOUT() {
+    postLogout()
+        .then(response => {
+          console.log(response);
+        })
+        .catch(error => { 
+          console.log(error);
         })
   },
   FETCH_SIDO({commit}){

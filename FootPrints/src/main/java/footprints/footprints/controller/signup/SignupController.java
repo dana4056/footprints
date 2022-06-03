@@ -1,7 +1,7 @@
 package footprints.footprints.controller.signup;
 
 import footprints.footprints.domain.member.MemberDTO;
-import footprints.footprints.domain.service.signup.SignupServiceImpl;
+import footprints.footprints.service.signup.SignupServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;

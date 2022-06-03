@@ -1,4 +1,4 @@
-package footprints.footprints.domain.repository.member;
+package footprints.footprints.repository.member;
 
 import footprints.footprints.domain.member.Member;
 import footprints.footprints.domain.member.MemberDTO;

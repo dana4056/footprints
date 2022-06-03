@@ -49,6 +49,11 @@ function postLogin(member){
     return axios.post(`${config.baseUrl}/login`, member);
 }
 
+function postLogout(){
+    console.log("api/index/postLogout");
+    return axios.post(`${config.baseUrl}/logout`);
+}
+
 function postMemberInfo(member){
     return axios.post(`${config.baseUrl}/signup`, member);
 }
@@ -79,6 +84,7 @@ export{
     postEmail,
     postNick,
     postLogin,
+    postLogout,
     postMemberInfo,
     fetchSido,
     fetchSigoongu,

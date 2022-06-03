@@ -3,7 +3,7 @@
     <div id='completed'>
       <img src="../assets/congratulation.png">
       <h3>회원가입 완료</h3>
-      <p><span class="nick">{{GET_MEMBER.nick}}</span>님, 환영합니다.</p>
+      <p><span class="nick">{{$route.query.nickName}}</span>님, 환영합니다.</p>
       <router-link to="/home" class="item"><button id="home">홈페이지</button></router-link>
       <router-link to="/login" class="item"><button id="login">로그인</button></router-link>
     </div>
@@ -11,14 +11,9 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
 
 export default {
-  computed:{
-    ...mapGetters([
-      'GET_MEMBER'
-    ])
-  }
+ name: "signupCompleted"
 }
 
 </script>
