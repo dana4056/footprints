@@ -79,6 +79,26 @@ function fetchEupmyeondong(code){
     return axios.get(`/req/data?key=${areaConfig.key}&domain=${areaConfig.domain}&service=${areaConfig.service}&version=${areaConfig.version}&request=${areaConfig.request}&format=${areaConfig.format}&size=${areaConfig.size}&page=${areaConfig.page}&attribute=${areaConfig.attribue}&crs=${areaConfig.crs}&geomfilter=${areaConfig.geomfilter}&data=${data}&attrFilter=${attrFilter} `)
 }
 
+function findID(email){
+    return axios.post(`${config.baseUrl}/findID`, email, {
+      headers: {
+        'Content-Type': 'text/plain'
+      }
+    });
+  }
+  
+  function fetchDeliveryList(areaName){
+    return axios.post(`${config.baseUrl}/delivery`, areaName);
+  } 
+  
+  // function getDeliveryList(areaName){
+  //   return axios.get(`${config.baseUrl}/delivery/${areaName}`);
+  // }
+  
+  function changePWD(memberChangeDTO){
+    return axios.post(`${config.baseUrl}/ChangePW`, memberChangeDTO);
+  }
+  
 
 export{
     postEmail,
@@ -89,4 +109,8 @@ export{
     fetchSido,
     fetchSigoongu,
     fetchEupmyeondong,
+    findID,
+    changePWD,
+    fetchDeliveryList,
+    // getDeliveryList,
 } 
