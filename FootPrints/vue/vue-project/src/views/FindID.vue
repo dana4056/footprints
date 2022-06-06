@@ -58,8 +58,10 @@ export default {
 
 <style scoped>
 #wrap{
+  width: 450px;
+  margin: 0 auto;
+  padding: 150px 0;
   display: flex;
-  height: 100vh;
   flex-direction: column;
   justify-content: center;
 }
@@ -67,9 +69,6 @@ export default {
   width: 400px;
   margin: 0 auto;
   padding: 15px;
-}
-img{
-  width: 100px;
 }
 .nick{
   font-weight: 700;
