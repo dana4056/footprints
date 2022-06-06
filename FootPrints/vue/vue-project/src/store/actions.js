@@ -1,6 +1,8 @@
-import { postEmail, postNick, postLogin, postLogout, postMemberInfo } from "../api/index.js"
+import { postEmail, postNick, postLogin, postLogout, postMemberInfo, } from "../api/index.js"
 import { fetchSido, fetchSigoongu, fetchEupmyeondong } from "../api/index.js"
+import { findID, changePWD, fetchDeliveryList } from "../api/index.js"
 import { router } from '../routes/index.js';
+
 
 export default{
   POST_EMAIL({commit}, email){
@@ -80,5 +82,33 @@ export default{
       commit("SET_EUPMYEONDONG_LIST", eupmyeondongList);
       })
     .catch(error => {console.log(error)})
-  }
+  },
+  FETCH_DELIVERY_LIST( { commit }, areaName) {
+    return fetchDeliveryList(areaName)
+      .then(response => {
+        commit('SET_DELIVERY_LIST', response.data);
+        return response;
+      })
+      .catch(error => console.log(error));
+  },
+  FIND_ID({ commit }, email) {
+    findID(email)
+      .then(response => {
+        console.log(response);
+        console.log("1. " + response.data);
+        commit('FIND_ID', response.data);
+      })
+      .catch(error => {
+        console.log(error);
+      })
+  },
+  CHANGE_PWD(context, memberChangeDTO) {
+    changePWD(memberChangeDTO)
+      .then(response => {
+        console.log(response);
+      })
+      .catch(error => {
+        console.log(error);
+      })
+  },
 }

@@ -2,14 +2,14 @@
   <div id="wrap">
 		<router-link to="/home" class="logo"><img src="../assets/logo.png">발자취</router-link>
 		<div class="Div" v-bind:class="{errorType:!isValidPw}">
-      <label>비밀번호</label>
+      <label>새로운 비밀번호</label>
       <input id='password1' v-on:focusout="checkPw"  autocomplete="off" maxlength="20"
       v-model="Pw1" type="password" placeholder="비밀번호 (영어, 숫자, 특수문자 포함 8~20자)" required>
       <span class="errortype" v-if="!isValidPw">비밀번호는 영어, 숫자, 특수문자 포함 8~20자여야 합니다.</span>
     </div>
 
     <div class="Div" v-bind:class="{errorType:isDiffrentPw}">
-      <label>비밀번호 확인</label>
+      <label>새로운 비밀번호 확인</label>
       <input id='password2' v-on:focusout="compPw"  autocomplete="off" maxlength="20"
       v-model="Pw2" type="password" placeholder="비밀번호 재입력" required>
       <span class="errortype" v-if="isDiffrentPw">비밀번호가 일치하지 않습니다.</span>
@@ -20,15 +20,28 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 export default {
 	data() {
 		return {
+      memberChangeDTO:{
+        nick: "",
+        email: "blabla",
+        pw: "",
+        area: "",
+        new_pw: "",
+      },
 			Pw1: "",
       Pw2: "",
       isValidPw: true,
       isDiffrentPw: false,
 		}
 	},
+  computed:{
+    ...mapGetters([
+      'GET_FINDPWD'
+    ])
+  },
 	methods: {
 		checkPw() {   // 비밀번호 형식이 올바른지 확인
       const pattern1 = /[0-9]/;
@@ -45,10 +58,15 @@ export default {
     compPw(){      // 비밀번호 & 비밀번호 확인란 일치 여부
       if(this.Pw1 != "" && this.Pw2 != ""){
         this.isDiffrentPw = (this.Pw1 != this.Pw2) ? true : false;
+        this.memberChangeDTO.new_pw = this.Pw1;
+        this.memberChangeDTO.email = this.GET_FINDPWD;
       }
     },
     change() {
       if (this.submitData()){
+        console.log("비밀번호 변경해보자");
+        this.$store.dispatch('CHANGE_PWD', this.memberChangeDTO);
+        //제대로 와야 이후에 밑에 두줄 수행해야지
 				alert("비밀번호가 성공적으로 변경되었습니다.")
 				this.$router.replace("/login");
 			}

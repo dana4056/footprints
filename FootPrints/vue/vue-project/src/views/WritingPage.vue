@@ -1,0 +1,224 @@
+<template>
+  <div>
+    <tool-bar></tool-bar>
+    <div id="wrap">
+      <div id="wrap2">
+        <div style="float:left; width:300px;">
+          <div id="foodCtg">
+            <p>음식 카테고리를 설정해주세요.</p>
+            <select v-model="foodCtg">
+              <option value="카테고리" selected="selected" disabled hidden>카테고리</option>
+              <option value="pizza">피자</option>
+              <option value="chicken">치킨</option>
+              <option value="hamburger">햄버거</option>
+              <option value="boonsik">분식</option>
+              <option value="chinese">중식</option>
+              <option value="western">양식</option>
+              <option value="jokbo">족발/보쌈</option>
+              <option value="dessert">디저트</option>
+              <option value="etc">기타</option>
+            </select>
+          </div>
+          <div id="postTTL">
+            <p>게시물이 유효한 시간을 정해주세요.</p>
+            <input v-model="dateTime" type="datetime-local" v-bind:min=minDate>
+          </div>
+          <div id="peopleNum">
+            <p>모집할 인원을 정해주세요.</p>
+            <select v-model="numCtg">
+              <option value="상관없음" selected="selected">상관없음</option>
+              <option value="1">1명</option>
+              <option value="2">2명</option>
+              <option value="3">3명</option>
+              <option value="4">4명</option>
+              <option value="5">5명</option>
+              <option value="6">6명</option>
+              <option value="7">7명</option>
+              <option value="etc">그 외</option>
+            </select>
+          </div>
+          <div id="place">
+            <label>음식을 나눌 장소를 지정해주세요.</label>
+            <div class="kmap" ref="map"></div>
+            <input v-model="placeName" v-if="inputVisible" placeholder="장소 별명: ex) 세븐일레븐 앞">
+          </div>
+        </div>
+        <div style="float:right; width:350px;">
+          <input v-model="title" id="title" placeholder="제목을 입력하세요.">
+          <hr>
+          <textarea v-model="contents" id="contents" type="text" placeholder="배달팁, 최소주문 금액을 적어주세요!"></textarea>
+          <button type="submit" v-on:click.prevent="register">등록</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+import ToolBar from '../components/ToolBar.vue'
+import Swal from 'sweetalert2';
+export default {
+  components:{
+        ToolBar,
+  },
+  mounted() {
+    let $vm = this;
+    const date = new Date();
+    const year = date.getFullYear();
+    const month = ("00" + (date.getMonth()+1)).slice(-2);
+    const minday = ("00" + date.getDate()).slice(-2);
+    $vm.minDate = year + "-" + month + "-" + minday + "T" + "00:00";
+    // 지도 창 생성
+    let kakao = window.kakao;
+    var container = this.$refs.map;
+    var options = { 
+      center: new kakao.maps.LatLng(37.56676113296615, 126.97865227682179),
+      level: 10
+    };
+    const mapInstance = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
+    // 마커 생성
+    var marker = new kakao.maps.Marker({ 
+      position: mapInstance.getCenter(),
+    }); 
+    marker.setMap(mapInstance);
+    // 줌인 줌아웃
+    var zoomControl = new kakao.maps.ZoomControl();
+    mapInstance.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
+    // 클릭 이벤트 등록
+    kakao.maps.event.addListener(mapInstance, 'click', function(mouseEvent) {        
+      var latlng = mouseEvent.latLng; 
+      marker.setPosition(latlng);
+      
+      $vm.latitude = latlng.getLat();
+      $vm.longtitude = latlng.getLng();
+      $vm.inputVisible = true;
+      });
+  },
+  data() {
+    return {
+      foodCtg: "카테고리",
+      dateTime: "",
+      minDate: "",
+      numCtg: "상관없음",
+      latitude: 0,
+      longtitude: 0,
+      placeName: "",
+      title: "",
+      contents: "",
+      inputVisible: false,
+    }
+  },
+  methods: {
+    register() {
+      if (this.submitData()){
+				Swal.fire({
+          icon: 'success',
+          title: '글이 등록되었습니다.',
+          confirmButtonText: '배달 모집 목록 보러가기',
+        }).then(() => {
+          this.$router.replace("/itemlist");
+        })
+			}
+      else {
+        alert("입력이 올바른지 확인해주세요.")
+      }
+    },
+		submitData() {
+      console.log(this.dateTime);
+      if (this.foodCtg != "카테고리" && this.dateTime != "" && this.title != "" && this.contents != ""  &&
+          this.latitude != 0 && this.longtitude != 0 && this.placeName != ""){
+        const form = {
+          food: this.foodCtg,
+          dateTime: this.dateTime,
+          num: this.numCtg,
+          lat: this.latitude,
+          long: this.longtitude,
+          place: this.placeName,
+          title: this.title,
+          contents: this.contents,
+        }
+        console.log(form);
+        return true;
+      }
+      else {
+        return false;
+      }
+    },
+  }
+}
+</script>
+
+<style scoped>
+#wrap {
+  background-color: #f2f2f2;
+  height: 600px;
+  padding: 80px 0;
+}
+#wrap2 {
+    width: 800px;
+    height: 570px;
+    padding: 40px 50px 30px;
+    margin: 0px auto;
+    border-radius: 30px;
+    background-color: white;
+    text-align: left;
+    font-size: 15px;
+}
+p{
+  margin-top: 0px;
+  margin-left: 3px;
+}
+select, #postTTL > input, #place > input{
+    outline: none;
+    width: 80%;
+    height: 35px;
+    background: #F8F8F8;
+    border: 1px solid #BDBDBD;
+    box-sizing: border-box;
+    border-radius: 30px;
+    padding: 8px 15px 9px;
+    margin-bottom: 15px;
+}
+#postTTL > input {
+  padding-left: 20px;
+}
+#title{
+  font-weight: bold;
+  font-size: 25px;
+  color: #555;
+  border: none;
+  outline: none;
+  margin-top: 5px;
+  padding-left: 5px;
+}
+hr{
+  margin: 25px 0;
+}
+#contents{
+  font-size: 15px;
+  height: 400px;
+  width: 300px;
+  padding: 5px;
+  border: none;
+  outline: none;
+}
+button {
+  float: right;
+  width: 80px;
+  height: 35px;
+  border: none;
+  border-radius: 10px;
+  background-color: #ddd;
+  margin-top: 20px;
+  cursor: pointer;
+}
+.kmap{
+  margin-top: 20px;
+  width: 400px;
+  height: 220px;
+}
+#place > input {
+  margin: 15px 60px 0;
+  text-align: center;
+}
+</style>

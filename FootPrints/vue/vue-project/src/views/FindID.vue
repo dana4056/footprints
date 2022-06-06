@@ -2,61 +2,87 @@
   <div id="wrap">
 		<router-link to="/home" class="logo"><img src="../assets/logo.png">발자취</router-link>
 		<div class="Div">
-			<label>회원정보에 등록한 휴대전화 번호를 입력해주세요.</label>
-			<input id="phone" autocomplete="off" maxlength="11" v-model="phone" type="text" placeholder="전화번호" required>
-			<input id="userCode" v-if="inputVisible" autocomplete="off" maxlength="6" v-model="userCode" type="text" placeholder="인증번호" required>
-			<button type="submit" v-if="getBtnVisible" v-on:click="getCode">인증번호 받기</button>
-			<button type="submit" v-if="chkBtnVisible" v-on:click="checkCode">확인</button>
+			<label v-if="inputtext">회원정보에 등록한 이메일을 입력해주세요.</label>
+			<input id="email" autocomplete="off" v-model="email" type="text" v-if="inputemail" placeholder="이메일 입력" required>
+			<button type="submit" v-if="getBtnVisible" v-on:click="findID">이메일로 아이디 찾기</button>
+      <div>
+        <div v-if="getIDVisible">회원님의 아이디는 {{ GET_FINDID }} 입니다.</div>
+        <div v-if="canNotFindID">회원님의 아이디를 찾을 수 없습니다.</div>
+      </div>
+			<router-link to="/home" class="item"><button id="home" v-if="chkBtnVisible">홈페이지</button></router-link>
+      <router-link to="/login" class="item"><button id="login" v-if="chkBtnVisible">로그인</button></router-link>
 		</div>
 	</div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 export default {
 	data() {
 		return {
-			phone: "",
-			sysCode: "",
-			userCode: "",
-			inputVisible: false,
+			email: "",
+      inputtext: true,
+			inputemail: true,
 			getBtnVisible: true,
-			chkBtnVisible: false
+			chkBtnVisible: false,
+			getIDVisible: false,
+      canNotFindID: false,
 		}
 	},
+	computed:{
+    ...mapGetters([
+      'GET_FINDID'
+    ])
+  },
 	methods: {
-		getCode() {
-			let check = /^[0-9]+$/;
-			if (this.phone != "" && this.phone.length == 11 && check.test(this.phone)) {
-				// 1.휴대폰으로 인증번호 보내는 코드로 수정 ------------------------------------------------------
-				this.sysCode = Math.floor(Math.random() * 900001) + 100000;
-				console.log(this.phone, this.sysCode);
-				// ------------------------------------------------------------------------------------------------
-				this.inputVisible = true;
-				this.getBtnVisible = false;
-				this.chkBtnVisible = true;
-			}
-			else {
-				alert("숫자 11자리를 입력해주세요.");
-			}
+		findID() {
+			console.log("아이디를 찾습니다");
+			this.$store.dispatch('FIND_ID', this.email);
+			this.getBtnVisible = false;
+      // 비동기처리 때문에 제대로 못 가져와서 그냥 찍어버리는 현상 발생 후처리 필요
+      // console.log(this.GET_FINDID);
+      // if( this.GET_FINDID == "CANNOT_FIND_ID"){
+      //   this.canNotFindID = true;
+      // }
+      // else{
+      //   this.getIDVisible = true;
+      // }
+      this.getIDVisible = true;  //이 줄 지우고 처리 해야함
+			this.chkBtnVisible = true;
+      this.inputtext = false;
+      this.inputemail = false;
 		},
-		checkCode() {
-			console.log(this.sysCode, this.userCode);
-			if (this.sysCode == this.userCode && this.userCode != "") {
-				// 2.getID 뷰로 넘어갈 때 입력받은 휴대폰 번호도 넘겨야함---------------------------------------
-				this.$router.replace("/getID");
-			}
-			else
-				alert("인증번호를 다시 입력해주세요.");
-		}
 	}
 }
 </script>
 
 <style scoped>
-#wrap {
-  width: 450px;
+#wrap{
+  display: flex;
+  height: 100vh;
+  flex-direction: column;
+  justify-content: center;
+}
+#completed{
+  width: 400px;
   margin: 0 auto;
-  padding: 150px 0;
+  padding: 15px;
+}
+img{
+  width: 100px;
+}
+.nick{
+  font-weight: 700;
+  color:#4a44cd;
+}
+button{
+  margin: 0px 5px;
+  width: 100px;
+  height: 32px;
+  box-sizing: border-box;
+  color: white;
+  font-family: 'Noto Sans KR', sans-serif;
+  border-radius: 10px;
 }
 .logo {
   display: flex;
@@ -104,5 +130,13 @@ button{
   padding: 8px 15px 9px;
   margin: 15px 2px 5px 2px;
   cursor: pointer;
+}
+#login{
+  background-color: #7aab85;
+  border: 1px solid #7aab85;
+}
+#home{
+  background-color: #797979;
+  border: 1px solid #797979;
 }
 </style>
