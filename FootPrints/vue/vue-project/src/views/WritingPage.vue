@@ -151,7 +151,7 @@ export default {
 <style scoped>
 #wrap {
   background-color: #f2f2f2;
-  height: 600px;
+  height: 800px;
   padding: 80px 0;
 }
 #wrap2 {
