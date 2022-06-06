@@ -8,7 +8,7 @@ import FindID from '../views/FindID'
 import FindPW from '../views/FindPW'
 import ChangePW from '../views/ChangePW'
 // import DeliveryView from '../views/DeliveryListView.vue'
-import ItemListView  from '../views/ItemView.vue'
+import ItemListView  from '../views/ItemListView.vue'
 import WritingPage from '../views/WritingPage'
 import ViewDetails from '../views/ViewDetails'
 
