@@ -1,6 +1,7 @@
 import { postEmail, postNick, postLogin, postLogout, postMemberInfo, } from "../api/index.js"
 import { fetchSido, fetchSigoongu, fetchEupmyeondong } from "../api/index.js"
-import { findID, changePWD, fetchDeliveryList } from "../api/index.js"
+import { findID, changePWD } from "../api/index.js"
+import { fetchDeliveryList } from "../api/index.js";
 import { router } from '../routes/index.js';
 
 
@@ -83,14 +84,14 @@ export default{
       })
     .catch(error => {console.log(error)})
   },
-  FETCH_DELIVERY_LIST( { commit }, areaName) {
-    return fetchDeliveryList(areaName)
-      .then(response => {
-        commit('SET_DELIVERY_LIST', response.data);
-        return response;
-      })
-      .catch(error => console.log(error));
-  },
+  // FETCH_DELIVERY_LIST( { commit }, areaName) {
+  //   return fetchDeliveryList(areaName)
+  //     .then(response => {
+  //       commit('SET_DELIVERY_LIST', response.data);
+  //       return response;
+  //     })
+  //     .catch(error => console.log(error));
+  // },
   FIND_ID({ commit }, email) {
     findID(email)
       .then(response => {
@@ -111,4 +112,14 @@ export default{
         console.log(error);
       })
   },
+  FETCH_DELIVERY_LIST({commit}){
+    fetchDeliveryList()
+      .then(response =>{
+        console.log(response.data);
+        commit('SET_DELIVERIES', response.data);
+      })
+      .catch(error =>{
+        console.log(error);
+      })
+  }
 }

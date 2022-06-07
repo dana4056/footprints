@@ -22,27 +22,30 @@ public class Post {
 
     @Id
     @GeneratedValue
-    private Long post_num;  //글 번호
-    private String post_name;   //글 제목
-    private String post_content;    //글 내용
-    private String category;    //음식 카테고리
-    private String take_loc;    //음식 나눌 장소
-    private int person_num; //모집 인원
-    private int valid_time; //게시물 유효 시간
+    private Long post_id;         // 글 id num
+    private String post_name;     // 글 제목
+    private String post_content;  // 글 내용
+    private String category;      // 음식 카테고리
+    private String area_name;     // 행정지역명
+    private String take_loc;      // 음식 나눌 장소
+    private int participant_num;  // 현재 참가 인원
+    private int person_num;       // 모집 인원
+    private int valid_time;       // 게시물 유효 시간
     @CreatedDate
     private LocalDateTime createdDate;  //게시물 등록 시간
-    private int participant_num;    //현재 참가 인원
+
 
     @Builder
-    public Post(String post_name, String post_content, String category, String take_loc,
-                int person_num, int valid_time, int participant_num){
+    public Post(String post_name, String post_content, String category, String area_name, String take_loc,
+                int participant_num, int person_num, int valid_time){
         this.post_name = post_name;
         this.post_content = post_content;
         this.category = category;
+        this.area_name = area_name;
         this.take_loc = take_loc;
+        this.participant_num = participant_num;
         this.person_num = person_num;
         this.valid_time = valid_time;
-        this.participant_num = participant_num;
     }
 }
 

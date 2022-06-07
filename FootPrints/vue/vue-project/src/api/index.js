@@ -20,14 +20,6 @@ const areaConfig={
     geomfilter:"BOX(13663271.680031825,3894007.9689600193,14817776.555251127,4688953.0631258525)",
   }	
 
-//   const member = {
-//     email: "",
-//     pw: "",
-//     nick: "",
-//     phone: "",
-//     area: ""
-//   }
-
 // 2. API 함수들을 정리
 function postEmail(email){
     return axios.post(`${config.baseUrl}/signup/check-email`, email, {
@@ -87,9 +79,9 @@ function findID(email){
     });
   }
   
-  function fetchDeliveryList(areaName){
-    return axios.post(`${config.baseUrl}/delivery`, areaName);
-  } 
+//   function fetchDeliveryList(areaName){
+//     return axios.post(`${config.baseUrl}/delivery`, areaName);
+//   } 
   
   // function getDeliveryList(areaName){
   //   return axios.get(`${config.baseUrl}/delivery/${areaName}`);
@@ -97,6 +89,10 @@ function findID(email){
   
   function changePWD(memberChangeDTO){
     return axios.post(`${config.baseUrl}/ChangePW`, memberChangeDTO);
+  }
+
+  function fetchDeliveryList(){
+      return axios.get(`${config.baseUrl}/delivery/post`);
   }
   
 
@@ -112,5 +108,4 @@ export{
     findID,
     changePWD,
     fetchDeliveryList,
-    // getDeliveryList,
 } 

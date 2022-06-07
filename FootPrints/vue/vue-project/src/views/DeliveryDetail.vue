@@ -25,14 +25,18 @@
         <button type="button" id="seePlace">나눔 장소 보기</button>
       </div>
     </div>
+    <footer-area id="footer"></footer-area>
   </div>
 </template>
 
 <script>
 import ToolBar from '../components/ToolBar.vue'
+import FooterArea from '../components/FooterArea.vue'
+
 export default {
   components:{
     ToolBar,
+    FooterArea,
   },
   data() {
     return {
@@ -111,5 +115,11 @@ hr {
 #join {
   border: none;
   background-color: #ccc;
+}
+#footer{
+    height: 300px;
+    position: absolute;  
+    width: 100%;
+    left: 0;
 }
 </style>
