@@ -55,14 +55,15 @@ export default {
 					console.log(this.sysCode);
 
 					// getCode 함수 수정한 부분 (+ 함수 3개 추가하였습니다!) --------------------------
+
 					// let templateParams  = { 
 					// 	user_email: this.email,
 					// 	sys_code: this.sysCode,
 					// }
-					// emailjs.init('REMuhzEQAisDSZ2hk');
-					// emailjs.send('email', 'template_q0r3oy4', templateParams)
-					// // emailjs.init('vRkhLOuF_vA7-HcM9'); 													-> 테스트용으로 사용하시고 코드 완성되면 삭제해주세요!
-					// // emailjs.send('email', 'template_ecvcwyw', templateParams) 	-> 이 줄도 같이 삭제해주세요!
+					// //emailjs.init('REMuhzEQAisDSZ2hk');
+					// //emailjs.send('email', 'template_q0r3oy4', templateParams)
+					// emailjs.init('vRkhLOuF_vA7-HcM9'); 													// -> 테스트용으로 사용하시고 코드 완성되면 삭제해주세요!
+					// emailjs.send('email', 'template_ecvcwyw', templateParams) 	// -> 이 줄도 같이 삭제해주세요!
 					// .then(() => {
 					// 	this.emailtext = false;
 					// 	this.inputVisible = true;
@@ -79,6 +80,7 @@ export default {
 					// }, () => {
 					// 	alert("이메일을 다시 확인해주세요.")
 					// });
+
 					// -------------------------------------------------------------------------------
 
 					this.emailtext = false;
