@@ -22,13 +22,13 @@ public class PostController {
 
     private final PostServiceImpl postService;
 
+    // 배달 게시물 작성
     @PostMapping(value = "/delivery/post/create")
     public ResponseEntity<String> post(@RequestBody PostDTO postDTO){
-        log.info("--------Id:{}", postDTO.getPost_name());
-        log.info("--------Id:{}", postDTO.getCategory());
         postService.join(postDTO);
         return new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
     }
+
 
     @PostMapping(value = "/update")
     public ResponseEntity<String> update(@RequestBody PostDTO postDTO){
@@ -49,6 +49,7 @@ public class PostController {
     // 상세페이지로 이동
     @GetMapping(value = "/delivery/post/{post_id}")
     public Post detailPage(@PathVariable Long post_id){
+        log.info("상세페이지 이동");
         Post post = postService.getPost(post_id);
 
         return post;

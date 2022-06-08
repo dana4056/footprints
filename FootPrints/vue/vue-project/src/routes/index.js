@@ -11,8 +11,7 @@ import ChangePW from '../views/ChangePW'
 
 import DeliveryList  from '../views/DeliveryListView.vue'
 import DeliveryDetail from '../views/DeliveryDetail'
-
-import WritingPage from '../views/WritingPage'
+import DeliveryCreate from '../views/DeliveryCreate'
 
 
 
@@ -27,7 +26,7 @@ const routes = [
     {   path: '/findID', component: FindID  },
     {   path: '/findPW', component: FindPW  },
     {   path: '/changePW', component: ChangePW  },
-    {   path: '/delivery/post/create', component: WritingPage  },
+    {   path: '/delivery/post/create', component: DeliveryCreate } ,
     {   path: '/delivery/post', component: DeliveryList    },
     {   path: '/delivery/post/:id', component: DeliveryDetail  },
 ]

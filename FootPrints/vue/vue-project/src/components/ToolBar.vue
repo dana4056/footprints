@@ -27,12 +27,8 @@ export default {
     },
     created(){
         const id = this.$cookies.get("JSESSIONID");
-        console.log(this.$cookies.keys());
-        // this.$cookies.set("JSESSIONID", id);
-        // console.log(this.$cookies.isKey("JSESSIONID"));
         if(id != null){
             this.$cookies.set("JSESSIONID", id);
-            // console.log(this.$cookies.isKey("JSESSIONID"));
             this.isLogin = true;
         }
     },
@@ -40,7 +36,6 @@ export default {
         logout(){
             this.$store.dispatch('POST_LOGOUT');
             this.$cookies.remove("JSESSIONID");
-            //router.go();
             router.replace("/home");
         }
     }

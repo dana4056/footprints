@@ -3,9 +3,7 @@
   <div>
     <tool-bar></tool-bar>
     <div id="content">
-      배달 리스트 뷰 ~.~
-      <router-link to="/delivery/post/create" class="link">글 작성</router-link> 
-      <br>
+      
       <router-link to="/viewDetails" class="link">상세보기 페이지 예시</router-link> 
 
       <div id="sort-box">
@@ -19,21 +17,21 @@
       </div>
 
       <!------------------------------------ 게시물 리스트 요소 ---------------------------------------->
-      <div v-for="delivery in this.$store.state.deliveries" class="listbox" v-bind:key="delivery">
+      <div v-for="delivery in this.$store.state.deliveryPostList" class="listbox" v-bind:key="delivery">
         <img class="listbox-img" src="../assets/blank.png" alt="">
         <div class="listbox-content">
           <div class="listbox-head">
-            <div class="res-name"><router-link v-bind:to="`/delivery/${delivery.post_id}`">{{ delivery.post_name }}</router-link></div>
+            <div class="res-name"><router-link v-bind:to="`/delivery/post/${delivery.post_id}`">{{ delivery.post_name }}</router-link></div>
             <div class="category" v-bind:class="delivery.category">{{this.categories[delivery.category]}}</div>
             <div class="time"><small>30:12</small></div>
           </div>
-          <p>{{ delivery.post_content }}</p>
+          <p><router-link v-bind:to="`/delivery/post/${delivery.post_id}`">{{ delivery.post_content }}</router-link></p>
           <div class="listbox-foot">
             <div class="detail-info">
               <small>{{delivery.area_name}}</small>
               <button class="area-btn"><img src="../assets/placeholder.png">{{ delivery.take_loc }}</button>
               <img src="../assets/people.png" alt="">
-              <small class="cnt">{{ delivery.participant_num }}/{{ delivery.person_num }}</small>
+              <small class="cnt">{{ delivery.participant_num }}/{{ delivery.max_person_num }}</small>
             </div>
             <div class="ago">
               <small>{{}}분 전 게시</small>

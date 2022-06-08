@@ -3,9 +3,9 @@
     <tool-bar></tool-bar>
     <div id="wrap">
       <div id="div1">
-        <h2>{{ title }}</h2>
-        <img v-bind:src=foodImg>
-        <p id="foodCtg">{{foodCtg}}</p>
+        <h2>{{ fetched.post_name }}</h2>
+        <img v-bind:src="require(`../assets/${fetched.category}.png`)">
+        <div class="category" v-bind:class="fetched.category">{{this.categories[fetched.category]}}</div>
         <p id="views">조회 {{views}}</p>
       </div>
       <div id="div2">
@@ -14,13 +14,13 @@
         <p id="postTime">{{postTime}}분 전</p>
       </div>
       <div id="div3">
-        <p>{{contents}}</p>
-        <p id="orderTime">오늘 {{orderTime}}에 주문할거에요!</p>
+        <p>{{fetched.post_content}}</p>
+        <p id="orderTime">오늘 {{fetched.valid_time}}에 주문할거에요!</p>
       </div>
       <hr>
       <div id="div4">
         <h4>(이미지)</h4>
-        <h4>{{curNum}} / {{maxNum}}</h4>
+        <h4>{{fetched.participant_num}} / {{fetched.max_person_num}}</h4>
         <button type="button" id="join">참여하기</button>
         <button type="button" id="seePlace">나눔 장소 보기</button>
       </div>
@@ -38,19 +38,26 @@ export default {
     ToolBar,
     FooterArea,
   },
+  computed:{
+    fetched(){
+      return this.$store.getters.GET_DELIVERY_POST;
+    }
+  },
   data() {
     return {
-      title: "던킨도너츠 같이 드실분~",
-      foodImg: require("../assets/donut.png"),
-      foodCtg: "디저트",
-      views: 0,
-      userName: "사용자",
-      postTime: "13",
-      contents: "배달팁 3800원, 최소주문금액 13000원입니다. 맛집입니다~",
-      orderTime: "17:30",
-      curNum: 1,
-      maxNum: 3,
+      categories:{
+        'KOR': '한식',
+        'CHI': '중식',
+        
+      },
+      // views: 0,
+      // userName: "사용자",
+      // postTime: "13",
     }
+  },
+  created(){
+    const post_id = this.$route.params.id;
+    this.$store.dispatch('FETCH_DELIVERY_DETAIL', post_id);
   },
 }
 </script>
@@ -62,7 +69,6 @@ export default {
   padding: 20px 30px 30px;
   margin: 80px auto;
   border-radius: 30px;
-  /* background-color: #f7f7f7; */
   text-align: left;
   font-size: 15px;
 }
@@ -76,10 +82,24 @@ export default {
   margin: 0;
   margin-right: 17px;
 }
-#foodCtg {
-  background-color: #bbb;
-  padding: 2px 5px;
+.category{
+  font-size: xx-small;
+  margin: 0px 7px;
+  padding: 0 7px;
+  height: 19px;
+  border-radius: 3px;
+  color: #ffffff;
+  vertical-align:middle;
 }
+
+/* ----- 카테고리 태그 색상 지정 -------*/
+.KOR{
+  background-color: #6157cf;
+}
+.CHI{
+  background-color: #ff6e6c;
+}
+
 #views {
   float: right;
   color: #777;

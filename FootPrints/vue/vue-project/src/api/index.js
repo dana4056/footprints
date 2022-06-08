@@ -94,6 +94,14 @@ function findID(email){
   function fetchDeliveryList(){
       return axios.get(`${config.baseUrl}/delivery/post`);
   }
+
+  function postDeliveryPost(post){
+      return axios.post(`${config.baseUrl}/delivery/post/create`, post);
+  }
+  
+  function fetchDeliveryDetail(post_id){
+    return axios.get(`${config.baseUrl}/delivery/post/${post_id}`);
+  }
   
 
 export{
@@ -108,4 +116,6 @@ export{
     findID,
     changePWD,
     fetchDeliveryList,
+    postDeliveryPost,
+    fetchDeliveryDetail,
 } 
