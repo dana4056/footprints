@@ -4,49 +4,46 @@
     <div id="wrap">
       <div id="wrap2">
         <div style="float:left; width:300px;">
-          <div id="foodCtg">
+          <div id="category">
             <p>음식 카테고리를 설정해주세요.</p>
-            <select v-model="foodCtg">
+            <select v-model="category">
               <option value="카테고리" selected="selected" disabled hidden>카테고리</option>
-              <option value="pizza">피자</option>
-              <option value="chicken">치킨</option>
-              <option value="hamburger">햄버거</option>
-              <option value="boonsik">분식</option>
-              <option value="chinese">중식</option>
-              <option value="western">양식</option>
-              <option value="jokbo">족발/보쌈</option>
-              <option value="dessert">디저트</option>
+              <option value="KOR">한식</option>
+              <option value="CHI">중식</option>
               <option value="etc">기타</option>
             </select>
           </div>
+          
           <div id="postTTL">
             <p>게시물이 유효한 시간을 정해주세요.</p>
-            <input v-model="dateTime" type="datetime-local" v-bind:min=minDate>
+            <input v-model="valid_time" type="datetime-local" v-bind:min=minDate>
           </div>
+
           <div id="peopleNum">
             <p>모집할 인원을 정해주세요.</p>
-            <select v-model="numCtg">
-              <option value="상관없음" selected="selected">상관없음</option>
-              <option value="1">1명</option>
+            <select v-model.number="max_person_num">
+              <option value="0" selected="selected">상관없음</option>
               <option value="2">2명</option>
               <option value="3">3명</option>
               <option value="4">4명</option>
               <option value="5">5명</option>
               <option value="6">6명</option>
               <option value="7">7명</option>
-              <option value="etc">그 외</option>
+              <!-- <option value="etc">그 외</option> -->
             </select>
           </div>
+
           <div id="place">
             <label>음식을 나눌 장소를 지정해주세요.</label>
             <div class="kmap" ref="map"></div>
-            <input v-model="placeName" v-if="inputVisible" placeholder="장소 별명: ex) 세븐일레븐 앞">
+            <input v-model="take_loc" v-if="inputVisible" placeholder="장소 별명: ex) 세븐일레븐 앞">
           </div>
         </div>
+
         <div style="float:right; width:350px;">
-          <input v-model="title" id="title" placeholder="제목을 입력하세요.">
+          <input v-model="post_name" id="post_name" placeholder="제목을 입력하세요.">
           <hr>
-          <textarea v-model="contents" id="contents" type="text" placeholder="배달팁, 최소주문 금액을 적어주세요!"></textarea>
+          <textarea v-model="post_content" id="post_content" type="text" placeholder="배달팁, 최소주문 금액을 적어주세요!"></textarea>
           <button type="submit" v-on:click.prevent="register">등록</button>
         </div>
       </div>
@@ -63,6 +60,7 @@ export default {
   },
   mounted() {
     let $vm = this;
+    // 날짜 입력 최소값 지정(현시간)
     const date = new Date();
     const year = date.getFullYear();
     const month = ("00" + (date.getMonth()+1)).slice(-2);
@@ -96,27 +94,51 @@ export default {
   },
   data() {
     return {
-      foodCtg: "카테고리",
-      dateTime: "",
+      post_name: "",     // 글 제목
+      post_content: "",  // 글 내용
+      category: "카테고리",      // 음식 카테고리
+      area_name: "",     // 행정지역명
+      take_loc: "",      // 음식 나눌 장소
+      participant_num: 0,  // 현재 참가 인원
+      max_person_num: 0,   // 모집 인원
+      valid_time: "",       // 게시물 유효 시간
+      
       minDate: "",
-      numCtg: "상관없음",
       latitude: 0,
       longtitude: 0,
-      placeName: "",
-      title: "",
-      contents: "",
       inputVisible: false,
+      // title: "",
+      //contents: "",
+      //foodCtg: "카테고리",
+      //행정지역명
+      // placeName: "",
+      //현재참가인원
+      // numCtg: "상관없음",
+      // dateTime: "",
     }
   },
   methods: {
     register() {
       if (this.submitData()){
+          const post = {
+            post_name: this.post_name,           // 글 제목
+            post_content: this.post_content,     // 글 내용
+            category: this.category,             // 음식 카테고리
+            area_name: "성북구 정릉동",           // 행정지역명
+            take_loc: this.take_loc,             // 음식 나눌 장소
+            participant_num: 1,                  // 현재 참가 인원
+            max_person_num: this.max_person_num, // 모집 인원
+            valid_time: this.valid_time,         // 게시물 유효 시간
+            // lat: this.latitude,
+            // long: this.longtitude,
+        }
+        this.$store.dispatch('POST_DELIVERY_POST', post)
 				Swal.fire({
           icon: 'success',
           title: '글이 등록되었습니다.',
           confirmButtonText: '배달 모집 목록 보러가기',
         }).then(() => {
-          this.$router.replace("/itemlist");
+          this.$router.replace("/delivery/post");
         })
 			}
       else {
@@ -124,20 +146,11 @@ export default {
       }
     },
 		submitData() {
-      console.log(this.dateTime);
-      if (this.foodCtg != "카테고리" && this.dateTime != "" && this.title != "" && this.contents != ""  &&
-          this.latitude != 0 && this.longtitude != 0 && this.placeName != ""){
-        const form = {
-          food: this.foodCtg,
-          dateTime: this.dateTime,
-          num: this.numCtg,
-          lat: this.latitude,
-          long: this.longtitude,
-          place: this.placeName,
-          title: this.title,
-          contents: this.contents,
-        }
-        console.log(form);
+      console.log(this.valid_time);
+      if (this.post_name != "" && this.post_content != "" && 
+          this.category != "카테고리" && this.take_loc != "" &&
+          this.valid_time != "" && 
+          this.latitude != 0 && this.longtitude != 0 ){
         return true;
       }
       else {
@@ -182,7 +195,7 @@ select, #postTTL > input, #place > input{
 #postTTL > input {
   padding-left: 20px;
 }
-#title{
+#post_name{
   font-weight: bold;
   font-size: 25px;
   color: #555;
@@ -194,7 +207,7 @@ select, #postTTL > input, #place > input{
 hr{
   margin: 25px 0;
 }
-#contents{
+#post_content{
   font-size: 15px;
   height: 400px;
   width: 300px;

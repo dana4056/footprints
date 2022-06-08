@@ -1,6 +1,7 @@
 import { postEmail, postNick, postLogin, postLogout, postMemberInfo, } from "../api/index.js"
 import { fetchSido, fetchSigoongu, fetchEupmyeondong } from "../api/index.js"
-import { findID, changePWD, fetchDeliveryList } from "../api/index.js"
+import { findID, changePWD } from "../api/index.js"
+import { fetchDeliveryList, postDeliveryPost, fetchDeliveryDetail } from "../api/index.js";
 import { router } from '../routes/index.js';
 
 
@@ -83,14 +84,6 @@ export default{
       })
     .catch(error => {console.log(error)})
   },
-  FETCH_DELIVERY_LIST( { commit }, areaName) {
-    return fetchDeliveryList(areaName)
-      .then(response => {
-        commit('SET_DELIVERY_LIST', response.data);
-        return response;
-      })
-      .catch(error => console.log(error));
-  },
   FIND_ID({ commit }, email) {
     findID(email)
       .then(response => {
@@ -111,4 +104,37 @@ export default{
         console.log(error);
       })
   },
+  FETCH_DELIVERY_LIST({commit}){
+    fetchDeliveryList()
+      .then(response =>{
+        console.log("배달 리스트 뷰 페이지 정보 받아오기 성공(GET success)");
+        console.log(response.data);
+        commit('SET_DELIVERIES', response.data);
+      })
+      .catch(error =>{
+        console.log("배달 리스트 뷰 페이지 정보 받아오기 실패(GET success)");
+        console.log(error);
+      })
+  },
+  POST_DELIVERY_POST(content, post){
+    postDeliveryPost(post)
+    .then(response =>{
+      console.log(response);
+    })
+    .catch(error => {
+      console.log(error);
+    })
+  },
+  FETCH_DELIVERY_DETAIL({commit}, post_id){
+    fetchDeliveryDetail(post_id)
+      .then(response =>{
+        console.log("상세페이지 정보 받아오기 성공(GET success)");
+        console.log(response.data);
+        commit('SET_DELIVERY_POST', response.data);
+      })
+      .catch(error => {
+        console.log("상세페이지 정보 받아오기 실패");
+        console.log(error);
+      })
+  }
 }

@@ -26,25 +26,9 @@ public class PostServiceImpl implements  PostService{
     public void update(PostDTO postDTO){ postRepository.save(postDTO); }
 
     @Override
-    public List<Post> getPostList(String areaName) {
-        List<Post> posts = postRepository.findAll(areaName);
-        List<Post> postList = new ArrayList<>();
-
-        for(Post post : posts) {
-            Post dto = Post.builder()
-                    .post_name(post.getPost_name())
-                    .post_content(post.getPost_content())
-                    .category(post.getCategory())
-                    .take_loc(post.getTake_loc())
-                    .person_num(post.getPerson_num())
-                    .valid_time(post.getValid_time())
-                    .participant_num(post.getParticipant_num())
-                    .build();
-
-            postList.add(dto);
-        }
-
-        return postList;
+    public List<Post> getPostList(String area_name) {
+        List<Post> posts = postRepository.findAll(area_name);
+        return posts;
     }
 
     @Override

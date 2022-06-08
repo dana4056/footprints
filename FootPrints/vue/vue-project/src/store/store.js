@@ -16,34 +16,8 @@ export const store = new Vuex.Store({
         sigoonguList:{},
         eupmyeondongList:{},
         sessionId:"",
-        list: [ // 이런 형식으로 들어있음
-        { "id": 31602417, "title": "Ford Is Going to 100% Online, Fixed-Price Sales for EVs", "points": 201, "user": "ddtaylor", "time": 1654215612, "time_ago": "2 hours ago", "comments_count": 223, "type": "link", "url": "https://www.roadandtrack.com/news/a40175990/ford-online-sales-no-negotiation/", "domain": "roadandtrack.com" }
-    ],
-
-    deliveryList: [ //예시
-        {
-            "post_name": "title1",
-            "post_content": "내용1",
-            "areaName": "지역명1",
-            "category": "음식카테고리1",
-            "take_loc": "수령지역1",
-            "person_num": "인원수1",
-            "valid_time": "유효시간1",
-            "time": "유석이한테물어봐야함 시간1?",
-            "participate_num": "참여자수1",
-        },
-        {
-            "post_name": "title2",
-            "post_content": "내용2",
-            "areaName": "지역명2",
-            "category": "음식카테고리2",
-            "take_loc": "수령지역2",
-            "person_num": "인원수2",
-            "valid_time": "유효시간2",
-            "time": "유석이한테물어봐야함 시간?2",
-            "participate_num": "참여자수2",
-        },
-    ],
+        deliveryPostList:[],
+        deliveryPost:{}
     },
     getters:{
         GET_MEMBER(state){
@@ -58,6 +32,12 @@ export const store = new Vuex.Store({
         GET_FINDPWD(state){
             return state.find_ID;
         },
+        GET_DELIVERIES(state){
+            return state.deliveryPostList;
+        },
+        GET_DELIVERY_POST(state){
+            return state.deliveryPost;
+        }
     },
     actions,
     mutations:{
@@ -86,8 +66,11 @@ export const store = new Vuex.Store({
             state.find_ID = email;
             console.log("2. " + state.find_ID);
         },
-        SET_DELIVERY_LIST(state, List){
-            state.deliveryList = List;
+        SET_DELIVERIES(state, list){
+            state.deliveryPostList = list;
         },
+        SET_DELIVERY_POST(state, post){
+            state.deliveryPost = post;
+        }
     }
 });
