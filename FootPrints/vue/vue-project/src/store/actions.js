@@ -66,7 +66,11 @@ export default{
       const sidoList = response.data.response.result.featureCollection.features;
       commit("SET_SIDO_LIST", sidoList);
       })
-    .catch(error => {console.log(error)})
+    .catch(response => {
+      console.log(response)
+      const sidoList = response.data.response.result.featureCollection.features;
+      commit("SET_SIDO_LIST", sidoList);
+      })
   },
   FETCH_SIGOONGU({commit}, code){
     fetchSigoongu(code)
