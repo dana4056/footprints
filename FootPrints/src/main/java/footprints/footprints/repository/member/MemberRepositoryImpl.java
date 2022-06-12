@@ -25,6 +25,11 @@ public class MemberRepositoryImpl implements MemberRepository {
     }
 
     @Override
+    public void save1(Member member){
+        em.persist(member);
+    }
+
+    @Override
     public Member findByNick(String nick) {
 
         TypedQuery<Member> memberTypedQuery = em.createQuery("select m from Member m where m.nick = :nick", Member.class)

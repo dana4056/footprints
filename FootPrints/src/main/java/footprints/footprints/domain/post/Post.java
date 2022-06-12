@@ -1,21 +1,21 @@
 package footprints.footprints.domain.post;
 
 
+import footprints.footprints.domain.member.Member;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import javax.persistence.Entity;
-import javax.persistence.EntityListeners;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
 @NoArgsConstructor
 @Getter
+@ToString(exclude = "member")
 @EntityListeners(AuditingEntityListener.class)
 
 public class Post {
@@ -30,14 +30,16 @@ public class Post {
     private String take_loc;      // 음식 나눌 장소
     private int participant_num;  // 현재 참가 인원
     private int max_person_num;       // 모집 인원
-    private String valid_time;       // 게시물 유효 시간
+    private int valid_time;       // 게시물 유효 시간
     @CreatedDate
     private LocalDateTime createdDate;  //게시물 등록 시간
-
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name="MEMBER_ID")
+    private Member member;
 
     @Builder
     public Post(String post_name, String post_content, String category, String area_name, String take_loc,
-                int participant_num, int max_person_num, String valid_time){
+                int participant_num, int max_person_num, int valid_time, Member member){
         this.post_name = post_name;
         this.post_content = post_content;
         this.category = category;
@@ -46,6 +48,7 @@ public class Post {
         this.participant_num = participant_num;
         this.max_person_num = max_person_num;
         this.valid_time = valid_time;
+        this.member = member;
     }
 }
 

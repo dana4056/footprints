@@ -1,6 +1,7 @@
 package footprints.footprints.domain.post;
 
 
+import footprints.footprints.domain.member.Member;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,7 +13,6 @@ import javax.persistence.EntityListeners;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter @Setter
-@EntityListeners(AuditingEntityListener.class)
 
 public class PostDTO {
 
@@ -23,7 +23,20 @@ public class PostDTO {
     private String take_loc;      // 음식 나눌 장소
     private int participant_num;  // 현재 참가 인원
     private int max_person_num;       // 모집 인원
-    private String valid_time;       // 게시물 유효 시간
+    private int valid_time;       // 게시물 유효 시간
+    private Member member;
+
+    public PostDTO(Post post){
+        this.post_name = post.getPost_name();
+        this.post_content = post.getPost_content();
+        this.category = post.getCategory();
+        this.area_name = post.getArea_name();
+        this.take_loc = post.getTake_loc();
+        this.participant_num = post.getParticipant_num();
+        this.max_person_num = post.getMax_person_num();
+        this.valid_time = post.getValid_time();
+        this.member = post.getMember();
+    }
 
 
     public Post toEntity() {
@@ -36,6 +49,7 @@ public class PostDTO {
                 .participant_num(participant_num)
                 .max_person_num(max_person_num)
                 .valid_time(valid_time)
+                .member(member)
                 .build();
     }
 }
