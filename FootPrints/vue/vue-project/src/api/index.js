@@ -79,14 +79,6 @@ function findID(email){
     });
   }
   
-//   function fetchDeliveryList(areaName){
-//     return axios.post(`${config.baseUrl}/delivery`, areaName);
-//   } 
-  
-  // function getDeliveryList(areaName){
-  //   return axios.get(`${config.baseUrl}/delivery/${areaName}`);
-  // }
-  
   function changePWD(memberChangeDTO){
     return axios.post(`${config.baseUrl}/ChangePW`, memberChangeDTO);
   }

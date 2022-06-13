@@ -18,8 +18,7 @@
 </template>
 
 <script>
-import axios from 'axios';
-// import { router } from '../routes/index.js';
+// import axios from 'axios';
 export default {
     data(){
         return {

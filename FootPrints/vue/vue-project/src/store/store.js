@@ -23,9 +23,6 @@ export const store = new Vuex.Store({
         GET_MEMBER(state){
             return state.member;
         },
-        // GET_SESSIONID(state){
-        //     return state.sessionId;
-        // }
         GET_FINDID(state){
             return state.find_ID;
         },
@@ -59,9 +56,6 @@ export const store = new Vuex.Store({
         SET_EUPMYEONDONG_LIST(state, List){
             state.eupmyeondongList = List;
         },
-        // SET_SESSIONID(state, id){
-        //     state.sessionId = id;
-        // }
         FIND_ID(state, email){
             state.find_ID = email;
             console.log("2. " + state.find_ID);

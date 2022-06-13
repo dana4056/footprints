@@ -35,7 +35,6 @@ public class PostRepositoryImpl implements PostRepository{
 
     @Override
     public Post findDetail(Long post_num) {
-        // Post post = em.find(Post.class, post_num);
         return em.find(Post.class, post_num);
     }
 

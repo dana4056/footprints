@@ -4,7 +4,7 @@
     <tool-bar></tool-bar>
     <div id="content">
       
-      <router-link to="/viewDetails" class="link">상세보기 페이지 예시</router-link> 
+      <!-- <router-link v-bind:to="`/delivery/post/${delivery.post_id}`" class="link">상세보기 페이지 예시</router-link>  -->
 
       <div id="sort-box">
         <button>음식 카테고리</button>
@@ -25,7 +25,7 @@
             <div class="category" v-bind:class="delivery.category">{{this.categories[delivery.category]}}</div>
             <div class="time"><small>30:12</small></div>
           </div>
-          <p><router-link v-bind:to="`/delivery/post/${delivery.post_id}`">{{ delivery.post_content }}</router-link></p>
+          <router-link v-bind:to="`/delivery/post/${delivery.post_id}`"><p>{{ delivery.post_content }}</p></router-link>
           <div class="listbox-foot">
             <div class="detail-info">
               <small>{{delivery.area_name}}</small>
@@ -34,7 +34,7 @@
               <small class="cnt">{{ delivery.participant_num }}/{{ delivery.max_person_num }}</small>
             </div>
             <div class="ago">
-              <small>{{}}분 전 게시</small>
+              <small>{{caltime(delivery.createdDate)}}전 게시</small>
             </div>
           </div>
         </div>
@@ -66,6 +66,48 @@ export default {
   created(){
     this.$store.dispatch('FETCH_DELIVERY_LIST');
   },
+  methods:{
+    caltime(time){
+      const Created = {
+        Year : "",
+        Month : "",
+        Day : "",
+        Hour: "",
+        Minute: ""
+      };
+
+      const createdDate = time;
+      const [Cymd, Ctime] = createdDate.split('T');
+      [Created.Year, Created.Month, Created.Day] = Cymd.split('-');
+      [Created.Hour, Created.Minute] = Ctime.split(':', 2);
+
+      const NowDate = new Date();
+      const Now = {
+        Year : NowDate.getFullYear(),
+        Month : NowDate.getMonth()+1,
+        Day : NowDate.getDate(),
+        Hour: NowDate.getHours(),
+        Minute: NowDate.getMinutes()
+      };
+
+      if(Number(Created.Year) == Now.Year &&
+         Number(Created.Month) == Now.Month &&
+         Number(Created.Day) == Now.Day ){
+          const ago_H = Now.Hour - Number(Created.Hour);
+          const ago_M = Now.Minute - Number(Created.Minute);
+          if(ago_H == 0){
+            return String(ago_M)+"분 "
+          }
+          return String(ago_H)+"시간 "+String(ago_M)+"분 "
+         }
+      else{
+          const ago_D = Now.Day - Number(Created.Day);
+          const ago_H = Now.Hour - Number(Created.Hour);
+          const ago_M = Now.Minute - Number(Created.Minute);
+          return String(ago_D)+"일 "+String(ago_H)+"시간 "+String(ago_M)+"분 "
+      }
+    }
+  }
 }
 </script>
 
@@ -133,6 +175,9 @@ export default {
   font-size: 13px;
   line-height: 20px;
   color: #666;
+}
+a {
+  text-decoration: none;
 }
 .listbox-head{
   line-height: 20px;

@@ -132,8 +132,9 @@ export default{
   FETCH_DELIVERY_DETAIL({commit}, post_id){
     fetchDeliveryDetail(post_id)
       .then(response =>{
-        console.log("상세페이지 정보 받아오기 성공(GET success)");
-        console.log(response.data);
+        console.log("상세페이지 정보 받아오기 성공(GET success)\n",response.data);
+        console.log("createdDate",typeof(response.data.createdDate));
+        console.log("valid_time",typeof(response.data.valid_time));
         commit('SET_DELIVERY_POST', response.data);
       })
       .catch(error => {
