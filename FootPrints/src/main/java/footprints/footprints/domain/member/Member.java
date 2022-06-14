@@ -1,6 +1,8 @@
 package footprints.footprints.domain.member;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import footprints.footprints.domain.post.Post;
 import lombok.*;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -10,18 +12,24 @@ import java.util.List;
 @NoArgsConstructor
 @Getter @Setter
 @ToString(exclude = "posts")
+@EntityListeners(AuditingEntityListener.class)
 public class Member {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long user_id;
     private String nick;
     private String email;
     private String pw;
     private String area;
 
-    @OneToMany(mappedBy="member",fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JsonIgnore
+    @OneToMany(mappedBy="member",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Post> posts = new ArrayList<>();
+
+    public void addPost(Post post){
+        posts.add(post);
+    }
 
     @Builder
     public Member(String nick, String email, String pw, String area){

@@ -1,6 +1,7 @@
 package footprints.footprints.domain.post;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import footprints.footprints.domain.member.Member;
 import lombok.Builder;
 import lombok.Getter;
@@ -21,7 +22,7 @@ import java.time.LocalDateTime;
 public class Post {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long post_id;         // 글 id num
     private String post_name;     // 글 제목
     private String post_content;  // 글 내용
@@ -33,9 +34,11 @@ public class Post {
     private int valid_time;       // 게시물 유효 시간
     @CreatedDate
     private LocalDateTime createdDate;  //게시물 등록 시간
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name="MEMBER_ID")
+    @JsonIgnore
     private Member member;
+
 
     @Builder
     public Post(String post_name, String post_content, String category, String area_name, String take_loc,
@@ -50,5 +53,6 @@ public class Post {
         this.valid_time = valid_time;
         this.member = member;
     }
+
 }
 

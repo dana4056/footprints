@@ -39,41 +39,27 @@ class PostServiceTest {
         Member member1 = new Member("Hyukjin", "gurwlszx@naver.com", "1234", "성북구 정릉동");
         Member member2 = new Member("Sunjin", "asdf@naver.com", "5678", "은평구 불광동");
 
-//        MemberDTO memberDTO1 = new MemberDTO(member1);
-//        MemberDTO memberDTO2 = new MemberDTO(member2);
-
         memberRepository.save1(member1);
-        memberRepository.save1(member1);
+        memberRepository.save1(member2);
 
         Post post1 = new Post("글제목", "글내용", "카테고리", "지역명", "장소", 3, 3, 0, member1);
         Post post2 = new Post("제목", "내용", "카테고리", "지역", "장소", 1, 5, 1, member2);
 
-//        PostDTO postDTO1 = new PostDTO(post1);
-//        PostDTO postDTO2 = new PostDTO(post2);
-
         postRepository.save1(post1);
         postRepository.save1(post2);
-//        Member member1 = new Member("Hyukjin", "gurwlszx@naver.com", "1234", "성북구 정릉동");
-//
-//        MemberDTO memberDTO = new MemberDTO(member1);
-//
-//        memberRepository.save(memberDTO);
-//
-//        Post post1 = new Post("글제목", "글내용", "카테고리", "지역명", "장소", 3, 3, 0, member1);
-//
-//        PostDTO postDTO = new PostDTO(post1);
-//
-//        postRepository.save(postDTO);
-//
+
+        member1.addPost(post1);
+        member1.addPost(post2);
+
 //        PostAreaDTO postAreaDTO = new PostAreaDTO(post1);
 //
 //        System.out.println(postAreaDTO.getMember().getArea());
 //
-//        List<Post> posts = member1.getPosts();
+        List<Post> posts = member1.getPosts();
 //
-//        for (Post post : posts){
-//            System.out.println(post.toString());
-//        }
+        for (Post post : posts){
+            System.out.println(post.toString());
+        }
     }
 
 

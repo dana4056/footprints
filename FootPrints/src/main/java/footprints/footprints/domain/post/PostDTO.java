@@ -24,6 +24,7 @@ public class PostDTO {
     private int participant_num;  // 현재 참가 인원
     private int max_person_num;       // 모집 인원
     private int valid_time;       // 게시물 유효 시간
+
     private Member member;
 
     public PostDTO(Post post){
