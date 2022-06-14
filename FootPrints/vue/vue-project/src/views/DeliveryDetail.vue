@@ -16,13 +16,13 @@
         <img src="../assets/user.png">
         <div id="userBoxEl">
           <span>{{fetched.user_name}}</span>
-          <small>{{postTime}}분 전</small>
+          <small>{{caltime(fetched.createdDate)}} 전</small>
         </div>
       </div>
 
       <div id="contentBox">
         <p>{{fetched.post_content}}</p>
-        <p id="orderTime">{{calDay().MD}}, {{calDay().Hour}}시 {{calDay().Minute}}분에 주문할거에요!</p>
+        <p id="orderTime">{{calDay()}}, {{fetched.valid_time.get("hour")}}시 {{fetched.valid_time.get("minute")}}분에 주문할거에요!</p>
       </div>
 
       <div id="footBox">
@@ -42,6 +42,7 @@
 <script>
 import ToolBar from '../components/ToolBar.vue'
 import FooterArea from '../components/FooterArea.vue'
+import dayjs from 'dayjs'
 
 export default {
   components:{
@@ -68,52 +69,35 @@ export default {
   created(){
     const post_id = this.$route.params.id;
     this.$store.dispatch('FETCH_DELIVERY_DETAIL', post_id);
-    // this.calDay();
   },
   methods:{
     calDay(){
+      const created = this.fetched.createdDate;
+      const valid = this.fetched.valid_time;
 
-      // "2022-06-13T20:44:07"
-      const createdDate = this.fetched.createdDate;
-      const validDate = this.fetched.valid_time;
-      const [Cymd, Ctime] = createdDate.split('T');
-      const [Vymd, Vtime] = validDate.split('T');
-      
-      const C = {
-        Year : "",
-        Month : "",
-        Day : "",
-        Hour: "",
-        Minute: ""
-      };
-
-      const V = {
-        Year : "",
-        Month : "",
-        Day : "",
-        MD: "",
-        Hour: "",
-        Minute: ""
-      };
-
-      [C.Year, C.Month, C.Day] = Cymd.split('-');
-      [C.Hour, C.Minute] = Ctime.split(':', 2);
-
-  
-      [V.Year, V.Month, V.Day] = Vymd.split('-');
-      [V.Hour, V.Minute] = Vtime.split(':', 2);
-
-
-      if(C.Year == V.Year && 
-        C.Month == V.Month &&
-        C.Day == V.Day ){
-
-        V.MD="오늘";
-        return V
+      if(created.isSame(valid,"day")){
+        return "오늘";
       }
       else{
-        V.MD= V.Month + "월 " + V.Day+ "일";
-        return V;
+        const month = String(Number(valid.get("month"))+1)
+        return month +"월 "+valid.get("date")+"일";
+      }
+    },
+    caltime(created){
+
+      const now = dayjs();
+
+      if(created.isSame(now,"day")){
+          const ago_H = now.diff(created,"h");
+          const ago_M = now.diff(created,"m");
+          if(ago_H == 0){
+            return String(ago_M)+"분 ";
+          }
+          return String(ago_H)+"시간 "+String(ago_M)+"분 ";
+         }
+      else{
+          const ago_D = now.diff(created,"d");
+          return String(ago_D)+"일 ";
       }
     }
   }
@@ -211,7 +195,10 @@ export default {
 .CHI{
   background-color: #ff6e6c;
 }
-
+.ETC{
+  background-color: #8c8c8c;
+}
+/* ---------------------------------- */
 #views {
   float: right;
   color: #777;

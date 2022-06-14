@@ -6,6 +6,7 @@ import { router } from '../routes/index.js';
 
 
 export default{
+  // 이메일 중복체크
   POST_EMAIL({commit}, email){
     postEmail(email)
         .then(response =>{ console.log(response);})
@@ -19,12 +20,14 @@ export default{
                       }
               )
   },
+  // 닉네임 중복체크
   POST_NICK({commit}, nick){
     postNick(nick)
         .then(response =>{ console.log(response);})
         .catch(error=>{ console.log(error);
                         commit('SET_DUPLI_NICK', true)})
   },
+  // 회원가입
   POST_MEMBER(context, member){
     postMemberInfo(member)
         .then(response =>{
@@ -36,6 +39,7 @@ export default{
           });})
         .catch( error=>{console.log(error);} )
   }, 
+  // 로그인
   POST_LOGIN({commit}, member) {
     postLogin(member)
         .then(response => {
@@ -50,6 +54,7 @@ export default{
           else if(code == 404) alert("비밀번호가 일치하지 않습니다.");
         })
   },
+  // 로그아웃
   POST_LOGOUT() {
     postLogout()
         .then(response => {
@@ -59,6 +64,7 @@ export default{
           console.log(error);
         })
   },
+  // 시/도 정보 가져오기
   FETCH_SIDO({commit}){
     fetchSido()
     .then(response =>{ 
@@ -72,6 +78,7 @@ export default{
       commit("SET_SIDO_LIST", sidoList);
       })
   },
+  // 시/군/구 정보 가져오기
   FETCH_SIGOONGU({commit}, code){
     fetchSigoongu(code)
     .then(response =>{ 
@@ -80,6 +87,7 @@ export default{
       })
     .catch(error => {console.log(error)})
   },
+  // 읍/면/리 정보 가져오기
   FETCH_EUPMYEONDONG({commit}, code){
     fetchEupmyeondong(code)
     .then(response =>{ 
@@ -88,6 +96,7 @@ export default{
       })
     .catch(error => {console.log(error)})
   },
+  // 아이디 찾기
   FIND_ID({ commit }, email) {
     findID(email)
       .then(response => {
@@ -99,6 +108,7 @@ export default{
         console.log(error);
       })
   },
+  // 비밀번호 변경
   CHANGE_PWD(context, memberChangeDTO) {
     changePWD(memberChangeDTO)
       .then(response => {
@@ -108,18 +118,18 @@ export default{
         console.log(error);
       })
   },
+  // 리스트뷰 페이지 데이터 로드
   FETCH_DELIVERY_LIST({commit}){
     fetchDeliveryList()
       .then(response =>{
-        console.log("배달 리스트 뷰 페이지 정보 받아오기 성공(GET success)");
-        console.log(response.data);
+        console.log("배달 리스트 뷰 페이지 정보 받아오기 성공(GET success)\n",response.data);
         commit('SET_DELIVERIES', response.data);
       })
       .catch(error =>{
-        console.log("배달 리스트 뷰 페이지 정보 받아오기 실패(GET success)");
-        console.log(error);
+        console.log("배달 리스트 뷰 페이지 정보 받아오기 실패\n",error);
       })
   },
+  // 게시물 작성
   POST_DELIVERY_POST(content, post){
     postDeliveryPost(post)
     .then(response =>{
@@ -129,17 +139,15 @@ export default{
       console.log(error);
     })
   },
+  // 상세 페이지 데이터 로드
   FETCH_DELIVERY_DETAIL({commit}, post_id){
     fetchDeliveryDetail(post_id)
       .then(response =>{
         console.log("상세페이지 정보 받아오기 성공(GET success)\n",response.data);
-        console.log("createdDate",typeof(response.data.createdDate));
-        console.log("valid_time",typeof(response.data.valid_time));
         commit('SET_DELIVERY_POST', response.data);
       })
       .catch(error => {
-        console.log("상세페이지 정보 받아오기 실패");
-        console.log(error);
+        console.log("상세페이지 정보 받아오기 실패\n",error);
       })
   }
 }

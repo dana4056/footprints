@@ -16,7 +16,8 @@
           
           <div id="postTTL">
             <p>게시물이 유효한 시간을 정해주세요.</p>
-            <input v-model="valid_time" type="datetime-local" v-bind:min=minDate>
+            <input v-model="valid_time" type="datetime-local" 
+            v-bind:min=minDate v-on:focusout="setMinValue">
           </div>
 
           <div id="peopleNum">
@@ -36,7 +37,8 @@
           <div id="place">
             <label>음식을 나눌 장소를 지정해주세요.</label>
             <div class="kmap" ref="map"></div>
-            <input v-model="take_loc" v-if="inputVisible" placeholder="장소 별명: ex) 세븐일레븐 앞">
+            <input v-model="take_loc" v-if="inputVisible" 
+            placeholder="장소 별명: ex) 세븐일레븐 앞">
           </div>
         </div>
 
@@ -54,6 +56,8 @@
 <script>
 import ToolBar from '../components/ToolBar.vue'
 import Swal from 'sweetalert2';
+import dayjs from 'dayjs'
+
 export default {
   components:{
         ToolBar,
@@ -61,11 +65,8 @@ export default {
   mounted() {
     let $vm = this;
     // 날짜 입력 최소값 지정(현시간)
-    const date = new Date();
-    const year = date.getFullYear();
-    const month = ("00" + (date.getMonth()+1)).slice(-2);
-    const minday = ("00" + date.getDate()).slice(-2);
-    $vm.minDate = year + "-" + month + "-" + minday + "T" + "00:00";
+    $vm.minDate = dayjs().format("YYYY-MM-DDTHH:mm");
+
     // 지도 창 생성
     let kakao = window.kakao;
     var container = this.$refs.map;
@@ -155,6 +156,13 @@ export default {
         return false;
       }
     },
+    setMinValue() {
+      const valid = dayjs(this.valid_time);
+      if(valid.isBefore(dayjs(),"minute")) {
+          alert('현재 시간보다 이전의 날짜는 설정할 수 없습니다.');
+          this.valid_time = dayjs();
+      }
+    }
   }
 }
 </script>

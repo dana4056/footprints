@@ -84,6 +84,7 @@ function findID(email){
   }
 
   function fetchDeliveryList(){
+      //로그인된 유저의 지역값 같이 보내줘야함
       return axios.get(`${config.baseUrl}/delivery/post`);
   }
 

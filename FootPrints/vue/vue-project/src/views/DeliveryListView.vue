@@ -23,7 +23,7 @@
           <div class="listbox-head">
             <div class="res-name"><router-link v-bind:to="`/delivery/post/${delivery.post_id}`">{{ delivery.post_name }}</router-link></div>
             <div class="category" v-bind:class="delivery.category">{{this.categories[delivery.category]}}</div>
-            <div class="time"><small>30:12</small></div>
+            <div class="time"><small>{{ delivery.valid_time.format("M/D  HH:mm")}}</small></div>
           </div>
           <router-link v-bind:to="`/delivery/post/${delivery.post_id}`"><p>{{ delivery.post_content }}</p></router-link>
           <div class="listbox-foot">
@@ -49,6 +49,7 @@
 <script>
 import ToolBar from '../components/ToolBar.vue'
 import FooterArea from '../components/FooterArea.vue'
+import dayjs from 'dayjs'
 
 export default {
   components:{
@@ -60,6 +61,7 @@ export default {
       categories:{
         'KOR': '한식',
         'CHI': '중식',
+        'ETC': '기타'
       }
     }
   },
@@ -67,44 +69,21 @@ export default {
     this.$store.dispatch('FETCH_DELIVERY_LIST');
   },
   methods:{
-    caltime(time){
-      const Created = {
-        Year : "",
-        Month : "",
-        Day : "",
-        Hour: "",
-        Minute: ""
-      };
+    caltime(created){
 
-      const createdDate = time;
-      const [Cymd, Ctime] = createdDate.split('T');
-      [Created.Year, Created.Month, Created.Day] = Cymd.split('-');
-      [Created.Hour, Created.Minute] = Ctime.split(':', 2);
+      const now = dayjs();
 
-      const NowDate = new Date();
-      const Now = {
-        Year : NowDate.getFullYear(),
-        Month : NowDate.getMonth()+1,
-        Day : NowDate.getDate(),
-        Hour: NowDate.getHours(),
-        Minute: NowDate.getMinutes()
-      };
-
-      if(Number(Created.Year) == Now.Year &&
-         Number(Created.Month) == Now.Month &&
-         Number(Created.Day) == Now.Day ){
-          const ago_H = Now.Hour - Number(Created.Hour);
-          const ago_M = Now.Minute - Number(Created.Minute);
+      if(created.isSame(now,"day")){
+          const ago_H = now.diff(created,"h");
+          const ago_M = now.diff(created,"m");
           if(ago_H == 0){
-            return String(ago_M)+"분 "
+            return String(ago_M)+"분 ";
           }
-          return String(ago_H)+"시간 "+String(ago_M)+"분 "
+          return String(ago_H)+"시간 "+String(ago_M)+"분 ";
          }
       else{
-          const ago_D = Now.Day - Number(Created.Day);
-          const ago_H = Now.Hour - Number(Created.Hour);
-          const ago_M = Now.Minute - Number(Created.Minute);
-          return String(ago_D)+"일 "+String(ago_H)+"시간 "+String(ago_M)+"분 "
+          const ago_D = now.diff(created,"d");
+          return String(ago_D)+"일 ";
       }
     }
   }
@@ -204,6 +183,9 @@ a {
 .CHI{
   background-color: #ff6e6c;
 }
+.ETC{
+  background-color: #8c8c8c;
+}
 /* ---------------------------------- */
 
 .detail-info{
@@ -224,8 +206,8 @@ button img{
 }
 .area-btn{
   margin: 0px 15px;
-  width: 106px;
   height: 30px;
+  padding: 0px 14px 0px 10px;
   box-sizing: border-box;
   border-radius: 27px;
   border: 1px solid #afafaf;

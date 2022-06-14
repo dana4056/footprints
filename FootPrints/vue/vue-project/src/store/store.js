@@ -1,5 +1,7 @@
 import Vuex from 'vuex'
 import actions from './actions'
+import dayjs from 'dayjs'
+
 
 export const store = new Vuex.Store({
     state:{
@@ -62,9 +64,22 @@ export const store = new Vuex.Store({
         },
         SET_DELIVERIES(state, list){
             state.deliveryPostList = list;
+            let idx = 0;
+            for(let value of list){
+                const Cdate = dayjs(value.createdDate);
+                const Vdate = dayjs(value.valid_time+":00");
+
+                state.deliveryPostList[idx].createdDate = Cdate;
+                state.deliveryPostList[idx++].valid_time = Vdate;
+            }
         },
         SET_DELIVERY_POST(state, post){
+            const Cdate = dayjs(post.createdDate);
+            const Vdate = dayjs(post.valid_time);
+
             state.deliveryPost = post;
+            state.deliveryPost.createdDate = Cdate;
+            state.deliveryPost.valid_time = Vdate;
         }
     }
 });
