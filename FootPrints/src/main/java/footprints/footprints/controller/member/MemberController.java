@@ -7,6 +7,7 @@ import footprints.footprints.domain.member.MemberDTO;
 import footprints.footprints.repository.member.MemberRepositoryImpl;
 import footprints.footprints.service.change.ChangeService;
 import footprints.footprints.service.login.LoginService;
+import footprints.footprints.service.security.SecurityService;
 import footprints.footprints.service.signup.SignupService;
 import footprints.footprints.service.signup.SignupServiceImpl;
 import lombok.RequiredArgsConstructor;
@@ -31,6 +32,7 @@ public class MemberController {
     private final LoginService loginService;
     private final MemberRepositoryImpl memberRepository;
     private final ChangeService changeService;
+    private final SecurityService securityService;
 
     // 회원가입
     @PostMapping(value = "/signup")
@@ -80,15 +82,19 @@ public class MemberController {
 
             Member loginMember = memberRepository.findByNick(memberDTO.getNick());
 
-            //세션이 있으면 있는 세션 반환, 없으면 신규 세션 생성
-            HttpSession session = request.getSession();
-            //세션에 로그인 회원 정보 보관
-            session.setAttribute(SessionConst.LOGIN_MEMBER, loginMember);
+            String token = securityService.makeJwtToken(loginMember);
+            log.info("토큰: {}", token);
 
-            Cookie mySessionCookie = new Cookie("JSESSIONID", session.getId());
-            response.addCookie(mySessionCookie);
 
-            return new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+//            //세션이 있으면 있는 세션 반환, 없으면 신규 세션 생성
+//            HttpSession session = request.getSession();
+//            //세션에 로그인 회원 정보 보관
+//            session.setAttribute(SessionConst.LOGIN_MEMBER, loginMember);
+//
+//            Cookie mySessionCookie = new Cookie("JSESSIONID", session.getId());
+//            response.addCookie(mySessionCookie);
+
+            return ResponseEntity.ok(token);
         }
         else if(checkLogin == 0){ // 해당 닉네임 없음(없는 계정)
             log.info("로그인 실패: 해당 닉네임 존재하지 않음");
