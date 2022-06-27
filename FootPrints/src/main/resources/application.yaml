@@ -30,7 +30,3 @@ logging:
           descriptor:
             sql:
               BasicBinder: TRACE
-
-jwt:
-  # $echo "Footprints-HyukJin-DaEun-SunJin-YuSeok-JiWon" | base64
-  secret: Rm9vdHByaW50cy1IeXVrSmluLURhRXVuLVN1bkppbi1ZdVNlb2stSmlXb24K

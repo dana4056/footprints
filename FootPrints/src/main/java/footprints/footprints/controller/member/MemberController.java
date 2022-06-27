@@ -1,15 +1,12 @@
 package footprints.footprints.controller.member;
 
-import footprints.footprints.SessionConst;
 import footprints.footprints.domain.member.Member;
 import footprints.footprints.domain.member.MemberChangeDTO;
 import footprints.footprints.domain.member.MemberDTO;
 import footprints.footprints.repository.member.MemberRepositoryImpl;
 import footprints.footprints.service.change.ChangeService;
 import footprints.footprints.service.login.LoginService;
-import footprints.footprints.service.security.SecurityService;
 import footprints.footprints.service.signup.SignupService;
-import footprints.footprints.service.signup.SignupServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -17,10 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 @Controller
@@ -32,7 +26,6 @@ public class MemberController {
     private final LoginService loginService;
     private final MemberRepositoryImpl memberRepository;
     private final ChangeService changeService;
-    private final SecurityService securityService;
 
     // 회원가입
     @PostMapping(value = "/signup")
@@ -75,26 +68,13 @@ public class MemberController {
 
     // 로그인
     @PostMapping(value = "/login")
-    public ResponseEntity<String> login(@RequestBody MemberDTO memberDTO, HttpServletResponse response, HttpServletRequest request){
+    public ResponseEntity<String> login(@RequestBody MemberDTO memberDTO){
         int checkLogin = loginService.loginCheck(memberDTO);
         if(checkLogin == 1){  //로그인 성공
             log.info("로그인 성공");
 
             Member loginMember = memberRepository.findByNick(memberDTO.getNick());
-
-            String token = securityService.makeJwtToken(loginMember);
-            log.info("토큰: {}", token);
-
-
-//            //세션이 있으면 있는 세션 반환, 없으면 신규 세션 생성
-//            HttpSession session = request.getSession();
-//            //세션에 로그인 회원 정보 보관
-//            session.setAttribute(SessionConst.LOGIN_MEMBER, loginMember);
-//
-//            Cookie mySessionCookie = new Cookie("JSESSIONID", session.getId());
-//            response.addCookie(mySessionCookie);
-
-            return ResponseEntity.ok(token);
+            return new ResponseEntity<String>("LOGIN_OK"+loginMember, HttpStatus.OK);
         }
         else if(checkLogin == 0){ // 해당 닉네임 없음(없는 계정)
             log.info("로그인 실패: 해당 닉네임 존재하지 않음");

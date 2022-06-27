@@ -1,8 +1,8 @@
 <template>
-	<div>
-	<div id="wrap">
-		<router-link to="/home" class="logo"><img src="../assets/logo.png">발자취</router-link>
-    
+  <div id="page">
+    <div id="wrap">
+      <router-link to="/home" class="logo"><img src="../assets/logo.png">발자취</router-link>
+
       <div class="Div">
         <div v-bind:class="{errorType:!isValidNick()}">
           <input id="Nick" autocomplete="off" v-model="Nick" type="text" placeholder="닉네임" required>
@@ -11,25 +11,26 @@
         <div v-bind:class="{errorType:!isValidPassword}">
           <input id="Pw" v-on:focusout="checkPassword" autocomplete="off" maxlength="20" v-model="Pw" type="password" placeholder="비밀번호" required>
         </div>
-        
+
         <button type="submit" v-on:click.prevent="checkLogin">로그인</button>
       </div>
+
       <div class="Div">
-         <router-link to="/findID" class="link">아이디 찾기</router-link>|
-         <router-link to="/findPW" class="link">비밀번호 찾기</router-link>| 
-         <router-link to="/signup" class="link">회원가입</router-link> 
+        <router-link to="/findID" class="link">아이디 찾기</router-link>|
+        <router-link to="/findPW" class="link">비밀번호 찾기</router-link>| 
+        <router-link to="/signup" class="link">회원가입</router-link> 
       </div>
       <hr>
       <div class="SnsBox">
-         <p>SNS 계정으로 간편 로그인</p>
-         <ul>
-            <li><img class="brandLogo" src="../assets/kakaoLogo.png"></li>
-            <li><img class="brandLogo" src="../assets/NaverLogo.png"></li>
-            <li><img class="brandLogo" src="../assets/facebookLogo.png"></li>
-         </ul>
+        <p>SNS 계정으로 간편 로그인</p>
+        <ul>
+          <li><img class="brandLogo" src="../assets/kakaoLogo.png"></li>
+          <li><img class="brandLogo" src="../assets/NaverLogo.png"></li>
+          <li><img class="brandLogo" src="../assets/facebookLogo.png"></li>
+        </ul>
       </div>
-   </div>
-	</div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -117,13 +118,13 @@ export default {
 </script>
 
 <style scoped>
-/* body{
-  font-family: Noto Sans KR,sans-serif;
-} */
+#page{
+  background-color: #f8f8f8;
+}
 #wrap { 
     width: 330px;
     margin: 0 auto;
-    padding: 150px 0;
+    padding: 143px 0;
 }
 .logo {
    display: flex;

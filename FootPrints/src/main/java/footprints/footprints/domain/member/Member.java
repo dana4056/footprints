@@ -26,6 +26,4 @@ public class Member {
         this.pw = pw;
         this.area = area;
     }
-
-
 }
