@@ -12,7 +12,7 @@ import ChangePW from '../views/ChangePW'
 import DeliveryList  from '../views/DeliveryListView.vue'
 import DeliveryDetail from '../views/DeliveryDetail'
 import DeliveryCreate from '../views/DeliveryCreate'
-
+import UserView from '../views/UserView'
 
 
 const routes = [
@@ -29,6 +29,7 @@ const routes = [
     {   path: '/delivery/post/create', component: DeliveryCreate } ,
     {   path: '/delivery/post', component: DeliveryList    },
     {   path: '/delivery/post/:id', component: DeliveryDetail  },
+    {   path: '/user/1', component: UserView  },
 ]
 
 export const router = new createRouter({

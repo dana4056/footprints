@@ -67,27 +67,6 @@ export default {
         alert("빈 칸을 두면 로그인이 안돼요.");
       }
     },
-    // login() {
-		// 	if (this.submitData()){
-		// 		alert("로그인이 완료되었습니다.")
-		// 		this.$router.replace("/home");
-		// 	}
-    //   else 
-		// 		alert("[로그인 실패]\n이메일 또는 비밀번호 오류입니다.")
-    // },
-		// submitData() {	// 이 함수 코드를 구현해야 합니다!!
-		// 	console.log(this.Id, this.Pw);
-		// 	return true;
-    // },
-    // checkEmail() {  // 임시로 구현한 이메일 형식 검사
-    //   const Id = this.Id;
-    //   if (Id != ""){
-    //     if (Id.includes('@') && Id.includes('.'))
-    //       this.isValidEmail = true;
-    //     else
-    //       this.isValidEmail = false;
-    //   }
-    // },
     checkPassword() {
       const pattern1 = /[0-9]/;
 			const pattern2 = /[a-zA-Z]/;

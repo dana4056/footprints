@@ -27,7 +27,7 @@ public class ChangeServiceImpl implements ChangeService{
     @Override
     public String findPwd(String email) {
         Member member = memberRepository.findByEmail(email);
-        return member.getPw();
+        return member.getPassword();
     }
 
     @Override
