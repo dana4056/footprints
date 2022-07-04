@@ -1,4 +1,5 @@
 <template>
+<div id="page">
   <div id="wrap">
 		<router-link to="/home" class="logo"><img src="../assets/logo.png">발자취</router-link>
 		<div class="Div">
@@ -6,13 +7,17 @@
 			<input id="email" autocomplete="off" v-model="email" type="text" v-if="inputemail" placeholder="이메일 입력" required>
 			<button type="submit" v-if="getBtnVisible" v-on:click="findID">이메일로 아이디 찾기</button>
       <div>
-        <div v-if="getIDVisible">회원님의 아이디는 {{ GET_FINDID }} 입니다.</div>
+        <div id="showID" v-if="getIDVisible">회원님의 아이디는 <span>{{ GET_FINDID }}</span> 입니다.</div>
         <div v-if="canNotFindID">회원님의 아이디를 찾을 수 없습니다.</div>
       </div>
-			<router-link to="/home" class="item"><button id="home" v-if="chkBtnVisible">홈페이지</button></router-link>
-      <router-link to="/login" class="item"><button id="login" v-if="chkBtnVisible">로그인</button></router-link>
+      <div id="btnBox">
+        <router-link to="/home" class="item"><button id="home" v-if="chkBtnVisible">홈페이지</button></router-link>
+        <router-link to="/login" class="item"><button id="login" v-if="chkBtnVisible">로그인</button></router-link>
+      </div>
 		</div>
 	</div>
+</div>
+
 </template>
 
 <script>
@@ -57,13 +62,13 @@ export default {
 </script>
 
 <style scoped>
+#page{
+  background-color: #f8f8f8;
+}
 #wrap{
-  width: 450px;
+  width: 330px;
   margin: 0 auto;
-  padding: 150px 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  padding: 239px 0;
 }
 #completed{
   width: 400px;
@@ -84,16 +89,16 @@ button{
   border-radius: 10px;
 }
 .logo {
-  display: flex;
+   display: flex;
 	justify-content: center;
-  margin: 15px 0px;
-  color: black;
-  text-decoration: none;
-  align-items: center;
-  font-weight: bold;
+   margin: 15px 0px;
+   color: black;
+   text-decoration: none;
+   align-items: center;
+   font-weight: bold;
 }
 .logo img{
-  margin: 3px 10px;
+    margin: 3px 8px 3px 0px;
 }
 .Div{
   margin: 0;
@@ -101,34 +106,69 @@ button{
   justify-content: space-between;
 }
 label{
-	text-align: left;
+  text-align: left;
   display: block;
-  font-size: 15px;
-  font-weight: bold;
+  font-size: 13px;
   color: #292929;
-  margin: 20px 0 12px;
+  margin-bottom: 12px;
 }
 input{
+    font-family: Noto Sans KR,sans-serif;
+    outline: none;
+    width: 100%;
+    height: 50px;
+    background: #FaFaFa;
+    border: 1px solid #BDBDBD;
+    box-sizing: border-box;
+    padding: 8px 15px 9px;
+    border-radius: 10px;
+}
+input:focus {
   outline: none;
-  width: 100%;
-  height: 60px;
-  background: #F8F8F8;
-  border: 2px solid #BDBDBD;
-  box-sizing: border-box;
-  padding: 8px 15px 9px;
-	margin: 0 0 7px 0;
-	border-radius: 10px;
+  border-color: #999999;
+  background: #F3F3F3;
+}
+
+input:hover {
+  background: #F3F3F3;
+}
+
+input::placeholder {
+  color: #BDBDBD;
+  font-weight: 100;
 }
 button{
-  width: 100%;
-  height: 50px;
-  background: #cdcdcd;
-  border: 1px solid #cdcdcd;
-  box-sizing: border-box;
-  border-radius: 10px;
-  padding: 8px 15px 9px;
-  margin: 15px 2px 5px 2px;
-  cursor: pointer;
+    font-family: Noto Sans KR,sans-serif;
+    width: 100%;
+    height: 40px;
+    color: #ffffff;
+    font-weight: bold;
+    background: #7aab85;
+    border: 1px solid #7aab85;
+    box-sizing: border-box;
+    border-radius: 13px;
+    cursor: pointer;
+    margin: 15px 0;
+    padding: 8px 15px 9px;    
+}
+
+button:hover {
+  background: #669270;
+}
+#showID{
+  padding: 28px 0;
+  border-top: 1px solid #d9d9d9;
+  border-bottom: 1px solid #d9d9d9;
+  color: #666666;
+}
+#showID span{
+  color: #4a44cd;
+  font-weight: bold;
+}
+
+#btnBox button{
+  width: 45%;
+  margin: 15px 5px;
 }
 #login{
   background-color: #7aab85;

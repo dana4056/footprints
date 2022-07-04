@@ -9,7 +9,7 @@ public interface PostRepository {
 
     void save(PostDTO postDTO);
 
-    List<Post> findAll(String areaName);
+    List<Post> findAll(String area_name);
 
     Post findDetail(Long post_num);
 

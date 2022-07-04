@@ -27,7 +27,7 @@ public class LoginService {
             return 0;  //닉네임 존재x
         }
         else{
-            String real_pwd = member.getPw();
+            String real_pwd = member.getPassword();
 
             if(memberDTO.getPw().equals(real_pwd)){
                 return 1; //로그인 성금

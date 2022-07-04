@@ -1,5 +1,6 @@
 package footprints.footprints.controller.post;
 
+import footprints.footprints.domain.member.Member;
 import footprints.footprints.domain.post.Post;
 import footprints.footprints.domain.post.PostDTO;
 import footprints.footprints.service.post.PostServiceImpl;
@@ -7,48 +8,53 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-@Controller
+//@Controller
+@RestController
 @RequiredArgsConstructor
 @Slf4j
 public class PostController {
 
     private final PostServiceImpl postService;
 
-    @PostMapping(value = "/post")
+    // 배달 게시물 작성
+    @PostMapping(value = "/delivery/post/create")
     public ResponseEntity<String> post(@RequestBody PostDTO postDTO){
-        log.info("--------Id:{}", postDTO.getPost_name());
-        log.info("--------Id:{}", postDTO.getCategory());
         postService.join(postDTO);
         return new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
     }
 
-    @PostMapping(value = "/update")
+    // 리스트뷰
+    @GetMapping(value = "/delivery/post")
+    public List<Post> detailPage(Authentication authentication){
+        Member member = (Member) authentication.getPrincipal();
+        List<Post> postList = postService.getPostList(member.getArea());
+
+        return postList;
+    }
+
+    // 상세페이지
+    @GetMapping(value = "/delivery/post/{post_id}")
+    public Post detailPage(@PathVariable Long post_id){
+        Post post = postService.getPost(post_id);
+
+        return post;
+    }
+
+
+    @PostMapping(value = "/delivery/post/{post_id}/update")
     public ResponseEntity<String> update(@RequestBody PostDTO postDTO){
         log.info("--------Id:{}", postDTO.getPost_name());
         log.info("--------Id:{}", postDTO.getCategory());
         postService.update(postDTO);
         return new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
-    }
-
-    //리스트뷰 페이지로 이동
-    @GetMapping(value = "/listViewPage")
-    public ResponseEntity<List<Post>> listView(@RequestBody String areaName){
-        List<Post> postList = postService.getPostList(areaName);
-
-        return new ResponseEntity<List<Post>>(postList, HttpStatus.OK);
-    }
-
-    // 상세페이지로 이동
-    @GetMapping(value = "/detailPage")
-    public ResponseEntity<Post> detailPage(@RequestBody Long post_num){
-        Post post = postService.getPost(post_num);
-
-        return new ResponseEntity<Post>(post, HttpStatus.OK);
     }
 }
 
