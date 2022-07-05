@@ -5,7 +5,7 @@ import axios from 'axios';
 const config = {
     baseUrl:"http://localhost:8080"
 };
-
+ 
 // const areaConfig={
 //     key:"CEB52025-E065-364C-9DBA-44880E3B02B8",
 //     domain:"http://localhost:8080",

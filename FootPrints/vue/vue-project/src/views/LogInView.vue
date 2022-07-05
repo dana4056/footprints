@@ -53,7 +53,7 @@ export default {
           area: 'area'
         }
         this.$store.dispatch('POST_LOGIN', member)
-        console.log(this.Pw);
+        // console.log(this.Pw); 
       }
     },
     PostValid(){

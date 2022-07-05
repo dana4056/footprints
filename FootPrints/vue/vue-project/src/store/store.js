@@ -7,9 +7,9 @@ export const store = new Vuex.Store({
     state:{
         isDuplicateNick:false,
         isDuplicateEmail:false,
-        find_ID: "blabla",
+        find_ID: "CANNOT_FIND_ID",
         member:{
-            nick: "",
+            nick: "", 
             email: "",
             pw: "",
             area: ""
@@ -60,7 +60,6 @@ export const store = new Vuex.Store({
         },
         FIND_ID(state, email){
             state.find_ID = email;
-            console.log("2. " + state.find_ID);
         },
         SET_DELIVERIES(state, list){
             state.deliveryPostList = list;

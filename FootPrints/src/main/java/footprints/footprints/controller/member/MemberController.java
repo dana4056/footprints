@@ -50,9 +50,18 @@ public class MemberController {
     // 회원가입
     @PostMapping(value = "/signup")
     public ResponseEntity<String> create(@RequestBody MemberDTO memberDTO){
-        log.info("회원가입 성공: nick = {}", memberDTO.getNick());
         signupService.join(memberDTO);
-        return new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+        boolean signupImpossible = signupService.emailOverlapCheck(memberDTO.getEmail());
+
+        if(signupImpossible){
+            log.info("회원가입 실패: nick = {}", memberDTO.getNick());
+            return new ResponseEntity<String>("FAILED", HttpStatus.CONFLICT);
+        }
+        else{
+            log.info("회원가입 성공: nick = {}", memberDTO.getNick());
+            return new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+        }
+
     }
 
     // 이메일 중복확인
@@ -117,16 +126,18 @@ public class MemberController {
 //        log.info("로그아웃 성공(세션 종료)");
 //        return new ResponseEntity<String>("SUCCESS LOGOUT", HttpStatus.OK);
 //    }
+    
+    // 아이디 찾기
     @PostMapping(value = "/findID")
     public ResponseEntity<String> findID(@RequestBody String email){
         log.info("--------Email:{}", email);
-        String ID = changeService.findID(email);
-        if(ID == "null"){
+        String Nick = changeService.findID(email);
+        if(Nick == null){
             return new ResponseEntity<String>("CANNOT_FIND_ID", HttpStatus.OK);
             // 이후 프론트에서 찾을 수 없는 아이디입니다 표시
         }
         else{
-            return new ResponseEntity<String>(ID, HttpStatus.OK);
+            return new ResponseEntity<String>(Nick, HttpStatus.OK);
         }
     }
 
@@ -145,7 +156,7 @@ public class MemberController {
     }
 
     // 비밀번호 변경
-    @PostMapping(value = "/ChangePW")  //비밀번호를 바꾸는 로직은 넘겨줄떄 member 객체 + String new_pwd 개념
+    @PostMapping(value = "/ChangePW")  // 비밀번호를 바꾸는 로직은 넘겨줄때 member 객체 + String new_pwd 개념
     public ResponseEntity<String> ChangePW(@RequestBody MemberChangeDTO memberChangeDTO){
         log.info("--------email:{}", memberChangeDTO.getEmail());
         log.info("--------new_Pwd:{}", memberChangeDTO.getNew_pw());

@@ -5,7 +5,7 @@
 		<div class="Div">
 			<label v-if="inputtext">회원정보에 등록한 이메일을 입력해주세요.</label>
 			<input id="email" autocomplete="off" v-model="email" type="text" v-if="inputemail" placeholder="이메일 입력" required>
-			<button type="submit" v-if="getBtnVisible" v-on:click="findID">이메일로 아이디 찾기</button>
+			<button type="submit" v-if="getBtnVisible" v-on:click="represent_ID">이메일로 아이디 찾기</button>
       <div>
         <div id="showID" v-if="getIDVisible">회원님의 아이디는 <span>{{ GET_FINDID }}</span> 입니다.</div>
         <div v-if="canNotFindID">회원님의 아이디를 찾을 수 없습니다.</div>
@@ -41,22 +41,32 @@ export default {
   },
 	methods: {
 		findID() {
-			console.log("아이디를 찾습니다");
-			this.$store.dispatch('FIND_ID', this.email);
-			this.getBtnVisible = false;
-      // 비동기처리 때문에 제대로 못 가져와서 그냥 찍어버리는 현상 발생 후처리 필요
-      // console.log(this.GET_FINDID);
-      // if( this.GET_FINDID == "CANNOT_FIND_ID"){
-      //   this.canNotFindID = true;
-      // }
-      // else{
-      //   this.getIDVisible = true;
-      // }
-      this.getIDVisible = true;  //이 줄 지우고 처리 해야함
-			this.chkBtnVisible = true;
-      this.inputtext = false;
-      this.inputemail = false;
+			const response = this.$store.dispatch('FIND_ID', this.email);
+			return response;
 		},
+    async represent_ID() {
+      await this.findID()
+      .then( response => {
+        console.log(response);
+        this.getBtnVisible = false;
+        // 비동기처리 때문에 제대로 못 가져와서 그냥 찍어버리는 현상 발생 후처리 필요
+        // API가 왔다갔다 하기 전까지 대기 해야함
+        if (this.$store.state.find_ID == "CANNOT_FIND_ID"){
+          this.getIDVisible = false;
+          this.canNotFindID = true;
+        }
+        else{
+          this.canNotFindID = false;
+          this.getIDVisible = true;
+        }
+        this.chkBtnVisible = true;
+        this.inputtext = false;
+        this.inputemail = false;
+      })
+      .catch(error => {
+        console.log(error);
+      })
+    },
 	}
 }
 </script>

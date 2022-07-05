@@ -22,6 +22,7 @@ public class MemberRepositoryImpl implements MemberRepository {
     public void save(MemberDTO memberDTO) {
         Member member = memberDTO.toEntity();
         em.persist(member);
+        log.info("--------saveSuccess-----------");
     }
 
     @Override
@@ -48,17 +49,15 @@ public class MemberRepositoryImpl implements MemberRepository {
 
     @Override
     public void delete(MemberDTO memberDTO){
-        String email = memberDTO.getEmail();
-        TypedQuery<Member> memberTypedQuery = em.createQuery("select m from Member m where m.email = :email", Member.class)
-                .setParameter("email", email);
-
-        Member member = memberTypedQuery.getSingleResult();
+        Member member = memberDTO.toEntity();
         em.remove(member);
+        log.info("--------deleteSuccess-----------");
     }
 
 
     @Override
     public boolean changeDBPwd(MemberChangeDTO memberChangeDTO) {
+        int result = 0;
         String email = memberChangeDTO.getEmail();
 
         TypedQuery<Member> memberTypedQuery = em.createQuery("select m from Member m where m.email = :email", Member.class)
@@ -73,20 +72,23 @@ public class MemberRepositoryImpl implements MemberRepository {
                     member.getEmail(),
                     member.getPassword(),
                     member.getArea());
+            log.info("--------getNick:{}", memberDTO.getNick());
+            log.info("--------getEmail:{}", memberDTO.getEmail());
+            log.info("--------getPw:{}", memberDTO.getPw());
+            log.info("--------getArea:{}", memberDTO.getArea());
+            delete(memberDTO);
             memberDTO.setPw(memberChangeDTO.getNew_pw());
             save(memberDTO);
-
-            String c_email = memberDTO.getEmail();
-            TypedQuery<Member> c_memberTypedQuery = em.createQuery("select m from Member m where m.email = :email", Member.class)
-                    .setParameter("email", c_email);
 
             List<Member> c_resultList = memberTypedQuery.getResultList();
             if(c_resultList.size() != 0){
                 Member c_member = c_resultList.get(0);
                 if (c_member.getPassword() == memberChangeDTO.getNew_pw()) {
+                    result = 1;
                     return true;   // 비밀번호 변경 완료
                 }
                 else{
+                    result = 0;
                     return false;  // 비밀번호 변경 실패
                 }
             }
@@ -94,6 +96,11 @@ public class MemberRepositoryImpl implements MemberRepository {
         else{
             return false;
         }
-        return false;
+        if(result == 1){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 }

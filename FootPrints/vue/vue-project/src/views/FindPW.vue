@@ -5,7 +5,7 @@
 		<div class="Div">
 			<label v-if="emailtext">가입한 이메일 주소를 입력해주세요.</label>
 			<input id="phone" autocomplete="off" v-model="email" type="text" v-if="emailtext" placeholder="이메일" required>
-			<label id="sendMail" v-if="CAN_infoVisible"><span>{{ GET_FINDPWD }}</span>로 인증번호를 보냈습니다.</label>
+			<label id="sendMail" v-if="CAN_infoVisible"><span>{{ GET_FINDPWD }}</span>에게 인증번호를 보냈습니다.</label>
 			<label id="error" v-if="CANNOT_infoVisible">{{email}}은 없는 회원 메일이므로 전송 불가합니다.</label>
 			<input id="userCode" v-if="inputVisible" autocomplete="off" maxlength="6" v-model="userCode" type="text" placeholder="인증번호" required>
 			<button type="submit" v-if="getBtnVisible" v-on:click="getCode">이메일로 인증코드 받기</button>

@@ -6,7 +6,7 @@ import { fetchUser, fetchTest, fetchDeliveryList, postDeliveryPost, fetchDeliver
 import { router } from '../routes/index.js';
 
 
-export default{
+export default{ 
   FETCH_USER({commit}){
     fetchUser()
       .then(response =>{
@@ -70,17 +70,23 @@ export default{
         .then(response =>{
           console.log(response);
           // commit('SET_MEMBER', member);
-          router.replace({
-            name:"signupCompleted",
-            query:{nickName:member.nick,}
-          });})
+          if(response.data == "SUCCESS"){
+              router.replace({
+              name: "signupCompleted",
+              query: { nickName: member.nick, }
+            });
+          }
+          else{
+            alert("회원가입 실패");
+          }
+          })
         .catch( error=>{console.log(error);} )
   }, 
   // 로그인
   POST_LOGIN({commit}, member) {
     postLogin(member)
         .then(response => {
-            console.log(response);
+            console.log(response); 
             localStorage.setItem('jwt', response.data); // 로컬 스토리지에 저장
             commit('SET_MEMBER', member);
             router.replace("/home");
@@ -133,18 +139,19 @@ export default{
   //     })
   //   .catch(error => {console.log(error)})
   // },
-  // 아이디 찾기
+
+  //아이디 찾기
   FIND_ID({ commit }, email) {
     findID(email)
       .then(response => {
         console.log(response);
-        console.log("1. " + response.data);
         commit('FIND_ID', response.data);
       })
       .catch(error => {
         console.log(error);
       })
   },
+
   // 비밀번호 변경
   CHANGE_PWD(context, memberChangeDTO) {
     changePWD(memberChangeDTO)

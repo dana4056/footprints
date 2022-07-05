@@ -21,13 +21,23 @@ public class ChangeServiceImpl implements ChangeService{
     @Override
     public String findID(String email) {
         Member member = memberRepository.findByEmail(email);
-        return member.getEmail();
+        if(member == null){
+            return null;
+        }
+        else{
+            return member.getNick();
+        }
     }
 
     @Override
     public String findPwd(String email) {
         Member member = memberRepository.findByEmail(email);
-        return member.getPassword();
+        if (member == null) {
+            return null;
+        }
+        else{
+            return member.getPassword();
+        }
     }
 
     @Override

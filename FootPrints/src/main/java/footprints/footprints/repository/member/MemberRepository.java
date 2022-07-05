@@ -13,4 +13,5 @@ public interface MemberRepository {
     void delete(MemberDTO memberDTO);
 
     boolean changeDBPwd(MemberChangeDTO memberChangeDTO);
+
 }
