@@ -145,7 +145,11 @@ export default{
     findID(email)
       .then(response => {
         console.log(response);
-        commit('FIND_ID', response.data);
+        const findMember = {
+          nick:response.data,
+          email: email
+        }
+        commit('SET_FIND_MEMBER', findMember);
       })
       .catch(error => {
         console.log(error);

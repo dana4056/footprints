@@ -125,7 +125,8 @@ public class MemberController {
     // 아이디 찾기
     @PostMapping(value = "/findID")
     public ResponseEntity<String> findID(@RequestBody String email){
-        log.info("--------Email:{}", email);
+        log.info("--------[/findID] Email:{}", email);
+
         String Nick = changeService.findID(email);
         if(Nick == null){
             return new ResponseEntity<String>("CANNOT_FIND_ID", HttpStatus.OK);
@@ -139,7 +140,7 @@ public class MemberController {
     // 비밀번호 찾기
     @PostMapping(value = "/findPW")
     public ResponseEntity<String> findPW(@RequestBody String email){
-        log.info("--------Email:{}", email);
+        log.info("--------[/findPW] Email:{}", email);
         String ID = changeService.findPwd(email);
         if(ID == "null"){
             return new ResponseEntity<String>("CANNOT_FIND_ID", HttpStatus.OK);
@@ -153,7 +154,7 @@ public class MemberController {
     // 비밀번호 변경
     @PostMapping(value = "/ChangePW")  // 비밀번호를 바꾸는 로직은 넘겨줄때 member 객체 + String new_pwd 개념
     public ResponseEntity<String> ChangePW(@RequestBody MemberDTO memberDTO){
-        log.info("--------email:{}", memberDTO.getEmail());
+        log.info("--------[/ChangePW] email:{}", memberDTO.getEmail());
         log.info("--------new_Pwd:{}", memberDTO.getPw());
         boolean change = changeService.changePwd(memberDTO);
         if(change) {

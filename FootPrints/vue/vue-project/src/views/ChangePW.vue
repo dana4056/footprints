@@ -40,7 +40,7 @@ export default {
 	},
   computed:{
     ...mapGetters([
-      'GET_FINDPWD'
+      'GET_FIND_MEMBER'
     ])
   },
 	methods: {
@@ -59,8 +59,9 @@ export default {
     compPw(){      // 비밀번호 & 비밀번호 확인란 일치 여부
       if(this.Pw1 != "" && this.Pw2 != ""){
         this.isDiffrentPw = (this.Pw1 != this.Pw2) ? true : false;
+        this.memberDTO.nick = this.GET_FIND_MEMBER.nick;
+        this.memberDTO.email = this.GET_FIND_MEMBER.email;
         this.memberDTO.pw = this.Pw1;
-        this.memberDTO.email = this.GET_FINDPWD;
       }
     },
     change() {

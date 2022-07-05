@@ -7,7 +7,7 @@
 			<input id="email" autocomplete="off" v-model="email" type="text" v-if="inputemail" placeholder="이메일 입력" required>
 			<button type="submit" v-if="getBtnVisible" v-on:click="represent_ID">이메일로 아이디 찾기</button>
       <div>
-        <div id="showID" v-if="getIDVisible">회원님의 아이디는 <span>{{ GET_FINDID }}</span> 입니다.</div>
+        <div id="showID" v-if="getIDVisible">회원님의 아이디는 <span>{{ GET_FIND_MEMBER.nick }}</span> 입니다.</div>
         <div v-if="canNotFindID">회원님의 아이디를 찾을 수 없습니다.</div>
       </div>
       <div id="btnBox">
@@ -36,7 +36,7 @@ export default {
 	},
 	computed:{
     ...mapGetters([
-      'GET_FINDID'
+      'GET_FIND_MEMBER'
     ])
   },
 	methods: {
@@ -51,7 +51,7 @@ export default {
         this.getBtnVisible = false;
         // 비동기처리 때문에 제대로 못 가져와서 그냥 찍어버리는 현상 발생 후처리 필요
         // API가 왔다갔다 하기 전까지 대기 해야함
-        if (this.$store.state.find_ID == "CANNOT_FIND_ID"){
+        if (this.GET_FIND_MEMBER.nick == "CANNOT_FIND_ID"){
           this.getIDVisible = false;
           this.canNotFindID = true;
         }

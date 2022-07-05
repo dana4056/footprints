@@ -48,8 +48,8 @@ public class MemberRepositoryImpl implements MemberRepository {
 
     @Override
     public void delete(MemberDTO memberDTO){
-        Member member = memberDTO.toEntity();
-        em.remove(member);
+//        Member member = memberDTO.toEntity();
+        em.remove(findByEmail(memberDTO.getEmail()));
         log.info("--------deleteSuccess-----------");
     }
 
@@ -70,9 +70,10 @@ public class MemberRepositoryImpl implements MemberRepository {
                     member.getEmail(),
                     member.getPassword(),
                     member.getArea());        // DB의 실 객체를 DTO 형태로 만들고
-            delete(memberDTO);                // 실객체 삭제하고
+            delete(c_memberDTO);                // 실객체 삭제하고
+
             c_memberDTO.setPw(memberDTO.getPw());  // DTO 객체의 PW 바꾸고
-            save(memberDTO);                       // 바꾼 DTO 객체를 다시 저장
+            save(c_memberDTO);                       // 바꾼 DTO 객체를 다시 저장
 
             String c_email = memberDTO.getEmail();
 
