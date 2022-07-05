@@ -10,13 +10,14 @@
               <option value="카테고리" selected="selected" disabled hidden>카테고리</option>
               <option value="KOR">한식</option>
               <option value="CHI">중식</option>
-              <option value="etc">기타</option>
+              <option value="ETC">기타</option>
             </select>
           </div>
           
           <div id="postTTL">
             <p>게시물이 유효한 시간을 정해주세요.</p>
-            <input v-model="valid_time" type="datetime-local" v-bind:min=minDate>
+            <input v-model="valid_time" type="datetime-local" 
+            v-bind:min=minDate v-on:focusout="setMinValue">
           </div>
 
           <div id="peopleNum">
@@ -36,7 +37,8 @@
           <div id="place">
             <label>음식을 나눌 장소를 지정해주세요.</label>
             <div class="kmap" ref="map"></div>
-            <input v-model="take_loc" v-if="inputVisible" placeholder="장소 별명: ex) 세븐일레븐 앞">
+            <input v-model="take_loc" v-if="inputVisible" 
+            placeholder="장소 별명: ex) 세븐일레븐 앞">
           </div>
         </div>
 
@@ -54,6 +56,8 @@
 <script>
 import ToolBar from '../components/ToolBar.vue'
 import Swal from 'sweetalert2';
+import dayjs from 'dayjs'
+
 export default {
   components:{
         ToolBar,
@@ -61,11 +65,8 @@ export default {
   mounted() {
     let $vm = this;
     // 날짜 입력 최소값 지정(현시간)
-    const date = new Date();
-    const year = date.getFullYear();
-    const month = ("00" + (date.getMonth()+1)).slice(-2);
-    const minday = ("00" + date.getDate()).slice(-2);
-    $vm.minDate = year + "-" + month + "-" + minday + "T" + "00:00";
+    $vm.minDate = dayjs().format("YYYY-MM-DDTHH:mm");
+
     // 지도 창 생성
     let kakao = window.kakao;
     var container = this.$refs.map;
@@ -97,24 +98,19 @@ export default {
       post_name: "",     // 글 제목
       post_content: "",  // 글 내용
       category: "카테고리",      // 음식 카테고리
-      area_name: "",     // 행정지역명
       take_loc: "",      // 음식 나눌 장소
       participant_num: 0,  // 현재 참가 인원
       max_person_num: 0,   // 모집 인원
       valid_time: "",       // 게시물 유효 시간
+      view_num:0,         // 조회수
+      // ------- member entity 참조할건데 임시로 --------------
+      user_name: "user_name",     // 작성자 이름
+      area_name: "성북구 정릉동",     // 행정지역명
       
       minDate: "",
       latitude: 0,
       longtitude: 0,
       inputVisible: false,
-      // title: "",
-      //contents: "",
-      //foodCtg: "카테고리",
-      //행정지역명
-      // placeName: "",
-      //현재참가인원
-      // numCtg: "상관없음",
-      // dateTime: "",
     }
   },
   methods: {
@@ -124,11 +120,14 @@ export default {
             post_name: this.post_name,           // 글 제목
             post_content: this.post_content,     // 글 내용
             category: this.category,             // 음식 카테고리
-            area_name: "성북구 정릉동",           // 행정지역명
             take_loc: this.take_loc,             // 음식 나눌 장소
             participant_num: 1,                  // 현재 참가 인원
             max_person_num: this.max_person_num, // 모집 인원
             valid_time: this.valid_time,         // 게시물 유효 시간
+            view_num: this.view_num ,            // 조회수
+            // ------- member entity 참조할건데 임시로 --------------
+            user_name: this.user_name,           // 작성자 이름
+            area_name: this.area_name            // 행정지역명
             // lat: this.latitude,
             // long: this.longtitude,
         }
@@ -146,7 +145,7 @@ export default {
       }
     },
 		submitData() {
-      console.log(this.valid_time);
+      console.log("submit data" + this.valid_time);
       if (this.post_name != "" && this.post_content != "" && 
           this.category != "카테고리" && this.take_loc != "" &&
           this.valid_time != "" && 
@@ -157,6 +156,13 @@ export default {
         return false;
       }
     },
+    setMinValue() {
+      const valid = dayjs(this.valid_time);
+      if(valid.isBefore(dayjs(),"minute")) {
+          alert('현재 시간보다 이전의 날짜는 설정할 수 없습니다.');
+          this.valid_time = dayjs();
+      }
+    }
   }
 }
 </script>

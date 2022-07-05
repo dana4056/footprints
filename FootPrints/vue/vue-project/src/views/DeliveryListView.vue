@@ -4,7 +4,7 @@
     <tool-bar></tool-bar>
     <div id="content">
       
-      <router-link to="/viewDetails" class="link">상세보기 페이지 예시</router-link> 
+      <!-- <router-link v-bind:to="`/delivery/post/${delivery.post_id}`" class="link">상세보기 페이지 예시</router-link>  -->
 
       <div id="sort-box">
         <button>음식 카테고리</button>
@@ -23,9 +23,9 @@
           <div class="listbox-head">
             <div class="res-name"><router-link v-bind:to="`/delivery/post/${delivery.post_id}`">{{ delivery.post_name }}</router-link></div>
             <div class="category" v-bind:class="delivery.category">{{this.categories[delivery.category]}}</div>
-            <div class="time"><small>30:12</small></div>
+            <div class="time"><small>{{ delivery.valid_time.format("M/D  HH:mm")}}</small></div>
           </div>
-          <p><router-link v-bind:to="`/delivery/post/${delivery.post_id}`">{{ delivery.post_content }}</router-link></p>
+          <router-link v-bind:to="`/delivery/post/${delivery.post_id}`"><p>{{ delivery.post_content }}</p></router-link>
           <div class="listbox-foot">
             <div class="detail-info">
               <small>{{delivery.area_name}}</small>
@@ -34,7 +34,7 @@
               <small class="cnt">{{ delivery.participant_num }}/{{ delivery.max_person_num }}</small>
             </div>
             <div class="ago">
-              <small>{{}}분 전 게시</small>
+              <small>{{caltime(delivery.createdDate)}}전 게시</small>
             </div>
           </div>
         </div>
@@ -49,6 +49,7 @@
 <script>
 import ToolBar from '../components/ToolBar.vue'
 import FooterArea from '../components/FooterArea.vue'
+import dayjs from 'dayjs'
 
 export default {
   components:{
@@ -60,12 +61,32 @@ export default {
       categories:{
         'KOR': '한식',
         'CHI': '중식',
+        'ETC': '기타'
       }
     }
   },
   created(){
     this.$store.dispatch('FETCH_DELIVERY_LIST');
   },
+  methods:{
+    caltime(created){
+
+      const now = dayjs();
+
+      if(created.isSame(now,"day")){
+          const ago_H = now.diff(created,"h");
+          const ago_M = now.diff(created,"m");
+          if(ago_H == 0){
+            return String(ago_M)+"분 ";
+          }
+          return String(ago_H)+"시간 "+String(ago_M)+"분 ";
+         }
+      else{
+          const ago_D = now.diff(created,"d");
+          return String(ago_D)+"일 ";
+      }
+    }
+  }
 }
 </script>
 
@@ -134,6 +155,9 @@ export default {
   line-height: 20px;
   color: #666;
 }
+a {
+  text-decoration: none;
+}
 .listbox-head{
   line-height: 20px;
 }
@@ -159,6 +183,9 @@ export default {
 .CHI{
   background-color: #ff6e6c;
 }
+.ETC{
+  background-color: #8c8c8c;
+}
 /* ---------------------------------- */
 
 .detail-info{
@@ -179,8 +206,8 @@ button img{
 }
 .area-btn{
   margin: 0px 15px;
-  width: 106px;
   height: 30px;
+  padding: 0px 14px 0px 10px;
   box-sizing: border-box;
   border-radius: 27px;
   border: 1px solid #afafaf;

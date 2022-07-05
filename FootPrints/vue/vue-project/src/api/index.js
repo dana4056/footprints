@@ -52,7 +52,7 @@ function postMemberInfo(member){
 
 function fetchSido(){
     const data = "LT_C_ADSIDO_INFO";
-    return axios.get(`/req/data?key=${areaConfig.key}&domain=${areaConfig.domain}&service=${areaConfig.service}&version=${areaConfig.version}&request=${areaConfig.request}&format=${areaConfig.format}&size=${areaConfig.size}&page=${areaConfig.page}&attribute=${areaConfig.attribue}&crs=${areaConfig.crs}&geomfilter=${areaConfig.geomfilter}&data=${data}`,{
+    return axios.get(`https://api.vworld.kr/req/data?key=${areaConfig.key}&domain=${areaConfig.domain}&service=${areaConfig.service}&version=${areaConfig.version}&request=${areaConfig.request}&format=${areaConfig.format}&size=${areaConfig.size}&page=${areaConfig.page}&attribute=${areaConfig.attribue}&crs=${areaConfig.crs}&geomfilter=${areaConfig.geomfilter}&data=${data}`,{
         headers:{
 
         }
@@ -62,13 +62,13 @@ function fetchSido(){
 function fetchSigoongu(code){
     const data = "LT_C_ADSIGG_INFO";
     const attrFilter = `sig_cd:like:${code}`;
-    return axios.get(`/req/data?key=${areaConfig.key}&domain=${areaConfig.domain}&service=${areaConfig.service}&version=${areaConfig.version}&request=${areaConfig.request}&format=${areaConfig.format}&size=${areaConfig.size}&page=${areaConfig.page}&attribute=${areaConfig.attribue}&crs=${areaConfig.crs}&geomfilter=${areaConfig.geomfilter}&data=${data}&attrFilter=${attrFilter} `)
+    return axios.get(`https://api.vworld.kr/req/data?key=${areaConfig.key}&domain=${areaConfig.domain}&service=${areaConfig.service}&version=${areaConfig.version}&request=${areaConfig.request}&format=${areaConfig.format}&size=${areaConfig.size}&page=${areaConfig.page}&attribute=${areaConfig.attribue}&crs=${areaConfig.crs}&geomfilter=${areaConfig.geomfilter}&data=${data}&attrFilter=${attrFilter} `)
 }
 
 function fetchEupmyeondong(code){
     const data = "LT_C_ADEMD_INFO";
     const attrFilter = `emd_cd:like:${code}`;
-    return axios.get(`/req/data?key=${areaConfig.key}&domain=${areaConfig.domain}&service=${areaConfig.service}&version=${areaConfig.version}&request=${areaConfig.request}&format=${areaConfig.format}&size=${areaConfig.size}&page=${areaConfig.page}&attribute=${areaConfig.attribue}&crs=${areaConfig.crs}&geomfilter=${areaConfig.geomfilter}&data=${data}&attrFilter=${attrFilter} `)
+    return axios.get(`https://api.vworld.kr/req/data?key=${areaConfig.key}&domain=${areaConfig.domain}&service=${areaConfig.service}&version=${areaConfig.version}&request=${areaConfig.request}&format=${areaConfig.format}&size=${areaConfig.size}&page=${areaConfig.page}&attribute=${areaConfig.attribue}&crs=${areaConfig.crs}&geomfilter=${areaConfig.geomfilter}&data=${data}&attrFilter=${attrFilter} `)
 }
 
 function findID(email){
@@ -79,19 +79,12 @@ function findID(email){
     });
   }
   
-//   function fetchDeliveryList(areaName){
-//     return axios.post(`${config.baseUrl}/delivery`, areaName);
-//   } 
-  
-  // function getDeliveryList(areaName){
-  //   return axios.get(`${config.baseUrl}/delivery/${areaName}`);
-  // }
-  
   function changePWD(memberChangeDTO){
     return axios.post(`${config.baseUrl}/ChangePW`, memberChangeDTO);
   }
 
   function fetchDeliveryList(){
+      //로그인된 유저의 지역값 같이 보내줘야함
       return axios.get(`${config.baseUrl}/delivery/post`);
   }
 

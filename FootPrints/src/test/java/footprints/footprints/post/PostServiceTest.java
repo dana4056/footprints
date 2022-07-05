@@ -40,8 +40,8 @@ class PostServiceTest {
         Member member2 = new Member("Sunjin", "asdf@naver.com", "5678", "은평구 불광동");
 
 
-        Post post1= new Post("글제목", "글내용", "카테고리", "지역명", "장소", 3, 3, 0, member1);
-        Post post2 = new Post("제목", "내용", "카테고리", "지역", "장소", 1, 5, 1, member2);
+        Post post1= new Post("글제목", "글내용", "카테고리", "지역명", "장소", 3, 3, 0, 100, member1);
+        Post post2 = new Post("제목", "내용", "카테고리", "지역", "장소", 1, 5, 1, 50, member2);
 
         postRepository.save1(post1);
         postRepository.save1(post2);

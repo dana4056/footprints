@@ -15,6 +15,12 @@ spring:
       format_sql: true
       ddl-auto: create
 
+  #컨트롤러에서 뷰 반환 시 파일 찾는 경로 (기본 templates인데 바꿈)
+  thymeleaf:
+    prefix: classpath:static/
+    suffix: .html
+    cache: false
+
 logging:
   level:
     org:

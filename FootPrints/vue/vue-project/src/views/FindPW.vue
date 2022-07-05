@@ -1,19 +1,28 @@
 <template>
-  <div id="wrap">
+<div id="page">
+	<div id="wrap">
 		<router-link to="/home" class="logo"><img src="../assets/logo.png">발자취</router-link>
 		<div class="Div">
 			<label v-if="emailtext">가입한 이메일 주소를 입력해주세요.</label>
 			<input id="phone" autocomplete="off" v-model="email" type="text" v-if="emailtext" placeholder="이메일" required>
+<<<<<<< HEAD
 			<div v-if="CAN_infoVisible">{{ GET_FINDPWD }}로 메일 전송드렸습니다.</div>
 			<div v-if="CANNOT_infoVisible">{{email}}은 없는 회원 메일이므로 전송 불가합니다.</div>
 			<div id="user" v-if="inputVisible">
 				<input id="userCode" v-if="inputVisible" autocomplete="off" maxlength="6" v-model="userCode" type="text" placeholder="인증번호" required>
 				<p id="TimerStr">{{TimerStr}}</p>
 			</div>
+=======
+			<label id="sendMail" v-if="CAN_infoVisible"><span>{{ GET_FINDPWD }}</span>로 인증번호를 보냈습니다.</label>
+			<label id="error" v-if="CANNOT_infoVisible">{{email}}은 없는 회원 메일이므로 전송 불가합니다.</label>
+			<input id="userCode" v-if="inputVisible" autocomplete="off" maxlength="6" v-model="userCode" type="text" placeholder="인증번호" required>
+>>>>>>> daeun
 			<button type="submit" v-if="getBtnVisible" v-on:click="getCode">이메일로 인증코드 받기</button>
 			<button type="submit" v-if="ChkBtnVisible" v-on:click="checkCode">확인</button>
 		</div>
 	</div>
+</div>
+
 </template>
 
 <script>
@@ -142,22 +151,25 @@ export default {
 </script>
 
 <style scoped>
-#wrap {
-  width: 450px;
+#page{
+  background-color: #f8f8f8;
+}
+#wrap{
+  width: 330px;
   margin: 0 auto;
-  padding: 150px 0;
+  padding: 239px 0;
 }
 .logo {
-  display: flex;
+   display: flex;
 	justify-content: center;
-  margin: 15px 0px;
-  color: black;
-  text-decoration: none;
-  align-items: center;
-  font-weight: bold;
+   margin: 15px 0px;
+   color: black;
+   text-decoration: none;
+   align-items: center;
+   font-weight: bold;
 }
 .logo img{
-  margin: 3px 10px;
+    margin: 3px 8px 3px 0px;
 }
 .Div{
   margin: 0;
@@ -165,35 +177,56 @@ export default {
   justify-content: space-between;
 }
 label{
-	text-align: left;
+  text-align: left;
   display: block;
-  font-size: 15px;
-  font-weight: bold;
+  font-size: 13px;
   color: #292929;
-  margin: 20px 0 12px;
+  margin-bottom: 12px;
 }
+<<<<<<< HEAD
 #phone, #user{
+=======
+input{
+    font-family: Noto Sans KR,sans-serif;
+    outline: none;
+    width: 100%;
+    height: 50px;
+    background: #FaFaFa;
+    border: 1px solid #BDBDBD;
+    box-sizing: border-box;
+    padding: 8px 15px 9px;
+    border-radius: 10px;
+}
+input:focus {
+>>>>>>> daeun
   outline: none;
-  width: 100%;
-  height: 60px;
-  background: #F8F8F8;
-  border: 2px solid #BDBDBD;
-  box-sizing: border-box;
-  padding: 8px 15px 9px;
-	margin: 0 0 7px 0;
-	border-radius: 10px;
+  border-color: #999999;
+  background: #F3F3F3;
+}
+
+input:hover {
+  background: #F3F3F3;
+}
+
+input::placeholder {
+  color: #BDBDBD;
+  font-weight: 100;
 }
 button{
-  width: 100%;
-  height: 50px;
-  background: #cdcdcd;
-  border: 1px solid #cdcdcd;
-  box-sizing: border-box;
-  border-radius: 10px;
-  padding: 8px 15px 9px;
-  margin: 15px 2px 5px 2px;
-  cursor: pointer;
+    font-family: Noto Sans KR,sans-serif;
+    width: 100%;
+    height: 40px;
+    color: #ffffff;
+    font-weight: bold;
+    background: #7aab85;
+    border: 1px solid #7aab85;
+    box-sizing: border-box;
+    border-radius: 13px;
+    cursor: pointer;
+    margin: 15px 0;
+    padding: 8px 15px 9px;    
 }
+<<<<<<< HEAD
 #user {
 	padding: 10px;
 }
@@ -210,4 +243,14 @@ button{
 	float: right;
 	margin: 5px 14px 0 0;
 }
+=======
+
+button:hover {
+  background: #669270;
+}
+#sendMail span{
+  color: #4a44cd;
+}
+
+>>>>>>> daeun
 </style>

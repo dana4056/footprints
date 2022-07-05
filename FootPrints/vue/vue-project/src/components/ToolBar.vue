@@ -18,11 +18,12 @@
 </template>
 
 <script>
-import { router } from '../routes/index.js';
+// import axios from 'axios';
 export default {
     data(){
         return {
             isLogin:false,
+            userName:""
         }
     },
     created(){
@@ -31,12 +32,14 @@ export default {
             this.$cookies.set("JSESSIONID", id);
             this.isLogin = true;
         }
+        // axios.get
     },
     methods: {
         logout(){
             this.$store.dispatch('POST_LOGOUT');
             this.$cookies.remove("JSESSIONID");
-            router.replace("/home");
+            this.$router.go(0);
+            
         }
     }
 

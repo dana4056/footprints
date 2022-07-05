@@ -29,15 +29,6 @@ public class PostController {
         return new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
     }
 
-
-    @PostMapping(value = "/update")
-    public ResponseEntity<String> update(@RequestBody PostDTO postDTO){
-        log.info("--------Id:{}", postDTO.getPost_name());
-        log.info("--------Id:{}", postDTO.getCategory());
-        postService.update(postDTO);
-        return new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
-    }
-
     // 리스트뷰
     @GetMapping(value = "/delivery/post")
     public List<Post> detailPage(){
@@ -46,13 +37,21 @@ public class PostController {
         return postList;
     }
 
-    // 상세페이지로 이동
+    // 상세페이지
     @GetMapping(value = "/delivery/post/{post_id}")
     public Post detailPage(@PathVariable Long post_id){
-        log.info("상세페이지 이동");
         Post post = postService.getPost(post_id);
 
         return post;
+    }
+
+
+    @PostMapping(value = "/delivery/post/{post_id}/update")
+    public ResponseEntity<String> update(@RequestBody PostDTO postDTO){
+        log.info("--------Id:{}", postDTO.getPost_name());
+        log.info("--------Id:{}", postDTO.getCategory());
+        postService.update(postDTO);
+        return new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
     }
 }
 
