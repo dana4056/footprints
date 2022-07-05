@@ -61,7 +61,6 @@ public class MemberRepositoryImpl implements MemberRepository {
         TypedQuery<Member> memberTypedQuery = em.createQuery("select m from Member m where m.email = :email", Member.class)
                 .setParameter("email", email);
 
-        //멤버 객체 찾지 못했을 경우의 처리 필요
         List<Member> resultList = memberTypedQuery.getResultList();
 
         if(resultList.size() != 0) {
