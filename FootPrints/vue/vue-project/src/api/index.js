@@ -87,14 +87,14 @@ function postMemberInfo(member){
 
 function findID(email){
     return axios.post(`${config.baseUrl}/findID`, email, {
-      headers: {
-        'Content-Type': 'text/plain'
-      }
+        headers: {
+            'Content-Type': 'text/plain'
+        }
     });
-  }
+}
   
-  function changePWD(memberChangeDTO){
-    return axios.post(`${config.baseUrl}/ChangePW`, memberChangeDTO);
+  function changePWD(memberDTO){
+    return axios.post(`${config.baseUrl}/ChangePW`, memberDTO);
   }
 
   function fetchDeliveryList(){

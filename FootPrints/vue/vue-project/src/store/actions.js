@@ -150,11 +150,11 @@ export default{
       .catch(error => {
         console.log(error);
       })
-  },
+  }, 
 
   // 비밀번호 변경
-  CHANGE_PWD(context, memberChangeDTO) {
-    changePWD(memberChangeDTO)
+  CHANGE_PWD(context, memberDTO) {
+    changePWD(memberDTO)
       .then(response => {
         console.log(response);
       })

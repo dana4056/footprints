@@ -43,35 +43,34 @@ export default {
 			if (this.email != "") {
 				//이메일 입력시 
 				this.$store.dispatch('FIND_ID', this.email);
-				//비동기 처리 필요
-				if(this.GET_FINDPWD != "CANNOT_FIND_ID"){
-					// 이메일 디비에 있는게 확인 됐다면
-					this.sysCode = Math.floor(Math.random() * 900001) + 100000;
-					console.log(this.sysCode);
-					// let templateParams  = { 
-					// 	user_email: this.email,
-					// 	sys_code: this.sysCode,
-					// }
-					// emailjs.init('REMuhzEQAisDSZ2hk');
-					// emailjs.send('email', 'template_q0r3oy4', templateParams)
-					// 	.then((result) => {
-          //   console.log('SUCCESS!', result.text);
-					// 	}, (error) => {
-          //   console.log('FAILED...', error.text);
-					// 	});
-					this.emailtext = false;
-					this.inputVisible = true;
-					this.getBtnVisible = false;
-					this.CAN_infoVisible = true;
-					this.CANNOT_infoVisible = false;
-					this.ChkBtnVisible = true;
-				}
-				else{
-					//이메일 확인 실패시
-					this.CANNOT_infoVisible = true;
-					this.CAN_infoVisible = false;
-					this.getBtnVisible = false; //할지 말지 고민중
-				}
+				if(this.$store.state.find_ID != "CANNOT_FIND_ID"){
+				// 이메일 디비에 있는게 확인 됐다면
+				this.sysCode = Math.floor(Math.random() * 900001) + 100000;
+				console.log(this.sysCode);
+				// let templateParams  = { 
+				// 	user_email: this.email,
+				// 	sys_code: this.sysCode,
+				// }
+				// emailjs.init('REMuhzEQAisDSZ2hk');
+				// emailjs.send('email', 'template_q0r3oy4', templateParams)
+				// 	.then((result) => {
+				//   console.log('SUCCESS!', result.text);
+				// 	}, (error) => {
+				//   console.log('FAILED...', error.text);
+				// 	});
+				this.emailtext = false;
+				this.inputVisible = true;
+				this.getBtnVisible = false;
+				this.CAN_infoVisible = true;
+				this.CANNOT_infoVisible = false;
+				this.ChkBtnVisible = true;
+			}
+			else{
+				//이메일 확인 실패시
+				this.CANNOT_infoVisible = true;
+				this.CAN_infoVisible = false;
+				this.getBtnVisible = false; //할지 말지 고민중
+			}
 			}
 			else{
 				//이메일 입력 안했을 시

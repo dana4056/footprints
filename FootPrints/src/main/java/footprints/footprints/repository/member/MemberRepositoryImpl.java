@@ -1,7 +1,6 @@
 package footprints.footprints.repository.member;
 
 import footprints.footprints.domain.member.Member;
-import footprints.footprints.domain.member.MemberChangeDTO;
 import footprints.footprints.domain.member.MemberDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
@@ -56,9 +55,8 @@ public class MemberRepositoryImpl implements MemberRepository {
 
 
     @Override
-    public boolean changeDBPwd(MemberChangeDTO memberChangeDTO) {
-        int result = 0;
-        String email = memberChangeDTO.getEmail();
+    public boolean changeDBPwd(MemberDTO memberDTO) {
+        String email = memberDTO.getEmail();
 
         TypedQuery<Member> memberTypedQuery = em.createQuery("select m from Member m where m.email = :email", Member.class)
                 .setParameter("email", email);
@@ -67,40 +65,31 @@ public class MemberRepositoryImpl implements MemberRepository {
         List<Member> resultList = memberTypedQuery.getResultList();
 
         if(resultList.size() != 0) {
-            Member member = resultList.get(0);
-            MemberDTO memberDTO = new MemberDTO(member.getNick(),
+            Member member = resultList.get(0); //DB의 실 객체 가져옴
+            MemberDTO c_memberDTO = new MemberDTO(member.getNick(),
                     member.getEmail(),
                     member.getPassword(),
-                    member.getArea());
-            log.info("--------getNick:{}", memberDTO.getNick());
-            log.info("--------getEmail:{}", memberDTO.getEmail());
-            log.info("--------getPw:{}", memberDTO.getPw());
-            log.info("--------getArea:{}", memberDTO.getArea());
-            delete(memberDTO);
-            memberDTO.setPw(memberChangeDTO.getNew_pw());
-            save(memberDTO);
+                    member.getArea());        // DB의 실 객체를 DTO 형태로 만들고
+            delete(memberDTO);                // 실객체 삭제하고
+            c_memberDTO.setPw(memberDTO.getPw());  // DTO 객체의 PW 바꾸고
+            save(memberDTO);                       // 바꾼 DTO 객체를 다시 저장
 
-            List<Member> c_resultList = memberTypedQuery.getResultList();
+            String c_email = memberDTO.getEmail();
+
+            TypedQuery<Member> c_memberTypedQuery = em.createQuery("select m from Member m where m.email = :email", Member.class)
+                    .setParameter("email", c_email);
+
+            List<Member> c_resultList = c_memberTypedQuery.getResultList();
             if(c_resultList.size() != 0){
                 Member c_member = c_resultList.get(0);
-                if (c_member.getPassword() == memberChangeDTO.getNew_pw()) {
-                    result = 1;
-                    return true;   // 비밀번호 변경 완료
+                if(c_member.getPassword().equals(memberDTO.getPw())){
+                    return true;
                 }
                 else{
-                    result = 0;
-                    return false;  // 비밀번호 변경 실패
+                    return false;
                 }
             }
         }
-        else{
-            return false;
-        }
-        if(result == 1){
-            return true;
-        }
-        else{
-            return false;
-        }
+        return false;
     }
 }

@@ -1,7 +1,7 @@
 package footprints.footprints.service.change;
 
 import footprints.footprints.domain.member.Member;
-import footprints.footprints.domain.member.MemberChangeDTO;
+import footprints.footprints.domain.member.MemberDTO;
 import footprints.footprints.repository.member.MemberRepositoryImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -41,8 +41,8 @@ public class ChangeServiceImpl implements ChangeService{
     }
 
     @Override
-    public boolean changePwd(MemberChangeDTO memberChangeDTO) {
-        boolean newPwdChange = memberRepository.changeDBPwd(memberChangeDTO);
+    public boolean changePwd(MemberDTO memberDTO) {
+        boolean newPwdChange = memberRepository.changeDBPwd(memberDTO);
         if (newPwdChange) {
             return true;   // 비밀번호 변경 성공
         }

@@ -1,7 +1,6 @@
 package footprints.footprints.repository.member;
 
 import footprints.footprints.domain.member.Member;
-import footprints.footprints.domain.member.MemberChangeDTO;
 import footprints.footprints.domain.member.MemberDTO;
 
 public interface MemberRepository {
@@ -12,6 +11,6 @@ public interface MemberRepository {
 
     void delete(MemberDTO memberDTO);
 
-    boolean changeDBPwd(MemberChangeDTO memberChangeDTO);
+    boolean changeDBPwd(MemberDTO memberDTO);
 
 }

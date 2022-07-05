@@ -1,7 +1,6 @@
 package footprints.footprints.controller.member;
 
 import footprints.footprints.domain.member.Member;
-import footprints.footprints.domain.member.MemberChangeDTO;
 import footprints.footprints.domain.member.MemberDTO;
 import footprints.footprints.domain.member.MemberResponseDTO;
 import footprints.footprints.jwt.JwtTokenProvider;
@@ -18,10 +17,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-
-import javax.servlet.ServletRequest;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 @Controller
 @RequiredArgsConstructor
@@ -157,10 +152,10 @@ public class MemberController {
 
     // 비밀번호 변경
     @PostMapping(value = "/ChangePW")  // 비밀번호를 바꾸는 로직은 넘겨줄때 member 객체 + String new_pwd 개념
-    public ResponseEntity<String> ChangePW(@RequestBody MemberChangeDTO memberChangeDTO){
-        log.info("--------email:{}", memberChangeDTO.getEmail());
-        log.info("--------new_Pwd:{}", memberChangeDTO.getNew_pw());
-        boolean change = changeService.changePwd(memberChangeDTO);
+    public ResponseEntity<String> ChangePW(@RequestBody MemberDTO memberDTO){
+        log.info("--------email:{}", memberDTO.getEmail());
+        log.info("--------new_Pwd:{}", memberDTO.getPw());
+        boolean change = changeService.changePwd(memberDTO);
         if(change) {
             return new ResponseEntity<String>("SUCCESS", HttpStatus.OK); //비밀번호 변경 성공
         }

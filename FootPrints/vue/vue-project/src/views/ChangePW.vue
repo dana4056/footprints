@@ -26,12 +26,11 @@ import { mapGetters } from 'vuex';
 export default {
 	data() {
 		return {
-      memberChangeDTO:{
+      memberDTO:{
         nick: "",
-        email: "blabla",
+        email: "",
         pw: "",
         area: "",
-        new_pw: "",
       },
 			Pw1: "",
       Pw2: "",
@@ -60,14 +59,14 @@ export default {
     compPw(){      // 비밀번호 & 비밀번호 확인란 일치 여부
       if(this.Pw1 != "" && this.Pw2 != ""){
         this.isDiffrentPw = (this.Pw1 != this.Pw2) ? true : false;
-        this.memberChangeDTO.new_pw = this.Pw1;
-        this.memberChangeDTO.email = this.GET_FINDPWD;
+        this.memberDTO.pw = this.Pw1;
+        this.memberDTO.email = this.GET_FINDPWD;
       }
     },
     change() {
       if (this.submitData()){
         console.log("비밀번호 변경해보자");
-        this.$store.dispatch('CHANGE_PWD', this.memberChangeDTO);
+        this.$store.dispatch('CHANGE_PWD', this.memberDTO);
         //제대로 와야 이후에 밑에 두줄 수행해야지
 				alert("비밀번호가 성공적으로 변경되었습니다.")
 				this.$router.replace("/login");
