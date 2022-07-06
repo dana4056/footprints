@@ -12,7 +12,7 @@ export const store = new Vuex.Store({
             nick: "",
             email: "",
             pw: "",
-            area: "Seoul"
+            area: ""
         },
         sidoList:{},
         sigoonguList:{},

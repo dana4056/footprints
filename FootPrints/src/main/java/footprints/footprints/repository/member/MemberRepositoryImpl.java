@@ -76,7 +76,7 @@ public class MemberRepositoryImpl implements MemberRepository {
             Member member = resultList.get(0);
             MemberDTO memberDTO = new MemberDTO(member.getNick(),
                     member.getEmail(),
-                    member.getPw(),
+                    member.getPassword(),
                     member.getArea());
             memberDTO.setPw(memberChangeDTO.getNew_pw());
             save(memberDTO);
@@ -88,7 +88,7 @@ public class MemberRepositoryImpl implements MemberRepository {
             List<Member> c_resultList = memberTypedQuery.getResultList();
             if(c_resultList.size() != 0){
                 Member c_member = c_resultList.get(0);
-                if (c_member.getPw() == memberChangeDTO.getNew_pw()) {
+                if (c_member.getPassword() == memberChangeDTO.getNew_pw()) {
                     return true;   // 비밀번호 변경 완료
                 }
                 else{

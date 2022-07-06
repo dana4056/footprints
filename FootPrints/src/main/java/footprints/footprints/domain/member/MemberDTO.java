@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Collections;
+
 @AllArgsConstructor
 @Getter @Setter
 public class MemberDTO {
@@ -17,7 +19,7 @@ public class MemberDTO {
     public MemberDTO(Member member){
         this.nick = member.getNick();
         this.email = member.getEmail();
-        this.pw = member.getPw();
+        this.pw = member.getPassword();
         this.area = member.getArea();
     }
 
@@ -25,8 +27,9 @@ public class MemberDTO {
         return Member.builder()
                 .nick(nick)
                 .email(email)
-                .pw(pw)
+                .password(pw)
                 .area(area)
+                .roles(Collections.singletonList("ROLE_USER"))
                 .build();
     }
 

@@ -7,21 +7,37 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
-@Entity
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
+
+@Getter
 @NoArgsConstructor
-@Getter @Setter
-@ToString(exclude = "posts")
+@AllArgsConstructor
 @EntityListeners(AuditingEntityListener.class)
-public class Member {
+@Builder
+@Entity
+
+
+public class Member implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long user_id;
     private String nick;
     private String email;
-    private String pw;
+    private String password;
     private String area;
+    @ElementCollection(fetch = FetchType.EAGER)
+    @Builder.Default
+    private List<String> roles = new ArrayList<>();
 
     @JsonIgnore
     @OneToMany(mappedBy="member",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -32,10 +48,45 @@ public class Member {
     }
 
     @Builder
-    public Member(String nick, String email, String pw, String area){
+    public Member(String nick, String email, String pw, String area) {
         this.nick = nick;
         this.email = email;
-        this.pw = pw;
+        this.password = pw;
         this.area = area;
     }
+
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return this.roles.stream()
+                .map(SimpleGrantedAuthority::new)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public String getUsername() {
+        return nick;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
+
+
 }

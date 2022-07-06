@@ -1,5 +1,6 @@
 package footprints.footprints.controller.post;
 
+import footprints.footprints.domain.member.Member;
 import footprints.footprints.domain.post.Post;
 import footprints.footprints.domain.post.PostDTO;
 import footprints.footprints.service.post.PostServiceImpl;
@@ -7,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,8 +33,9 @@ public class PostController {
 
     // 리스트뷰
     @GetMapping(value = "/delivery/post")
-    public List<Post> detailPage(){
-         List<Post> postList = postService.getPostList("성북구 정릉동");
+    public List<Post> detailPage(Authentication authentication){
+        Member member = (Member) authentication.getPrincipal();
+        List<Post> postList = postService.getPostList(member.getArea());
 
         return postList;
     }

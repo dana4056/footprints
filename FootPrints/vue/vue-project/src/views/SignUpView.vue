@@ -70,9 +70,9 @@
           <div class="inputDiv">
             <label>지역설정</label>
             <input id='userArea' v-model="Area" type="text" readOnly placeholder="지역명(ex. 성북구 정릉동)">
-            <button type="button" class="btn2" v-on:click="searchBox">지역 검색</button>
+            <button type="button" class="btn2" v-on:click="searchArea">지역 검색</button>
           </div>
-          <div v-if="visable" class="search">
+          <!-- <div v-if="visable" class="search">
             <p>지역 검색</p>
             <div class="select-box">
               <select v-model="sido" v-on:change="serachSigoongu" class="sido">
@@ -93,7 +93,7 @@
               </select>
               <button type="button" class="btn2" v-on:click="fixArea">확인</button>
             </div>
-          </div>
+          </div> -->
 
           <button type="submit" class="submitBtn" v-on:click.prevent="submitData">회원가입하기</button>
         </form>
@@ -114,9 +114,9 @@ export default {
       Pw1: "",
       Pw2: "",
       Area: "",
-      sido:{},
-      sigoongu:{},
-      eupmyeondong:{},
+      // sido:{},
+      // sigoongu:{},
+      // eupmyeondong:{},
       visable:false,
       isUniqNick:false,
       isDupliNick:false,
@@ -128,12 +128,12 @@ export default {
     email() {
       return this.Email1 + "@" + this.Email2;
     },
-    area(){
-      return this.sido.ctp_kor_nm + " " + this.sigoongu.sig_kor_nm + " " + this.eupmyeondong.emd_kor_nm;
-    }
+    // area(){
+    //   return this.sido.ctp_kor_nm + " " + this.sigoongu.sig_kor_nm + " " + this.eupmyeondong.emd_kor_nm;
+    // }
   },
   created(){
-    this.searchSido();
+    // this.searchSido();
   },
   methods: {
     ignoreInputN() {
@@ -170,7 +170,7 @@ export default {
           nick: this.Nick,
           email: this.email,
           pw: this.Pw1,
-          area: this.area
+          area: this.Area
         }
         this.$store.dispatch('POST_MEMBER', member);
       }
@@ -225,20 +225,32 @@ export default {
         return true;
       }
     },
-    searchSido(){     
-      this.$store.dispatch('FETCH_SIDO');
-    },
-    serachSigoongu(){
-      this.$store.dispatch('FETCH_SIGOONGU', this.sido.ctprvn_cd);
-    },
-    serachEupmyeondong(){   
-      this.$store.dispatch('FETCH_EUPMYEONDONG', this.sigoongu.sig_cd);
-    },
-    fixArea(){
-      this.Area = this.area;
-    },
-    searchBox(){
-      this.visable = !this.visable;
+    // searchSido(){     
+    //   this.$store.dispatch('FETCH_SIDO');
+    // },
+    // serachSigoongu(){
+    //   this.$store.dispatch('FETCH_SIGOONGU', this.sido.ctprvn_cd);
+    // },
+    // serachEupmyeondong(){   
+    //   this.$store.dispatch('FETCH_EUPMYEONDONG', this.sigoongu.sig_cd);
+    // },
+    // fixArea(){
+    //   this.Area = this.area;
+    // },
+    // searchBox(){
+    //   this.visable = !this.visable;
+    // },
+    searchArea() {
+      new window.daum.Postcode({
+        oncomplete: (data) => {
+          console.log("AREA(data)\n",data);
+          const sido = data.sido;
+          const sigoongu = data.sigungu;
+          const eupmyeondong = data.bname;
+          
+          this.Area = sido+" "+sigoongu+" "+eupmyeondong;
+        }
+      }).open();
     }
   }
 }

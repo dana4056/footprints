@@ -27,19 +27,25 @@ export default {
         }
     },
     created(){
-        const id = this.$cookies.get("JSESSIONID");
-        if(id != null){
-            this.$cookies.set("JSESSIONID", id);
-            this.isLogin = true;
+        // const id = this.$cookies.get("JSESSIONID");
+        // if(id != null){
+        //     this.$cookies.set("JSESSIONID", id);
+        //     this.isLogin = true;
+        // }
+        if(localStorage.getItem('jwt') != null){
+            this.$store.dispatch('FETCH_NICK')
+            if(this.$store.state.member.nick != ""){
+                this.isLogin = true;
+            }
         }
+        
         // axios.get
     },
     methods: {
         logout(){
-            this.$store.dispatch('POST_LOGOUT');
-            this.$cookies.remove("JSESSIONID");
-            this.$router.go(0);
-            
+            localStorage.removeItem('jwt');
+            // this.$store.dispatch('POST_LOGOUT');
+            this.$router.go(0);       
         }
     }
 

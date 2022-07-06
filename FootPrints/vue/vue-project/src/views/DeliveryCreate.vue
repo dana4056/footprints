@@ -104,8 +104,8 @@ export default {
       valid_time: "",       // 게시물 유효 시간
       view_num:0,         // 조회수
       // ------- member entity 참조할건데 임시로 --------------
-      user_name: "user_name",     // 작성자 이름
-      area_name: "성북구 정릉동",     // 행정지역명
+      user_name: "",     // 작성자 이름
+      area_name: "",     // 행정지역명
       
       minDate: "",
       latitude: 0,
@@ -116,6 +116,7 @@ export default {
   methods: {
     register() {
       if (this.submitData()){
+        this.$store.dispatch('FETCH_USER')
           const post = {
             post_name: this.post_name,           // 글 제목
             post_content: this.post_content,     // 글 내용
@@ -126,11 +127,12 @@ export default {
             valid_time: this.valid_time,         // 게시물 유효 시간
             view_num: this.view_num ,            // 조회수
             // ------- member entity 참조할건데 임시로 --------------
-            user_name: this.user_name,           // 작성자 이름
-            area_name: this.area_name            // 행정지역명
+            user_name: this.$store.state.member.nick,           // 작성자 이름
+            area_name: this.$store.state.member.area,           // 행정지역명
             // lat: this.latitude,
             // long: this.longtitude,
         }
+        console.log("POST\n",post);
         this.$store.dispatch('POST_DELIVERY_POST', post)
 				Swal.fire({
           icon: 'success',

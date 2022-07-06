@@ -51,10 +51,8 @@ public class Post {
         this.participant_num = participant_num;
         this.max_person_num = max_person_num;
         this.valid_time = valid_time;
-
-        this.member = member;
         this.view_num = view_num;
-
+        this.member = member;
     }
 
 }

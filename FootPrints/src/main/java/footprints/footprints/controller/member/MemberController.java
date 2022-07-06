@@ -3,6 +3,8 @@ package footprints.footprints.controller.member;
 import footprints.footprints.domain.member.Member;
 import footprints.footprints.domain.member.MemberChangeDTO;
 import footprints.footprints.domain.member.MemberDTO;
+import footprints.footprints.domain.member.MemberResponseDTO;
+import footprints.footprints.jwt.JwtTokenProvider;
 import footprints.footprints.repository.member.MemberRepositoryImpl;
 import footprints.footprints.service.change.ChangeService;
 import footprints.footprints.service.login.LoginService;
@@ -11,9 +13,13 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+
+import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -26,6 +32,20 @@ public class MemberController {
     private final LoginService loginService;
     private final MemberRepositoryImpl memberRepository;
     private final ChangeService changeService;
+    private final JwtTokenProvider jwtTokenProvider;
+
+    @GetMapping(value = "/user/1")
+    public ResponseEntity<String> auth(){
+        return new ResponseEntity<String>("SUCCESS AUTH?", HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/user")
+    public ResponseEntity<MemberResponseDTO> fetchMember(Authentication authentication){
+        Member member = (Member) authentication.getPrincipal();
+        MemberResponseDTO responseMember = new MemberResponseDTO(member.getNick(), member.getArea());
+//        responseMember.setArea(member.getArea());
+        return new ResponseEntity<MemberResponseDTO>(responseMember, HttpStatus.OK);
+    }
 
     // 회원가입
     @PostMapping(value = "/signup")
@@ -74,7 +94,8 @@ public class MemberController {
             log.info("로그인 성공");
 
             Member loginMember = memberRepository.findByNick(memberDTO.getNick());
-            return new ResponseEntity<String>("LOGIN_OK"+loginMember, HttpStatus.OK);
+            String token = jwtTokenProvider.createToken(loginMember.getUsername(), loginMember.getRoles());
+            return new ResponseEntity<String>(token, HttpStatus.OK);
         }
         else if(checkLogin == 0){ // 해당 닉네임 없음(없는 계정)
             log.info("로그인 실패: 해당 닉네임 존재하지 않음");
@@ -87,15 +108,15 @@ public class MemberController {
     }
 
     // 로그아웃
-    @PostMapping("/logout")
-    public ResponseEntity<String> logout(HttpServletRequest request) {
-        HttpSession session = request.getSession(false);
-        if (session != null) {
-            session.invalidate();
-        }
-        log.info("로그아웃 성공(세션 종료)");
-        return new ResponseEntity<String>("SUCCESS LOGOUT", HttpStatus.OK);
-    }
+//    @PostMapping("/logout")
+//    public ResponseEntity<String> logout(HttpServletRequest request) {
+//        HttpSession session = request.getSession(false);
+//        if (session != null) {
+//            session.invalidate();
+//        }
+//        log.info("로그아웃 성공(세션 종료)");
+//        return new ResponseEntity<String>("SUCCESS LOGOUT", HttpStatus.OK);
+//    }
     @PostMapping(value = "/findID")
     public ResponseEntity<String> findID(@RequestBody String email){
         log.info("--------Email:{}", email);
