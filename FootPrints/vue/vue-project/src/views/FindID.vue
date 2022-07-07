@@ -43,12 +43,13 @@ export default {
 	methods: {
     ...mapMutations({
       findID: "FIND_ID",
+      //findID 호출이 마무리 되면 그 때 represent_ID를 호출하도록 로직을 구현하고 싶음
     }),
 		// findID() {
 		// 	this.$store.dispatch('FIND_ID', this.email);
 		// },
     represent_ID() {
-      this.findID(this.email)
+      this.findID(this.email) //이건 빼줘야겠지 그럼
       this.getBtnVisible = false;
         // 비동기처리 때문에 제대로 못 가져와서 그냥 찍어버리는 현상 발생 후처리 필요
         // API가 왔다갔다 하기 전까지 대기 해야함
