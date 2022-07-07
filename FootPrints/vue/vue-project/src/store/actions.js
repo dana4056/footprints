@@ -1,7 +1,8 @@
 import { postEmail, postNick, postLogin, postMemberInfo, } from "../api/index.js"
 // import { postEmail, postNick, postLogin, postLogout, postMemberInfo, } from "../api/index.js"
 // import { fetchSido, fetchSigoongu, fetchEupmyeondong } from "../api/index.js"
-import { findID, changePWD } from "../api/index.js"
+import { changePWD } from "../api/index.js"
+// import { findID } from "../api/index.js"
 import { fetchUser, fetchTest, fetchDeliveryList, postDeliveryPost, fetchDeliveryDetail } from "../api/index.js";
 import { router } from '../routes/index.js';
 
@@ -141,20 +142,20 @@ export default{
   // },
 
   //아이디 찾기
-  FIND_ID({ commit }, email) {
-    findID(email)
-      .then(response => {
-        console.log(response);
-        const findMember = {
-          nick:response.data,
-          email: email
-        }
-        commit('SET_FIND_MEMBER', findMember);
-      })
-      .catch(error => {
-        console.log(error);
-      })
-  }, 
+  // FIND_ID({ commit }, email) {
+  //   findID(email)
+  //     .then(response => {
+  //       console.log(response);
+  //       const findMember = {
+  //         nick:response.data,
+  //         email: email
+  //       }
+  //       commit('SET_FIND_MEMBER', findMember);
+  //     })
+  //     .catch(error => {
+  //       console.log(error);
+  //     })
+  // }, 
 
   // 비밀번호 변경
   CHANGE_PWD(context, memberDTO) {

@@ -22,6 +22,7 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import { mapMutations } from "vuex"
 export default {
 	data() {
 		return {
@@ -40,32 +41,28 @@ export default {
     ])
   },
 	methods: {
-		findID() {
-			const response = this.$store.dispatch('FIND_ID', this.email);
-			return response;
-		},
-    async represent_ID() {
-      await this.findID()
-      .then( response => {
-        console.log(response);
-        this.getBtnVisible = false;
+    ...mapMutations({
+      findID: "FIND_ID",
+    }),
+		// findID() {
+		// 	this.$store.dispatch('FIND_ID', this.email);
+		// },
+    represent_ID() {
+      this.findID(this.email)
+      this.getBtnVisible = false;
         // 비동기처리 때문에 제대로 못 가져와서 그냥 찍어버리는 현상 발생 후처리 필요
         // API가 왔다갔다 하기 전까지 대기 해야함
-        if (this.GET_FIND_MEMBER.nick == "CANNOT_FIND_ID"){
-          this.getIDVisible = false;
-          this.canNotFindID = true;
-        }
-        else{
-          this.canNotFindID = false;
-          this.getIDVisible = true;
-        }
+      if (this.GET_FIND_MEMBER.nick == "CANNOT_FIND_ID"){
+        this.getIDVisible = false;
+        this.canNotFindID = true;
+      }
+      else{
+        this.canNotFindID = false;
+        this.getIDVisible = true;
+      }
         this.chkBtnVisible = true;
         this.inputtext = false;
         this.inputemail = false;
-      })
-      .catch(error => {
-        console.log(error);
-      })
     },
 	}
 }

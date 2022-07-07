@@ -1,6 +1,7 @@
 import Vuex from 'vuex'
 import actions from './actions'
 import dayjs from 'dayjs'
+import { findID } from "../api/index.js"
 
 
 export const store = new Vuex.Store({
@@ -41,6 +42,22 @@ export const store = new Vuex.Store({
     },
     actions,
     mutations:{
+        //아이디 찾기
+        FIND_ID(state, email) {
+            findID(email)
+                .then(response => {
+                    console.log(response);
+                    const findMember = {
+                        nick: response.data,
+                        email: email
+                    }
+                    state.find_member = findMember;
+                    // commit('SET_FIND_MEMBER', findMember);
+                })
+                .catch(error => {
+                    console.log(error);
+                })
+        }, 
         SET_DUPLI_NICK(state, bool){
             state.isDuplicateNick = bool;
         },
