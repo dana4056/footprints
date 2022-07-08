@@ -42,4 +42,25 @@ public class PostServiceImpl implements  PostService{
         Post detail = postRepository.findDetail(post_num);
         return detail;
     }
+
+    @Override
+    public List<Post> getCategoryList(String category, String areaName) {
+        List<Post> posts = postRepository.findCategory(category, areaName);
+        List<Post> postList = new ArrayList<>();
+
+        for(Post post : posts) {
+            Post dto = Post.builder()
+                    .post_name(post.getPost_name())
+                    .post_content(post.getPost_content())
+                    .category(post.getCategory())
+                    .take_loc(post.getTake_loc())
+                    .valid_time(post.getValid_time())
+                    .participant_num(post.getParticipant_num())
+                    .build();
+
+            postList.add(dto);
+        }
+
+        return postList;
+    }
 }

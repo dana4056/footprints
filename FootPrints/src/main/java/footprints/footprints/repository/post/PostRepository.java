@@ -15,4 +15,6 @@ public interface PostRepository {
 
     Post findDetail(Long post_num);
 
+    List<Post> findCategory(String category, String areaName);
+
 }

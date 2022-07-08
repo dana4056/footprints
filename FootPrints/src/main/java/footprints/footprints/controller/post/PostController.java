@@ -60,5 +60,13 @@ public class PostController {
         postService.update(post_id, postDTO);
         return new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
     }
+
+    // 카테고리에서 선택한 종류에 대한 리스트뷰 뿌려주기
+    @GetMapping(value = "/category")
+    public ResponseEntity<List<Post>> listOfCategory(@RequestBody String category, String areaName) {
+        List<Post> categoryList = postService.getCategoryList(category, areaName);
+
+        return new ResponseEntity<List<Post>>(categoryList, HttpStatus.OK);
+    }
 }
 
