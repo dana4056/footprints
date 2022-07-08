@@ -25,7 +25,7 @@ public class PostDTO {
     private int valid_time;       // 게시물 유효 시간
     private int view_num;         // 조회수
     // ------- member entity 참조할건데 임시로 --------------
-    private Member member;
+
 
     public PostDTO(Post post){
         this.post_name = post.getPost_name();
@@ -36,7 +36,6 @@ public class PostDTO {
         this.max_person_num = post.getMax_person_num();
         this.valid_time = post.getValid_time();
         this.view_num = post.getView_num();
-        this.member = post.getMember();
     }
 
 
@@ -49,7 +48,6 @@ public class PostDTO {
                 .participant_num(participant_num)
                 .max_person_num(max_person_num)
                 .valid_time(valid_time)
-                .member(member)
                 .view_num(view_num)
                 .build();
     }

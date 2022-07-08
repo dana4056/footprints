@@ -42,7 +42,7 @@ public class Post {
 
 
     @Builder
-    public Post(String post_name, String post_content, String category, String area_name, String take_loc,
+    public Post(String post_name, String post_content, String category, String take_loc,
                 int participant_num, int max_person_num, int valid_time, int view_num, Member member){
         this.post_name = post_name;
         this.post_content = post_content;
@@ -55,5 +55,19 @@ public class Post {
         this.member = member;
     }
 
+    public void Update(PostDTO postDTO){
+        this.post_name = postDTO.getPost_name();
+        this.post_content = postDTO.getPost_content();
+        this.category = postDTO.getCategory();
+        this.take_loc = postDTO.getTake_loc();
+        this.participant_num = postDTO.getParticipant_num();
+        this.max_person_num = postDTO.getMax_person_num();
+        this.valid_time = postDTO.getValid_time();
+        this.view_num = postDTO.getView_num();
+    }
+
+    public void Plus_view(){
+        this.view_num += 1;
+    }
 }
 
