@@ -40,7 +40,8 @@ export default {
 	},
   computed:{
     ...mapGetters([
-      'GET_FIND_MEMBER'
+      'GET_MEMBER',
+      'GET_PWCHANGE_DONE'
     ])
   },
 	methods: {
@@ -59,8 +60,9 @@ export default {
     compPw(){      // 비밀번호 & 비밀번호 확인란 일치 여부
       if(this.Pw1 != "" && this.Pw2 != ""){
         this.isDiffrentPw = (this.Pw1 != this.Pw2) ? true : false;
-        this.memberDTO.nick = this.GET_FIND_MEMBER.nick;
-        this.memberDTO.email = this.GET_FIND_MEMBER.email;
+        //member에 뭐가 담겨있는줄 알고 이걸 넣지? 아니 정확히는 member에 nick이랑 email이 담겨 있어? 애초에?
+        this.memberDTO.nick = this.GET_MEMBER.nick;
+        this.memberDTO.email = this.GET_MEMBER.email;
         this.memberDTO.pw = this.Pw1;
       }
     },
@@ -68,12 +70,22 @@ export default {
       if (this.submitData()){
         console.log("비밀번호 변경해보자");
         this.$store.dispatch('CHANGE_PWD', this.memberDTO);
-        //제대로 와야 이후에 밑에 두줄 수행해야지
-				alert("비밀번호가 성공적으로 변경되었습니다.")
-				this.$router.replace("/login");
+        setTimeout(() => { 
+        // console.log("3");
+        this.represent() ;
+        }, 100); 	
 			}
       else 
 				alert("비밀번호를 다시 확인해주세요.")
+    },
+    represent() {
+      if(this.GET_PWCHANGE_DONE == 'SUCCESS'){
+        alert("비밀번호가 성공적으로 변경되었습니다.")
+        this.$router.replace("/login");
+      }
+      else{
+        //비밀번호 변경 안됐으니 이렇게이렇게 하라고 다시 해야함
+      }
     },
 		submitData() {	// 이 함수 코드를 구현해야 합니다!!
       if (!this.isDiffrentPw && this.isValidPw)

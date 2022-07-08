@@ -1,7 +1,7 @@
-import { postEmail, postNick, postLogin, postMemberInfo, } from "../api/index.js"
+import { postEmail, postNick, postLogin, postMemberInfo } from "../api/index.js"
 // import { postEmail, postNick, postLogin, postLogout, postMemberInfo, } from "../api/index.js"
 // import { fetchSido, fetchSigoongu, fetchEupmyeondong } from "../api/index.js"
-import { findID, changePWD } from "../api/index.js"
+import { findID, findPW, changePWD } from "../api/index.js"
 import { fetchUser, fetchTest, fetchDeliveryList, postDeliveryPost, fetchDeliveryDetail } from "../api/index.js";
 import { router } from '../routes/index.js';
 
@@ -58,23 +58,6 @@ export default{
               )
   },
   
-  // 아이디 찾기
-  FIND_ID({ commit }, email) {
-    findID(email)
-      .then(response => {
-        console.log(response);
-        console.log("2");
-        return new Promise((resolve) => {
-          setTimeout(() => {
-            commit('SET_FIND_MEMBER', response.data)
-            resolve()
-          }, 1000)
-        })
-      })
-      .catch(error => { console.log(error); })
-  },
-
-
   // 닉네임 중복체크
   POST_NICK({commit}, nick){
     postNick(nick)
@@ -158,12 +141,33 @@ export default{
   //   .catch(error => {console.log(error)})
   // },
 
+  // 아이디 찾기
+  FIND_NICK({ commit }, email) {
+    return findID(email)
+      .then(response => {
+        // console.log(response);
+        // console.log("2");
+        commit('SET_FIND_MEMBER_NICK', response.data)
+      })
+      .catch(error => { console.log(error); })
+  },
+
+  FIND_PWD({ commit }, email) {
+    return findPW(email)
+      .then(response => {
+        // console.log(response);
+        // console.log("2");
+        commit('SET_FIND_MEMBER_EMAIL', response.data)
+      })
+      .catch(error => { console.log(error); })
+  },
 
   // 비밀번호 변경
-  CHANGE_PWD(context, memberDTO) {
-    changePWD(memberDTO)
+  CHANGE_PWD({ commit }, memberDTO) {
+    return changePWD(memberDTO)
       .then(response => {
         console.log(response);
+        commit('SET_PWCHANGE_DONE', response.data);
       })
       .catch(error => {
         console.log(error);

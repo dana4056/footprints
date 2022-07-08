@@ -36,7 +36,7 @@ public class ChangeServiceImpl implements ChangeService{
             return null;
         }
         else{
-            return member.getPassword();
+            return member.getEmail();
         }
     }
 

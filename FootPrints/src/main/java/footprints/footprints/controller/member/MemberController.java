@@ -141,13 +141,13 @@ public class MemberController {
     @PostMapping(value = "/findPW")
     public ResponseEntity<String> findPW(@RequestBody String email){
         log.info("--------[/findPW] Email:{}", email);
-        String ID = changeService.findPwd(email);
-        if(ID == "null"){
+        String f_email = changeService.findPwd(email);
+        if(f_email == null){
             return new ResponseEntity<String>("CANNOT_FIND_ID", HttpStatus.OK);
             // 이후 프론트에서 찾을 수 없는 아이디입니다 표시
         }
         else{
-            return new ResponseEntity<String>(ID, HttpStatus.OK);
+            return new ResponseEntity<String>(f_email, HttpStatus.OK);
         }
     }
 

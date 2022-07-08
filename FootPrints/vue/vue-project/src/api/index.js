@@ -92,6 +92,14 @@ function findID(email){
         }
     });
 }
+
+function findPW(email){
+    return axios.post(`${config.baseUrl}/findPW`, email, {
+        headers: {
+            'Content-Type': 'text/plain'
+        }
+    });
+}
   
   function changePWD(memberDTO){
     return axios.post(`${config.baseUrl}/ChangePW`, memberDTO);
@@ -135,6 +143,7 @@ export{
     // fetchSigoongu,
     // fetchEupmyeondong,
     findID,
+    findPW,
     changePWD,
     fetchDeliveryList,
     postDeliveryPost,
