@@ -20,7 +20,35 @@ public class PostRepositoryImpl implements PostRepository{
     @Override
     public void save(PostDTO postDTO){
         Post post = postDTO.toEntity();
-        em.persist(post);
+        if(post.getPost_id() == null){
+            log.info("-------------------------------------------");
+            log.info("id 없음");
+            log.info("-------------------------------------------");
+            em.persist(post);
+        }
+        else{
+            log.info("-------------------------------------------");
+            log.info("id 있음");
+            log.info("-------------------------------------------");
+            em.merge(post);
+        }
+
+    }
+
+    @Override
+    public void save1(Post post){
+        if(post.getPost_id() == null){
+            log.info("-------------------------------------------");
+            log.info("id 없음");
+            log.info("-------------------------------------------");
+            em.persist(post);
+        }
+        else{
+            log.info("-------------------------------------------");
+            log.info("id 있음");
+            log.info("-------------------------------------------");
+            em.merge(post);
+        }
     }
 
     @Override
