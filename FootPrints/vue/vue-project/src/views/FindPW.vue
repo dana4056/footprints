@@ -5,7 +5,7 @@
 		<div class="Div">
 			<label v-if="emailtext">가입한 이메일 주소를 입력해주세요.</label>
 			<input id="phone" autocomplete="off" v-model="email" type="text" v-if="emailtext" placeholder="이메일" required>
-			<label id="sendMail" v-if="CAN_infoVisible"><span>{{ GET_FIND_MEMBER.nick }}</span>에게 인증번호를 보냈습니다.</label>
+			<label id="sendMail" v-if="CAN_infoVisible"><span>{{ GET_FIND_MEMBER_NICK }}</span>에게 인증번호를 보냈습니다.</label>
 			<label id="error" v-if="CANNOT_infoVisible">{{email}}은 없는 회원 메일이므로 전송 불가합니다.</label>
 			<input id="userCode" v-if="inputVisible" autocomplete="off" maxlength="6" v-model="userCode" type="text" placeholder="인증번호" required>
 			<button type="submit" v-if="getBtnVisible" v-on:click="getCode">이메일로 인증코드 받기</button>
@@ -35,7 +35,7 @@ export default {
 	},
 	computed:{
     ...mapGetters([
-		'GET_FIND_MEMBER'
+		'GET_FIND_MEMBER_NICK'
     ])
   },
 	methods: {
@@ -43,7 +43,7 @@ export default {
 			if (this.email != "") {
 				//이메일 입력시 
 				this.$store.dispatch('FIND_ID', this.email);
-				if(this.GET_FIND_MEMBER.nick != "CANNOT_FIND_ID"){
+				if(this.GET_FIND_MEMBER_NICK != "CANNOT_FIND_ID"){
 				// 이메일 디비에 있는게 확인 됐다면
 				this.sysCode = Math.floor(Math.random() * 900001) + 100000;
 				console.log(this.sysCode);

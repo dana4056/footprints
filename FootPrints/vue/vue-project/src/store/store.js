@@ -1,18 +1,13 @@
 import Vuex from 'vuex'
 import actions from './actions'
 import dayjs from 'dayjs'
-import { findID } from "../api/index.js"
 
 
 export const store = new Vuex.Store({
     state:{
         isDuplicateNick:false,
         isDuplicateEmail:false,
-        // find_ID: "CANNOT_FIND_ID",
-        find_member:{
-            nick:"CANNOT_FIND_ID",
-            email:""
-        },
+        find_nick: "CANNOT_FIND_ID",
         member:{
             nick: "", 
             email: "",
@@ -30,8 +25,8 @@ export const store = new Vuex.Store({
         GET_MEMBER(state){
             return state.member;
         },
-        GET_FIND_MEMBER(state){
-            return state.find_member;
+        GET_FIND_MEMBER_NICK(state){
+            return state.find_nick;
         },
         GET_DELIVERIES(state){
             return state.deliveryPostList;
@@ -42,22 +37,6 @@ export const store = new Vuex.Store({
     },
     actions,
     mutations:{
-        //아이디 찾기
-        FIND_ID(state, email) {
-            findID(email)
-                .then(response => {
-                    console.log(response);
-                    const findMember = {
-                        nick: response.data,
-                        email: email
-                    }
-                    state.find_member = findMember;
-                    // commit('SET_FIND_MEMBER', findMember);
-                })
-                .catch(error => {
-                    console.log(error);
-                })
-        }, 
         SET_DUPLI_NICK(state, bool){
             state.isDuplicateNick = bool;
         },
@@ -76,8 +55,8 @@ export const store = new Vuex.Store({
         SET_EUPMYEONDONG_LIST(state, List){
             state.eupmyeondongList = List;
         },
-        SET_FIND_MEMBER(state, findMember){
-            state.find_member = findMember;
+        SET_FIND_MEMBER(state, nick){
+            state.find_nick = nick;
         },
         SET_DELIVERIES(state, list){
             state.deliveryPostList = list;

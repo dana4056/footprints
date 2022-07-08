@@ -5,10 +5,10 @@
 		<div class="Div">
 			<label v-if="inputtext">회원정보에 등록한 이메일을 입력해주세요.</label>
 			<input id="email" autocomplete="off" v-model="email" type="text" v-if="inputemail" placeholder="이메일 입력" required>
-			<button type="submit" v-if="getBtnVisible" v-on:click="represent_ID">이메일로 아이디 찾기</button>
+			<button type="submit" v-if="getBtnVisible" v-on:click="findID">이메일로 아이디 찾기</button>
       <div>
-        <div id="showID" v-if="getIDVisible">회원님의 아이디는 <span>{{ GET_FIND_MEMBER.nick }}</span> 입니다.</div>
-        <div v-if="canNotFindID">회원님의 아이디를 찾을 수 없습니다.</div>
+        <div id="showID" v-if="this.getIDVisible">회원님의 아이디는 <span>{{ represent_nick }}</span> 입니다.</div>
+        <div v-if="this.canNotFindID">회원님의 아이디를 찾을 수 없습니다.</div>
       </div>
       <div id="btnBox">
         <router-link to="/home" class="item"><button id="home" v-if="chkBtnVisible">홈페이지</button></router-link>
@@ -22,7 +22,6 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import { mapMutations } from "vuex"
 export default {
 	data() {
 		return {
@@ -33,29 +32,33 @@ export default {
 			chkBtnVisible: false,
 			getIDVisible: false,
       canNotFindID: false,
+      represent_nick: this.GET_FIND_MEMBER_NICK,
 		}
 	},
 	computed:{
     ...mapGetters([
-      'GET_FIND_MEMBER'
-    ])
-  },
+      'GET_FIND_MEMBER_NICK'
+    ]),
 	methods: {
-    ...mapMutations({
-      findID: "FIND_ID",
-      //findID 호출이 마무리 되면 그 때 represent_ID를 호출하도록 로직을 구현하고 싶음
-    }),
-		// findID() {
-		// 	this.$store.dispatch('FIND_ID', this.email);
-		// },
-    represent_ID() {
-      this.findID(this.email) //이건 빼줘야겠지 그럼
+    // ...mapGetters([
+    //   'GET_FIND_MEMBER_NICK'
+    // ]),
+    findID() {
+      console.log("1");
+      this.$store.dispatch('FIND_ID', this.email);
+      // setTimeout(() => { this.represent() }, 1000);    
+      console.log("3");
+      this.represent();
+    },
+    represent(){
+      console.log("4");
       this.getBtnVisible = false;
         // 비동기처리 때문에 제대로 못 가져와서 그냥 찍어버리는 현상 발생 후처리 필요
         // API가 왔다갔다 하기 전까지 대기 해야함
-      if (this.GET_FIND_MEMBER.nick == "CANNOT_FIND_ID"){
+      if (this.GET_FIND_MEMBER_NICK == "CANNOT_FIND_ID"){
         this.getIDVisible = false;
         this.canNotFindID = true;
+        this.represent_nick = this.GET_FIND_MEMBER_NICK;
       }
       else{
         this.canNotFindID = false;
@@ -64,7 +67,8 @@ export default {
         this.chkBtnVisible = true;
         this.inputtext = false;
         this.inputemail = false;
-    },
+    }
+    }
 	}
 }
 </script>
