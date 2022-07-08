@@ -5,7 +5,7 @@ import axios from 'axios';
 const config = {
     baseUrl:"http://localhost:8080"
 };
-
+ 
 // const areaConfig={
 //     key:"CEB52025-E065-364C-9DBA-44880E3B02B8",
 //     domain:"http://localhost:8080",
@@ -87,14 +87,22 @@ function postMemberInfo(member){
 
 function findID(email){
     return axios.post(`${config.baseUrl}/findID`, email, {
-      headers: {
-        'Content-Type': 'text/plain'
-      }
+        headers: {
+            'Content-Type': 'text/plain'
+        }
     });
-  }
+}
+
+function findPW(email){
+    return axios.post(`${config.baseUrl}/findPW`, email, {
+        headers: {
+            'Content-Type': 'text/plain'
+        }
+    });
+}
   
-  function changePWD(memberChangeDTO){
-    return axios.post(`${config.baseUrl}/ChangePW`, memberChangeDTO);
+  function changePWD(memberDTO){
+    return axios.post(`${config.baseUrl}/ChangePW`, memberDTO);
   }
 
   function fetchDeliveryList(){
@@ -135,6 +143,7 @@ export{
     // fetchSigoongu,
     // fetchEupmyeondong,
     findID,
+    findPW,
     changePWD,
     fetchDeliveryList,
     postDeliveryPost,

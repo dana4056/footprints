@@ -6,7 +6,7 @@ import SignUpView from '../views/SignUpView.vue'
 import SignUpCompleted from '../views/SignUpCompleted'
 
 import FindID from '../views/FindID'
-import FindPW from '../views/FindPW'
+import FindPW from '../views/FindPW' 
 import ChangePW from '../views/ChangePW'
 
 import DeliveryList  from '../views/DeliveryListView.vue'

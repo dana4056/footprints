@@ -7,9 +7,11 @@ export const store = new Vuex.Store({
     state:{
         isDuplicateNick:false,
         isDuplicateEmail:false,
-        find_ID: "blabla",
+        find_nick: 'CANNOT_FIND_ID',
+        find_email: 'CANNOT_FIND_ID',
+        pwchange_done: 'FAILED',
         member:{
-            nick: "",
+            nick: "", 
             email: "",
             pw: "",
             area: ""
@@ -25,11 +27,11 @@ export const store = new Vuex.Store({
         GET_MEMBER(state){
             return state.member;
         },
-        GET_FINDID(state){
-            return state.find_ID;
+        GET_FIND_MEMBER_NICK(state){
+            return state.find_nick;
         },
-        GET_FINDPWD(state){
-            return state.find_ID;
+        GET_FIND_MEMBER_EMAIL(state){
+            return state.find_email;
         },
         GET_DELIVERIES(state){
             return state.deliveryPostList;
@@ -58,9 +60,14 @@ export const store = new Vuex.Store({
         SET_EUPMYEONDONG_LIST(state, List){
             state.eupmyeondongList = List;
         },
-        FIND_ID(state, email){
-            state.find_ID = email;
-            console.log("2. " + state.find_ID);
+        SET_FIND_MEMBER_NICK(state, nick){
+            state.find_nick = nick;
+        },
+        SET_FIND_MEMBER_EMAIL(state, email){
+            state.find_email = email;
+        },
+        SET_PWCHANGE_DONE(state, string){
+            state.pwchange_done = string;
         },
         SET_DELIVERIES(state, list){
             state.deliveryPostList = list;

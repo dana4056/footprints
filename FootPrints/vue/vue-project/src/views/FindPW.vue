@@ -5,8 +5,8 @@
 		<div class="Div">
 			<label v-if="emailtext">가입한 이메일 주소를 입력해주세요.</label>
 			<input id="phone" autocomplete="off" v-model="email" type="text" v-if="emailtext" placeholder="이메일" required>
-			<label id="sendMail" v-if="CAN_infoVisible"><span>{{ GET_FINDPWD }}</span>로 인증번호를 보냈습니다.</label>
-			<label id="error" v-if="CANNOT_infoVisible">{{email}}은 없는 회원 메일이므로 전송 불가합니다.</label>
+			<label id="sendMail" v-if="CAN_infoVisible"><span>{{ GET_FIND_MEMBER_EMAIL }}</span>에게 인증번호를 보냈습니다.</label>
+			<label id="error" v-if="CANNOT_infoVisible">가입 되지 않은 회원입니다.</label>
 			<input id="userCode" v-if="inputVisible" autocomplete="off" maxlength="6" v-model="userCode" type="text" placeholder="인증번호" required>
 			<button type="submit" v-if="getBtnVisible" v-on:click="getCode">이메일로 인증코드 받기</button>
 			<button type="submit" v-if="ChkBtnVisible" v-on:click="checkCode">확인</button>
@@ -35,47 +35,52 @@ export default {
 	},
 	computed:{
     ...mapGetters([
-      'GET_FINDPWD'
+		'GET_FIND_MEMBER_EMAIL'
     ])
   },
 	methods: {
 		getCode() {
 			if (this.email != "") {
 				//이메일 입력시 
-				this.$store.dispatch('FIND_ID', this.email);
-				//비동기 처리 필요
-				if(this.GET_FINDPWD != "CANNOT_FIND_ID"){
-					// 이메일 디비에 있는게 확인 됐다면
-					this.sysCode = Math.floor(Math.random() * 900001) + 100000;
-					console.log(this.sysCode);
-					// let templateParams  = { 
-					// 	user_email: this.email,
-					// 	sys_code: this.sysCode,
-					// }
-					// emailjs.init('REMuhzEQAisDSZ2hk');
-					// emailjs.send('email', 'template_q0r3oy4', templateParams)
-					// 	.then((result) => {
-          //   console.log('SUCCESS!', result.text);
-					// 	}, (error) => {
-          //   console.log('FAILED...', error.text);
-					// 	});
-					this.emailtext = false;
-					this.inputVisible = true;
-					this.getBtnVisible = false;
-					this.CAN_infoVisible = true;
-					this.CANNOT_infoVisible = false;
-					this.ChkBtnVisible = true;
-				}
-				else{
-					//이메일 확인 실패시
-					this.CANNOT_infoVisible = true;
-					this.CAN_infoVisible = false;
-					this.getBtnVisible = false; //할지 말지 고민중
-				}
+				this.$store.dispatch('FIND_PWD', this.email);
+				setTimeout(() => { 
+        // console.log("3");
+        this.represent() ;
+        }, 100); 	
 			}
 			else{
 				//이메일 입력 안했을 시
 				alert("메일을 입력해주세요.");
+			}
+		},
+		represent() {
+			if(this.GET_FIND_MEMBER_EMAIL != "CANNOT_FIND_ID"){
+				// 이메일 디비에 있는게 확인 됐다면
+				this.sysCode = Math.floor(Math.random() * 900001) + 100000;
+				console.log(this.sysCode);
+				// let templateParams  = { 
+				// 	user_email: this.email,
+				// 	sys_code: this.sysCode,
+				// }
+				// emailjs.init('REMuhzEQAisDSZ2hk');
+				// emailjs.send('email', 'template_q0r3oy4', templateParams)
+				// 	.then((result) => {
+				//   console.log('SUCCESS!', result.text);
+				// 	}, (error) => {
+				//   console.log('FAILED...', error.text);
+				// 	});
+				this.emailtext = false;
+				this.inputVisible = true;
+				this.getBtnVisible = false;
+				this.CAN_infoVisible = true;
+				this.CANNOT_infoVisible = false;
+				this.ChkBtnVisible = true;
+			}
+			else{
+				//이메일 확인 실패시
+				this.CANNOT_infoVisible = true;
+				this.CAN_infoVisible = false;
+				this.getBtnVisible = true;
 			}
 		},
 		checkCode() {

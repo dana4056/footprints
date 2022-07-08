@@ -1,12 +1,12 @@
-import { postEmail, postNick, postLogin, postMemberInfo, } from "../api/index.js"
+import { postEmail, postNick, postLogin, postMemberInfo } from "../api/index.js"
 // import { postEmail, postNick, postLogin, postLogout, postMemberInfo, } from "../api/index.js"
 // import { fetchSido, fetchSigoongu, fetchEupmyeondong } from "../api/index.js"
-import { findID, changePWD } from "../api/index.js"
+import { findID, findPW, changePWD } from "../api/index.js"
 import { fetchUser, fetchTest, fetchDeliveryList, postDeliveryPost, fetchDeliveryDetail } from "../api/index.js";
 import { router } from '../routes/index.js';
 
 
-export default{
+export default{ 
   FETCH_USER({commit}){
     fetchUser()
       .then(response =>{
@@ -57,6 +57,7 @@ export default{
                       }
               )
   },
+  
   // 닉네임 중복체크
   POST_NICK({commit}, nick){
     postNick(nick)
@@ -70,17 +71,23 @@ export default{
         .then(response =>{
           console.log(response);
           // commit('SET_MEMBER', member);
-          router.replace({
-            name:"signupCompleted",
-            query:{nickName:member.nick,}
-          });})
+          if(response.data == "SUCCESS"){
+              router.replace({
+              name: "signupCompleted",
+              query: { nickName: member.nick, }
+            });
+          }
+          else{
+            alert("회원가입 실패");
+          }
+          })
         .catch( error=>{console.log(error);} )
   }, 
   // 로그인
   POST_LOGIN({commit}, member) {
     postLogin(member)
         .then(response => {
-            console.log(response);
+            console.log(response); 
             localStorage.setItem('jwt', response.data); // 로컬 스토리지에 저장
             commit('SET_MEMBER', member);
             router.replace("/home");
@@ -133,23 +140,34 @@ export default{
   //     })
   //   .catch(error => {console.log(error)})
   // },
+
   // 아이디 찾기
-  FIND_ID({ commit }, email) {
-    findID(email)
+  FIND_NICK({ commit }, email) {
+    return findID(email)
       .then(response => {
-        console.log(response);
-        console.log("1. " + response.data);
-        commit('FIND_ID', response.data);
+        // console.log(response);
+        // console.log("2");
+        commit('SET_FIND_MEMBER_NICK', response.data)
       })
-      .catch(error => {
-        console.log(error);
-      })
+      .catch(error => { console.log(error); })
   },
+
+  FIND_PWD({ commit }, email) {
+    return findPW(email)
+      .then(response => {
+        // console.log(response);
+        // console.log("2");
+        commit('SET_FIND_MEMBER_EMAIL', response.data)
+      })
+      .catch(error => { console.log(error); })
+  },
+
   // 비밀번호 변경
-  CHANGE_PWD(context, memberChangeDTO) {
-    changePWD(memberChangeDTO)
+  CHANGE_PWD({ commit }, memberDTO) {
+    return changePWD(memberDTO)
       .then(response => {
         console.log(response);
+        commit('SET_PWCHANGE_DONE', response.data);
       })
       .catch(error => {
         console.log(error);

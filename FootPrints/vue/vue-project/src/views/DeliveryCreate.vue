@@ -147,7 +147,7 @@ export default {
       }
     },
 		submitData() {
-      console.log("submit data" + this.valid_time);
+      // console.log("submit data" + this.valid_time);
       if (this.post_name != "" && this.post_content != "" && 
           this.category != "카테고리" && this.take_loc != "" &&
           this.valid_time != "" && 
