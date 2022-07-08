@@ -4,12 +4,12 @@
       <!-- router-link는 자동으로 a태그로 변환하고 부가적인 기능 제공 -->
     <router-link to="/home" class="logo"><img src="../assets/logo.png">발자취</router-link>
     <div v-if="!this.isLogin">
-        <router-link to="/itemlist" class="item"><button>배달 같이하기</button></router-link>
+        <router-link to="/delivery/post" class="item"><button>배달 같이하기</button></router-link>
         <router-link to="/login" class="item">로그인</router-link> | 
         <router-link to="/signup" class="item">회원가입</router-link>
     </div>
     <div v-if="this.isLogin">
-        <router-link to="/itemlist" class="item"><button>배달 같이하기</button></router-link>
+        <router-link to="/delivery/post" class="item"><button>배달 같이하기</button></router-link>
         <span id="u_name">{{this.$store.state.member.nick}}</span> 님 | 
         <span id="logout" v-on:click="logout">로그아웃</span>
     </div>
@@ -18,30 +18,34 @@
 </template>
 
 <script>
-import { router } from '../routes/index.js';
+// import axios from 'axios';
 export default {
     data(){
         return {
             isLogin:false,
+            userName:""
         }
     },
     created(){
-        const id = this.$cookies.get("JSESSIONID");
-        console.log(this.$cookies.keys());
-        // this.$cookies.set("JSESSIONID", id);
-        // console.log(this.$cookies.isKey("JSESSIONID"));
-        if(id != null){
-            this.$cookies.set("JSESSIONID", id);
-            // console.log(this.$cookies.isKey("JSESSIONID"));
-            this.isLogin = true;
+        // const id = this.$cookies.get("JSESSIONID");
+        // if(id != null){
+        //     this.$cookies.set("JSESSIONID", id);
+        //     this.isLogin = true;
+        // }
+        if(localStorage.getItem('jwt') != null){
+            this.$store.dispatch('FETCH_NICK')
+            if(this.$store.state.member.nick != ""){
+                this.isLogin = true;
+            }
         }
+        
+        // axios.get
     },
     methods: {
         logout(){
-            this.$store.dispatch('POST_LOGOUT');
-            this.$cookies.remove("JSESSIONID");
-            //router.go();
-            router.replace("/home");
+            localStorage.removeItem('jwt');
+            // this.$store.dispatch('POST_LOGOUT');
+            this.$router.go(0);       
         }
     }
 
@@ -84,7 +88,7 @@ header{
     text-decoration: none;
 }
 .item button{
-margin: 0px 15px;
+    margin: 0px 15px;
     width: 106px;
     height: 32px;
     background-color: #7aab85;

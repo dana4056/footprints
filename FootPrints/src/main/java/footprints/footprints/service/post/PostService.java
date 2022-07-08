@@ -11,7 +11,7 @@ public interface PostService {
 
     void update(PostDTO postDTO);
 
-    List<Post> getPostList(String areaName); // 전체 리스트뷰
+    List<Post> getPostList(String area_name); // 전체 리스트뷰
 
     Post getPost(Long post_num); // 하나의 상세페이지로 이동
 }
