@@ -2,12 +2,13 @@ package footprints.footprints.service.change;
 
 import footprints.footprints.domain.member.Member;
 import footprints.footprints.domain.member.MemberDTO;
-import footprints.footprints.repository.member.MemberRepositoryImpl;
+import footprints.footprints.repository.member.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+
 
 @Service
 @RequiredArgsConstructor
@@ -15,7 +16,7 @@ import javax.transaction.Transactional;
 @Transactional
 public class ChangeServiceImpl implements ChangeService{
 
-    private final MemberRepositoryImpl memberRepository;
+    private final MemberRepository memberRepository;
 
 
     @Override

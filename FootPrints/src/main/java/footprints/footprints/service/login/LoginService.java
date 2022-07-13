@@ -2,7 +2,7 @@ package footprints.footprints.service.login;
 
 import footprints.footprints.domain.member.Member;
 import footprints.footprints.domain.member.MemberDTO;
-import footprints.footprints.repository.member.MemberRepositoryImpl;
+import footprints.footprints.repository.member.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Slf4j
 public class LoginService {
 
-    @Autowired
-    private final MemberRepositoryImpl memberRepository;
+    private final MemberRepository memberRepository;
 
     @Transactional(readOnly = true)
     public int loginCheck(MemberDTO memberDTO) {

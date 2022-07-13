@@ -13,7 +13,7 @@ import java.util.List;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class PostServiceImpl implements  PostService{
+public class PostServiceImpl implements PostService{
 
     private final PostRepository postRepository;
 
