@@ -3,6 +3,7 @@ package footprints.footprints.controller.post;
 import footprints.footprints.domain.member.Member;
 import footprints.footprints.domain.post.Post;
 import footprints.footprints.domain.post.PostDTO;
+import footprints.footprints.repository.post.PostRepository;
 import footprints.footprints.service.post.PostServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,6 +25,8 @@ public class PostController {
 
     private final PostServiceImpl postService;
 
+    private final PostRepository postRepository;
+
     // 배달 게시물 작성
     @PostMapping(value = "/delivery/post/create")
     public ResponseEntity<String> post(@RequestBody PostDTO postDTO){
@@ -44,17 +47,26 @@ public class PostController {
     @GetMapping(value = "/delivery/post/{post_id}")
     public Post detailPage(@PathVariable Long post_id){
         Post post = postService.getPost(post_id);
-
+        post.Plus_view();
+        postRepository.save1(post);
         return post;
     }
 
 
     @PostMapping(value = "/delivery/post/{post_id}/update")
-    public ResponseEntity<String> update(@RequestBody PostDTO postDTO){
+    public ResponseEntity<String> update(@RequestBody Long post_id, PostDTO postDTO){
         log.info("--------Id:{}", postDTO.getPost_name());
         log.info("--------Id:{}", postDTO.getCategory());
-        postService.update(postDTO);
+        postService.update(post_id, postDTO);
         return new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+    }
+
+    // 카테고리에서 선택한 종류에 대한 리스트뷰 뿌려주기
+    @GetMapping(value = "/category")
+    public ResponseEntity<List<Post>> listOfCategory(@RequestBody String category, String areaName) {
+        List<Post> categoryList = postService.getCategoryList(category, areaName);
+
+        return new ResponseEntity<List<Post>>(categoryList, HttpStatus.OK);
     }
 }
 

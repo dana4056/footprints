@@ -16,6 +16,13 @@ public class MemberDTO {
     private String area;
 
 
+    public MemberDTO(Member member){
+        this.nick = member.getNick();
+        this.email = member.getEmail();
+        this.pw = member.getPassword();
+        this.area = member.getArea();
+    }
+
     public Member toEntity() {
         return Member.builder()
                 .nick(nick)

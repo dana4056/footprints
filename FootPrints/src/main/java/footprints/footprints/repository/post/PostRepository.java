@@ -9,8 +9,12 @@ public interface PostRepository {
 
     void save(PostDTO postDTO);
 
+    void save1(Post post);
+
     List<Post> findAll(String area_name);
 
     Post findDetail(Long post_num);
+
+    List<Post> findCategory(String category, String areaName);
 
 }

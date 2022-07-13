@@ -9,9 +9,11 @@ public interface PostService {
 
     void join(PostDTO postDTO);
 
-    void update(PostDTO postDTO);
+    void update(Long post_id, PostDTO postDTO);
 
     List<Post> getPostList(String area_name); // 전체 리스트뷰
 
     Post getPost(Long post_num); // 하나의 상세페이지로 이동
+
+    List<Post> getCategoryList(String category, String areaName); // 카테고리별 리스트뷰
 }
