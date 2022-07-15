@@ -6,7 +6,7 @@
       
       <!-- <router-link v-bind:to="`/delivery/post/${delivery.post_id}`" class="link">상세보기 페이지 예시</router-link>  -->
 
-      <div id="sort-box">
+      <div id="sort-box"> 
         <button>음식 카테고리</button>
         <button>정렬: 기한 가까운 순</button>
         <div class="add-btn">
@@ -39,9 +39,9 @@
           </div>
         </div>
       </div>
-      <!------------------------------------------------------------------------------------------------->
-      
+      <!------------------------------------------------------------------------------------------------->  
     </div>
+    <up-button id="up_button"></up-button>
     <footer-area id="footer"></footer-area>
   </div>
 </template>
@@ -49,12 +49,14 @@
 <script>
 import ToolBar from '../components/ToolBar.vue'
 import FooterArea from '../components/FooterArea.vue'
+import UpButton from '../components/UpButton.vue'
 import dayjs from 'dayjs'
 
 export default {
   components:{
     ToolBar,
     FooterArea,
+    UpButton,
   },
   data(){
     return {
@@ -107,6 +109,12 @@ export default {
     position: absolute;  
     width: 100%;
     left: 0;
+}
+#up_button{
+    height: 700px;
+    position: fixed;
+    bottom: 0;
+    right: 200px;
 }
 #sort-box{
   display: -webkit-box;
