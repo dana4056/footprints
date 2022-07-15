@@ -95,7 +95,7 @@
             </div>
           </div> -->
 
-          <button type="submit" class="submitBtn" v-on:click.prevent="submitData">회원가입하기</button>
+          <button type="submit" class="submitBtn" v-on:click.prevent="submitData" v-on:keyup.enter="submitData">회원가입하기</button>
         </form>
       </div>
     </div>
@@ -147,23 +147,26 @@ export default {
     checkNick() {   //닉네임 중복체크 위해 보냄
       if (this.Nick != "") {
         this.$store.dispatch('POST_NICK', this.Nick);
-
-        this.isDupliNick =  this.$store.state.isDuplicateNick;
-        this.isUniqNick = !this.isDupliNick;
+        setTimeout(() => { 
+          this.isDupliNick =  this.$store.state.isDuplicateNick;
+          this.isUniqNick = !this.$store.state.isDuplicateNick;
+        }, 100); 
       }
     },
     checkEmail() {   //이메일 중복체크 위해 보냄
       if (this.Email1 != "" && this.Email2 != "") {
         this.$store.dispatch('POST_EMAIL', this.email);
-        this.isDupliEmail =  this.$store.state.isDuplicateEmail;
-        this.isUniqEmail = !this.isDupliEmail;
+        setTimeout(() => { 
+          this.isDupliEmail =  this.$store.state.isDuplicateEmail;
+          this.isUniqEmail = !this.$store.state.isDuplicateEmail;
+        }, 100);    
       }
     },
-    sendAuthenticCode() {
-      if (this.Phone != "") {
-        this.$store.dispatch('POST_PHONE', this.Phone);
-      }
-    },
+    // sendAuthenticCode() {
+    //   if (this.Phone != "") {
+    //     this.$store.dispatch('POST_PHONE', this.Phone);
+    //   }
+    // },
     submitData() {
       if (this.isValidAll()) {
         const member = {
@@ -172,7 +175,7 @@ export default {
           pw: this.Pw1,
           area: this.Area
         }
-        this.$store.dispatch('POST_MEMBER', member);
+        this.$store.dispatch('POST_MEMBER', member); 
       }
       else {
         alert("입력한 정보들을 확인해주세요");

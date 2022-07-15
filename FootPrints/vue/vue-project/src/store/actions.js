@@ -46,22 +46,23 @@ export default{
   // 이메일 중복체크
   POST_EMAIL({commit}, email){
     postEmail(email)
-        .then(response =>{ console.log(response);})
-        .catch(error=>{ console.log(error);
-                        return new Promise((resolve) => {
-                          setTimeout(() => {
-                            commit('SET_DUPLI_EMAIL', true)
-                            resolve()
-                          }, 1000)
-                        })
-                      }
-              )
+      .then(response => {
+        console.log(response);
+        commit('SET_DUPLI_EMAIL', false)
+      })
+      .catch(error => {
+        console.log(error);
+        commit('SET_DUPLI_EMAIL', true)
+      })
   },
   
   // 닉네임 중복체크
   POST_NICK({commit}, nick){
     postNick(nick)
-        .then(response =>{ console.log(response);})
+        .then(response =>{ 
+          console.log(response);
+          commit('SET_DUPLI_NICK', false);
+          })
         .catch(error=>{ console.log(error);
                         commit('SET_DUPLI_NICK', true)})
   },

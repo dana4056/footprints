@@ -4,10 +4,10 @@
 		<router-link to="/home" class="logo"><img src="../assets/logo.png">발자취</router-link>
 		<div class="Div">
 			<label v-if="emailtext">가입한 이메일 주소를 입력해주세요.</label>
-			<input id="phone" autocomplete="off" v-model="email" type="text" v-if="emailtext" placeholder="이메일" required>
+			<input id="phone" autocomplete="off" v-model="email" type="text" v-if="emailtext" v-on:keyup.enter="getCode" placeholder="이메일" required>
 			<label id="sendMail" v-if="CAN_infoVisible"><span>{{ GET_FIND_MEMBER_EMAIL }}</span>에게 인증번호를 보냈습니다.</label>
 			<label id="error" v-if="CANNOT_infoVisible">가입 되지 않은 회원입니다.</label>
-			<input id="userCode" v-if="inputVisible" autocomplete="off" maxlength="6" v-model="userCode" type="text" placeholder="인증번호" required>
+			<input id="userCode" v-if="inputVisible" autocomplete="off" maxlength="6" v-model="userCode" type="text" v-on:keyup.enter="checkCode" placeholder="인증번호" required>
 			<button type="submit" v-if="getBtnVisible" v-on:click="getCode">이메일로 인증코드 받기</button>
 			<button type="submit" v-if="ChkBtnVisible" v-on:click="checkCode">확인</button>
 		</div>

@@ -4,7 +4,7 @@
 		<router-link to="/home" class="logo"><img src="../assets/logo.png">발자취</router-link>
 		<div class="Div">
 			<label v-if="inputtext">회원정보에 등록한 이메일을 입력해주세요.</label>
-			<input id="email" autocomplete="off" v-model="email" type="text" v-if="inputemail" placeholder="이메일 입력" required>
+			<input id="email" autocomplete="off" v-model="email" type="text" v-on:keyup.enter="findID" v-if="inputemail" placeholder="이메일 입력" required>
 			<button type="submit" v-if="getBtnVisible" v-on:click="findID">이메일로 아이디 찾기</button>
       <div>
         <div id="showID" v-if="this.getIDVisible">회원님의 아이디는 <span>{{ GET_FIND_MEMBER_NICK }}</span> 입니다.</div>
