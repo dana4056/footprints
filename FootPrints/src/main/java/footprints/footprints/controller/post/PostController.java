@@ -9,22 +9,21 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
-import java.util.Arrays;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import java.util.List;
 
-//@Controller
-@RestController
+@Controller
 @RequiredArgsConstructor
 @Slf4j
 public class PostController {
 
     private final PostServiceImpl postService;
-
     private final PostRepository postRepository;
 
     // 배달 게시물 작성
@@ -36,11 +35,13 @@ public class PostController {
 
     // 리스트뷰
     @GetMapping(value = "/delivery/post")
-    public List<Post> detailPage(Authentication authentication){
+    public ResponseEntity<List<Post>> detailPage(Authentication authentication){
+        log.info("=============/delivery/post 진입");
         Member member = (Member) authentication.getPrincipal();
+        log.info("============= member area : {}",member.getArea());
         List<Post> postList = postService.getPostList(member.getArea());
 
-        return postList;
+        return new ResponseEntity<List<Post>>(postList, HttpStatus.OK);
     }
 
     // 상세페이지

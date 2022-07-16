@@ -28,13 +28,13 @@ function fetchUser(){
         }
     });
 }
-function fetchTest(){
-    return axios.get(`${config.baseUrl}/user/1`, {
-        headers: {
-            'X-AUTH-TOKEN': localStorage.getItem('jwt')
-        }
-    });
-}
+// function fetchTest(){
+//     return axios.get(`${config.baseUrl}/user/1`, {
+//         headers: {
+//             'X-AUTH-TOKEN': localStorage.getItem('jwt')
+//         }
+//     });
+// }
 function postEmail(email){
     return axios.post(`${config.baseUrl}/signup/check-email`, email, {
         headers: {
@@ -115,11 +115,13 @@ function findPW(email){
   }
 
   function postDeliveryPost(post){
-      return axios.post(`${config.baseUrl}/delivery/post/create`, post,{
+      return axios.post(`${config.baseUrl}/delivery/post/create`, post
+      ,{
         headers: {
             'X-AUTH-TOKEN': localStorage.getItem('jwt')
         }
-    });
+    }
+    );
   }
   
   function fetchDeliveryDetail(post_id){
@@ -133,7 +135,7 @@ function findPW(email){
 
 export{
     fetchUser,
-    fetchTest,
+    //fetchTest,
     postEmail,
     postNick,
     postLogin,

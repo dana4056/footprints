@@ -126,11 +126,7 @@ export default {
             max_person_num: this.max_person_num, // 모집 인원
             valid_time: this.valid_time,         // 게시물 유효 시간
             view_num: this.view_num ,            // 조회수
-            // ------- member entity 참조할건데 임시로 --------------
-            user_name: this.$store.state.member.nick,           // 작성자 이름
-            area_name: this.$store.state.member.area,           // 행정지역명
-            // lat: this.latitude,
-            // long: this.longtitude,
+            nick:this.$store.state.member.nick
         }
         console.log("POST\n",post);
         this.$store.dispatch('POST_DELIVERY_POST', post)

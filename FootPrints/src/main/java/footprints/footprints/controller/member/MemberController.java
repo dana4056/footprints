@@ -29,10 +29,10 @@ public class MemberController {
     private final ChangeService changeService;
     private final JwtTokenProvider jwtTokenProvider;
 
-    @GetMapping(value = "/user/1")
-    public ResponseEntity<String> auth(){
-        return new ResponseEntity<String>("SUCCESS AUTH?", HttpStatus.OK);
-    }
+//    @GetMapping(value = "/user/1")
+//    public ResponseEntity<String> auth(){
+//        return new ResponseEntity<String>("SUCCESS AUTH?", HttpStatus.OK);
+//    }
 
     @GetMapping(value = "/user")
     public ResponseEntity<MemberResponseDTO> fetchMember(Authentication authentication){
@@ -98,7 +98,7 @@ public class MemberController {
             log.info("로그인 성공");
 
             Member loginMember = memberRepository.findByNick(memberDTO.getNick());
-            String token = jwtTokenProvider.createToken(loginMember.getUsername(), loginMember.getRoles());
+            String token = jwtTokenProvider.createToken(loginMember);
             return new ResponseEntity<String>(token, HttpStatus.OK);
         }
         else if(checkLogin == 0){ // 해당 닉네임 없음(없는 계정)

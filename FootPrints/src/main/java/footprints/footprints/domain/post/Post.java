@@ -30,20 +30,20 @@ public class Post {
     private String take_loc;      // 음식 나눌 장소
     private int participant_num;  // 현재 참가 인원
     private int max_person_num;       // 모집 인원
-    private int valid_time;       // 게시물 유효 시간
+    private String valid_time;       // 게시물 유효 시간
     @CreatedDate
     private LocalDateTime createdDate;  //게시물 등록 시간
     private int view_num;         // 조회수
     // ------- member entity 참조할건데 임시로 --------------
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name="MEMBER_ID")
-    @JsonIgnore
+//    @JsonIgnore
     private Member member;
 
 
     @Builder
     public Post(String post_name, String post_content, String category, String take_loc,
-                int participant_num, int max_person_num, int valid_time, int view_num, Member member){
+                int participant_num, int max_person_num, String valid_time, int view_num, Member member){
         this.post_name = post_name;
         this.post_content = post_content;
         this.category = category;
@@ -64,6 +64,7 @@ public class Post {
         this.max_person_num = postDTO.getMax_person_num();
         this.valid_time = postDTO.getValid_time();
         this.view_num = postDTO.getView_num();
+//        this.member = postDTO.getMember();
     }
 
     public void Plus_view(){
