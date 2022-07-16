@@ -3,9 +3,7 @@
   <div>
     <tool-bar></tool-bar>
     <div id="content">
-      
       <!-- <router-link v-bind:to="`/delivery/post/${delivery.post_id}`" class="link">상세보기 페이지 예시</router-link>  -->
-
       <div id="sort-box"> 
         <button>음식 카테고리</button>
         <button>정렬: 기한 가까운 순</button>
@@ -42,6 +40,7 @@
       <!------------------------------------------------------------------------------------------------->  
     </div>
     <up-button id="up_button"></up-button>
+    <!-- css적으로 위치를 잡아준거라 relative하게 버튼의 위치를 잡아주는 작업 필요 -->
     <footer-area id="footer"></footer-area>
   </div>
 </template>

@@ -3,6 +3,7 @@
       <tool-bar></tool-bar>
       <div id="content">홈페이지 ~.~</div>
       <up-button id="up_button"></up-button>
+      <!-- footer 지역에 닿으면 사라지는 이슈 -->
       <footer-area id="footer"></footer-area>
   </div> 
 </template>
