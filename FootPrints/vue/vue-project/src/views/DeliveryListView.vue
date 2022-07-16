@@ -5,8 +5,23 @@
     <div id="content">
       <!-- <router-link v-bind:to="`/delivery/post/${delivery.post_id}`" class="link">상세보기 페이지 예시</router-link>  -->
       <div id="sort-box"> 
-        <button>음식 카테고리</button>
-        <button>정렬: 기한 가까운 순</button>
+        <!-- 수정 필요 부분 -->
+        <!-- <button>음식 카테고리</button>
+        <button>정렬: 기한 가까운 순</button> -->
+        <select class="sortThing" v-model="category" v-on:focus="NoneCategory" v-on:focusout="SelectCategory">
+          <option value="" selected="selected" disabled hidden>----- 선택 -----</option>
+          <!-- 여기서 값들 스트링으로 안 넣고 data.categories로 넣을 수 있을거같은데 -->
+          <option value="KOR">한식</option>
+          <option value="CHI">중식</option>
+          <option value="ETC">기타</option>
+        </select>
+
+        <select class="sortThing" v-model="sort" v-on:focus="BeforeSort" v-on:focusout="SelectSortCriteria">
+          <option value="" selected="selected" disabled hidden>----- 선택 -----</option>
+          <option value="default">글 작성 시간 순</option>
+          <option value="near">마감기한 가까운 순</option>
+          <option value="far">마감기한 먼 순</option>
+        </select>
         <div class="add-btn">
           <router-link to="/delivery/post/create" class="link">
             <i class="fa-solid fa-circle-plus"></i>
@@ -21,7 +36,7 @@
           <div class="listbox-head">
             <div class="res-name"><router-link v-bind:to="`/delivery/post/${delivery.post_id}`">{{ delivery.post_name }}</router-link></div>
             <div class="category" v-bind:class="delivery.category">{{this.categories[delivery.category]}}</div>
-            <div class="time"><small>{{ delivery.valid_time.format("M/D  HH:mm")}}</small></div>
+            <div class="time"><small>마감기한 : {{  delivery.valid_time.format("M/D  HH:mm")}}</small></div>
           </div>
           <router-link v-bind:to="`/delivery/post/${delivery.post_id}`"><p>{{ delivery.post_content }}</p></router-link>
           <div class="listbox-foot">
@@ -40,7 +55,7 @@
       <!------------------------------------------------------------------------------------------------->  
     </div>
     <up-button id="up_button"></up-button>
-    <!-- css적으로 위치를 잡아준거라 relative하게 버튼의 위치를 잡아주는 작업 필요 -->
+    <!-- 절대적으로 위치를 잡아준거라 relative하게 버튼의 위치를 잡아주는 작업 필요 -->
     <footer-area id="footer"></footer-area>
   </div>
 </template>
@@ -63,7 +78,9 @@ export default {
         'KOR': '한식',
         'CHI': '중식',
         'ETC': '기타'
-      }
+      },
+      category: "",
+      sort_criteria: "",
     }
   },
   created(){
@@ -71,9 +88,7 @@ export default {
   },
   methods:{
     caltime(created){
-
       const now = dayjs();
-
       if(created.isSame(now,"day")){
           const ago_H = now.diff(created,"h");
           const ago_M = now.diff(created,"m");
@@ -86,6 +101,27 @@ export default {
           const ago_D = now.diff(created,"d");
           return String(ago_D)+"일 ";
       }
+    },
+    NoneCategory(){
+      this.category = "";
+    },
+    SelectCategory(){
+      this.$store.dispatch('FETCH_DELIVERY_LIST_CATEGORY', this.category);
+      setTimeout(() => { 
+          console.log("여기서 무언가를 해야 제대로 찍힐라나 싶네");
+        }, 100);   
+    },
+    BeforeSort(){
+      this.sort_criteria = "";
+    },
+    SelectSortCriteria(){
+      if(this.sort_criteria == "near" || this.sort_criteria == 'far'){
+        this.$store.dispatch('FETCH_DELIVERY_LIST_SORT_TIME', this.sort);
+      }
+      //혹시 다른 조건 걸릴까봐 이런 if문으로 분기 해놓음
+      setTimeout(() => { 
+        console.log("여기서 무언가를 해야 제대로 찍힐라나 싶네");
+      }, 100);   
     }
   }
 }
@@ -181,6 +217,9 @@ a {
   border-radius: 3px;
   color: #ffffff;
   vertical-align:middle;
+}
+.sortThing {
+  width:45%;
 }
 
 /* ----- 카테고리 태그 색상 지정 -------*/

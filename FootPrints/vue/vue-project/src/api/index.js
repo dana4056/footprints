@@ -101,20 +101,40 @@ function findPW(email){
     });
 }
   
-  function changePWD(memberDTO){
+function changePWD(memberDTO){
     return axios.post(`${config.baseUrl}/ChangePW`, memberDTO);
-  }
+}
 
-  function fetchDeliveryList(){
+function fetchDeliveryList(){
       //로그인된 유저의 지역값 같이 보내줘야함
       return axios.get(`${config.baseUrl}/delivery/post`, {
         headers: {
             'X-AUTH-TOKEN': localStorage.getItem('jwt')
         }
     });
-  }
+}
+//카테고리 별로 불러오기 위함
+function fetchDeliveryList_Category(category) {
+    return axios.get(`${config.baseUrl}/category`, {
+        category,
+        headers: {
+            'X-AUTH-TOKEN': localStorage.getItem('jwt')
+        },
+    });
+}
 
-  function postDeliveryPost(post){
+//카테고리 별로 불러오기 위함
+function fetchDeliveryList_Time(time) {
+    return axios.get(`${config.baseUrl}/sort_time`, {
+        time,
+        headers: {
+            'X-AUTH-TOKEN': localStorage.getItem('jwt')
+        },
+    });
+}
+
+
+function postDeliveryPost(post){
       return axios.post(`${config.baseUrl}/delivery/post/create`, post,{
         headers: {
             'X-AUTH-TOKEN': localStorage.getItem('jwt')
@@ -148,4 +168,6 @@ export{
     fetchDeliveryList,
     postDeliveryPost,
     fetchDeliveryDetail,
+    fetchDeliveryList_Category,
+    fetchDeliveryList_Time,
 } 

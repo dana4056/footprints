@@ -17,4 +17,6 @@ public interface PostRepository {
 
     List<Post> findCategory(String category, String areaName);
 
+    List<Post> findSortTime(String time, String areaName);
+
 }

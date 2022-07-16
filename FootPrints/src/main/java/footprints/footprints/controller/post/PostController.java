@@ -10,11 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 //@Controller
@@ -24,7 +20,6 @@ import java.util.List;
 public class PostController {
 
     private final PostServiceImpl postService;
-
     private final PostRepository postRepository;
 
     // 배달 게시물 작성
@@ -42,6 +37,7 @@ public class PostController {
 
         return postList;
     }
+
 
     // 상세페이지
     @GetMapping(value = "/delivery/post/{post_id}")
@@ -68,5 +64,13 @@ public class PostController {
 
         return new ResponseEntity<List<Post>>(categoryList, HttpStatus.OK);
     }
+    // 시간 순서에 대한 리스트뷰 뿌려주기
+    @GetMapping(value = "/sort_time")
+    public ResponseEntity<List<Post>> listOfTime(@RequestBody String time, String areaName) {
+        List<Post> timeList = postService.getSortTimeList(time, areaName);
+
+        return new ResponseEntity<List<Post>>(timeList, HttpStatus.OK);
+    }
+
 }
 

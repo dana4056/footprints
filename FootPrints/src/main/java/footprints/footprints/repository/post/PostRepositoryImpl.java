@@ -77,5 +77,32 @@ public class PostRepositoryImpl implements PostRepository{
         return resultList;
     }
 
+    @Override
+    public List<Post> findSortTime(String time, String areaName){
+        if(time.equals("near")){
+            TypedQuery<Post> nearTime = em.createQuery("select p from Post p where p.user_area = :areaName " +
+                            "order by p.valid_time",
+                    Post.class).setParameter("areaName", areaName);
 
+            List<Post> resultList = nearTime.getResultList();
+            return resultList;
+        }
+        else if(time.equals("far")){
+            TypedQuery<Post> farTime = em.createQuery("select p from Post p where p.user_area = :areaName " +
+                            "order by p.valid_time desc",
+                    Post.class).setParameter("areaName", areaName).setParameter;
+
+            List<Post> resultList = farTime.getResultList();
+            return resultList;
+        }
+        else{
+            //default
+            TypedQuery<Post> sameArea = em.createQuery("select p from Post p where p.area_name = :area_name",
+                    Post.class).setParameter("area_name", area_name);
+
+            List<Post> resultList = sameArea.getResultList();
+
+            return resultList;
+        }
+    }
 }
