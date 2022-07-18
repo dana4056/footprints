@@ -9,25 +9,25 @@
         <!-- <button>음식 카테고리</button>
         <button>정렬: 기한 가까운 순</button> -->
         <label>음식 카테고리</label>
-          <span>
-            <select class="category" v-model="category" v-on:focus="NoneCategory" v-on:focusout="SelectCategory">
+          <div>
+            <select class="sortThing" v-model="category" v-on:focus="NoneCategory" v-on:focusout="SelectCategory">
               <option value="" selected="selected" disabled hidden>----- 선택 -----</option>
               <!-- 여기서 값들 스트링으로 안 넣고 data.categories로 넣을 수 있을거같은데 -->
               <option value="KOR">한식</option>
               <option value="CHI">중식</option>
               <option value="ETC">기타</option> 
             </select> 
-          </span>
+          </div>
 
         <label>정렬 기준</label>
-          <span>
+          <div>
             <select class="sortThing" v-model="sort" v-on:focus="BeforeSort" v-on:focusout="SelectSortCriteria">
               <option value="" selected="selected" disabled hidden>----- 선택 -----</option>
               <option value="default">글 작성 시간 순</option>
               <option value="near">마감기한 가까운 순</option>
               <option value="far">마감기한 먼 순</option>
             </select>
-          </span>
+          </div>
 
         <!-- 작업 필요 -->
         <!-- <label>다른 지역?</label>
@@ -237,9 +237,16 @@ a {
   vertical-align:middle;
 }
 .sortThing {
-  padding: 50px 0 0 0;
-  border-top: 1px solid rgb(226, 226, 226);
   width:45%;
+  
+}
+label {
+  text-align: left;
+  display: block;
+  font-size: 15px;
+  font-weight: bold;
+  color: #292929;
+  margin: 0 0 12px;
 }
 
 /* ----- 카테고리 태그 색상 지정 -------*/
