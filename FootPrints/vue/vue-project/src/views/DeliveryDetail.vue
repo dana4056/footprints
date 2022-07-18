@@ -35,6 +35,7 @@
       </div>
       
     </div>
+    <to-delivery id="toDelivery"></to-delivery>
     <footer-area id="footer"></footer-area>
   </div>
 </template>
@@ -42,12 +43,14 @@
 <script>
 import ToolBar from '../components/ToolBar.vue'
 import FooterArea from '../components/FooterArea.vue'
+import ToDelivery from '../components/ToDelivery.vue'
 import dayjs from 'dayjs'
 
 export default {
   components:{
     ToolBar,
     FooterArea,
+    ToDelivery,
   },
   computed:{
     fetched(){
@@ -230,5 +233,11 @@ export default {
     position: absolute;  
     width: 100%;
     left: 0;
+}
+#toDelivery{
+    height: 100px;
+    position: fixed;
+    bottom: 0;
+    right: 200px;
 }
 </style>

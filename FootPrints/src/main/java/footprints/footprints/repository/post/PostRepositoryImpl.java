@@ -90,7 +90,7 @@ public class PostRepositoryImpl implements PostRepository{
         else if(time.equals("far")){
             TypedQuery<Post> farTime = em.createQuery("select p from Post p where p.user_area = :areaName " +
                             "order by p.valid_time desc",
-                    Post.class).setParameter("areaName", areaName).setParameter;
+                    Post.class).setParameter("areaName", areaName);
 
             List<Post> resultList = farTime.getResultList();
             return resultList;
@@ -98,7 +98,7 @@ public class PostRepositoryImpl implements PostRepository{
         else{
             //default
             TypedQuery<Post> sameArea = em.createQuery("select p from Post p where p.area_name = :area_name",
-                    Post.class).setParameter("area_name", area_name);
+                    Post.class).setParameter("area_name", areaName);
 
             List<Post> resultList = sameArea.getResultList();
 

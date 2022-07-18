@@ -9,7 +9,7 @@ export default {
   methods:{
     upClick(){
       window.scrollTo(0, 0);
-    }
+    } 
   },
 }
 </script>

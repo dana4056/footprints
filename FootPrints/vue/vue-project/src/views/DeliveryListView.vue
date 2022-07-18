@@ -1,6 +1,6 @@
 
 <template>
-  <div>
+  <div display="flex">
     <tool-bar></tool-bar>
     <div id="content">
       <!-- <router-link v-bind:to="`/delivery/post/${delivery.post_id}`" class="link">상세보기 페이지 예시</router-link>  -->
@@ -8,20 +8,38 @@
         <!-- 수정 필요 부분 -->
         <!-- <button>음식 카테고리</button>
         <button>정렬: 기한 가까운 순</button> -->
-        <select class="sortThing" v-model="category" v-on:focus="NoneCategory" v-on:focusout="SelectCategory">
-          <option value="" selected="selected" disabled hidden>----- 선택 -----</option>
-          <!-- 여기서 값들 스트링으로 안 넣고 data.categories로 넣을 수 있을거같은데 -->
-          <option value="KOR">한식</option>
-          <option value="CHI">중식</option>
-          <option value="ETC">기타</option>
-        </select>
+        <label>음식 카테고리</label>
+          <span>
+            <select class="category" v-model="category" v-on:focus="NoneCategory" v-on:focusout="SelectCategory">
+              <option value="" selected="selected" disabled hidden>----- 선택 -----</option>
+              <!-- 여기서 값들 스트링으로 안 넣고 data.categories로 넣을 수 있을거같은데 -->
+              <option value="KOR">한식</option>
+              <option value="CHI">중식</option>
+              <option value="ETC">기타</option> 
+            </select> 
+          </span>
 
-        <select class="sortThing" v-model="sort" v-on:focus="BeforeSort" v-on:focusout="SelectSortCriteria">
-          <option value="" selected="selected" disabled hidden>----- 선택 -----</option>
-          <option value="default">글 작성 시간 순</option>
-          <option value="near">마감기한 가까운 순</option>
-          <option value="far">마감기한 먼 순</option>
-        </select>
+        <label>정렬 기준</label>
+          <span>
+            <select class="sortThing" v-model="sort" v-on:focus="BeforeSort" v-on:focusout="SelectSortCriteria">
+              <option value="" selected="selected" disabled hidden>----- 선택 -----</option>
+              <option value="default">글 작성 시간 순</option>
+              <option value="near">마감기한 가까운 순</option>
+              <option value="far">마감기한 먼 순</option>
+            </select>
+          </span>
+
+        <!-- 작업 필요 -->
+        <!-- <label>다른 지역?</label>
+          <span>
+            <select class="sortThing" v-model="sort" v-on:focus="BeforeSort" v-on:focusout="SelectSortCriteria">
+              <option value="" selected="selected" disabled hidden>----- 선택 -----</option>
+              <option value="default">글 작성 시간 순</option>
+              <option value="near">마감기한 가까운 순</option>
+              <option value="far">마감기한 먼 순</option>
+            </select>
+          </span>   -->
+
         <div class="add-btn">
           <router-link to="/delivery/post/create" class="link">
             <i class="fa-solid fa-circle-plus"></i>
@@ -145,7 +163,7 @@ export default {
     width: 100%;
     left: 0;
 }
-#up_button{
+#up_button{ 
     height: 700px;
     position: fixed;
     bottom: 0;
@@ -219,6 +237,8 @@ a {
   vertical-align:middle;
 }
 .sortThing {
+  padding: 50px 0 0 0;
+  border-top: 1px solid rgb(226, 226, 226);
   width:45%;
 }
 

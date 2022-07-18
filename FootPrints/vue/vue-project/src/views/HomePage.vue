@@ -17,7 +17,7 @@ export default {
     components:{
         ToolBar,
         FooterArea,
-        UpButton,
+        UpButton, 
     }
 }
 </script>
