@@ -2,18 +2,19 @@
   <div id="page">
     <div id="wrap">
       <router-link to="/home" class="logo"><img src="../assets/logo.png">발자취</router-link>
-
-      <div class="Div">
-        <div v-bind:class="{errorType:!isValidNick()}">
-          <input id="Nick" autocomplete="off" v-model="Nick" type="text" placeholder="닉네임" required>
-        </div>
+      <form>
+        <div class="Div">
+          <div v-bind:class="{errorType:!isValidNick()}">
+            <input id="Nick" autocomplete="off" v-model="Nick" type="text" placeholder="닉네임" required>
+          </div>
 
         <div v-bind:class="{errorType:!isValidPassword}">
           <input id="Pw" v-on:focusout="checkPassword" autocomplete="off" maxlength="20" v-model="Pw" type="password" v-on:keyup.enter="checkLogin" placeholder="비밀번호" required>
         </div>
 
-        <button type="submit" v-on:click.prevent="checkLogin">로그인</button>
-      </div>
+          <button type="submit" v-on:click.prevent="checkLogin">로그인</button>
+        </div>
+      </form>
 
       <div class="Div">
         <router-link to="/findID" class="link">아이디 찾기</router-link>|

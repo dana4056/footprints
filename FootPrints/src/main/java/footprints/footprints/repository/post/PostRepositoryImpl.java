@@ -1,7 +1,10 @@
 package footprints.footprints.repository.post;
 
+import footprints.footprints.domain.member.Member;
 import footprints.footprints.domain.post.Post;
 import footprints.footprints.domain.post.PostDTO;
+import footprints.footprints.repository.member.MemberRepositoryImpl;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 
@@ -12,10 +15,34 @@ import java.util.List;
 
 @Repository
 @Slf4j
+@RequiredArgsConstructor
 public class PostRepositoryImpl implements PostRepository{
+
+    private final MemberRepositoryImpl memberRepository;
 
     @PersistenceContext
     private EntityManager em;
+
+
+    @Override
+    public void save_d(PostDTO postDTO){
+        Member member = memberRepository.findByNick(postDTO.getNick());
+        Post post = new Post(postDTO.getPost_name(), postDTO.getPost_content(), postDTO.getCategory(), postDTO.getTake_loc(), postDTO.getParticipant_num(), postDTO.getMax_person_num(), postDTO.getValid_time(), postDTO.getView_num(), member);
+        log.info("PostRepositoryImpl-post: {}",post);
+        if(post.getPost_id() == null){
+            log.info("-------------------------------------------");
+            log.info("id 없음");
+            log.info("-------------------------------------------");
+            em.persist(post);
+        }
+        else{
+            log.info("-------------------------------------------");
+            log.info("id 있음");
+            log.info("-------------------------------------------");
+            em.merge(post);
+        }
+
+    }
 
     @Override
     public void save(PostDTO postDTO){
@@ -32,7 +59,6 @@ public class PostRepositoryImpl implements PostRepository{
             log.info("-------------------------------------------");
             em.merge(post);
         }
-
     }
 
     @Override
@@ -53,7 +79,7 @@ public class PostRepositoryImpl implements PostRepository{
 
     @Override
     public List<Post> findAll(String area_name) {
-        TypedQuery<Post> sameArea = em.createQuery("select p from Post p where p.area_name = :area_name",
+        TypedQuery<Post> sameArea = em.createQuery("select p from Post p where p.member.area = :area_name",
                 Post.class).setParameter("area_name", area_name);
 
         List<Post> resultList = sameArea.getResultList();

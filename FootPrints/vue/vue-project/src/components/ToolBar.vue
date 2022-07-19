@@ -32,6 +32,7 @@ export default {
         //     this.$cookies.set("JSESSIONID", id);
         //     this.isLogin = true;
         // }
+        console.log("toolbar created")
         if(localStorage.getItem('jwt') != null){
             this.$store.dispatch('FETCH_NICK')
             if(this.$store.state.member.nick != ""){

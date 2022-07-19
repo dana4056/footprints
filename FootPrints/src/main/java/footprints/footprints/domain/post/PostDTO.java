@@ -22,10 +22,11 @@ public class PostDTO {
     private String take_loc;      // 음식 나눌 장소
     private int participant_num;  // 현재 참가 인원
     private int max_person_num;       // 모집 인원
-    private int valid_time;       // 게시물 유효 시간
+    private String valid_time;       // 게시물 유효 시간
     private int view_num;         // 조회수
+    //private Member member;        // 게시한 회원
     // ------- member entity 참조할건데 임시로 --------------
-
+    private String nick;
 
     public PostDTO(Post post){
         this.post_name = post.getPost_name();
@@ -36,6 +37,7 @@ public class PostDTO {
         this.max_person_num = post.getMax_person_num();
         this.valid_time = post.getValid_time();
         this.view_num = post.getView_num();
+//        this.member = post.getMember();
     }
 
 

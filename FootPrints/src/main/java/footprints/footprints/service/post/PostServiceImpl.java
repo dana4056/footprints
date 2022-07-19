@@ -4,12 +4,14 @@ import footprints.footprints.domain.post.Post;
 import footprints.footprints.domain.post.PostDTO;
 import footprints.footprints.repository.post.PostRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 @Service
 @Transactional
 @RequiredArgsConstructor
@@ -19,7 +21,8 @@ public class PostServiceImpl implements PostService{
 
     @Override
     public void join(PostDTO postDTO){
-        postRepository.save(postDTO);
+//        postRepository.save(postDTO);
+        postRepository.save_d(postDTO);
     }
 
     @Override

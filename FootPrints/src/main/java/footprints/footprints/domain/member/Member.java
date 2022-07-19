@@ -19,7 +19,7 @@ public class Member implements UserDetails {
 
     @Id
     @GeneratedValue
-    private Long user_id;
+    private Long id;
     private String nick;
     private String email;
     private String password;
