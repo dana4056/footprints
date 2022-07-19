@@ -41,12 +41,18 @@
               </span>
               <span><span class="emailItem2">@</span></span>
               <span>
-                <select class="emailItem3" name="domain" id='userId2' v-model="Email2" v-on:focus="ignoreInputE" v-on:focusout="checkEmail">
+                <select v-if="isSelectBox" v-on:change="directInput" class="emailItem3" name="domain" id='userId2' v-model="Email2" v-on:focus="ignoreInputE" v-on:focusout="checkEmail">
                     <option value="" selected="selected" disabled hidden>----- 선택 -----</option>
                     <option value="naver.com">naver.com</option>
                     <option value="gmail.com">gmail.com</option>
                     <option value="skuniv.ac.kr">skuniv.ac.kr</option>
+                    <option value="direct">직접입력</option>
                 </select>
+                <span id="directInputBox" v-if="!isSelectBox">
+                  <input autofocus type="text" class="emailItem3" v-on:focus="ignoreInputE" v-model="Email2" autoComplete="off" placeholder="직접입력" required>
+                  <i v-on:click="changeSelectBox" class="fa-solid fa-xmark"></i>
+                </span>
+
               </span>
             </div>
             <span class="errorType" v-if="this.isDupliEmail">이미 사용 중인 이메일입니다. </span>
@@ -122,6 +128,7 @@ export default {
       isDupliNick:false,
       isUniqEmail:false,
       isDupliEmail:false,
+      isSelectBox:true
     }
   },
   computed: {
@@ -151,6 +158,17 @@ export default {
         this.isDupliNick =  this.$store.state.isDuplicateNick;
         this.isUniqNick = !this.isDupliNick;
       }
+    },
+    directInput(){
+      if(this.isSelectBox){
+        if(this.Email2=="direct"){
+          this.changeSelectBox();
+        }
+      }
+    },
+    changeSelectBox(){
+      this.Email2 = "";
+      this.isSelectBox = !this.isSelectBox;
     },
     checkEmail() {   //이메일 중복체크 위해 보냄
       if (this.Email1 != "" && this.Email2 != "") {
@@ -344,6 +362,16 @@ input, select {
   border-radius: 8px;
   padding: 8px 15px 9px;
   margin: 0 0 7px 0;
+}
+#directInputBox{
+    position:relative;
+}
+
+#directInputBox i{
+    position: absolute;
+    left: 139px;
+    bottom: 2px;
+    color:#BDBDBD;
 }
 
 input:focus {

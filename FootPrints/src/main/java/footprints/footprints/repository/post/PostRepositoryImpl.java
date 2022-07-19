@@ -79,7 +79,7 @@ public class PostRepositoryImpl implements PostRepository{
 
     @Override
     public List<Post> findAll(String area_name) {
-        TypedQuery<Post> sameArea = em.createQuery("select p from Post p where p.area_name = :area_name",
+        TypedQuery<Post> sameArea = em.createQuery("select p from Post p where p.member.area = :area_name",
                 Post.class).setParameter("area_name", area_name);
 
         List<Post> resultList = sameArea.getResultList();

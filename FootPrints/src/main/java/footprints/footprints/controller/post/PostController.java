@@ -40,7 +40,7 @@ public class PostController {
         Member member = (Member) authentication.getPrincipal();
         log.info("============= member area : {}",member.getArea());
         List<Post> postList = postService.getPostList(member.getArea());
-
+        log.info("{}", postList);
         return new ResponseEntity<List<Post>>(postList, HttpStatus.OK);
     }
 
