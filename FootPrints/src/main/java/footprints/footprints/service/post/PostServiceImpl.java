@@ -21,7 +21,6 @@ public class PostServiceImpl implements PostService{
 
     @Override
     public void join(PostDTO postDTO){
-//        postRepository.save(postDTO);
         postRepository.save_d(postDTO);
     }
 
@@ -31,7 +30,7 @@ public class PostServiceImpl implements PostService{
         Post post = postRepository.findDetail(post_id);
         post.Update(postDTO);
         //PostDTO postDTO1 = new PostDTO(post);
-        postRepository.save1(post);
+        postRepository.save_d(postDTO);
     }
 
     @Override

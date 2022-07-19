@@ -1,4 +1,5 @@
 package footprints.footprints.domain.member;
+import footprints.footprints.domain.post.PostDTO;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -17,15 +18,25 @@ import java.util.stream.Collectors;
 @Entity
 public class Member implements UserDetails {
 
+
+//    @GeneratedValue
+//    private Long id;
     @Id
-    @GeneratedValue
-    private Long id;
-    private String nick;
+    private String nick;    //id -> nick 으로 pk 변경
     private String email;
     private String password;
     private String area;
+
+    public void Update(MemberDTO memberDTO){
+        this.nick = memberDTO.getNick();
+        this.email = memberDTO.getEmail();
+        this.password = memberDTO.getPw();
+        this.area = memberDTO.getArea();
+    }
+
     @ElementCollection(fetch = FetchType.EAGER)
     @Builder.Default
+    @Column(nullable = true)
     private List<String> roles = new ArrayList<>();
 
     @Override

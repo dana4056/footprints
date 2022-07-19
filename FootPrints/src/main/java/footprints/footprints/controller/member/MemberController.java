@@ -5,9 +5,7 @@ import footprints.footprints.domain.member.MemberDTO;
 import footprints.footprints.domain.member.MemberResponseDTO;
 import footprints.footprints.jwt.JwtTokenProvider;
 import footprints.footprints.repository.member.MemberRepositoryImpl;
-import footprints.footprints.service.change.ChangeService;
-import footprints.footprints.service.login.LoginService;
-import footprints.footprints.service.signup.SignupService;
+import footprints.footprints.service.member.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -22,11 +20,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 @RequiredArgsConstructor
 @Slf4j
 public class MemberController {
-//    private final SignupServiceImpl signupService;
-    private final SignupService signupService;
-    private final LoginService loginService;
+    private  final MemberService memberService;
+
     private final MemberRepositoryImpl memberRepository;
-    private final ChangeService changeService;
+
     private final JwtTokenProvider jwtTokenProvider;
 
 //    @GetMapping(value = "/user/1")
@@ -44,16 +41,16 @@ public class MemberController {
 
     // 회원가입
     @PostMapping(value = "/signup")
-    public ResponseEntity<String> create(@RequestBody MemberDTO memberDTO){
-        signupService.join(memberDTO);
-        boolean signupImpossible = signupService.emailOverlapCheck(memberDTO.getEmail());
+    public ResponseEntity<String> create(@RequestBody Member member){
+        memberService.join(member);
+        boolean signupImpossible = memberService.emailOverlapCheck(member.getEmail());
 
         if(signupImpossible){
-            log.info("회원가입 실패: nick = {}", memberDTO.getNick());
+            log.info("회원가입 실패: nick = {}", member.getNick());
             return new ResponseEntity<String>("FAILED", HttpStatus.CONFLICT);
         }
         else{
-            log.info("회원가입 성공: nick = {}", memberDTO.getNick());
+            log.info("회원가입 성공: nick = {}", member.getNick());
             return new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
         }
 
@@ -63,7 +60,7 @@ public class MemberController {
     @PostMapping(value = "/signup/check-email")
     public ResponseEntity<String> checkEmail(@RequestBody String email){
         log.info("이메일 중복체크 : {}", email);
-        boolean duplication = signupService.emailOverlapCheck(email);
+        boolean duplication = memberService.emailOverlapCheck(email);
 
         if(duplication) {
             log.info("사용 가능한 이메일");
@@ -79,7 +76,7 @@ public class MemberController {
     @PostMapping(value = "/signup/check-nick")
     public ResponseEntity<String> checkNick(@RequestBody String nick){
         log.info("닉네임 중복체크 : {}", nick);
-        boolean duplication = signupService.nickOverlapCheck(nick);
+        boolean duplication = memberService.nickOverlapCheck(nick);
         if(duplication) {
             log.info("사용 가능한 닉넴");
             return new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
@@ -93,7 +90,7 @@ public class MemberController {
     // 로그인
     @PostMapping(value = "/login")
     public ResponseEntity<String> login(@RequestBody MemberDTO memberDTO){
-        int checkLogin = loginService.loginCheck(memberDTO);
+        int checkLogin = memberService.loginCheck(memberDTO);
         if(checkLogin == 1){  //로그인 성공
             log.info("로그인 성공");
 
@@ -127,7 +124,7 @@ public class MemberController {
     public ResponseEntity<String> findID(@RequestBody String email){
         log.info("--------[/findID] Email:{}", email);
 
-        String Nick = changeService.findID(email);
+        String Nick = memberService.findID(email);
         if(Nick == null){
             return new ResponseEntity<String>("CANNOT_FIND_ID", HttpStatus.OK);
             // 이후 프론트에서 찾을 수 없는 아이디입니다 표시
@@ -141,7 +138,7 @@ public class MemberController {
     @PostMapping(value = "/findPW")
     public ResponseEntity<String> findPW(@RequestBody String email){
         log.info("--------[/findPW] Email:{}", email);
-        String f_email = changeService.findPwd(email);
+        String f_email = memberService.findPwd(email);
         if(f_email == null){
             return new ResponseEntity<String>("CANNOT_FIND_ID", HttpStatus.OK);
             // 이후 프론트에서 찾을 수 없는 아이디입니다 표시
@@ -156,12 +153,13 @@ public class MemberController {
     public ResponseEntity<String> ChangePW(@RequestBody MemberDTO memberDTO){
         log.info("--------[/ChangePW] email:{}", memberDTO.getEmail());
         log.info("--------new_Pwd:{}", memberDTO.getPw());
-        boolean change = changeService.changePwd(memberDTO);
-        if(change) {
-            return new ResponseEntity<String>("SUCCESS", HttpStatus.OK); //비밀번호 변경 성공
-        }
-        else{
-            return new ResponseEntity<String>("FAILED", HttpStatus.OK);
-        }
+        memberService.changePwd(memberDTO);
+//        if(change) {
+//            return new ResponseEntity<String>("SUCCESS", HttpStatus.OK); //비밀번호 변경 성공
+//        }
+//        else{
+//            return new ResponseEntity<String>("FAILED", HttpStatus.OK);
+//        }
+        return new ResponseEntity<String>("SUCCESS", HttpStatus.OK); //비밀번호 변경 성공
     }
 }

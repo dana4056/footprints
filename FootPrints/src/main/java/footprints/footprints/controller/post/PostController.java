@@ -50,7 +50,7 @@ public class PostController {
     public Post detailPage(@PathVariable Long post_id){
         Post post = postService.getPost(post_id);
         post.Plus_view();
-        postRepository.save1(post);
+        postRepository.save(post);
         return post;
     }
 

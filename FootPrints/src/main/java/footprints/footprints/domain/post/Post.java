@@ -36,7 +36,7 @@ public class Post {
     private int view_num;         // 조회수
     // ------- member entity 참조할건데 임시로 --------------
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name="MEMBER_ID")
+    @JoinColumn(name="MEMBER_NICK")
 //    @JsonIgnore
     private Member member;
 
