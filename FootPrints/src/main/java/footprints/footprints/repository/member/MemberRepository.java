@@ -5,14 +5,10 @@ import footprints.footprints.domain.member.MemberDTO;
 
 public interface MemberRepository {
 
-    void save(MemberDTO memberDTO);
-
-    void save1(Member member);
+    void save(Member member);
     Member findByEmail(String email);
     Member findByNick(String nick);
 
     void delete(MemberDTO memberDTO);
-
-    boolean changeDBPwd(MemberDTO memberDTO);
 
 }

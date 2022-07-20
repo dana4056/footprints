@@ -23,7 +23,6 @@ public class PostRepositoryImpl implements PostRepository{
     @PersistenceContext
     private EntityManager em;
 
-
     @Override
     public void save_d(PostDTO postDTO){
         Member member = memberRepository.findByNick(postDTO.getNick());
@@ -41,28 +40,9 @@ public class PostRepositoryImpl implements PostRepository{
             log.info("-------------------------------------------");
             em.merge(post);
         }
-
     }
 
-    @Override
-    public void save(PostDTO postDTO){
-        Post post = postDTO.toEntity();
-        if(post.getPost_id() == null){
-            log.info("-------------------------------------------");
-            log.info("id 없음");
-            log.info("-------------------------------------------");
-            em.persist(post);
-        }
-        else{
-            log.info("-------------------------------------------");
-            log.info("id 있음");
-            log.info("-------------------------------------------");
-            em.merge(post);
-        }
-    }
-
-    @Override
-    public void save1(Post post){
+    public void save(Post post){
         if(post.getPost_id() == null){
             log.info("-------------------------------------------");
             log.info("id 없음");
@@ -94,7 +74,7 @@ public class PostRepositoryImpl implements PostRepository{
 
     @Override
     public List<Post> findCategory(String category, String areaName) {
-        TypedQuery<Post> sameCategory = em.createQuery("select p from Post p where p.user_area = :areaName " +
+        TypedQuery<Post> sameCategory = em.createQuery("select p from Post p where p.member.area = :areaName " +
                         "and p.category = :category order by p.valid_time",
                 Post.class).setParameter("areaName", areaName).setParameter("category", category);
 
@@ -106,7 +86,7 @@ public class PostRepositoryImpl implements PostRepository{
     @Override
     public List<Post> findSortTime(String time, String areaName){
         if(time.equals("near")){
-            TypedQuery<Post> nearTime = em.createQuery("select p from Post p where p.user_area = :areaName " +
+            TypedQuery<Post> nearTime = em.createQuery("select p from Post p where p.member.area = :areaName " +
                             "order by p.valid_time",
                     Post.class).setParameter("areaName", areaName);
 
@@ -114,7 +94,7 @@ public class PostRepositoryImpl implements PostRepository{
             return resultList;
         }
         else if(time.equals("far")){
-            TypedQuery<Post> farTime = em.createQuery("select p from Post p where p.user_area = :areaName " +
+            TypedQuery<Post> farTime = em.createQuery("select p from Post p where p.member.area = :areaName " +
                             "order by p.valid_time desc",
                     Post.class).setParameter("areaName", areaName);
 
@@ -123,7 +103,7 @@ public class PostRepositoryImpl implements PostRepository{
         }
         else{
             //default
-            TypedQuery<Post> sameArea = em.createQuery("select p from Post p where p.area_name = :area_name",
+            TypedQuery<Post> sameArea = em.createQuery("select p from Post p where p.member.area = :area_name",
                     Post.class).setParameter("area_name", areaName);
 
             List<Post> resultList = sameArea.getResultList();
