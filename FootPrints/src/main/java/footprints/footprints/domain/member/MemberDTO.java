@@ -19,7 +19,7 @@ public class MemberDTO {
     public MemberDTO(Member member){
         this.nick = member.getNick();
         this.email = member.getEmail();
-        this.pw = member.getPassword();
+        this.pw = member.getPw();
         this.area = member.getArea();
     }
 
@@ -27,7 +27,7 @@ public class MemberDTO {
         return Member.builder()
                 .nick(nick)
                 .email(email)
-                .password(pw)
+                .pw(pw)
                 .area(area)
                 .roles(Collections.singletonList("ROLE_USER"))
                 .build();

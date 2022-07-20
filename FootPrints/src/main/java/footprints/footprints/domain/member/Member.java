@@ -24,13 +24,13 @@ public class Member implements UserDetails {
     @Id
     private String nick;    //id -> nick 으로 pk 변경
     private String email;
-    private String password;
+    private String pw;
     private String area;
 
     public void Update(MemberDTO memberDTO){
         this.nick = memberDTO.getNick();
         this.email = memberDTO.getEmail();
-        this.password = memberDTO.getPw();
+        this.pw = memberDTO.getPw();
         this.area = memberDTO.getArea();
     }
 
@@ -43,6 +43,11 @@ public class Member implements UserDetails {
         return this.roles.stream()
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public String getPassword() {
+        return pw;
     }
 
     @Override

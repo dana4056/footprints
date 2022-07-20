@@ -51,7 +51,7 @@ public class MemberServiceImpl implements MemberService{
             return 0;  //닉네임 존재x
         }
         else{
-            String real_pwd = member.getPassword();
+            String real_pwd = member.getPw();
 
             if(memberDTO.getPw().equals(real_pwd)){
                 return 1; //로그인 성금
