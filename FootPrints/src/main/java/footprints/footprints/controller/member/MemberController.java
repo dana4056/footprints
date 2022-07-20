@@ -154,7 +154,7 @@ public class MemberController {
     public ResponseEntity<String> ChangePW(@RequestBody MemberDTO memberDTO){
         log.info("--------[/ChangePW] email:{}", memberDTO.getEmail());
         log.info("--------new_Pwd:{}", memberDTO.getPw());
-        memberService.changePwd(memberDTO);
+        memberService.changeDBPwd(memberDTO);
 //        if(change) {
 //            return new ResponseEntity<String>("SUCCESS", HttpStatus.OK); //비밀번호 변경 성공
 //        }

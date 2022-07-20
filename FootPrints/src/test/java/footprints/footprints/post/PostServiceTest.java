@@ -6,6 +6,7 @@ import footprints.footprints.domain.post.Post;
 import footprints.footprints.domain.post.PostDTO;
 import footprints.footprints.repository.member.MemberRepository;
 import footprints.footprints.repository.post.PostRepository;
+import footprints.footprints.service.member.MemberService;
 import footprints.footprints.service.post.PostService;
 import org.junit.jupiter.api.Test;
 
@@ -28,6 +29,9 @@ class PostServiceTest {
     MemberRepository memberRepository;
 
     @Autowired
+    MemberService memberService;
+
+    @Autowired
     PostService postService;
 
     @Test
@@ -40,7 +44,7 @@ class PostServiceTest {
 
         MemberDTO memberDTO = new MemberDTO("Hyukjin", "gurwlszx@naver.com", "0503okju!!", "은평구");
 
-        memberRepository.changeDBPwd(memberDTO);
+        memberService.changeDBPwd(memberDTO);
 
         PostDTO postDTO = new PostDTO("제목", "내용", "카테고리", "장소", 3, 3, "1", 100, "Hyukjin");
 

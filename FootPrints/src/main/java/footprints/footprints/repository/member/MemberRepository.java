@@ -11,6 +11,4 @@ public interface MemberRepository {
 
     void delete(MemberDTO memberDTO);
 
-    void changeDBPwd(MemberDTO memberDTO);
-
 }

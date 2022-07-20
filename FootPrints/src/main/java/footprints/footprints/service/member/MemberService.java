@@ -11,6 +11,6 @@ public interface MemberService {
     int loginCheck(MemberDTO memberDTO);
     String findID(String email);
     String findPwd(String email);
-    void changePwd(MemberDTO memberDTO);
+    void changeDBPwd(MemberDTO memberDTO);
 
 }
