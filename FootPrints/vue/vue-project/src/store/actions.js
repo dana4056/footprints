@@ -2,7 +2,7 @@ import { postEmail, postNick, postLogin, postMemberInfo } from "../api/index.js"
 // import { postEmail, postNick, postLogin, postLogout, postMemberInfo, } from "../api/index.js"
 // import { fetchSido, fetchSigoongu, fetchEupmyeondong } from "../api/index.js"
 import { findID, findPW, changePWD } from "../api/index.js"
-import { fetchUser, fetchTest, fetchDeliveryList, postDeliveryPost, fetchDeliveryDetail, fetchDeliveryList_Category, fetchDeliveryList_Time } from "../api/index.js";
+import { fetchUser, fetchDeliveryList, postDeliveryPost, fetchDeliveryDetail, fetchDeliveryList_Category, fetchDeliveryList_Time } from "../api/index.js";
 import { router } from '../routes/index.js';
 
 
