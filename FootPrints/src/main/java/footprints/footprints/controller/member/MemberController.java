@@ -42,6 +42,7 @@ public class MemberController {
     // 회원가입
     @PostMapping(value = "/signup")
     public ResponseEntity<String> create(@RequestBody Member member){
+        log.info("멤버 정보 : {}", member.getPassword());
         memberService.join(member);
         boolean signupImpossible = memberService.emailOverlapCheck(member.getEmail());
 

@@ -36,7 +36,6 @@ public class Member implements UserDetails {
 
     @ElementCollection(fetch = FetchType.EAGER)
     @Builder.Default
-    @Column(nullable = true)
     private List<String> roles = new ArrayList<>();
 
     @Override
