@@ -86,6 +86,7 @@ export default {
 		checkCode() {
 			if (this.sysCode == parseInt(this.userCode) && this.userCode != "") {
 				// 2.getPW 뷰로 넘어갈 때 입력받은 이메일도 넘겨야함---------------------------------------
+				localStorage.setItem('email', this.email);
 				this.$router.replace("/changePW");
 			}
 			else

@@ -28,10 +28,8 @@ public class Member implements UserDetails {
     private String area;
 
     public void Update(MemberDTO memberDTO){
-        this.nick = memberDTO.getNick();
         this.email = memberDTO.getEmail();
         this.pw = memberDTO.getPw();
-        this.area = memberDTO.getArea();
     }
 
     @ElementCollection(fetch = FetchType.EAGER)

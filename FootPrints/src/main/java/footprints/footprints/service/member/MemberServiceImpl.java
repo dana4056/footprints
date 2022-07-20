@@ -87,8 +87,8 @@ public class MemberServiceImpl implements MemberService{
     @Override
     public void changeDBPwd(MemberDTO memberDTO) {
         String email = memberDTO.getEmail();
-        log.info("email : {}", email);
         Member member = memberRepository.findByEmail(email);
+        log.info("before password : {}", member.getPassword());
         member.Update(memberDTO);
         log.info("new password : {}", member.getPassword());
         memberRepository.save(member);

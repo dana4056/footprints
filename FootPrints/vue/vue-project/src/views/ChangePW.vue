@@ -69,10 +69,12 @@ export default {
     change() {
       if (this.submitData()){
         console.log("비밀번호 변경해보자");
+        this.memberDTO.email = localStorage.getItem('email');
         this.$store.dispatch('CHANGE_PWD', this.memberDTO);
         setTimeout(() => { 
         // console.log("3");
         this.represent() ;
+        // localStorage.removeItem('email');
         }, 100); 	
 			}
       else 

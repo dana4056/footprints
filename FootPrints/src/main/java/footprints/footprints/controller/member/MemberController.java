@@ -152,8 +152,8 @@ public class MemberController {
     // 비밀번호 변경
     @PostMapping(value = "/ChangePW")  // 비밀번호를 바꾸는 로직은 넘겨줄때 member 객체 + String new_pwd 개념
     public ResponseEntity<String> ChangePW(@RequestBody MemberDTO memberDTO){
-        log.info("--------[/ChangePW] email:{}", memberDTO.getEmail());
-        log.info("--------new_Pwd:{}", memberDTO.getPw());
+        //log.info("--------[/ChangePW] email:{}", memberDTO.getEmail());
+        //log.info("--------new_Pwd:{}", memberDTO.getPw());
         memberService.changeDBPwd(memberDTO);
 //        if(change) {
 //            return new ResponseEntity<String>("SUCCESS", HttpStatus.OK); //비밀번호 변경 성공

@@ -22,9 +22,11 @@ public class MemberRepositoryImpl implements MemberRepository {
     public void save(Member member) {
         //Member member = memberDTO.toEntity();
         if(member.getNick() == null){
+            log.info("새로운 member 저장");
             em.persist(member);
         }
         else{
+            log.info("기존의 member 수정");
             em.merge(member);
         }
         log.info("--------saveSuccess-----------");
@@ -33,13 +35,6 @@ public class MemberRepositoryImpl implements MemberRepository {
 
     @Override
     public Member findByNick(String nick) {
-
-//        TypedQuery<Member> memberTypedQuery = em.createQuery("select m from Member m where m.nick = :nick", Member.class)
-//                .setParameter("nick", nick);
-//        List<Member> resultList = memberTypedQuery.getResultList();
-//
-//        if (resultList.size() == 0) return null;
-//        else return resultList.get(0);
         return em.find(Member.class, nick);
     }
 
