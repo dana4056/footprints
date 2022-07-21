@@ -123,7 +123,7 @@ function fetchDeliveryList_Category(category) {
     });
 }
 
-//카테고리 별로 불러오기 위함
+// 시간별로 불러오기 위함
 function fetchDeliveryList_Time(time) {
     return axios.get(`${config.baseUrl}/sort_time`, {
         time,
