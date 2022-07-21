@@ -3,7 +3,7 @@ package footprints.footprints.service.member;
 
 import footprints.footprints.domain.member.Member;
 import footprints.footprints.domain.member.MemberDTO;
-import footprints.footprints.repository.member.MemberRepositoryImpl;
+import footprints.footprints.repository.member.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 @Slf4j
 public class MemberServiceImpl implements MemberService{
-    private final MemberRepositoryImpl memberRepository;
+    private final MemberRepository memberRepository;
 
     @Override
     public void join(Member member){

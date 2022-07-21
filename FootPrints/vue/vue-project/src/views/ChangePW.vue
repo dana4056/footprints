@@ -72,10 +72,8 @@ export default {
         this.memberDTO.email = localStorage.getItem('email');
         this.$store.dispatch('CHANGE_PWD', this.memberDTO);
         setTimeout(() => { 
-        // console.log("3");
         this.represent() ;
-        // localStorage.removeItem('email');
-        }, 100); 	
+        }, 200); 	
 			}
       else 
 				alert("비밀번호를 다시 확인해주세요.")
