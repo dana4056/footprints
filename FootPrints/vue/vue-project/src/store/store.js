@@ -38,6 +38,9 @@ export const store = new Vuex.Store({
         },
         GET_DELIVERY_POST(state){
             return state.deliveryPost;
+        },
+        GET_PWCHANGE_DONE(state){
+            return state.pwchange_done;
         }
     },
     actions,
