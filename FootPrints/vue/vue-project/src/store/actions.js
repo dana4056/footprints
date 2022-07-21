@@ -1,5 +1,4 @@
 import { postEmail, postNick, postLogin, postMemberInfo } from "../api/index.js"
-// import { postEmail, postNick, postLogin, postLogout, postMemberInfo, } from "../api/index.js"
 // import { fetchSido, fetchSigoongu, fetchEupmyeondong } from "../api/index.js"
 import { findID, findPW, changePWD } from "../api/index.js"
 import { fetchUser, fetchDeliveryList, postDeliveryPost, fetchDeliveryDetail, fetchDeliveryList_Category, fetchDeliveryList_Time } from "../api/index.js";
@@ -154,7 +153,6 @@ export default{
     return findPW(email)
       .then(response => {
         console.log('API:FIND_PWD\n비밀번호 찾기 성공',response);
-        // console.log("2");
         commit('SET_FIND_MEMBER_EMAIL', response.data)
       })
       .catch(error => {

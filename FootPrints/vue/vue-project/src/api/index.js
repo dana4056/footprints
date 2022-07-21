@@ -28,13 +28,7 @@ function fetchUser(){
         }
     });
 }
-// function fetchTest(){
-//     return axios.get(`${config.baseUrl}/user/1`, {
-//         headers: {
-//             'X-AUTH-TOKEN': localStorage.getItem('jwt')
-//         }
-//     });
-// }
+
 function postEmail(email){
     return axios.post(`${config.baseUrl}/signup/check-email`, email, {
         headers: {
@@ -54,11 +48,6 @@ function postNick(nick){
 function postLogin(member){
     return axios.post(`${config.baseUrl}/login`, member);
 }
-
-// function postLogout(){
-//     console.log("api/index/postLogout");
-//     return axios.post(`${config.baseUrl}/logout`);
-// }
 
 function postMemberInfo(member){
     return axios.post(`${config.baseUrl}/signup`, member);
@@ -106,13 +95,13 @@ function changePWD(memberDTO){
 }
 
 function fetchDeliveryList(){
-      //로그인된 유저의 지역값 같이 보내줘야함
       return axios.get(`${config.baseUrl}/delivery/post`, {
         headers: {
             'X-AUTH-TOKEN': localStorage.getItem('jwt')
         }
     });
 }
+
 //카테고리 별로 불러오기 위함
 function fetchDeliveryList_Category(category) {
     return axios.get(`${config.baseUrl}/category`, {
@@ -132,7 +121,6 @@ function fetchDeliveryList_Time(time) {
         },
     });
 }
-
 
   function postDeliveryPost(post){
       return axios.post(`${config.baseUrl}/delivery/post/create`, post,{
@@ -154,11 +142,9 @@ function fetchDeliveryList_Time(time) {
 
 export{
     fetchUser,
-    //fetchTest,
     postEmail,
     postNick,
     postLogin,
-    // postLogout,
     postMemberInfo,
     // fetchSido,
     // fetchSigoongu,

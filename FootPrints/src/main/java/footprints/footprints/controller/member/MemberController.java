@@ -4,7 +4,7 @@ import footprints.footprints.domain.member.Member;
 import footprints.footprints.domain.member.MemberDTO;
 import footprints.footprints.domain.member.MemberResponseDTO;
 import footprints.footprints.jwt.JwtTokenProvider;
-import footprints.footprints.repository.member.MemberRepositoryImpl;
+import footprints.footprints.repository.member.MemberRepository;
 import footprints.footprints.service.member.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,9 +20,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 @RequiredArgsConstructor
 @Slf4j
 public class MemberController {
-    private  final MemberService memberService;
+    private final MemberService memberService;
 
-    private final MemberRepositoryImpl memberRepository;
+    private final MemberRepository memberRepository;
 
     private final JwtTokenProvider jwtTokenProvider;
 
