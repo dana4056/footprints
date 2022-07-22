@@ -272,7 +272,7 @@ export default{
   FIND_POST_ID({ commit }, nick) {
     return findPostID(nick)
       .then(response => {
-        console.log("사용자의 POST_ID 리스트 받아오기 성공", response.data);
+        console.log("API:SET_FIND_POSTID 사용자의 POST_ID 리스트 받아오기 성공", response.data);
         commit('SET_FIND_POSTID', response.data);
       })
       .catch(error => {
@@ -282,7 +282,7 @@ export default{
   FIND_ROOM({ commit }, list) {
     return findRoom(list)
       .then(response => {
-        console.log("사용자의 Room 리스트 받아오기 성공", response.data);
+        console.log("API:SET_FIND_ROOM 사용자의 Room 리스트 받아오기 성공", response.data);
         commit('SET_FIND_ROOM', response.data);
       })
       .catch(error => {
@@ -292,7 +292,7 @@ export default{
   FIND_USER({ commit }, post_id) {
     return findUser(post_id) 
       .then(response => {
-        console.log("채팅방에 속한 사용자 nick 리스트 받아오기 성공", response.data);
+        console.log("API:SET_FIND_USER 채팅방에 속한 사용자 nick 리스트 받아오기 성공", response.data);
         commit('SET_FIND_USER', response.data);
       })
       .catch(error => {
@@ -302,7 +302,7 @@ export default{
   FIND_CHAT_LOGS({ commit }, post_id) {
     return findChatLogs(post_id)
       .then(response => {
-        console.log("채팅방 chatlogs 리스트 받아오기 성공", response.data);
+        console.log("API:SET_FIND_CHAT_LOGS 채팅방 chatlogs 리스트 받아오기 성공", response.data);
         commit('SET_FIND_CHAT_LOGS', response.data);
       })
       .catch(error => {

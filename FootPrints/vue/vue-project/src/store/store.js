@@ -11,7 +11,7 @@ export const store = new Vuex.Store({
         find_email: 'CANNOT_FIND_ID',
         pwchange_done: 'FAILED',
         member:{
-            nick: "", 
+            nick: "지원", 
             email: "",
             pw: "",
             area: ""
@@ -23,9 +23,14 @@ export const store = new Vuex.Store({
         deliveryPostList:[],
         deliveryPost:{},
         postIDList: [],
-        roomList: {},
+        roomList: [
+            {post_name: "", category: ""},
+        ],
+        roomIndex: 0,
         userList: [],
-        chatLogs: {}
+        chatLogs: [
+            {from_name:"", time:"", message:""},
+        ],
     },
     getters:{
         GET_MEMBER(state){
@@ -45,6 +50,9 @@ export const store = new Vuex.Store({
         },
         GET_PWCHANGE_DONE(state){
             return state.pwchange_done;
+        },
+        GET_ROOMINDEX(state) {
+            return state.roomIndex;
         }
     },
     actions,

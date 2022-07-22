@@ -14,6 +14,7 @@ import DeliveryDetail from '../views/DeliveryDetail'
 import DeliveryCreate from '../views/DeliveryCreate'
 import UserView from '../views/UserView'
 
+import ChatView from '../views/ChatView'
 
 const routes = [
     //path: url에 대한 정보
@@ -30,6 +31,7 @@ const routes = [
     {   path: '/delivery/post', component: DeliveryList    },
     {   path: '/delivery/post/:id', component: DeliveryDetail  },
     {   path: '/user/1', component: UserView  },
+    {   path: '/chat', component: ChatView  },
 ]
 
 export const router = new createRouter({
