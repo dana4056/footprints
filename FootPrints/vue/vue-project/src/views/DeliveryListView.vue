@@ -29,16 +29,9 @@
             </select>
           </div>
 
-        <!-- 작업 필요 -->
-        <!-- <label>다른 지역?</label>
-          <span>
-            <select class="sortThing" v-model="sort" v-on:focus="BeforeSort" v-on:focusout="SelectSortCriteria">
-              <option value="" selected="selected" disabled hidden>----- 선택 -----</option>
-              <option value="default">글 작성 시간 순</option>
-              <option value="near">마감기한 가까운 순</option>
-              <option value="far">마감기한 먼 순</option>
-            </select>
-          </span>   -->
+        <div>
+          <button type="button" class="btn2" v-on:click="searchArea">지역 검색</button>
+        </div>
 
         <div class="add-btn">
           <router-link to="/delivery/post/create" class="link">
@@ -99,6 +92,7 @@ export default {
       },
       category: "",
       sort_criteria: "",
+      Area: "",
     }
   },
   created(){
@@ -127,19 +121,39 @@ export default {
       this.$store.dispatch('FETCH_DELIVERY_LIST_CATEGORY', this.category);
       setTimeout(() => { 
           console.log("여기서 무언가를 해야 제대로 찍힐라나 싶네");
+          this.$store.getters.GET_DELIVERIES;
         }, 100);   
     },
     BeforeSort(){
       this.sort_criteria = "";
     },
     SelectSortCriteria(){
-      if(this.sort_criteria == "near" || this.sort_criteria == 'far'){
+      if(this.sort_criteria == "near" | this.sort_criteria == 'far'){
         this.$store.dispatch('FETCH_DELIVERY_LIST_SORT_TIME', this.sort);
       }
       //혹시 다른 조건 걸릴까봐 이런 if문으로 분기 해놓음
       setTimeout(() => { 
         console.log("여기서 무언가를 해야 제대로 찍힐라나 싶네");
+        this.$store.getters.GET_DELIVERIES;
       }, 100);   
+    },
+    searchArea() {
+      new window.daum.Postcode({
+        oncomplete: (data) => {
+          console.log("API:카카오맵 주소받기 성공",data);
+          const sido = data.sido;
+          const sigoongu = data.sigungu;
+          const eupmyeondong = data.bname;
+          
+          this.Area = sido+" "+sigoongu+" "+eupmyeondong;
+          this.$store.dispatch('FETCH_DELIVERY_LIST_SORT_AREA', this.Area);
+
+          setTimeout(() => { 
+            console.log("여기서 무언가를 해야 제대로 찍힐라나 싶네");
+            this.$store.getters.GET_DELIVERIES;
+          }, 100);  
+        }
+      }).open();
     }
   }
 }
@@ -305,6 +319,20 @@ button img{
   font-size: 11px;
 }
 
+button {
+  font-family: 'Noto Sans KR', sans-serif;
+  width: 100%;
+  height: 40px;
+  background: #ffffff;
+  color: #7aab85;
+  border: 1px solid #7aab85;
+  box-sizing: border-box;
+  border-radius: 13px;
+}
+
+.btn1, .btn2 {
+  padding: 8px 15px 9px;
+}
 
 
 </style>

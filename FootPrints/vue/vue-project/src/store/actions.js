@@ -1,7 +1,7 @@
 import { postEmail, postNick, postLogin, postMemberInfo } from "../api/index.js"
 // import { fetchSido, fetchSigoongu, fetchEupmyeondong } from "../api/index.js"
 import { findID, findPW, changePWD } from "../api/index.js"
-import { fetchUser, fetchDeliveryList, postDeliveryPost, fetchDeliveryDetail, fetchDeliveryList_Category, fetchDeliveryList_Time } from "../api/index.js";
+import { fetchUser, fetchDeliveryList, postDeliveryPost, fetchDeliveryDetail, fetchDeliveryList_Category, fetchDeliveryList_Time, fetchDeliveryList_Area } from "../api/index.js";
 import { router } from '../routes/index.js';
 
 
@@ -208,7 +208,7 @@ export default{
           // location.href = "http://localhost:8080/home"
         }
         else {
-          console.log("배달 리스트 뷰 페이지 정보 받아오기 실패\n", error);
+          console.log("API:FETCH_DELIVERY_LIST_CATEGORY\n카테고리별 배달 리스트 뷰 페이지 정보 받아오기 실패\n", error);
         }
       })
   },
@@ -216,7 +216,7 @@ export default{
   FETCH_DELIVERY_LIST_SORT_TIME({ commit }, time) {
     fetchDeliveryList_Time(time)
       .then(response => {
-        console.log("카테고리별 배달 리스트 뷰 페이지 정보 받아오기 성공(GET success)\n", response.data);
+        console.log("API:FETCH_DELIVERY_LIST_TIME\n시간별 배달 리스트 뷰 페이지 정보 받아오기 성공(GET success)\n", response.data);
         commit('SET_DELIVERIES', response.data);
       })
       .catch(error => {
@@ -228,10 +228,32 @@ export default{
           // location.href = "http://localhost:8080/home"
         }
         else {
-          console.log("배달 리스트 뷰 페이지 정보 받아오기 실패\n", error);
+          console.log("API:FETCH_DELIVERY_LIST_TIME\n시간별 배달 리스트 뷰 페이지 정보 받아오기 실패\n", error);
         }
       })
   },
+
+FETCH_DELIVERY_LIST_SORT_AREA({ commit }, area) {
+  fetchDeliveryList_Area(area)
+    .then(response => {
+      console.log("API:FETCH_DELIVERY_LIST_SORT_AREA\n지역별 배달 리스트 뷰 페이지 정보 받아오기 성공(GET success)\n", response.data);
+      commit('SET_DELIVERIES', response.data);
+    })
+    .catch(error => {
+      const code = error.response.status;
+      if (code == 403) {
+        alert("로그인 후 이용하세요");
+        //history.back();
+        router.replace("/home");
+        // location.href = "http://localhost:8080/home"
+      }
+      else {
+        console.log("API:FETCH_DELIVERY_LIST_SORT_AREA\n지역별 배달 리스트 뷰 페이지 정보 받아오기 실패\n", error);
+      }
+    })
+},
+  
+
   // 게시물 작성
   POST_DELIVERY_POST(content, post){
     postDeliveryPost(post)
