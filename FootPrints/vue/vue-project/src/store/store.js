@@ -21,7 +21,11 @@ export const store = new Vuex.Store({
         eupmyeondongList:{},
         sessionId:"",
         deliveryPostList:[],
-        deliveryPost:{}
+        deliveryPost:{},
+        postIDList: [],
+        roomList: {},
+        userList: [],
+        chatLogs: {}
     },
     getters:{
         GET_MEMBER(state){
@@ -90,6 +94,27 @@ export const store = new Vuex.Store({
             state.deliveryPost = post;
             state.deliveryPost.createdDate = Cdate;
             state.deliveryPost.valid_time = Vdate;
+        },
+        SET_FIND_POSTID(state, list) {
+            state.postIdList = list;
+        },
+        SET_FIND_ROOM(state, list) {
+            let index = 0;
+            for (let value of list) {
+                state.roomList[index].postname = value.postname;
+                state.roomList[index++].category = value.category;
+            }
+        },
+        SET_FIND_USER(state, list) {
+            state.userList = list;
+        },
+        SET_FIND_CHAT_LOGS(state, list) {
+            let index = 0;
+            for (let value of list) {
+                state.chatLogs[index].from_name = value.from_name;
+                state.chatLogs[index].time = value.time;
+                state.chatLogs[index].message = value.message;
+            }
         }
     }
 });

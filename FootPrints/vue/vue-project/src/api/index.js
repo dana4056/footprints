@@ -138,7 +138,31 @@ function fetchDeliveryList_Time(time) {
         }
     });
   }
-  
+
+  function findPostID(nick) {
+    console.log(nick);
+	return axios.get('${config.baseUrl}/ ???');
+  }
+
+  function findRoom(list) {
+    console.log(list);
+    return axios.get('${config.baseUrl}/ ???');
+  }
+
+  function findUser(post_id) {
+    console.log(post_id);
+    return axios.get('${config.baseUrl}/ ???');
+  }
+
+  function findChatLogs(post_id) {
+    console.log(post_id);
+    return axios.get('${config.baseUrl}/ ???');
+  }
+
+  function postChatData(chatData) {
+    console.log(chatData);
+    return axios.get('${config.baseUrl}/ ???');
+  }
 
 export{
     fetchUser,
@@ -157,4 +181,9 @@ export{
     fetchDeliveryDetail,
     fetchDeliveryList_Category,
     fetchDeliveryList_Time,
+    findPostID,
+    findRoom,
+    findUser,
+    findChatLogs,
+    postChatData,
 }

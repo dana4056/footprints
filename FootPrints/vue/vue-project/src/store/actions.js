@@ -1,6 +1,7 @@
 import { postEmail, postNick, postLogin, postMemberInfo } from "../api/index.js"
 // import { fetchSido, fetchSigoongu, fetchEupmyeondong } from "../api/index.js"
 import { findID, findPW, changePWD } from "../api/index.js"
+import { findPostID, findRoom, findUser, findChatLogs, postChatData } from "../api/index.js"
 import { fetchUser, fetchDeliveryList, postDeliveryPost, fetchDeliveryDetail, fetchDeliveryList_Category, fetchDeliveryList_Time } from "../api/index.js";
 import { router } from '../routes/index.js';
 
@@ -266,6 +267,55 @@ export default{
         else{
           console.log("API:FETCH_DELIVERY_DETAIL\n상세페이지 정보 받아오기 실패",error);
         }
+      })
+  },
+  FIND_POST_ID({ commit }, nick) {
+    return findPostID(nick)
+      .then(response => {
+        console.log("사용자의 POST_ID 리스트 받아오기 성공", response.data);
+        commit('SET_FIND_POSTID', response.data);
+      })
+      .catch(error => {
+        console.log("사용자의 POST_ID 리스트 받아오기 실패", error);
+      })
+  },
+  FIND_ROOM({ commit }, list) {
+    return findRoom(list)
+      .then(response => {
+        console.log("사용자의 Room 리스트 받아오기 성공", response.data);
+        commit('SET_FIND_ROOM', response.data);
+      })
+      .catch(error => {
+        console.log("사용자의 Room 리스트 받아오기 실패", error);
+      })
+  },
+  FIND_USER({ commit }, post_id) {
+    return findUser(post_id) 
+      .then(response => {
+        console.log("채팅방에 속한 사용자 nick 리스트 받아오기 성공", response.data);
+        commit('SET_FIND_USER', response.data);
+      })
+      .catch(error => {
+        console.log("채팅방에 속한 사용자 nick 리스트 받아오기 실패", error);
+      })
+  },
+  FIND_CHAT_LOGS({ commit }, post_id) {
+    return findChatLogs(post_id)
+      .then(response => {
+        console.log("채팅방 chatlogs 리스트 받아오기 성공", response.data);
+        commit('SET_FIND_CHAT_LOGS', response.data);
+      })
+      .catch(error => {
+        console.log("채팅방 chatlogs 리스트 받아오기 실패", error);
+      })
+  },
+  POST_CHAT_DATA(c, chatData) {
+    postChatData(chatData)
+      .then(response => {
+        console.log("채팅 보내기 성공", response.data);
+      })
+      .catch(error => {
+        console.log("채팅 보내기 실패", error);
       })
   }
 }
