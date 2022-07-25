@@ -37,7 +37,6 @@ data() {
     submitMessage() {
       if (this.msg) {
         this.$emit("submitMessage");
-
         const date = new Date();
 
         const year = date.getFullYear();

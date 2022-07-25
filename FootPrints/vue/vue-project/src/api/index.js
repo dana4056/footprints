@@ -140,22 +140,22 @@ function fetchDeliveryList_Time(time) {
   }
 
   function findPostID(nick) {
-    console.log(nick);
+    console.log("nick: " + nick);
 	return axios.get('${config.baseUrl}/ ???');
   }
 
   function findRoom(list) {
-    console.log(list);
+    console.log("postIDList: " + list);
     return axios.get('${config.baseUrl}/ ???');
   }
 
   function findUser(post_id) {
-    console.log(post_id);
+    console.log("post_id:" + post_id);
     return axios.get('${config.baseUrl}/ ???');
   }
 
   function findChatLogs(post_id) {
-    console.log(post_id);
+    console.log("post_id:" + post_id);
     return axios.get('${config.baseUrl}/ ???');
   }
 

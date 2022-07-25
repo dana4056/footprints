@@ -23,7 +23,8 @@ export default {
   created() {
     this.$store.dispatch('FIND_ROOM', this.$store.state.postIDList);
     this.dataNum = this.$store.state.postIDList.length;
-    this.chekcedArr[0] = true;
+
+    this.chekcedArr[this.$store.state.roomIndex] = true;
     for (let i = 0; i < this.dataNum; i++) {
       if (i != 0) {
         this.chekcedArr[i] = false;
@@ -35,6 +36,10 @@ export default {
       this.chekcedArr[this.$store.state.roomIndex] = false;
       this.$store.state.roomIndex = li.currentTarget.id;
       this.chekcedArr[this.$store.state.roomIndex] = true;
+
+      let post_id = this.$store.state.postIDList[this.$store.state.roomIndex];
+      this.$store.dispatch('FIND_USER', post_id);
+      this.$store.dispatch('FIND_CHAT_LOGS', post_id);
     }
   }
 }

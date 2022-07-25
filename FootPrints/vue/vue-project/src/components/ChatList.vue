@@ -3,7 +3,7 @@
     <div v-for="(chat) in this.$store.state.chatLogs" :key="chat">
       <!-- 나의 메세지 -->
       <div v-if="chat.from_name === this.my_nick" class="chat__mymessage" :class="[isSame ? '' : 'chat__first']">
-        <p class="chat__yourmessage__time">{{ chat.time }}</p>
+        <p class="chat__yourmessage__time">{{ chat.time.slice(10, 16) }}</p>
         <p class="chat__mymessage__paragraph">{{ chat.message }}</p>
       </div>
 
@@ -17,7 +17,7 @@
           <p class="chat__yourmessage__user" v-if="!isSame">  {{ chat.from_name }} </p>
           <div class="chat__yourmessage__p">
             <p class="chat__yourmessage__paragraph">  {{ chat.message }} </p>
-            <p class="chat__yourmessage__time"> {{  chat.time }}</p>
+            <p class="chat__yourmessage__time"> {{  chat.time.slice(10, 16) }}</p>
           </div>
         </div>
       </div>
@@ -31,14 +31,10 @@ export default {
     return {
       isSame: false,
       my_nick: "",
-      post_id: 0
     }
   },
   created() {
-    let checkedNum = this.$store.state.roomIndex;
-    this.post_id = this.$store.state.postIDList[checkedNum];
     this.my_nick = this.$store.state.member.nick;
-    this.$store.dispatch('FIND_CHAT_LOGS', this.post_id);
   }
 }
 </script>

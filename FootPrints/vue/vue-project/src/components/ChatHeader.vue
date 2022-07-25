@@ -1,24 +1,12 @@
 <template>
   <div>
-    <p id="title">{{ post_name }}</p>
+    <p id="title">{{ this.$store.state.roomList[this.$store.state.roomIndex].post_name }}</p>
     <p id="userList" v-for="user in this.$store.state.userList" v-bind:key="user"> {{ user }}</p>
   </div>
 </template>
 
 <script>
 export default {
-  data() {
-    return {
-      post_name: " ",
-      post_id: 0
-    }
-  },
-  created() {
-    let checkedNum = this.$store.state.roomIndex;
-    this.post_name = this.$store.state.roomList[checkedNum].post_name;
-    this.post_id = this.$store.state.postIDList[checkedNum];
-    this.$store.dispatch('FIND_USER', this.post_id);
-  },
 }
 </script>
 

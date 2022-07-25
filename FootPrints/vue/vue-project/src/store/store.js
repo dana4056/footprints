@@ -22,14 +22,17 @@ export const store = new Vuex.Store({
         sessionId:"",
         deliveryPostList:[],
         deliveryPost:{},
-        postIDList: [],
+
+        // 아래와 같은 형태로 데이터가 저장되어야 함
+        postIDList: [45, 50],
         roomList: [
-            {post_name: "", category: ""},
+            {post_name: "title1", category: "donut"},
+            {post_name: "title2", category: "donut"},
         ],
-        roomIndex: 0,
-        userList: [],
+        userList: ["지원", "어피치"],
         chatLogs: [
-            {from_name:"", time:"", message:""},
+            {from_name:"지원", time:"2022-07-25 14:13:59", message:"ㅎㅇ"},
+            {from_name:"어피치", time:"2022-07-25 14:14:59", message:"ㅂㅇ"},
         ],
     },
     getters:{
@@ -124,5 +127,6 @@ export const store = new Vuex.Store({
                 state.chatLogs[index].message = value.message;
             }
         }
-    }
+    },
+    
 });
