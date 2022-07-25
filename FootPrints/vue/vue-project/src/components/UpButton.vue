@@ -1,7 +1,7 @@
 <template>
-  <div class="upButton">
+  <span class="upButton">
     <i v-on:click="upClick" id="up_button" class="fa-solid fa-caret-up fa-3x"></i>
-  </div>
+  </span>
 </template>
 
 <script>

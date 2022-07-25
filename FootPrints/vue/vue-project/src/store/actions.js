@@ -1,3 +1,4 @@
+import { fetchNoticeList } from "../api/index.js"
 import { postEmail, postNick, postLogin, postMemberInfo } from "../api/index.js"
 // import { fetchSido, fetchSigoongu, fetchEupmyeondong } from "../api/index.js"
 import { findID, findPW, changePWD } from "../api/index.js"
@@ -32,6 +33,19 @@ export default{
         }
       })
   },
+
+  // 리스트뷰 페이지 데이터 로드
+  FETCH_NOTICE_LIST({ commit }) {
+    fetchNoticeList()
+      .then(response => {
+        console.log("API:FETCH_NOTICE_LIST\n공지사항 정보 받아오기 성공", response.data);
+        commit('SET_NOTICE', response.data);
+      })
+      .catch(error => {
+        console.log("API:FETCH_DELIVERY_LIST\n배달 리스트 뷰 페이지 정보 받아오기 실패", error);
+      })
+  },
+
   // 이메일 중복체크
   POST_EMAIL({commit}, email){
     postEmail(email)

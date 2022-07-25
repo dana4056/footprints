@@ -29,6 +29,10 @@ function fetchUser(){
     });
 }
 
+function fetchNoticeList() {
+    return axios.get(`${config.baseUrl}/notice`);
+}
+
 function postEmail(email){
     return axios.post(`${config.baseUrl}/signup/check-email`, email, {
         headers: {
@@ -102,6 +106,7 @@ function fetchDeliveryList(){
     });
 }
 
+
 //카테고리 별로 불러오기 위함
 function fetchDeliveryList_Category(category) {
     return axios.get(`${config.baseUrl}/delivery/post/sort_category`, {
@@ -152,6 +157,7 @@ function fetchDeliveryList_Area(area) {
 
 export{
     fetchUser,
+    fetchNoticeList,
     postEmail,
     postNick,
     postLogin,
