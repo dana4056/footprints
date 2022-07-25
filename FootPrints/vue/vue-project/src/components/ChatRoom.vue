@@ -30,6 +30,10 @@ export default {
         this.chekcedArr[i] = false;
       }
     }
+
+    let post_id = this.$store.state.postIDList[this.$store.state.roomIndex];
+    this.$store.dispatch('FIND_USER', post_id);
+    this.$store.dispatch('FIND_CHAT_LOGS', post_id);
   },
   methods: {
     clickRoom(li) {
