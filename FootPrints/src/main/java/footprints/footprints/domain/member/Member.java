@@ -8,6 +8,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -26,21 +27,30 @@ public class Member implements UserDetails {
     private String email;
     private String pw;
     private String area;
-
-    public void Update(MemberDTO memberDTO){
-        this.email = memberDTO.getEmail();
-        this.pw = memberDTO.getPw();
-    }
-
     @ElementCollection(fetch = FetchType.EAGER)
-    @Builder.Default
-    private List<String> roles = new ArrayList<>();
+    private List<String> roles;
+
+//    public Member(){
+//        System.out.println("Member 생성자");
+//        this.roles = Collections.singletonList("ROLE_USER");
+//    }
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return this.roles.stream()
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
+    }
+
+
+    public void Update(MemberDTO memberDTO){
+        this.email = memberDTO.getEmail();
+        this.pw = memberDTO.getPw();
+    }
+
+    public void setRoles() {
+        this.roles = Collections.singletonList("ROLE_USER");
     }
 
     @Override

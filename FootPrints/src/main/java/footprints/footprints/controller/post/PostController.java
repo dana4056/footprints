@@ -9,13 +9,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @Controller
@@ -34,15 +31,30 @@ public class PostController {
     }
 
     // 리스트뷰
+    @ResponseBody
     @GetMapping(value = "/delivery/post")
-    public ResponseEntity<List<Post>> detailPage(Authentication authentication){
-        log.info("=============/delivery/post 진입");
+    public List<PostDTO> listView (Authentication authentication){
         Member member = (Member) authentication.getPrincipal();
-        log.info("============= member area : {}",member.getArea());
-        List<Post> postList = postService.getPostList(member.getArea());
-        log.info("{}", postList);
-        return new ResponseEntity<List<Post>>(postList, HttpStatus.OK);
+        List<PostDTO> postList = postService.getPostList(member.getArea());
+
+        return postList;
     }
+
+
+//    // 리스트뷰
+//    @GetMapping(value = "/delivery/post")
+//    public ResponseEntity<List<Post>> detailPage(Authentication authentication){
+//        log.info("=============/delivery/post 진입");
+//        Member member = (Member) authentication.getPrincipal();
+//        log.info("============= member area : {}",member.getArea());
+//        List<Post> postList = postService.getPostList(member.getArea());
+//        log.info("+++++++++++++++++++++++{}", postList);
+//        log.info("+++++++++++++++++++++++{}", new ResponseEntity<List<Post>>(postList, HttpStatus.OK));
+//        Post post = postList.get(0);
+////        log.info("+++++++++++++++++++++++{}", post.);
+//        return new ResponseEntity<List<Post>>(postList, HttpStatus.OK);
+//    }
+
 
 
     // 상세페이지

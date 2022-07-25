@@ -27,6 +27,7 @@ public class PostDTO {
     //private Member member;        // 게시한 회원
     // ------- member entity 참조할건데 임시로 --------------
     private String nick;
+    private Member member;  //0725추가
 
     public PostDTO(Post post){
         this.post_name = post.getPost_name();
@@ -37,7 +38,7 @@ public class PostDTO {
         this.max_person_num = post.getMax_person_num();
         this.valid_time = post.getValid_time();
         this.view_num = post.getView_num();
-//        this.member = post.getMember();
+        this.member = post.getMember();  //0725추가
     }
 
 

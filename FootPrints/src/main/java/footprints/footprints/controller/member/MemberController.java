@@ -2,7 +2,6 @@ package footprints.footprints.controller.member;
 
 import footprints.footprints.domain.member.Member;
 import footprints.footprints.domain.member.MemberDTO;
-import footprints.footprints.domain.member.MemberResponseDTO;
 import footprints.footprints.jwt.JwtTokenProvider;
 import footprints.footprints.repository.member.MemberRepository;
 import footprints.footprints.service.member.MemberService;
@@ -16,6 +15,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.util.List;
+
 @Controller
 @RequiredArgsConstructor
 @Slf4j
@@ -26,17 +27,11 @@ public class MemberController {
 
     private final JwtTokenProvider jwtTokenProvider;
 
-//    @GetMapping(value = "/user/1")
-//    public ResponseEntity<String> auth(){
-//        return new ResponseEntity<String>("SUCCESS AUTH?", HttpStatus.OK);
-//    }
-
     @GetMapping(value = "/user")
-    public ResponseEntity<MemberResponseDTO> fetchMember(Authentication authentication){
-        Member member = (Member) authentication.getPrincipal();
-        MemberResponseDTO responseMember = new MemberResponseDTO(member.getNick(), member.getArea());
-//        responseMember.setArea(member.getArea());
-        return new ResponseEntity<MemberResponseDTO>(responseMember, HttpStatus.OK);
+    public ResponseEntity<Member> fetchMember(Authentication authentication){
+        Member principal = (Member)authentication.getPrincipal();
+        log.info("+++++++++++++++++++++++/user = {}", new ResponseEntity<Member>(principal, HttpStatus.OK));
+        return new ResponseEntity<Member>(principal, HttpStatus.OK);
     }
 
     // 회원가입
