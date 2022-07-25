@@ -12,6 +12,7 @@
         <router-link to="/delivery/post" class="item"><button>배달 같이하기</button></router-link>
         <span id="u_name">{{this.$store.state.member.nick}}</span> 님 | 
         <span id="logout" v-on:click="logout">로그아웃</span>
+        <router-link to="/chat">      채팅방</router-link>
     </div>
   </div>
 </header>

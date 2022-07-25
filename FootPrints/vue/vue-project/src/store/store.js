@@ -11,7 +11,7 @@ export const store = new Vuex.Store({
         find_email: 'CANNOT_FIND_ID',
         pwchange_done: 'FAILED',
         member:{
-            nick: "지원", 
+            nick: "", 
             email: "",
             pw: "",
             area: ""
@@ -23,17 +23,14 @@ export const store = new Vuex.Store({
         deliveryPostList:[],
         deliveryPost:{},
 
-        roomIndex: 0,
-        // 아래와 같은 형태로 데이터가 저장되어야 함
-        postIDList: [45, 50],
+        postIDList: [ ],
         roomList: [
-            {post_name: "title1", category: "donut"},
-            {post_name: "title2", category: "donut"},
+            {post_name: "", category: ""},
         ],
-        userList: ["지원", "어피치"],
+        roomIndex: 0,
+        userList: ["", ""],
         chatLogs: [
-            {from_name:"지원", time:"2022-07-25 14:13:59", message:"ㅎㅇ"},
-            {from_name:"어피치", time:"2022-07-25 14:14:59", message:"ㅂㅇ"},
+            {from_name:"", time:"", message:""},
         ],
     },
     getters:{

@@ -4,7 +4,7 @@
        <li v-for="(room, index) in this.$store.state.roomList" :key=room
               v-bind:id="[`${index}`]" v-on:mousedown.left="clickRoom"
               class="room_info"        v-bind:class="{ 'on': chekcedArr[index] }">
-          <img v-bind:src="require(`../assets/${room.category}.png`)">
+          <!-- <img v-bind:src="require(`../assets/${room.category}.png`)"> -->
           <h3>{{ room.post_name }}</h3>
           <!-- 마지막 메세지 구현 필요 -->
       </li>
