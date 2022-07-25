@@ -23,6 +23,7 @@ export const store = new Vuex.Store({
         deliveryPostList:[],
         deliveryPost:{},
 
+        roomIndex: 0,
         // 아래와 같은 형태로 데이터가 저장되어야 함
         postIDList: [45, 50],
         roomList: [
