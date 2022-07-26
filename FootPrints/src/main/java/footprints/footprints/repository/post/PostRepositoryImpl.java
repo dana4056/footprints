@@ -58,6 +58,11 @@ public class PostRepositoryImpl implements PostRepository{
     }
 
     @Override
+    public Post findByPostId(Long post_id) {
+        return em.find(Post.class, post_id);
+    }
+
+    @Override
     public List<Post> findAll(String area_name) {
         TypedQuery<Post> sameArea = em.createQuery("select p from Post p where p.member.area = :area_name",
                 Post.class).setParameter("area_name", area_name);

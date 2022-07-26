@@ -23,7 +23,7 @@ export const store = new Vuex.Store({
         deliveryPostList:[],
         deliveryPost:{},
 
-        postIDList: [ ],
+        postIDList: [1],
         roomList: [
             {post_name: "", category: ""},
         ],
