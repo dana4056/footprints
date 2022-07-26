@@ -37,6 +37,14 @@ function fetchNoticeDetail(notice_id){
     return axios.get(`${config.baseUrl}/notice/${notice_id}`,);
 }
 
+function postNotice(notice){
+    return axios.post(`${config.baseUrl}/notice/create`, notice, {
+        headers: {
+            'Content-Type': 'text/plain'
+        }
+    });
+}
+
 function postEmail(email){
     return axios.post(`${config.baseUrl}/signup/check-email`, email, {
         headers: {
@@ -163,6 +171,7 @@ export{
     fetchUser,
     fetchNoticeList,
     fetchNoticeDetail,
+    postNotice,
     postEmail,
     postNick,
     postLogin,

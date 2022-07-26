@@ -11,8 +11,10 @@
           <room-share-area></room-share-area>
         </div>
         <div id="notice">
-          공지사항
-          <notice-area></notice-area>
+          <h2>
+            <router-link v-bind:to="`/notice/post`"><p>{{ 공지사항 }}</p></router-link>
+            <notice-area></notice-area>
+          </h2>
         </div>
         <div id="event">
           이벤트

@@ -1,7 +1,13 @@
 <template>
   <div>
-    공지사항 내용 상위 몇 건만 뜨도록
-    <div v-for="notice in this.$store.state.noticeList.slice(0,3)" class="listbox" v-bind:key="notice">
+    공지사항 내용
+    <!-- 애초에 add-btn은 권한이 있는 사람만 볼 수 있는건지 아니면 글 추가 하면 권한 없다고 하게 할지 -->
+    <div class="add-btn">
+        <router-link to="/notice/post/create" class="link">
+          <i class="fa-solid fa-circle-plus"></i>
+        </router-link>
+    </div>
+    <div v-for="notice in this.$store.state.noticeList" class="listbox" v-bind:key="notice">
         <div class="notice-content">
           <div class="notice-head">
             <div class="res-name"><router-link v-bind:to="`/notice/${notice.id}`">{{ notice.title }}</router-link></div>
@@ -23,7 +29,7 @@
 export default {
   created(){
     this.$store.dispatch('FETCH_NOTICE_LIST')
-  }
+  },
 }
 </script>
 
@@ -43,5 +49,9 @@ export default {
 }
 .notice-content, .notice-head, .notice-foot{
   display: -webkit-box;
+}
+.add-btn{
+  -webkit-box-flex:1;
+  text-align: right;
 }
 </style>

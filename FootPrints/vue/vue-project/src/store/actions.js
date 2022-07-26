@@ -1,4 +1,4 @@
-import { fetchNoticeList, fetchNoticeDetail } from "../api/index.js"
+import { fetchNoticeList, fetchNoticeDetail, postNotice } from "../api/index.js"
 import { postEmail, postNick, postLogin, postMemberInfo } from "../api/index.js"
 // import { fetchSido, fetchSigoongu, fetchEupmyeondong } from "../api/index.js"
 import { findID, findPW, changePWD } from "../api/index.js"
@@ -57,6 +57,16 @@ export default{
       })
   },
 
+  // 공지사항 작성
+  POST_NOTICE(content, notice) {
+    postNotice(notice)
+      .then(response => {
+        console.log("API:POST_NOTICE\n공지사항 등록 성공", response);
+      })
+      .catch(error => {
+        console.log("API:POST_NOTICE\n공지사항 등록 실패", error);
+      })
+  },
   // 이메일 중복체크
   POST_EMAIL({commit}, email){
     postEmail(email)
