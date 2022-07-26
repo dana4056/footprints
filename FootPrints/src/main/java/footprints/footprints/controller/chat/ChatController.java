@@ -1,5 +1,7 @@
 package footprints.footprints.controller.chat;
 
+import footprints.footprints.domain.chat.ChatData;
+import footprints.footprints.domain.chat.ChatDataDTO;
 import footprints.footprints.service.chat.ChatService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -52,7 +54,10 @@ public class ChatController {
     }
 
     @PostMapping(value = "/chat/post-ChatDataList") // chat_data 테이블에 row를 추가한다.
-    public ResponseEntity<String> postChatDataList(@RequestBody int post_id){
-
+    public ResponseEntity<String> postChatDataList(@RequestBody ChatDataDTO chatDataDTO){
+        chatService.save(chatDataDTO);
+        return  new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
     }
+
+
 }

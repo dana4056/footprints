@@ -1,5 +1,7 @@
 package footprints.footprints.service.chat;
 
+import footprints.footprints.domain.chat.ChatData;
+import footprints.footprints.domain.chat.ChatDataDTO;
 import footprints.footprints.repository.chat.ChatRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -38,5 +40,10 @@ public class ChatServiceImpl implements ChatService {
         List<String> chatList = chatRepository.getChatList(post_id);
 
         return chatList;
+    }
+
+    @Override
+    public void save(ChatDataDTO chatDataDTO) {
+        chatRepository.save(chatDataDTO);
     }
 }

@@ -19,4 +19,6 @@ public interface PostRepository {
 
     List<Post> findSortTime(String time, String areaName);
 
+    Post findByPostId(Long post_id);
+
 }
