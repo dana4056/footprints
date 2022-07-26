@@ -1,4 +1,4 @@
-import { fetchNoticeList } from "../api/index.js"
+import { fetchNoticeList, fetchNoticeDetail } from "../api/index.js"
 import { postEmail, postNick, postLogin, postMemberInfo } from "../api/index.js"
 // import { fetchSido, fetchSigoongu, fetchEupmyeondong } from "../api/index.js"
 import { findID, findPW, changePWD } from "../api/index.js"
@@ -39,10 +39,21 @@ export default{
     fetchNoticeList()
       .then(response => {
         console.log("API:FETCH_NOTICE_LIST\n공지사항 정보 받아오기 성공", response.data);
+        commit('SET_NOTICELIST', response.data);
+      })
+      .catch(error => {
+        console.log("API:FETCH_NOTICE_LIST\n공지사항 리스트 뷰 페이지 정보 받아오기 실패", error);
+      })
+  },
+
+  FETCH_NOTICE_DETAIL({ commit }, notice_id) {
+    fetchNoticeDetail(notice_id)
+      .then(response => {
+        console.log("API:FETCH_NOTICE_DETAIL\n공지사항 상세정보 받아오기 성공", response.data);
         commit('SET_NOTICE', response.data);
       })
       .catch(error => {
-        console.log("API:FETCH_DELIVERY_LIST\n배달 리스트 뷰 페이지 정보 받아오기 실패", error);
+        console.log("API:FETCH_NOTICE_DETAIL\n공지사항 상세정보 페이지 정보 받아오기 실패", error);
       })
   },
 

@@ -34,7 +34,7 @@ public class PostController {
 
     // 리스트뷰
     @GetMapping(value = "/delivery/post")
-    public ResponseEntity<List<Post>> detailPage(Authentication authentication){
+    public ResponseEntity<List<Post>> deliveryListView(Authentication authentication){
         log.info("=============/delivery/post 진입");
         Member member = (Member) authentication.getPrincipal();
         log.info("============= member area : {}",member.getArea());
@@ -46,7 +46,7 @@ public class PostController {
 
     // 상세페이지
     @GetMapping(value = "/delivery/post/{post_id}")
-    public Post detailPage(@PathVariable Long post_id){
+    public Post deliveryDetailPage(@PathVariable Long post_id){
         Post post = postService.getPost(post_id);
         post.Plus_view();
         postRepository.save(post);

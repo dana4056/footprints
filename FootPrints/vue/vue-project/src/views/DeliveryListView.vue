@@ -93,7 +93,7 @@ export default {
       category: "",
       sort_criteria: "",
       Area: "",
-    }
+    } 
   },
   created(){
     this.$store.dispatch('FETCH_DELIVERY_LIST');

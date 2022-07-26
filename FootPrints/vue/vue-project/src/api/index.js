@@ -33,6 +33,10 @@ function fetchNoticeList() {
     return axios.get(`${config.baseUrl}/notice`);
 }
 
+function fetchNoticeDetail(notice_id){
+    return axios.get(`${config.baseUrl}/notice/${notice_id}`,);
+}
+
 function postEmail(email){
     return axios.post(`${config.baseUrl}/signup/check-email`, email, {
         headers: {
@@ -158,6 +162,7 @@ function fetchDeliveryList_Area(area) {
 export{
     fetchUser,
     fetchNoticeList,
+    fetchNoticeDetail,
     postEmail,
     postNick,
     postLogin,
