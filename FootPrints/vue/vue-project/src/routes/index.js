@@ -15,11 +15,6 @@ import DeliveryCreate from '../views/DeliveryCreate'
 import UserView from '../views/UserView'
 
 import ChatView from '../views/ChatView'
-import ChatRoom from '../components/ChatRoom'
-import ChatHeader from '../components/ChatHeader'
-import ChatList from '../components/ChatList'
-import ChatForm from '../components/ChatForm'
-
 
 const routes = [
     //path: url에 대한 정보
@@ -36,12 +31,7 @@ const routes = [
     {   path: '/delivery/post', component: DeliveryList    },
     {   path: '/delivery/post/:id', component: DeliveryDetail  },
     {   path: '/user/1', component: UserView  },
-    
     {   path: '/chat', component: ChatView  },
-    {   path: '/chatRoom', component: ChatRoom  },
-    {   path: '/chatHeader', component: ChatHeader  },
-    {   path: '/chatList', component: ChatList  },
-    {   path: '/chatForm', component: ChatForm  },
 ]
 
 export const router = new createRouter({

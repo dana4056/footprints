@@ -35,7 +35,6 @@ export default {
     ChatForm,
   },
   created() {
-    console.log(this.$store.state.member.nick)
     this.$store.dispatch('FIND_POST_ID', this.$store.state.member.nick);
   },
   mounted() {
