@@ -58,8 +58,8 @@ export default{
   },
 
   // 공지사항 작성
-  POST_NOTICE(content, notice) {
-    postNotice(notice)
+  POST_NOTICE(content, noticeDTO) {
+    postNotice(noticeDTO)
       .then(response => {
         console.log("API:POST_NOTICE\n공지사항 등록 성공", response);
       })

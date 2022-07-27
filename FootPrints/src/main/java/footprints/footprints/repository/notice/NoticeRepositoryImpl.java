@@ -1,7 +1,9 @@
 package footprints.footprints.repository.notice;
 
+import footprints.footprints.domain.member.Member;
 import footprints.footprints.domain.notice.Notice;
 import footprints.footprints.domain.notice.NoticeDTO;
+import footprints.footprints.domain.post.Post;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
@@ -21,11 +23,25 @@ public class NoticeRepositoryImpl implements NoticeRepository{
 
     @Override
     public void save_d(NoticeDTO noticeDTO) {
-
+        Notice notice = new Notice(noticeDTO.getTitle(), noticeDTO.getAuthor(), noticeDTO.getPost_time(), noticeDTO.getContent(), noticeDTO.getView_num());
+        log.info("NoticeRepositoryImpl-save_d: {}",notice);
+        if(notice.getId() == null){
+            log.info("-------------------------------------------");
+            log.info("id 없음");
+            log.info("-------------------------------------------");
+            em.persist(notice);
+        }
+        else{
+            log.info("-------------------------------------------");
+            log.info("id 있음");
+            log.info("-------------------------------------------");
+            em.merge(notice);
+        }
     }
 
     @Override
     public void save(Notice notice) {
+        log.info("NoticeRepositoryImpl-save: {}",notice);
         if(notice.getId() == null){
             log.info("-------------------------------------------");
             log.info("id 없음");

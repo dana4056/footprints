@@ -37,8 +37,8 @@ function fetchNoticeDetail(notice_id){
     return axios.get(`${config.baseUrl}/notice/${notice_id}`,);
 }
 
-function postNotice(notice){
-    return axios.post(`${config.baseUrl}/notice/create`, notice, {
+function postNotice(noticeDTO){
+    return axios.post(`${config.baseUrl}/notice/create`, noticeDTO, {
         headers: {
             'Content-Type': 'text/plain'
         }

@@ -13,6 +13,7 @@
 <script>
 import ToolBar from '../components/ToolBar.vue'
 import Swal from 'sweetalert2';
+import dayjs from "dayjs";
 
 export default {
   components:{
@@ -26,8 +27,8 @@ export default {
   },
   methods: {
     authorization(){
-      if(this.submitData()){
-        this.$store.dispatch('FETCH_USER')//말고 권한을 가져오는 api 하나 생성
+      if (this.submitData()){
+        // this.$store.dispatch('FETCH_USER')//말고 권한을 가져오는 api 하나 생성
         setTimeout(() => { 
           // if(권한이 관리자 권한이라면)
             this.register();
@@ -38,12 +39,15 @@ export default {
       }
     },
     register() {
-        const notice = {
-          notice_title: this.notice_title,           // 글 제목
-          notice_content: this.notice_content,     // 글 내용
+        const noticeDTO = {
+          title: this.notice_title,           // 글 제목
+          author: this.$store.state.member.nick,
+          post_time: dayjs(),
+          content: this.notice_content,     // 글 내용
+          view_num: 0,
         }
-        console.log("NOTICE\n",notice);
-        this.$store.dispatch('POST_NOTICE', notice)
+        console.log("NOTICEDTO\n",noticeDTO);
+        this.$store.dispatch('POST_NOTICE', noticeDTO)
         // 동기처리가 필요없어 어차피 페이지 넘어가는 사이에 다 처리되고 나니까 즉시 보이는게 문제가 생기는게 아니니까
 				Swal.fire({
           icon: 'success',
@@ -52,17 +56,15 @@ export default {
         }).then(() => {
           this.$router.replace("/home");
         })
-			}
-
-    },
-		submitData() {
-      // console.log("submit data" + this.valid_time);
-      if (this.post_name != "" && this.post_content != ""){
-        return true;
-      }
-      else {
-        return false;
-      }
+			},
+      submitData(){
+        if(this.notice_title != "" && this.notice_content != ""){
+          return true;
+        }
+        else{
+          return false;
+        }
+      },
     },
 }
 </script>

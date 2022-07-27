@@ -24,7 +24,7 @@ class NoticeServiceTest {
     NoticeService noticeService;
 
     @Test public void save() throws Exception{
-        Notice notice1 = new Notice(1L, "첫번째 공지사항", "관리자", "작성 시간", "첫번째 공지사항 내용입니다.", 0L);
+        Notice notice1 = new Notice(1L, "첫번째 공지사항", "관리자", "작성 시간", "첫번째 공지사항 내용입니다.", 0);
 
         noticeRepository.save(notice1);
 

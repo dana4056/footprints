@@ -1,6 +1,7 @@
 package footprints.footprints.service.notice;
 
 import footprints.footprints.domain.notice.Notice;
+import footprints.footprints.domain.notice.NoticeDTO;
 import footprints.footprints.repository.notice.NoticeRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -28,4 +29,11 @@ public class NoticeServiceImpl implements NoticeService{
         Notice detail = noticeRepository.findDetail(id);
         return detail;
     }
+
+    @Override
+    public void join(NoticeDTO noticeDTO) {
+        noticeRepository.save_d(noticeDTO);
+    }
+
+
 }
