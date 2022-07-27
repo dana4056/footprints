@@ -7,6 +7,7 @@ import footprints.footprints.repository.member.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -15,6 +16,7 @@ import java.util.List;
 
 @Repository
 @Slf4j
+@Transactional
 @RequiredArgsConstructor
 public class PostRepositoryImpl implements PostRepository{
 

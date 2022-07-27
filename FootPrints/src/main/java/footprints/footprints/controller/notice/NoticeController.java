@@ -33,11 +33,11 @@ public class NoticeController {
 
     // 상세페이지
     @GetMapping(value = "/notice/{notice_id}")
-    public Notice NoticeDetailPage(@PathVariable Long notice_id){
+    public ResponseEntity<Notice> NoticeDetailPage(@PathVariable Long notice_id){
         Notice notice = noticeService.getNotice(notice_id);
         notice.Plus_view();
-        noticeRepository.save(notice);
-        return notice;
+//        noticeRepository.save(notice);  merge하는게 지금 error 가 있음
+        return new ResponseEntity<Notice>(notice, HttpStatus.OK);
     }
 
     @PostMapping("/notice/create")

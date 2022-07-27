@@ -10,7 +10,8 @@
           <div class="notice-foot">
             <div class="ago">
               <!-- 날짜만 뜨게 수정 -->
-              <small>{{notice.post_time}}</small> 
+              <small>{{notice.post_time}}</small>
+              <br> 
               <small>{{notice.view_num}} 조회</small>
             </div>
           </div>

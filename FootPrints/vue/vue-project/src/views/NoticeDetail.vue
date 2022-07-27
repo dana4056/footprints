@@ -3,11 +3,16 @@
     <tool-bar></tool-bar>
     <div id="wrap">
       <div id="header">
-        <!-- 백쪽에서 디비 건들고 그 다음에 작업 하자 -->
-        <!-- fetched.notice_id, -->
+        {{ this.$store.state.notice.title }}
+        <div id="date">
+          {{ this.$store.state.notice.post_time }}  
+        </div>
       </div>
       <div id="content">
-
+        {{ this.$store.state.notice.content }}
+      </div>
+      <div id="view_count">
+        {{ this.$store.state.notice.view_num}}
       </div>
     </div>
     <footer-area id="footer"></footer-area>
@@ -24,14 +29,12 @@ components:{
     ToolBar,
     FooterArea,
   },
-computed:{
-  fetched(){
-    return this.$store.state.notice;
-  },
-},
 created(){
   const notice_id = this.$route.params.id;
   this.$store.dispatch('FETCH_NOTICE_DETAIL', notice_id);
+  setTimeout(() => { 
+    return this.$store.state.notice;
+  }, 100); 	
 },
 
 }

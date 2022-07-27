@@ -47,7 +47,7 @@ export default {
           view_num: 0,
         }
         console.log("NOTICEDTO\n",noticeDTO);
-        this.$store.dispatch('POST_NOTICE', noticeDTO)
+        this.$store.dispatch('POST_NOTICE', this.noticeDTO)
         // 동기처리가 필요없어 어차피 페이지 넘어가는 사이에 다 처리되고 나니까 즉시 보이는게 문제가 생기는게 아니니까
 				Swal.fire({
           icon: 'success',

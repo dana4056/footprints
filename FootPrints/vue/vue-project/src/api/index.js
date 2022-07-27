@@ -23,7 +23,7 @@ const config = {
 // 2. API 함수들을 정리
 function fetchUser(){
     return axios.get(`${config.baseUrl}/user`, {
-        headers: {
+        headers: { 
             'X-AUTH-TOKEN': localStorage.getItem('jwt')
         }
     });
