@@ -35,7 +35,7 @@ public class Post {
     private LocalDateTime createdDate;  //게시물 등록 시간
     private int view_num;         // 조회수
     // ------- member entity 참조할건데 임시로 --------------
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name="MEMBER_NICK")
 //    @JsonIgnore
     private Member member;

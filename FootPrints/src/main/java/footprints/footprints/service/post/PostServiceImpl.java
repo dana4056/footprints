@@ -34,8 +34,8 @@ public class PostServiceImpl implements PostService{
     }
 
     @Override
-    public List<PostDTO> getPostList(String area_name) {
-        List<PostDTO> posts = postRepository.findAll(area_name);
+    public List<Post> getPostList(String area_name) {
+        List<Post> posts = postRepository.findAll(area_name);
         return posts;
     }
 
@@ -84,5 +84,12 @@ public class PostServiceImpl implements PostService{
         }
 
         return postList;
+    }
+
+
+    @Override
+    public void plusView(Post post) {
+        post.Plus_view();
+        postRepository.save(post);
     }
 }

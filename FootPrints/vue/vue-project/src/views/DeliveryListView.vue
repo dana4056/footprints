@@ -101,7 +101,7 @@ export default {
       sort_criteria: "",
     }
   },
-  created(){
+  beforeCreate(){
     this.$store.dispatch('FETCH_DELIVERY_LIST');
   },
   methods:{

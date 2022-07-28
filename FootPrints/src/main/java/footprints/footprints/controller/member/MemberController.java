@@ -2,7 +2,7 @@ package footprints.footprints.controller.member;
 
 import footprints.footprints.domain.member.Member;
 import footprints.footprints.domain.member.MemberDTO;
-import footprints.footprints.jwt.JwtTokenProvider;
+import footprints.footprints.security.jwt.JwtTokenProvider;
 import footprints.footprints.repository.member.MemberRepository;
 import footprints.footprints.service.member.MemberService;
 import lombok.RequiredArgsConstructor;
@@ -14,8 +14,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-
-import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -104,17 +102,7 @@ public class MemberController {
         }
     }
 
-    // 로그아웃
-//    @PostMapping("/logout")
-//    public ResponseEntity<String> logout(HttpServletRequest request) {
-//        HttpSession session = request.getSession(false);
-//        if (session != null) {
-//            session.invalidate();
-//        }
-//        log.info("로그아웃 성공(세션 종료)");
-//        return new ResponseEntity<String>("SUCCESS LOGOUT", HttpStatus.OK);
-//    }
-    
+
     // 아이디 찾기
     @PostMapping(value = "/findID")
     public ResponseEntity<String> findID(@RequestBody String email){

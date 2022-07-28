@@ -1,17 +1,26 @@
-package footprints.footprints;
+package footprints.footprints.security;
 
-import footprints.footprints.jwt.JwtAuthenticationFilter;
-import footprints.footprints.jwt.JwtTokenProvider;
+import footprints.footprints.security.jwt.JwtAuthenticationFilter;
+import footprints.footprints.security.jwt.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.AuthenticationEntryPoint;
+import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 @RequiredArgsConstructor
 @EnableWebSecurity
@@ -43,11 +52,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .and()
         .authorizeRequests() // 요청에 대한 사용권한 체크
             .antMatchers("/admin/**").hasRole("ADMIN")
-            .antMatchers("/user/**").hasRole("USER")
+            .antMatchers("/user/**", "/delivery/post/**").hasRole("USER")
+//            .antMatchers("/post/**").hasRole("USER")
             .anyRequest().permitAll() // 그외 나머지 요청은 누구나 접근 가능
         .and()
             .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider),UsernamePasswordAuthenticationFilter.class);
 // JwtAuthenticationFilter를 UsernamePasswordAuthenticationFilter 전에 넣는다
+        http
+        .exceptionHandling()
+        .authenticationEntryPoint(new AuthenticationEntryPoint() {
+            @Override
+            public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
+                response.setStatus(HttpStatus.FORBIDDEN.value());
+                response.sendRedirect("/index");
+
+            }
+        });
     }
 }
-//            .antMatchers("/delivery/post/**").hasRole("USER")

@@ -11,7 +11,7 @@ public interface PostRepository {
 
     void save(Post post);
 
-    List<PostDTO> findAll(String area_name);
+    List<Post> findAll(String area_name);
 
     Post findDetail(Long post_num);
 
