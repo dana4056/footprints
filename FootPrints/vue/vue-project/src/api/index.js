@@ -141,27 +141,31 @@ function fetchDeliveryList_Time(time) {
 
   function findPostID(nick) {
     console.log("nick: " + nick);
-	return axios.get('${config.baseUrl}/chat/get-PostIdlist', nick);
+	return axios.get(`${config.baseUrl}/chat/get-PostIdlist`, nick);
   }
 
   function findRoom(list) {
     console.log("postIDList: " + list);
-    return axios.get('${config.baseUrl}/chat/get-PostInfoList', list);
+    return axios.get(`${config.baseUrl}/chat/get-PostInfoList`, list);
   }
 
   function findUser(post_id) {
     console.log("post_id:" + post_id);
-    return axios.get('${config.baseUrl}/chat/get-NickList', post_id);
+    return axios.get(`${config.baseUrl}/chat/get-NickList`, post_id);
   }
 
   function findChatLogs(post_id) {
     console.log("post_id:" + post_id);
-    return axios.get('${config.baseUrl}/chat/get-ChatList', post_id);
+    return axios.get(`${config.baseUrl}/chat/get-ChatList`, post_id);
   }
 
   function postChatData(chatData) {
     console.log(chatData);
-    return axios.post('${config.baseUrl}/chat/post-ChatDataList', chatData);
+    return axios.post(`${config.baseUrl}/chat/post-ChatDataList`, chatData, {
+        headers: {
+            'X-AUTH-TOKEN': localStorage.getItem('jwt')
+        }
+    });
   }
 
 export{
