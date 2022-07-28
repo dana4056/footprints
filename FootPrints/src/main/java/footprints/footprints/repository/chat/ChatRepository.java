@@ -7,13 +7,13 @@ import java.util.List;
 
 public interface ChatRepository {
 
-    List<Integer> getPostIdList(String nick);
+    List<Long> getPostIdList(String nick);
 
-    List<String> getPostInfoList(List<Integer> postIdList);
+    List<String> getPostInfoList(List<Long> postIdList);
 
-    List<String> getNickList(int post_id);
+    List<String> getNickList(Long post_id);
 
-    List<String> getChatList(int post_id);
+    List<String> getChatList(Long post_id);
 
     void save(ChatDataDTO chatDataDTO);
 }

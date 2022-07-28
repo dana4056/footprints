@@ -18,7 +18,6 @@ import java.time.LocalDateTime;
 @Getter
 @ToString(exclude = "member")
 @EntityListeners(AuditingEntityListener.class)
-
 public class Post {
 
     @Id

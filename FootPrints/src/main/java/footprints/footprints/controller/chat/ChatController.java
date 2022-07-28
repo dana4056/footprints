@@ -21,16 +21,16 @@ public class ChatController {
     private final ChatService chatService;
 
     @GetMapping(value = "/chat/get-PostIdlist") // 사용자가 속한 한 post_id를 리스트(Integer) 형태로 가져온다.
-    public ResponseEntity<List<Integer>> getPostIdList(@RequestBody String nick){
+    public ResponseEntity<List<Long>> getPostIdList(@RequestBody String nick){
 
-        List<Integer> chatList = chatService.getList(nick);
+        List<Long> chatList = chatService.getList(nick);
 
 
-        return new ResponseEntity<List<Integer>>(chatList, HttpStatus.OK);
+        return new ResponseEntity<List<Long>>(chatList, HttpStatus.OK);
     }
 
     @GetMapping(value = "/chat/get-PostInfoList") // 각 방들의 post_name과 category post_id를 리스트(String) 형태로 가져온다.
-    public ResponseEntity<List<String>> getPostInfoList(@RequestBody List<Integer> postIdList){
+    public ResponseEntity<List<String>> getPostInfoList(@RequestBody List<Long> postIdList){
 
         List<String> postInfoList = chatService.getPostInfoList(postIdList);
 
@@ -38,7 +38,7 @@ public class ChatController {
     }
 
     @GetMapping(value = "/chat/get-NickList") // 그 방에 속한 사용자들의 nick을 리스트(String) 형태로 가져온다.
-    public ResponseEntity<List<String>> getNickList(@RequestBody int post_id){
+    public ResponseEntity<List<String>> getNickList(@RequestBody Long post_id){
 
         List<String> nickList = chatService.getNickList(post_id);
 
@@ -46,7 +46,7 @@ public class ChatController {
     }
 
     @GetMapping(value = "/chat/get-ChatList") // 채팅 기록 (from_name, time, message)를 리스트(String) 형태로 가져온다.
-    public ResponseEntity<List<String>> getChatList(@RequestBody int post_id){
+    public ResponseEntity<List<String>> getChatList(@RequestBody Long post_id){
 
         List<String> chatList = chatService.getChatList(post_id);
 
