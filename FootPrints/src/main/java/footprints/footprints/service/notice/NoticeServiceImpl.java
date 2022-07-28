@@ -35,5 +35,4 @@ public class NoticeServiceImpl implements NoticeService{
         noticeRepository.save_d(noticeDTO);
     }
 
-
 }
