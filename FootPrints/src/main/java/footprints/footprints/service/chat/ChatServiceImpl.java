@@ -5,18 +5,20 @@ import footprints.footprints.domain.chat.ChatDataDTO;
 import footprints.footprints.repository.chat.ChatRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class ChatServiceImpl implements ChatService {
 
     private final ChatRepository chatRepository;
 
     @Override
-    public List<Integer> getList(String nick) {
-        List<Integer> postIdList = chatRepository.getPostIdList(nick);
+    public List<Long> getList(String nick) {
+        List<Long> postIdList = chatRepository.getPostIdList(nick);
 
         return postIdList;
     }

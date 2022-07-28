@@ -21,12 +21,12 @@ public class ChatController {
     private final ChatService chatService;
 
     @GetMapping(value = "/chat/get-PostIdlist") // 사용자가 속한 한 post_id를 리스트(Integer) 형태로 가져온다.
-    public ResponseEntity<List<Integer>> getPostIdList(@RequestBody String nick){
+    public ResponseEntity<List<Long>> getPostIdList(@RequestBody String nick){
 
-        List<Integer> chatList = chatService.getList(nick);
+        List<Long> chatList = chatService.getList(nick);
 
 
-        return new ResponseEntity<List<Integer>>(chatList, HttpStatus.OK);
+        return new ResponseEntity<List<Long>>(chatList, HttpStatus.OK);
     }
 
     @GetMapping(value = "/chat/get-PostInfoList") // 각 방들의 post_name과 category post_id를 리스트(String) 형태로 가져온다.

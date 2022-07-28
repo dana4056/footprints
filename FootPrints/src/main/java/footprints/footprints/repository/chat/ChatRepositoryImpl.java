@@ -24,11 +24,11 @@ public class ChatRepositoryImpl implements ChatRepository {
     private EntityManager em;
 
     @Override
-    public List<Integer> getPostIdList(String nick) {
-        TypedQuery<Integer> integerTypedQuery = em.createQuery("select r.post.post_id from RoomInfo r " +
-                "where r.member.nick = :nick", Integer.class).setParameter("nick", nick);
+    public List<Long> getPostIdList(String nick) {
+        TypedQuery<Long> integerTypedQuery = em.createQuery("select r.post.post_id from RoomInfo r " +
+                "where r.member.nick = :nick", Long.class).setParameter("nick", nick);
 
-        List<Integer> resultList = integerTypedQuery.getResultList();
+        List<Long> resultList = integerTypedQuery.getResultList();
 
         if (resultList.size() == 0) return null;
 

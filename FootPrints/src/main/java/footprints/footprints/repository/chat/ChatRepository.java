@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface ChatRepository {
 
-    List<Integer> getPostIdList(String nick);
+    List<Long> getPostIdList(String nick);
 
     List<String> getPostInfoList(List<Long> postIdList);
 

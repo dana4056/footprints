@@ -6,7 +6,7 @@ import footprints.footprints.domain.chat.ChatDataDTO;
 import java.util.List;
 
 public interface ChatService {
-    List<Integer> getList(String nick);
+    List<Long> getList(String nick);
 
     List<String> getPostInfoList(List<Long> postIdList);
 
