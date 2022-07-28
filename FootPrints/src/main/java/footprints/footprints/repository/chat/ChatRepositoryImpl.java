@@ -36,7 +36,7 @@ public class ChatRepositoryImpl implements ChatRepository {
     }
 
     @Override
-    public List<String> getPostInfoList(List<Integer> postIdList) {
+    public List<String> getPostInfoList(List<Long> postIdList) {
         TypedQuery<String> stringTypedQuery = em.createQuery("select p.post_name, p.category from Post p " +
                 "where p.post_id in :list", String.class).setParameter("list",postIdList);
 
@@ -48,7 +48,7 @@ public class ChatRepositoryImpl implements ChatRepository {
     }
 
     @Override
-    public List<String> getNickList(int post_id) {
+    public List<String> getNickList(Long post_id) {
         TypedQuery<String> stringTypedQuery = em.createQuery("select r.member.nick from RoomInfo r " +
                 "where r.post.post_id = :post_id", String.class).setParameter("post_id", post_id);
 
@@ -60,7 +60,7 @@ public class ChatRepositoryImpl implements ChatRepository {
     }
 
     @Override
-    public List<String> getChatList(int post_id) {
+    public List<String> getChatList(Long post_id) {
         TypedQuery<String> stringTypedQuery = em.createQuery("select c.from_name, c.time, c.message from ChatData c " +
                 "where c.post.post_id = :post_id", String.class).setParameter("post_id", post_id);
 

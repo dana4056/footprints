@@ -8,11 +8,11 @@ import java.util.List;
 public interface ChatService {
     List<Integer> getList(String nick);
 
-    List<String> getPostInfoList(List<Integer> postIdList);
+    List<String> getPostInfoList(List<Long> postIdList);
 
-    List<String> getNickList(int post_id);
+    List<String> getNickList(Long post_id);
 
-    List<String> getChatList(int post_id);
+    List<String> getChatList(Long post_id);
 
     void save(ChatDataDTO chatDataDTO);
 }

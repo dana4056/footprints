@@ -22,21 +22,21 @@ public class ChatServiceImpl implements ChatService {
     }
 
     @Override
-    public List<String> getPostInfoList(List<Integer> postIdList) {
+    public List<String> getPostInfoList(List<Long> postIdList) {
         List<String> postInfoList = chatRepository.getPostInfoList(postIdList);
 
         return postInfoList;
     }
 
     @Override
-    public List<String> getNickList(int post_id) {
+    public List<String> getNickList(Long post_id) {
         List<String> nickList = chatRepository.getNickList(post_id);
 
         return nickList;
     }
 
     @Override
-    public List<String> getChatList(int post_id) {
+    public List<String> getChatList(Long post_id) {
         List<String> chatList = chatRepository.getChatList(post_id);
 
         return chatList;
