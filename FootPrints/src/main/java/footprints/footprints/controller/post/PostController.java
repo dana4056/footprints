@@ -9,7 +9,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,7 +34,7 @@ public class PostController {
 
     // 리스트뷰
     @GetMapping(value = "/delivery/post")
-    public ResponseEntity<List<Post>> detailPage(Authentication authentication){
+    public ResponseEntity<List<Post>> deliveryListView(Authentication authentication){
         log.info("=============/delivery/post 진입");
         Member member = (Member) authentication.getPrincipal();
         log.info("============= member area : {}",member.getArea());
@@ -47,7 +46,7 @@ public class PostController {
 
     // 상세페이지
     @GetMapping(value = "/delivery/post/{post_id}")
-    public Post detailPage(@PathVariable Long post_id){
+    public Post deliveryDetailPage(@PathVariable Long post_id){
         Post post = postService.getPost(post_id);
         post.Plus_view();
         postRepository.save(post);
@@ -64,18 +63,27 @@ public class PostController {
     }
 
     // 카테고리에서 선택한 종류에 대한 리스트뷰 뿌려주기
-    @GetMapping(value = "/category")
+    @GetMapping(value = "/delivery/post/sort_category")
     public ResponseEntity<List<Post>> listOfCategory(@RequestBody String category, String areaName) {
         List<Post> categoryList = postService.getCategoryList(category, areaName);
 
         return new ResponseEntity<List<Post>>(categoryList, HttpStatus.OK);
     }
     // 시간 순서에 대한 리스트뷰 뿌려주기
-    @GetMapping(value = "/sort_time")
+    @GetMapping(value = "/delivery/post/sort_time")
     public ResponseEntity<List<Post>> listOfTime(@RequestBody String time, String areaName) {
         List<Post> timeList = postService.getSortTimeList(time, areaName);
 
         return new ResponseEntity<List<Post>>(timeList, HttpStatus.OK);
+    }
+    // 시간 순서에 대한 리스트뷰 뿌려주기
+    @GetMapping(value = "/delivery/post/sort_area")
+    public ResponseEntity<List<Post>> listOfArea(@RequestBody String areaName) {
+        log.info("=============/delivery/post/sort_area 진입");
+        log.info("============= sort area : {}", areaName);
+        List<Post> postList = postService.getPostList(areaName);
+        log.info("{}", postList);
+        return new ResponseEntity<List<Post>>(postList, HttpStatus.OK);
     }
 
 }

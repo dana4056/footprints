@@ -2,7 +2,6 @@ package footprints.footprints.post;
 
 import footprints.footprints.domain.member.Member;
 import footprints.footprints.domain.member.MemberDTO;
-import footprints.footprints.domain.post.Post;
 import footprints.footprints.domain.post.PostDTO;
 import footprints.footprints.repository.member.MemberRepository;
 import footprints.footprints.repository.post.PostRepository;
@@ -25,7 +24,6 @@ class PostServiceTest {
     @Autowired
     PostRepository postRepository;
 
-    @Autowired
     MemberRepository memberRepository;
 
     @Autowired

@@ -29,6 +29,22 @@ function fetchUser(){
     });
 }
 
+function fetchNoticeList() {
+    return axios.get(`${config.baseUrl}/notice`);
+}
+
+function fetchNoticeDetail(notice_id){
+    return axios.get(`${config.baseUrl}/notice/${notice_id}`,);
+}
+
+function postNotice(noticeDTO){
+    return axios.post(`${config.baseUrl}/notice/create`, noticeDTO, {
+        headers: {
+            'Content-Type': 'text/plain'
+        }
+    });
+}
+
 function postEmail(email){
     return axios.post(`${config.baseUrl}/signup/check-email`, email, {
         headers: {
@@ -102,9 +118,10 @@ function fetchDeliveryList(){
     });
 }
 
+
 //카테고리 별로 불러오기 위함
 function fetchDeliveryList_Category(category) {
-    return axios.get(`${config.baseUrl}/category`, {
+    return axios.get(`${config.baseUrl}/delivery/post/sort_category`, {
         category,
         headers: {
             'X-AUTH-TOKEN': localStorage.getItem('jwt')
@@ -114,8 +131,18 @@ function fetchDeliveryList_Category(category) {
 
 // 시간별로 불러오기 위함
 function fetchDeliveryList_Time(time) {
-    return axios.get(`${config.baseUrl}/sort_time`, {
+    return axios.get(`${config.baseUrl}/delivery/post/sort_time`, {
         time,
+        headers: {
+            'X-AUTH-TOKEN': localStorage.getItem('jwt')
+        },
+    });
+}
+
+// 지역별로 불러오기 위함
+function fetchDeliveryList_Area(area) {
+    return axios.get(`${config.baseUrl}/delivery/post/sort_area`, {
+        area,
         headers: {
             'X-AUTH-TOKEN': localStorage.getItem('jwt')
         },
@@ -143,7 +170,7 @@ function fetchDeliveryList_Time(time) {
     console.log("nick: " + nick);
 	return axios.get(`${config.baseUrl}/chat/get-PostIdlist`, nick, {
         headers: {
-            'Content-Type': 'text/plain' 
+            'Content-Type': 'text/plain'
         }
     });
   }
@@ -174,6 +201,9 @@ function fetchDeliveryList_Time(time) {
 
 export{
     fetchUser,
+    fetchNoticeList,
+    fetchNoticeDetail,
+    postNotice,
     postEmail,
     postNick,
     postLogin,
@@ -194,4 +224,5 @@ export{
     findUser,
     findChatLogs,
     postChatData,
+    fetchDeliveryList_Area,
 }

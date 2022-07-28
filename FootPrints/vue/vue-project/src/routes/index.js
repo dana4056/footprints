@@ -14,6 +14,10 @@ import DeliveryDetail from '../views/DeliveryDetail'
 import DeliveryCreate from '../views/DeliveryCreate'
 import UserView from '../views/UserView'
 
+import NoticeDetail from '../views/NoticeDetail.vue'
+import NoticeList from '../views/NoticeView.vue'
+import NoticeCreate from '../views/NoticeCreate.vue'
+
 import ChatView from '../views/ChatView'
 
 const routes = [
@@ -31,6 +35,10 @@ const routes = [
     {   path: '/delivery/post', component: DeliveryList    },
     {   path: '/delivery/post/:id', component: DeliveryDetail  },
     {   path: '/user/1', component: UserView  },
+    { path: '/notice/:id', component: NoticeDetail },
+    { path: '/notice/post', component: NoticeList },
+    { path: '/notice/post/create', component: NoticeCreate }
+
     {   path: '/chat', component: ChatView  },
 ]
 

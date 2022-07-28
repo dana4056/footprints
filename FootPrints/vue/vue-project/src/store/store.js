@@ -5,6 +5,8 @@ import dayjs from 'dayjs'
 
 export const store = new Vuex.Store({
     state:{
+        noticeList:[],
+        notice:{},
         isDuplicateNick:false,
         isDuplicateEmail:false,
         find_nick: 'CANNOT_FIND_ID',
@@ -58,6 +60,12 @@ export const store = new Vuex.Store({
     },
     actions,
     mutations:{
+        SET_NOTICELIST(state, List){
+            state.noticeList = List;
+        },
+        SET_NOTICE(state, notice){
+            state.notice = notice;
+        },
         SET_DUPLI_NICK(state, bool){
             state.isDuplicateNick = bool;
         },

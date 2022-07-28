@@ -3,10 +3,11 @@ package footprints.footprints.repository.post;
 import footprints.footprints.domain.member.Member;
 import footprints.footprints.domain.post.Post;
 import footprints.footprints.domain.post.PostDTO;
-import footprints.footprints.repository.member.MemberRepositoryImpl;
+import footprints.footprints.repository.member.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -15,10 +16,11 @@ import java.util.List;
 
 @Repository
 @Slf4j
+@Transactional
 @RequiredArgsConstructor
 public class PostRepositoryImpl implements PostRepository{
 
-    private final MemberRepositoryImpl memberRepository;
+    private final MemberRepository memberRepository;
 
     @PersistenceContext
     private EntityManager em;

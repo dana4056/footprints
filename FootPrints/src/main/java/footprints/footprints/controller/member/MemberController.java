@@ -34,6 +34,7 @@ public class MemberController {
     @GetMapping(value = "/user")
     public ResponseEntity<MemberResponseDTO> fetchMember(Authentication authentication){
         Member member = (Member) authentication.getPrincipal();
+        log.info("멤버 정보 : {}, {}, {}, {}", member.getArea(), member.getRoles(), member.getNick(), member.getEmail());
         MemberResponseDTO responseMember = new MemberResponseDTO(member.getNick(), member.getArea());
 //        responseMember.setArea(member.getArea());
         return new ResponseEntity<MemberResponseDTO>(responseMember, HttpStatus.OK);

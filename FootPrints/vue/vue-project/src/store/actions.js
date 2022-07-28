@@ -1,8 +1,9 @@
+import { fetchNoticeList, fetchNoticeDetail, postNotice } from "../api/index.js"
 import { postEmail, postNick, postLogin, postMemberInfo } from "../api/index.js"
 // import { fetchSido, fetchSigoongu, fetchEupmyeondong } from "../api/index.js"
 import { findID, findPW, changePWD } from "../api/index.js"
 import { findPostID, findRoom, findUser, findChatLogs, postChatData } from "../api/index.js"
-import { fetchUser, fetchDeliveryList, postDeliveryPost, fetchDeliveryDetail, fetchDeliveryList_Category, fetchDeliveryList_Time } from "../api/index.js";
+import { fetchUser, fetchDeliveryList, postDeliveryPost, fetchDeliveryDetail, fetchDeliveryList_Category, fetchDeliveryList_Time, fetchDeliveryList_Area } from "../api/index.js";
 import { router } from '../routes/index.js';
 
 
@@ -31,6 +32,40 @@ export default{
         else{
           console.log("API:FETCH_USER\n멤버 가져오기 실패(??)",error);
         }
+      })
+  },
+
+  // 리스트뷰 페이지 데이터 로드
+  FETCH_NOTICE_LIST({ commit }) {
+    fetchNoticeList()
+      .then(response => {
+        console.log("API:FETCH_NOTICE_LIST\n공지사항 정보 받아오기 성공", response.data);
+        commit('SET_NOTICELIST', response.data);
+      })
+      .catch(error => {
+        console.log("API:FETCH_NOTICE_LIST\n공지사항 리스트 뷰 페이지 정보 받아오기 실패", error);
+      })
+  },
+
+  FETCH_NOTICE_DETAIL({ commit }, notice_id) {
+    fetchNoticeDetail(notice_id)
+      .then(response => {
+        console.log("API:FETCH_NOTICE_DETAIL\n공지사항 상세정보 받아오기 성공", response.data);
+        commit('SET_NOTICE', response.data);
+      })
+      .catch(error => {
+        console.log("API:FETCH_NOTICE_DETAIL\n공지사항 상세정보 페이지 정보 받아오기 실패", error);
+      })
+  },
+
+  // 공지사항 작성
+  POST_NOTICE(content, noticeDTO) {
+    postNotice(noticeDTO)
+      .then(response => {
+        console.log("API:POST_NOTICE\n공지사항 등록 성공", response);
+      })
+      .catch(error => {
+        console.log("API:POST_NOTICE\n공지사항 등록 실패", error);
       })
   },
   // 이메일 중복체크
@@ -207,14 +242,14 @@ export default{
           // location.href = "http://localhost:8080/home"
         }
         else {
-          console.log("배달 리스트 뷰 페이지 정보 받아오기 실패\n", error);
+          console.log("API:FETCH_DELIVERY_LIST_CATEGORY\n카테고리별 배달 리스트 뷰 페이지 정보 받아오기 실패\n", error);
         }
       })
   },
   FETCH_DELIVERY_LIST_SORT_TIME({ commit }, time) {
     fetchDeliveryList_Time(time)
       .then(response => {
-        console.log("카테고리별 배달 리스트 뷰 페이지 정보 받아오기 성공(GET success)\n", response.data);
+        console.log("API:FETCH_DELIVERY_LIST_TIME\n시간별 배달 리스트 뷰 페이지 정보 받아오기 성공(GET success)\n", response.data);
         commit('SET_DELIVERIES', response.data);
       })
       .catch(error => {
@@ -226,10 +261,32 @@ export default{
           // location.href = "http://localhost:8080/home"
         }
         else {
-          console.log("배달 리스트 뷰 페이지 정보 받아오기 실패\n", error);
+          console.log("API:FETCH_DELIVERY_LIST_TIME\n시간별 배달 리스트 뷰 페이지 정보 받아오기 실패\n", error);
         }
       })
   },
+
+FETCH_DELIVERY_LIST_SORT_AREA({ commit }, area) {
+  fetchDeliveryList_Area(area)
+    .then(response => {
+      console.log("API:FETCH_DELIVERY_LIST_SORT_AREA\n지역별 배달 리스트 뷰 페이지 정보 받아오기 성공(GET success)\n", response.data);
+      commit('SET_DELIVERIES', response.data);
+    })
+    .catch(error => {
+      const code = error.response.status;
+      if (code == 403) {
+        alert("로그인 후 이용하세요");
+        //history.back();
+        router.replace("/home");
+        // location.href = "http://localhost:8080/home"
+      }
+      else {
+        console.log("API:FETCH_DELIVERY_LIST_SORT_AREA\n지역별 배달 리스트 뷰 페이지 정보 받아오기 실패\n", error);
+      }
+    })
+},
+
+
   // 게시물 작성
   POST_DELIVERY_POST(content, post){
     postDeliveryPost(post)
@@ -287,7 +344,7 @@ export default{
       })
   },
   FIND_USER({ commit }, post_id) {
-    return findUser(post_id) 
+    return findUser(post_id)
       .then(response => {
         console.log("API:SET_FIND_USER 채팅방에 속한 사용자 nick 리스트 받아오기 성공", response.data);
         commit('SET_FIND_USER', response.data);
