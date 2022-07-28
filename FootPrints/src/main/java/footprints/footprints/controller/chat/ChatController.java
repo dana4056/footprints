@@ -1,6 +1,5 @@
 package footprints.footprints.controller.chat;
 
-import footprints.footprints.domain.chat.ChatData;
 import footprints.footprints.domain.chat.ChatDataDTO;
 import footprints.footprints.service.chat.ChatService;
 import lombok.RequiredArgsConstructor;
@@ -11,7 +10,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import javax.persistence.GeneratedValue;
 import java.util.List;
 
 @Controller
