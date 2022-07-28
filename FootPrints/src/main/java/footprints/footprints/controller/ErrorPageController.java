@@ -5,7 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-public class ErrorPageController implements ErrorController {
+public class  cErrorPageController implements ErrorController {
     // 새로고침 시 index.html으로
     @GetMapping("/error")
     public String redirectRoot(){
