@@ -4,6 +4,7 @@ import footprints.footprints.domain.chat.ChatData;
 import footprints.footprints.domain.chat.ChatDataDTO;
 import footprints.footprints.service.chat.ChatService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -15,6 +16,7 @@ import javax.persistence.GeneratedValue;
 import java.util.List;
 
 @Controller
+@Slf4j
 @RequiredArgsConstructor
 public class ChatController {
 
@@ -22,10 +24,9 @@ public class ChatController {
 
     @GetMapping(value = "/chat/get-PostIdlist") // 사용자가 속한 한 post_id를 리스트(Integer) 형태로 가져온다.
     public ResponseEntity<List<Long>> getPostIdList(@RequestBody String nick){
-
+        log.info("-------------------PostIdlist--{}",nick );
         List<Long> chatList = chatService.getList(nick);
-
-
+        log.info("-------------------PostIdlist--{}",nick );
         return new ResponseEntity<List<Long>>(chatList, HttpStatus.OK);
     }
 

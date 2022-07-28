@@ -6,6 +6,7 @@ import footprints.footprints.domain.post.Post;
 import footprints.footprints.repository.member.MemberRepositoryImpl;
 import footprints.footprints.repository.post.PostRepositoryImpl;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -14,6 +15,7 @@ import javax.persistence.TypedQuery;
 import java.util.List;
 
 @Repository
+@Slf4j
 @RequiredArgsConstructor
 public class ChatRepositoryImpl implements ChatRepository {
 
@@ -29,7 +31,7 @@ public class ChatRepositoryImpl implements ChatRepository {
                 "where r.member.nick = :nick", Long.class).setParameter("nick", nick);
 
         List<Long> resultList = integerTypedQuery.getResultList();
-
+        log.info("---------------------{}", resultList.get(0));
         if (resultList.size() == 0) return null;
 
         else return resultList;

@@ -141,7 +141,11 @@ function fetchDeliveryList_Time(time) {
 
   function findPostID(nick) {
     console.log("nick: " + nick);
-	return axios.get(`${config.baseUrl}/chat/get-PostIdlist`, nick);
+	return axios.get(`${config.baseUrl}/chat/get-PostIdlist`, nick, {
+        headers: {
+            'Content-Type': 'text/plain' 
+        }
+    });
   }
 
   function findRoom(list) {

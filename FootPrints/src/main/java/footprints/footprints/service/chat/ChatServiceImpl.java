@@ -4,6 +4,7 @@ import footprints.footprints.domain.chat.ChatData;
 import footprints.footprints.domain.chat.ChatDataDTO;
 import footprints.footprints.repository.chat.ChatRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -11,6 +12,7 @@ import java.util.List;
 
 @Service
 @Transactional
+@Slf4j
 @RequiredArgsConstructor
 public class ChatServiceImpl implements ChatService {
 
@@ -19,7 +21,7 @@ public class ChatServiceImpl implements ChatService {
     @Override
     public List<Long> getList(String nick) {
         List<Long> postIdList = chatRepository.getPostIdList(nick);
-
+        log.info("-------------------getList--{}",nick );
         return postIdList;
     }
 

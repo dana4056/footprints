@@ -160,7 +160,6 @@ export default{
         console.log('API:FIND_PWD\n비밀번호 찾기 실패',error);
       })
   },
-
   // 비밀번호 변경
   CHANGE_PWD({ commit }, memberDTO) {
     return changePWD(memberDTO)
@@ -192,7 +191,6 @@ export default{
         }
       })
   },
-
   // 리스트뷰 페이지 데이터 로드
   FETCH_DELIVERY_LIST_CATEGORY({ commit }, category) {
     fetchDeliveryList_Category(category)
@@ -213,7 +211,6 @@ export default{
         }
       })
   },
-
   FETCH_DELIVERY_LIST_SORT_TIME({ commit }, time) {
     fetchDeliveryList_Time(time)
       .then(response => {
@@ -270,7 +267,7 @@ export default{
       })
   },
   FIND_POST_ID({ commit }, nick) {
-    return findPostID(nick)
+    findPostID(nick)
       .then(response => {
         console.log("API:SET_FIND_POSTID 사용자의 POST_ID 리스트 받아오기 성공", response.data);
         commit('SET_FIND_POSTID', response.data);
