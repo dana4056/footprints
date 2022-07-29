@@ -49,6 +49,7 @@ export const store = new Vuex.Store({
             return state.deliveryPostList;
         },
         GET_DELIVERY_POST(state){
+            console.log("디테일\n",state.deliveryPost)
             return state.deliveryPost;
         },
         GET_PWCHANGE_DONE(state){

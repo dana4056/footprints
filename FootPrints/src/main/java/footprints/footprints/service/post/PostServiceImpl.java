@@ -55,4 +55,11 @@ public class PostServiceImpl implements PostService{
         List<Post> posts = postRepository.findSortTime(time, areaName);
         return posts;
     }
+
+
+    @Override
+    public void plusView(Post post) {
+        post.Plus_view();
+        postRepository.save(post);
+    }
 }

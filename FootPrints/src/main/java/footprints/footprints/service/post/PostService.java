@@ -18,4 +18,6 @@ public interface PostService {
     List<Post> getCategoryList(String category, String areaName); // 카테고리별 리스트뷰
 
     List<Post> getSortTimeList(String time, String areaName); //시간별 리스트뷰
+
+    public void plusView(Post post);
 }

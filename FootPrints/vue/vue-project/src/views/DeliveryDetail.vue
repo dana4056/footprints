@@ -9,13 +9,13 @@
           <img v-bind:src="require(`../assets/${fetched.category}.png`)">
           <span class="category" v-bind:class="fetched.category">{{this.categories[fetched.category]}}</span>
         </div>
-        <p id="views">조회 {{views}}</p>
+        <p id="views">조회 {{fetched.view_num}}</p>
       </div>
 
       <div id="userBox">
         <img src="../assets/user.png">
         <div id="userBoxEl">
-          <span>{{fetched.user_name}}</span>
+          <span>{{fetched.member.nick}}</span>
           <small>{{caltime(fetched.createdDate)}} 전</small>
         </div>
       </div>
@@ -63,9 +63,6 @@ export default {
         'KOR': '한식',
         'CHI': '중식',
       },
-      // views: 0,
-      // userName: "사용자",
-      // postTime: "13",
 
     }
   },

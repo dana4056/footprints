@@ -21,6 +21,7 @@ public class MemberRepositoryImpl implements MemberRepository {
     @Override
     public void save(Member member) {
         //Member member = memberDTO.toEntity();
+        member.setRoles();
         if(member.getNick() == null){
             log.info("새로운 member 저장");
             em.persist(member);
