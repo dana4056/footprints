@@ -168,7 +168,7 @@ function fetchDeliveryList_Area(area) {
 
   function findPostID(nick) {
     console.log("nick: " + nick);
-	return axios.get(`${config.baseUrl}/chat/get-PostIdlist`, nick, {
+	return axios.get(`${config.baseUrl}/chat/get-postidlist`, nick, {
         headers: {
             'Content-Type': 'text/plain'
         }

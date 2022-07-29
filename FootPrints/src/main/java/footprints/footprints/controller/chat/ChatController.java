@@ -20,7 +20,7 @@ public class ChatController {
 
     private final ChatService chatService;
 
-    @GetMapping(value = "/chat/get-PostIdlist") // 사용자가 속한 한 post_id를 리스트(Integer) 형태로 가져온다.
+    @GetMapping(value = "/chat/get-postidlist") // 사용자가 속한 한 post_id를 리스트(Integer) 형태로 가져온다.
     public ResponseEntity<List<Long>> getPostIdList(@RequestBody String nick){
         log.info("-------------------PostIdlist--{}",nick );
         List<Long> chatList = chatService.getList(nick);

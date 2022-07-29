@@ -37,7 +37,7 @@ const routes = [
     {   path: '/user/1', component: UserView  },
     { path: '/notice/:id', component: NoticeDetail },
     { path: '/notice/post', component: NoticeList },
-    { path: '/notice/post/create', component: NoticeCreate }
+    { path: '/notice/post/create', component: NoticeCreate },
 
     {   path: '/chat', component: ChatView  },
 ]
