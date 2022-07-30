@@ -24,11 +24,8 @@ export const store = new Vuex.Store({
         sessionId:"",
         deliveryPostList:[],
         deliveryPost:{},
-
-        postIDList: [1],
-        roomList: [
-            {post_name: "", category: ""},
-        ],
+        postIDList: [],
+        roomList: [],
         roomIndex: 0,
         userList: ["", ""],
         chatLogs: [
@@ -117,22 +114,14 @@ export const store = new Vuex.Store({
             state.postIdList = list;
         },
         SET_FIND_ROOM(state, list) {
-            let index = 0;
-            for (let value of list) {
-                state.roomList[index].postname = value.postname;
-                state.roomList[index++].category = value.category;
-            }
+            state.roomList = list;
+            console.log(state.roomList);
         },
         SET_FIND_USER(state, list) {
             state.userList = list;
         },
         SET_FIND_CHAT_LOGS(state, list) {
-            let index = 0;
-            for (let value of list) {
-                state.chatLogs[index].from_name = value.from_name;
-                state.chatLogs[index].time = value.time;
-                state.chatLogs[index].message = value.message;
-            }
+            state.chatLogs = list;
         }
     },
     

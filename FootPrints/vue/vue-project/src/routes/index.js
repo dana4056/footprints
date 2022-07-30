@@ -20,6 +20,8 @@ import NoticeCreate from '../views/NoticeCreate.vue'
 
 import ChatView from '../views/ChatView'
 
+import createPersistedState from "vuex-persistedstate";
+
 const routes = [
     //path: url에 대한 정보
     //component: 해당 url 주소로 갔을 때 표시될 컴포넌트(페이지라고 생각)
@@ -43,6 +45,7 @@ const routes = [
 ]
 
 export const router = new createRouter({
+    plugins: [createPersistedState()],
     history: createWebHistory(),
     routes
 });

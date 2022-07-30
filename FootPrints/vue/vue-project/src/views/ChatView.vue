@@ -39,11 +39,11 @@ export default {
   },
   mounted() {
     setTimeout(() => {
-        const element = document.getElementById("chat__body");
-        element.scrollTop = element.scrollHeight;
+      const element = document.getElementById("chat__body");
+      element.scrollTop = element.scrollHeight;
 
-        const e = document.getElementsByClassName("room__list")
-        e.scrollTop = element.scrollHeight;
+      const e = document.getElementsByClassName("room__list")
+      e.scrollTop = e.scrollHeight;
     }, 0);
   },
   methods: {

@@ -6,7 +6,6 @@ import { findPostID, findRoom, findUser, findChatLogs, postChatData } from "../a
 import { fetchUser, fetchDeliveryList, postDeliveryPost, fetchDeliveryDetail, fetchDeliveryList_Category, fetchDeliveryList_Time, fetchDeliveryList_Area } from "../api/index.js";
 import { router } from '../routes/index.js';
 
-
 export default{ 
   FETCH_USER({commit}){
     fetchUser()
@@ -24,7 +23,7 @@ export default{
         const code = error.response.status;
         if(code == 403){
           console.log("API:FETCH_USER\n멤버 가져오기 실패(로그인 필요)",error);
-          alert("로그인 후 이용하세요");
+          alert("FETCH_USER 로그인 후 이용하세요");
           //history.back(); 
           router.replace("/home");
           // location.href = "http://localhost:8080/home"
@@ -216,7 +215,7 @@ export default{
       .catch(error =>{
         const code = error.response.status;
         if(code == 403){
-          alert("로그인 후 이용하세요");
+          alert("FETCH_DELIVERY_LIST 로그인 후 이용하세요");
           //history.back(); 
           router.replace("/home");
           // location.href = "http://localhost:8080/home"
@@ -236,7 +235,7 @@ export default{
       .catch(error => {
         const code = error.response.status;
         if (code == 403) {
-          alert("로그인 후 이용하세요");
+          alert("FETCH_DELIVERY_LIST_CATEGORY 로그인 후 이용하세요");
           //history.back();
           router.replace("/home");
           // location.href = "http://localhost:8080/home"
@@ -255,7 +254,7 @@ export default{
       .catch(error => {
         const code = error.response.status;
         if (code == 403) {
-          alert("로그인 후 이용하세요");
+          alert("FETCH_DELIVERY_LIST_SORT_TIME 로그인 후 이용하세요");
           //history.back();
           router.replace("/home");
           // location.href = "http://localhost:8080/home"
@@ -275,7 +274,7 @@ FETCH_DELIVERY_LIST_SORT_AREA({ commit }, area) {
     .catch(error => {
       const code = error.response.status;
       if (code == 403) {
-        alert("로그인 후 이용하세요");
+        alert("FETCH_DELIVERY_LIST_SORT_AREA 로그인 후 이용하세요");
         //history.back();
         router.replace("/home");
         // location.href = "http://localhost:8080/home"
@@ -296,7 +295,7 @@ FETCH_DELIVERY_LIST_SORT_AREA({ commit }, area) {
     .catch(error => {
       const code = error.response.status;
       if(code == 403){
-        alert("로그인 후 이용하세요");
+        alert("POST_DELIVERY_POST 로그인 후 이용하세요");
         router.replace("/home");
       }
       else{
@@ -315,7 +314,7 @@ FETCH_DELIVERY_LIST_SORT_AREA({ commit }, area) {
         const code = error.response.status;
         if(code == 403){
           console.log("API:FETCH_DELIVERY_DETAIL\n상세페이지 정보 받아오기 실패 - 로그인 필요",error);
-          alert("로그인 후 이용하세요");
+          alert("FETCH_DELIVERY_DETAIL 로그인 후 이용하세요");
           router.replace("/home");
         }
         else{
