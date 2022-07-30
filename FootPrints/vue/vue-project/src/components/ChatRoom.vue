@@ -21,22 +21,13 @@ export default {
     }
   },
   created() {
-    // this.$store.dispatch('FIND_ROOM', this.$store.state.postIdList);
-    // this.dataNum = this.$store.state.postIdList.length;
-    this.$store.dispatch('FIND_ROOM', [1, 2]);
-    this.dataNum = 2;
-
+    this.dataNum = this.$store.state.postIdList.length;
     this.chekcedArr[this.$store.state.roomIndex] = true;
     for (let i = 0; i < this.dataNum; i++) {
       if (i != 0) {
         this.chekcedArr[i] = false;
       }
     }
-
-    // let post_id = this.$store.state.postIDList[this.$store.state.roomIndex];
-    let post_id = 1;
-    this.$store.dispatch('FIND_USER', post_id);
-    this.$store.dispatch('FIND_CHAT_LOGS', post_id);
   },
   methods: {
     clickRoom(li) {

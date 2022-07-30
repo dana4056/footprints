@@ -113,10 +113,29 @@ export default{
   POST_LOGIN({commit}, member) {
     postLogin(member)
         .then(response => {
-            console.log('API:POST_LOGIN\n로그인 성공',response);
-            localStorage.setItem('jwt', response.data); // 로컬 스토리지에 저장
-            commit('SET_MEMBER', member);
-            router.replace("/home");
+          console.log('API:POST_LOGIN\n로그인 성공',response);
+            
+          localStorage.setItem('jwt', response.data); // 로컬 스토리지에 저장
+          commit('SET_MEMBER', member);
+          router.replace("/home");
+
+          findPostID(member.nick)
+          .then(response => {
+            console.log("API:SET_FIND_POSTID 사용자의 POST_ID 리스트 받아오기 성공", response.data);
+            commit('SET_FIND_POSTID', response.data);
+
+            findRoom(response.data)
+            .then(response => {
+              console.log("API:SET_FIND_ROOM 사용자의 Room 리스트 받아오기 성공", response.data);
+              commit('SET_FIND_ROOM', response.data);
+            })
+            .catch(error => {
+              console.log("사용자의 Room 리스트 받아오기 실패", error);
+            })
+          })
+          .catch(error => {
+            console.log("사용자의 POST_ID 리스트 받아오기 실패", error);
+          })
         })
         .catch(error => { 
           const code = error.response.status;
@@ -322,28 +341,29 @@ FETCH_DELIVERY_LIST_SORT_AREA({ commit }, area) {
         }
       })
   },
-  FIND_POST_ID({ commit }, nick) {
-    findPostID(nick)
-      .then(response => {
-        console.log("API:SET_FIND_POSTID 사용자의 POST_ID 리스트 받아오기 성공", response.data);
-        commit('SET_FIND_POSTID', response.data);
-      })
-      .catch(error => {
-        console.log("사용자의 POST_ID 리스트 받아오기 실패", error);
-      })
-  },
-  FIND_ROOM({ commit }, list) {
-    return findRoom(list)
-      .then(response => {
-        console.log("API:SET_FIND_ROOM 사용자의 Room 리스트 받아오기 성공", response.data);
-        commit('SET_FIND_ROOM', response.data);
-      })
-      .catch(error => {
-        console.log("사용자의 Room 리스트 받아오기 실패", error);
-      })
-  },
+  // POST_LOGIN 안으로 이동 -> 초기에 PostIdList와 RoomList가 초기화 되어야 채팅 뷰 이동시 올바르게 생성됨
+  // FIND_POST_ID({ commit }, nick) {
+  //   findPostID(nick)
+  //     .then(response => {
+  //       console.log("API:SET_FIND_POSTID 사용자의 POST_ID 리스트 받아오기 성공", response.data);
+  //       commit('SET_FIND_POSTID', response.data);
+  //     })
+  //     .catch(error => {
+  //       console.log("사용자의 POST_ID 리스트 받아오기 실패", error);
+  //     })
+  // },
+  // FIND_ROOM({ commit }, list) {
+  //   findRoom(list)
+  //     .then(response => {
+  //       console.log("API:SET_FIND_ROOM 사용자의 Room 리스트 받아오기 성공", response.data);
+  //       commit('SET_FIND_ROOM', response.data);
+  //     })
+  //     .catch(error => {
+  //       console.log("사용자의 Room 리스트 받아오기 실패", error);
+  //     })
+  // },
   FIND_USER({ commit }, post_id) {
-    return findUser(post_id)
+    findUser(post_id)
       .then(response => {
         console.log("API:SET_FIND_USER 채팅방에 속한 사용자 nick 리스트 받아오기 성공", response.data);
         commit('SET_FIND_USER', response.data);
@@ -353,7 +373,7 @@ FETCH_DELIVERY_LIST_SORT_AREA({ commit }, area) {
       })
   },
   FIND_CHAT_LOGS({ commit }, post_id) {
-    return findChatLogs(post_id)
+    findChatLogs(post_id)
       .then(response => {
         console.log("API:SET_FIND_CHAT_LOGS 채팅방 chatlogs 리스트 받아오기 성공", response.data);
         commit('SET_FIND_CHAT_LOGS', response.data);
