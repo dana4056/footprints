@@ -37,7 +37,7 @@ public class ChatController {
     }
 
     @GetMapping(value = "/chat/get-NickList") // 그 방에 속한 사용자들의 nick을 리스트(String) 형태로 가져온다.
-    public ResponseEntity<List<String>> getNickList(@RequestBody Long post_id){
+    public ResponseEntity<List<String>> getNickList(Long post_id){
 
         List<String> nickList = chatService.getNickList(post_id);
 
