@@ -73,6 +73,7 @@ export default {
   color: #ffffff;
   padding: 0.8rem;
   font-size: 14px;
+  text-align: right;
 }
 
 .chat__yourmessage {
@@ -106,6 +107,7 @@ export default {
   color: #414141;
   padding: 0.8rem;
   font-size: 14px;
+  text-align: left;
 }
 
 .chat__yourmessage__time {

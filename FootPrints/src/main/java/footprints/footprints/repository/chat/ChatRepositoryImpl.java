@@ -100,6 +100,4 @@ public class ChatRepositoryImpl implements ChatRepository {
         ChatData chatData = new ChatData(chatDataDTO.getFrom_name(), chatDataDTO.getTime(), chatDataDTO.getMessage(), post);
         em.persist(chatData);
     }
-
-
 }
