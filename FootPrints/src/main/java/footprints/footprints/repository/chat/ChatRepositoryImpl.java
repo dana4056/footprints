@@ -37,7 +37,6 @@ public class ChatRepositoryImpl implements ChatRepository {
 
         else return resultList;
     }
-
     @Override
     public List<Post> getPostInfoList(List<Long> postIdList) {
         log.info("-------------------getPostInfoList--{}",postIdList);
