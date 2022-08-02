@@ -23,7 +23,7 @@ div {
   font-weight: 700;
 }
 #userList {
-  font-size: 16px;
+  font-size: 14px;
   margin: 0 0;
   padding: 0 0;
   float: left;

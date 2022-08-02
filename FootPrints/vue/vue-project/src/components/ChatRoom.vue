@@ -21,19 +21,13 @@ export default {
     }
   },
   created() {
-    this.$store.dispatch('FIND_ROOM', this.$store.state.postIDList);
-    this.dataNum = this.$store.state.postIDList.length;
-
+    this.dataNum = this.$store.state.postIdList.length;
     this.chekcedArr[this.$store.state.roomIndex] = true;
     for (let i = 0; i < this.dataNum; i++) {
       if (i != 0) {
         this.chekcedArr[i] = false;
       }
     }
-
-    let post_id = this.$store.state.postIDList[this.$store.state.roomIndex];
-    this.$store.dispatch('FIND_USER', post_id);
-    this.$store.dispatch('FIND_CHAT_LOGS', post_id);
   },
   methods: {
     clickRoom(li) {
@@ -41,7 +35,7 @@ export default {
       this.$store.state.roomIndex = li.currentTarget.id;
       this.chekcedArr[this.$store.state.roomIndex] = true;
 
-      let post_id = this.$store.state.postIDList[this.$store.state.roomIndex];
+      let post_id = this.$store.state.postIdList[this.$store.state.roomIndex];
       this.$store.dispatch('FIND_USER', post_id);
       this.$store.dispatch('FIND_CHAT_LOGS', post_id);
     }

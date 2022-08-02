@@ -111,7 +111,8 @@ function changePWD(memberDTO){
 }
 
 function fetchDeliveryList(){
-      return axios.get(`${config.baseUrl}/delivery/post`, {
+    console.log("function fetchDeliveryList 실행")
+    return axios.get(`${config.baseUrl}/delivery/post`, {
         headers: {
             'X-AUTH-TOKEN': localStorage.getItem('jwt')
         }
@@ -168,7 +169,7 @@ function fetchDeliveryList_Area(area) {
 
   function findPostID(nick) {
     console.log("nick: " + nick);
-	return axios.get(`${config.baseUrl}/chat/get-postidlist`, nick, {
+	return axios.post(`${config.baseUrl}/chat/get-PostIdlist`, nick, {
         headers: {
             'Content-Type': 'text/plain'
         }
@@ -177,19 +178,27 @@ function fetchDeliveryList_Area(area) {
 
   function findRoom(list) {
     console.log("postIDList: " + list);
-    return axios.get(`${config.baseUrl}/chat/get-PostInfoList`, list);
+    return axios.post(`${config.baseUrl}/chat/get-PostInfoList`, list);
   }
 
   function findUser(post_id) {
     console.log("post_id:" + post_id);
-    return axios.get(`${config.baseUrl}/chat/get-NickList`, post_id);
+    return axios.post(`${config.baseUrl}/chat/get-NickList`, post_id, {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
   }
 
   function findChatLogs(post_id) {
     console.log("post_id:" + post_id);
-    return axios.get(`${config.baseUrl}/chat/get-ChatList`, post_id);
+    return axios.post(`${config.baseUrl}/chat/get-ChatList`, post_id, {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
   }
-
+  
   function postChatData(chatData) {
     console.log(chatData);
     return axios.post(`${config.baseUrl}/chat/post-ChatDataList`, chatData, {

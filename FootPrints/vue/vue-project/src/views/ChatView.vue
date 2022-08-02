@@ -35,15 +35,17 @@ export default {
     ChatForm,
   },
   created() {
-    this.$store.dispatch('FIND_POST_ID', this.$store.state.member.nick);
+    let post_id = this.$store.state.postIdList[this.$store.state.roomIndex];
+    this.$store.dispatch('FIND_USER', post_id);
+    this.$store.dispatch('FIND_CHAT_LOGS', post_id);
   },
   mounted() {
     setTimeout(() => {
-        const element = document.getElementById("chat__body");
-        element.scrollTop = element.scrollHeight;
+      const element = document.getElementById("chat__body");
+      element.scrollTop = element.scrollHeight;
 
-        const e = document.getElementsByClassName("room__list")
-        e.scrollTop = element.scrollHeight;
+      const e = document.getElementsByClassName("room__list")
+      e.scrollTop = e.scrollHeight;
     }, 0);
   },
   methods: {

@@ -23,9 +23,9 @@ public class ChatDataDTO {
     private Long post_id;
 
     public ChatDataDTO(ChatData chatData) {
-        this.from_name = from_name;
-        this.time = time;
-        this.message = message;
+        this.from_name = chatData.getFrom_name();
+        this.time = chatData.getTime();
+        this.message = chatData.getMessage();
     }
 
 

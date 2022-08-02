@@ -2,6 +2,7 @@ package footprints.footprints.service.chat;
 
 import footprints.footprints.domain.chat.ChatData;
 import footprints.footprints.domain.chat.ChatDataDTO;
+import footprints.footprints.domain.post.Post;
 import footprints.footprints.repository.chat.ChatRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,8 +27,8 @@ public class ChatServiceImpl implements ChatService {
     }
 
     @Override
-    public List<String> getPostInfoList(List<Long> postIdList) {
-        List<String> postInfoList = chatRepository.getPostInfoList(postIdList);
+    public List<Post> getPostInfoList(List<Long> postIdList) {
+        List<Post> postInfoList = chatRepository.getPostInfoList(postIdList);
 
         return postInfoList;
     }
@@ -40,8 +41,8 @@ public class ChatServiceImpl implements ChatService {
     }
 
     @Override
-    public List<String> getChatList(Long post_id) {
-        List<String> chatList = chatRepository.getChatList(post_id);
+    public List<ChatDataDTO> getChatList(Long post_id) {
+        List<ChatDataDTO> chatList = chatRepository.getChatList(post_id);
 
         return chatList;
     }

@@ -29,14 +29,13 @@ data() {
       post_id: 0,
     }
   },
-  created() {
-    let checkedNum = this.$store.state.roomIndex;
-    this.post_id = this.$store.state.postIDList[checkedNum];
-  },
   methods: {
     submitMessage() {
       if (this.msg) {
         this.$emit("submitMessage");
+
+        const post_id = this.$store.state.postIdList[this.$store.state.roomIndex];
+
         const date = new Date();
 
         const year = date.getFullYear();
@@ -53,9 +52,11 @@ data() {
           from_name: this.$store.state.member.nick,
           time: dateString + " " + timeString,
           message: this.msg,
-          post_id: this.post_id
-        }
+          post_id: post_id
+        };
         this.$store.dispatch('POST_CHAT_DATA', chatData);
+
+        this.$store.dispatch('FIND_CHAT_LOGS', post_id);
 
         this.msg = "";
       }
