@@ -322,6 +322,16 @@ FETCH_DELIVERY_LIST_SORT_AREA({ commit }, area) {
       }
     })
   },
+  // 글 작성시 방 정보 테이블에 row 추가
+  // POST_ROOMINFO(content, roomInfo){
+  //   postRoomInfo(roomInfo)
+  //   .then(response =>{
+  //     console.log("API:POST_ROOMINFO\n방 정보 등록 성공",response);
+  //   })
+  //   .catch(error => {
+  //     console.log("API:POST_ROOMINFO\n방 정보 등록 실패",error);
+  //   })
+  // },
   // 상세 페이지 데이터 로드
   FETCH_DELIVERY_DETAIL({commit}, post_id){
     fetchDeliveryDetail(post_id)
@@ -380,12 +390,22 @@ FETCH_DELIVERY_LIST_SORT_AREA({ commit }, area) {
       })
       .catch(error => {
         console.log("채팅방 chatlogs 리스트 받아오기 실패", error);
-      })
+    })
   },
-  POST_CHAT_DATA(c, chatData) {
+  POST_CHAT_DATA({ commit }, chatData) {
     postChatData(chatData)
       .then(response => {
         console.log("채팅 보내기 성공", response.data);
+
+        findChatLogs(chatData.post_id)
+        .then(response => {
+          console.log("API:SET_FIND_CHAT_LOGS 채팅방 chatlogs 리스트 받아오기 성공", response.data);
+          commit('SET_FIND_CHAT_LOGS', response.data);
+        })
+        .catch(error => {
+          console.log("채팅방 chatlogs 리스트 받아오기 실패", error);
+        })
+
       })
       .catch(error => {
         console.log("채팅 보내기 실패", error);

@@ -130,6 +130,15 @@ export default {
         }
         console.log("POST\n",post);
         this.$store.dispatch('POST_DELIVERY_POST', post)
+
+        // const roomInfo = {
+        //   member: this.$store.state.member,
+        //   post_id: this.$store.state.post_id
+        // }
+
+        // this.$store.dispatch('POST_ROOMINFO', roomInfo)
+
+
 				Swal.fire({
           icon: 'success',
           title: '글이 등록되었습니다.',

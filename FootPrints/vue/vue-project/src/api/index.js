@@ -150,15 +150,23 @@ function fetchDeliveryList_Area(area) {
     });
 }
 
-  function postDeliveryPost(post){
-      return axios.post(`${config.baseUrl}/delivery/post/create`, post,{
+function postDeliveryPost(post){
+    return axios.post(`${config.baseUrl}/delivery/post/create`, post,{
+        headers: {
+            'X-AUTH-TOKEN': localStorage.getItem('jwt')
+        }
+    });
+}
+  
+  function postRoomInfo(roomInfo) {
+    return axios.post(`${config.baseUrl}/delivery/roomInfo/create`, roomInfo,{
         headers: {
             'X-AUTH-TOKEN': localStorage.getItem('jwt')
         }
     }
     );
   }
-  
+
   function fetchDeliveryDetail(post_id){
     return axios.get(`${config.baseUrl}/delivery/post/${post_id}`,{
         headers: {
@@ -169,7 +177,11 @@ function fetchDeliveryList_Area(area) {
 
   function findPostID(nick) {
     console.log("nick: " + nick);
-	return axios.post(`${config.baseUrl}/chat/get-PostIdlist`);
+	return axios.post(`${config.baseUrl}/chat/get-PostIdlist`, nick , {
+        headers: {
+            'Content-Type': 'text/plain'
+        }
+    });
   }
 
   function findRoom(list) {
@@ -179,12 +191,20 @@ function fetchDeliveryList_Area(area) {
 
   function findUser(post_id) {
     console.log("post_id:" + post_id);
-    return axios.post(`${config.baseUrl}/chat/get-NickList`, post_id);
+    return axios.post(`${config.baseUrl}/chat/get-NickList`, post_id, {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
   }
 
   function findChatLogs(post_id) {
     console.log("post_id:" + post_id);
-    return axios.post(`${config.baseUrl}/chat/get-ChatList`, post_id);
+    return axios.post(`${config.baseUrl}/chat/get-ChatList`, post_id, {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
   }
   
   function postChatData(chatData) {
@@ -213,6 +233,7 @@ export{
     changePWD,
     fetchDeliveryList,
     postDeliveryPost,
+    postRoomInfo,
     fetchDeliveryDetail,
     fetchDeliveryList_Category,
     fetchDeliveryList_Time,
