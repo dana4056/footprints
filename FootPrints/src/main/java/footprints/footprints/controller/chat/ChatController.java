@@ -26,7 +26,7 @@ public class ChatController {
 
     private final ChatService chatService;
 
-    @GetMapping(value = "/chat/get-PostIdlist") // 사용자가 속한 한 post_id를 리스트(Integer) 형태로 가져온다.
+    @PostMapping(value = "/chat/get-PostIdlist") // 사용자가 속한 한 post_id를 리스트(Integer) 형태로 가져온다.
     public ResponseEntity<List<Long>> getPostIdList(Authentication authentication){
 
         Member principal = (Member) authentication.getPrincipal();
@@ -38,24 +38,24 @@ public class ChatController {
         return new ResponseEntity<List<Long>>(chatList, HttpStatus.OK);
     }
 
-    @GetMapping(value = "/chat/get-PostInfoList") // 각 방들의 post_name과 category post_id를 리스트(String) 형태로 가져온다.
-    public ResponseEntity<List<Post>> getPostInfoList(@RequestParam List<Long> postIdList){
+    @PostMapping(value = "/chat/get-PostInfoList") // 각 방들의 post_name과 category post_id를 리스트(String) 형태로 가져온다.
+    public ResponseEntity<List<Post>> getPostInfoList(@RequestBody List<Long> postIdList){
         log.info("-------------------getPostInfoList--{}",postIdList );
         List<Post> postInfoList = chatService.getPostInfoList(postIdList);
 
         return new ResponseEntity<List<Post>>(postInfoList, HttpStatus.OK);
     }
 
-    @GetMapping(value = "/chat/get-NickList") // 그 방에 속한 사용자들의 nick을 리스트(String) 형태로 가져온다.
-    public ResponseEntity<List<String>> getNickList(@RequestParam Long post_id){
+    @PostMapping(value = "/chat/get-NickList") // 그 방에 속한 사용자들의 nick을 리스트(String) 형태로 가져온다.
+    public ResponseEntity<List<String>> getNickList(@RequestBody Long post_id){
         log.info("-------------------getNickList--{}",post_id);
         List<String> nickList = chatService.getNickList(post_id);
 
         return new ResponseEntity<List<String>>(nickList, HttpStatus.OK);
     }
 
-    @GetMapping(value = "/chat/get-ChatList") // 채팅 기록 (from_name, time, message)를 리스트(String) 형태로 가져온다.
-    public ResponseEntity<List<ChatDataDTO>> getChatList(@RequestParam Long post_id){
+    @PostMapping(value = "/chat/get-ChatList") // 채팅 기록 (from_name, time, message)를 리스트(String) 형태로 가져온다.
+    public ResponseEntity<List<ChatDataDTO>> getChatList(@RequestBody Long post_id){
         log.info("-------------------getChatList--{}",post_id);
         List<ChatDataDTO> chatList = chatService.getChatList(post_id);
 
