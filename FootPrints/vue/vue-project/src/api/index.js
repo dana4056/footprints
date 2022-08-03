@@ -169,11 +169,7 @@ function fetchDeliveryList_Area(area) {
 
   function findPostID(nick) {
     console.log("nick: " + nick);
-	return axios.post(`${config.baseUrl}/chat/get-PostIdlist`, nick, {
-        headers: {
-            'Content-Type': 'text/plain'
-        }
-    });
+	return axios.get(`${config.baseUrl}/chat/get-PostIdlist`, nick);
   }
 
   function findRoom(list) {
@@ -183,20 +179,12 @@ function fetchDeliveryList_Area(area) {
 
   function findUser(post_id) {
     console.log("post_id:" + post_id);
-    return axios.post(`${config.baseUrl}/chat/get-NickList`, post_id, {
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    });
+    return axios.post(`${config.baseUrl}/chat/get-NickList`, post_id);
   }
 
   function findChatLogs(post_id) {
     console.log("post_id:" + post_id);
-    return axios.post(`${config.baseUrl}/chat/get-ChatList`, post_id, {
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    });
+    return axios.post(`${config.baseUrl}/chat/get-ChatList`, post_id);
   }
   
   function postChatData(chatData) {
