@@ -244,7 +244,7 @@ export default{
         }
       })
   },
-  // 리스트뷰 페이지 데이터 로드
+  // 카테고리별 리스트뷰 페이지 데이터 로드
   FETCH_DELIVERY_LIST_CATEGORY({ commit }, category) {
     fetchDeliveryList_Category(category)
       .then(response => {

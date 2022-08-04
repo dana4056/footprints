@@ -122,10 +122,10 @@ function fetchDeliveryList(){
 
 //카테고리 별로 불러오기 위함
 function fetchDeliveryList_Category(category) {
-    return axios.get(`${config.baseUrl}/delivery/post/sort_category`, {
-        category,
+    return axios.post(`${config.baseUrl}/delivery/post/sort_category`, {
         headers: {
-            'X-AUTH-TOKEN': localStorage.getItem('jwt')
+            'X-AUTH-TOKEN': localStorage.getItem('jwt'),
+            'category': category,
         },
     });
 }
@@ -135,7 +135,7 @@ function fetchDeliveryList_Time(time) {
     return axios.get(`${config.baseUrl}/delivery/post/sort_time`, {
         time,
         headers: {
-            'X-AUTH-TOKEN': localStorage.getItem('jwt')
+            // 'X-AUTH-TOKEN': localStorage.getItem('jwt')
         },
     });
 }

@@ -48,7 +48,12 @@ public class PostServiceImpl implements PostService{
     @Override
     public List<Post> getCategoryList(String category, String areaName) {
         List<Post> posts = postRepository.findCategory(category, areaName);
-        return posts;
+        if (posts == null){
+            return null;
+        }
+        else{
+            return posts;
+        }
     }
     @Override
     public List<Post> getSortTimeList(String time, String areaName){

@@ -16,7 +16,7 @@
               <option value="KOR">한식</option>
               <option value="CHI">중식</option>
               <option value="ETC">기타</option> 
-            </select> 
+            </select>  
           </div>
 
         <label>정렬 기준</label>
@@ -119,10 +119,11 @@ export default {
     },
     SelectCategory(){
       this.$store.dispatch('FETCH_DELIVERY_LIST_CATEGORY', this.category);
+      console.log(this.category);
       setTimeout(() => { 
           console.log("여기서 무언가를 해야 제대로 찍힐라나 싶네");
           this.$store.getters.GET_DELIVERIES;
-        }, 100);   
+        }, 200);   
     },
     BeforeSort(){
       this.sort_criteria = "";

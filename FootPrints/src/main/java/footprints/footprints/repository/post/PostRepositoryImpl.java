@@ -79,13 +79,16 @@ public class PostRepositoryImpl implements PostRepository{
 
     @Override
     public List<Post> findCategory(String category, String areaName) {
-        TypedQuery<Post> sameCategory = em.createQuery("select p from Post p where p.member.area = :areaName " +
-                        "and p.category = :category order by p.valid_time",
+        TypedQuery<Post> sameCategory = em.createQuery("select p from Post p where p.member.area = :areaName and p.category = :category",
                 Post.class).setParameter("areaName", areaName).setParameter("category", category);
 
         List<Post> resultList = sameCategory.getResultList();
-
-        return resultList;
+        if (resultList.size() == 0) {
+            return null;
+        }
+        else{
+            return resultList;
+        }
     }
 
     @Override

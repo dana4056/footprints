@@ -2,23 +2,11 @@
   <div id="wrap">
       <tool-bar></tool-bar>
       <div id="content">
-        <div id="delivery">
-          배달리스트뷰
-          <delivery-area></delivery-area>
-        </div>
-        <div id="room">
-          방쉐어
-          <room-share-area></room-share-area>
-        </div>
         <div id="notice">
           <div>
             <router-link v-bind:to="`/notice/post`"><p>공지사항</p></router-link>
           </div>
           <notice-area></notice-area>
-        </div>
-        <div id="event">
-          이벤트
-          <event-area></event-area>
         </div>
       </div>
       <up-button id="up_button"></up-button>
@@ -32,9 +20,6 @@ import ToolBar from '../components/ToolBar.vue'
 import FooterArea from '../components/FooterArea.vue'
 import UpButton from '../components/UpButton.vue'
 import NoticeArea from '../components/NoticeArea.vue'
-import DeliveryArea from '../components/DeliveryArea.vue'
-import EventArea from '../components/EventArea.vue'
-import RoomShareArea from '../components/RoomShareArea.vue'
 
 export default {
     components:{
@@ -42,9 +27,6 @@ export default {
         FooterArea,
         UpButton, 
         NoticeArea,
-        DeliveryArea,
-        EventArea,
-        RoomShareArea,
     }
 }
 </script>

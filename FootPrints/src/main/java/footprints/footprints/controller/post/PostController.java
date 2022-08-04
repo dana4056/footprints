@@ -57,11 +57,17 @@ public class PostController {
     }
 
     // 카테고리에서 선택한 종류에 대한 리스트뷰 뿌려주기
-    @GetMapping(value = "/delivery/post/sort_category")
-    public ResponseEntity<List<Post>> listOfCategory(@RequestBody String category, String areaName) {
-        List<Post> categoryList = postService.getCategoryList(category, areaName);
-
-        return new ResponseEntity<List<Post>>(categoryList, HttpStatus.OK);
+    @PostMapping(value = "/delivery/post/sort_category")
+    public ResponseEntity<List<Post>> listOfCategory(Authentication authentication, @RequestBody String category) {
+        Member member = (Member) authentication.getPrincipal();
+        List<Post> categoryList = postService.getCategoryList(category, member.getArea());
+        if(categoryList == null){
+            log.info("카테고리 리스트 널 값 반환");
+            return new ResponseEntity<List<Post>>((List<Post>) null, HttpStatus.OK);
+        }
+        else{
+            return new ResponseEntity<List<Post>>(categoryList, HttpStatus.OK);
+        }
     }
     // 시간 순서에 대한 리스트뷰 뿌려주기
     @GetMapping(value = "/delivery/post/sort_time")
