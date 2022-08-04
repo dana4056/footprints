@@ -12,11 +12,18 @@
           <img id="profileImage" src="../assets/donut.png">
           <p id="profileNick">{{this.$store.state.member.nick}}</p>
           <div id="profileArea">
-            <img id="AreaImage" src="../assets/placeholder.png">
-            <p id="AreaName">{{this.$store.state.member.area}}</p>
+            <img id="areaImage" src="../assets/placeholder.png">
+            <p id="areaName">{{this.$store.state.member.area}}</p>
           </div>
           <div class="router">
-            
+            <router-link to="/home" id="like">
+              <img id="likeImage" src="../assets/heart.png">
+              <p>좋아요</p>
+            </router-link>
+            <router-link to="/chat" id="chat">
+              <img id="chatImage" src="../assets/chatting.jpg">
+              <p>채팅</p>
+            </router-link>
           </div>
         </div>
       </div>
@@ -83,8 +90,8 @@ export default {
   padding-top: 200px;
 }
 .wrap > p {
-  width: 100px;
-  margin: 0 25px;
+  width: 120px;
+  margin: 0 60px 0 0;
   float: left;
   font-size: 18px;
   cursor: pointer;
@@ -103,13 +110,14 @@ export default {
 }
 
 .profile {
-  width: 800px;
+  width: 775px;
   height: 100%; 
+  /* background-color: aqua; */
 }
 #profileBox {
-  margin: 50px 100px 0px 300px;
+  margin: 50px 100px 0px 320px;
   width: 350px;
-  height: 450px;
+  height: 420px;
   background-color: rgb(255, 255, 255);
   border-radius: 40px;
   box-shadow: 1px 1px 2px 6px #98d0a443;
@@ -123,7 +131,7 @@ export default {
 #profileNick {
   font-size: 23px;
   font-weight: bold;
-  margin: 10px 0 15px 0
+  margin: 10px 0 20px 0
 }
 #profileArea {
   text-align: center;
@@ -132,21 +140,52 @@ export default {
 #profileArea > * {
   float: left;
 }
-#AreaImage {
+#areaImage {
   width: 30px;
   opacity: 0.7;
 }
-#AreaName {
+#areaName {
   font-size: 18px;
   margin: 2px 0;
   color: rgb(166, 166, 166);
 }
 .router{
-  
+  padding: 0 50px 0 70px;
+  margin-top: 30px;
+  width: 180px;
+  height: 120px;
+  /* background-color: aqua; */
+  text-align: center;
+  display: inline-block;
 }
-
+.router > * {
+  float: left;
+  color: black;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 17px;
+}
+#like {
+  margin: 0 0;
+}
+#likeImage{
+  margin-top: 5px;
+  width: 40px;
+  height: 35px;
+}
+#chat {
+  margin: 0 0 0 75px;
+}
+#chatImage {
+  width: 40px;
+  height: 40px;
+}
+#chat > p {
+  margin: 13px 0px 0 0px;
+}
 
 .component {
   height: 100%;
+  
 }
 </style>
