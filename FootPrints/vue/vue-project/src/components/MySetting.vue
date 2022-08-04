@@ -1,14 +1,12 @@
 <template>
   <div>
-    test vue
+    안녕 난 세팅 뷰
   </div>
 </template>
 
 <script>
 export default {
- created(){
-    this.$store.dispatch('FETCH_TEST');
-  }
+
 }
 </script>
 

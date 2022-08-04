@@ -13,10 +13,10 @@ export const store = new Vuex.Store({
         find_email: 'CANNOT_FIND_ID',
         pwchange_done: 'FAILED',
         member:{
-            nick: "", 
+            nick: "춘식", 
             email: "",
             pw: "",
-            area: ""
+            area: "서울시 송파구 잠실동"
         },
         sidoList:{},
         sigoonguList:{},

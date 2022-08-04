@@ -10,7 +10,8 @@
     </div>
     <div v-if="this.isLogin">
         <router-link to="/delivery/post" class="item"><button>배달 같이하기</button></router-link>
-        <span id="u_name">{{this.$store.state.member.nick}}</span> 님 | 
+        <router-link  v-bind:to="`/myPage/${this.$store.state.member.nick}`" id="u_name">{{this.$store.state.member.nick}}</router-link>
+        님 | 
         <span id="logout" v-on:click="logout">로그아웃</span>
         <router-link to="/chat">      채팅방</router-link>
     </div>
@@ -23,17 +24,11 @@
 export default {
     data(){
         return {
-            isLogin:false,
+            isLogin:true,
             userName:""
         }
     },
     created(){
-        // const id = this.$cookies.get("JSESSIONID");
-        // if(id != null){
-        //     this.$cookies.set("JSESSIONID", id);
-        //     this.isLogin = true;
-        // }
-        console.log("toolbar created")
         if(localStorage.getItem('jwt') != null){
             this.$store.dispatch('FETCH_NICK')
             if(this.$store.state.member.nick != ""){
@@ -105,8 +100,10 @@ header{
     color: #5d5d5d;
 }
 #u_name{
-   font-weight: bold;
-   cursor: pointer;
+    color: black;
+    text-decoration: none;
+    font-weight: bold;
+    cursor: pointer;
 }
 #logout{
    cursor: pointer;
