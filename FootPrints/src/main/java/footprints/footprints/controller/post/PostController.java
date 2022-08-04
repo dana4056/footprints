@@ -58,9 +58,11 @@ public class PostController {
 
     // 카테고리에서 선택한 종류에 대한 리스트뷰 뿌려주기
     @PostMapping(value = "/delivery/post/sort_category")
-    public ResponseEntity<List<Post>> listOfCategory(Authentication authentication, @RequestBody String category) {
-        Member member = (Member) authentication.getPrincipal();
-        List<Post> categoryList = postService.getCategoryList(category, member.getArea());
+    public ResponseEntity<List<Post>> listOfCategory(@RequestBody String category) {
+        log.info("카테고리 진입");
+//        Member member = (Member) authentication.getPrincipal();
+        List<Post> categoryList = postService.getCategoryList(category, "서울 성북구 정릉동");
+//        List<Post> categoryList = postService.getCategoryList(category, member.getArea());
         if(categoryList == null){
             log.info("카테고리 리스트 널 값 반환");
             return new ResponseEntity<List<Post>>((List<Post>) null, HttpStatus.OK);
@@ -69,10 +71,12 @@ public class PostController {
             return new ResponseEntity<List<Post>>(categoryList, HttpStatus.OK);
         }
     }
+
     // 시간 순서에 대한 리스트뷰 뿌려주기
     @GetMapping(value = "/delivery/post/sort_time")
-    public ResponseEntity<List<Post>> listOfTime(@RequestBody String time, String areaName) {
-        List<Post> timeList = postService.getSortTimeList(time, areaName);
+    public ResponseEntity<List<Post>> listOfTime(@RequestBody String time, Authentication authentication) {
+        Member member = (Member) authentication.getPrincipal();
+        List<Post> timeList = postService.getSortTimeList(time, member.getArea());
 
         return new ResponseEntity<List<Post>>(timeList, HttpStatus.OK);
     }

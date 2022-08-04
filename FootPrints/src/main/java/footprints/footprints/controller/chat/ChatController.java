@@ -58,6 +58,4 @@ public class ChatController {
         chatService.save(chatDataDTO);
         return  new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
     }
-
-
 }
