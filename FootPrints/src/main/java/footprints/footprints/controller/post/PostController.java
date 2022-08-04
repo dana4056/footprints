@@ -58,11 +58,11 @@ public class PostController {
 
     // 카테고리에서 선택한 종류에 대한 리스트뷰 뿌려주기
     @PostMapping(value = "/delivery/post/sort_category")
-    public ResponseEntity<List<Post>> listOfCategory(@RequestBody String category) {
+    public ResponseEntity<List<Post>> listOfCategory(@RequestBody String category, Authentication authentication) {
         log.info("카테고리 진입");
-//        Member member = (Member) authentication.getPrincipal();
-        List<Post> categoryList = postService.getCategoryList(category, "서울 성북구 정릉동");
-//        List<Post> categoryList = postService.getCategoryList(category, member.getArea());
+        Member member = (Member) authentication.getPrincipal();
+        List<Post> categoryList = postService.getCategoryList(category, member.getArea());
+
         if(categoryList == null){
             log.info("카테고리 리스트 널 값 반환");
             return new ResponseEntity<List<Post>>((List<Post>) null, HttpStatus.OK);

@@ -20,7 +20,7 @@ import NoticeCreate from '../views/NoticeCreate.vue'
 
 import ChatView from '../views/ChatView'
 
-import createPersistedState from "vuex-persistedstate";
+// import createPersistedState from "vuex-persistedstate";
 
 const routes = [
     //path: url에 대한 정보
@@ -45,7 +45,7 @@ const routes = [
 ]
 
 export const router = new createRouter({
-    plugins: [createPersistedState()],
+    // plugins: [createPersistedState()],
     history: createWebHistory(),
     routes
 });

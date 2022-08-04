@@ -123,6 +123,7 @@ function fetchDeliveryList(){
 function fetchDeliveryList_Category(category) {
     return axios.post(`${config.baseUrl}/delivery/post/sort_category`, category,{
         headers: {
+            'Content-Type': 'text/plain',
             'X-AUTH-TOKEN': localStorage.getItem('jwt'),
         },
     });

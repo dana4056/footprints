@@ -126,7 +126,7 @@ export default {
             max_person_num: this.max_person_num, // 모집 인원
             valid_time: this.valid_time,         // 게시물 유효 시간
             view_num: this.view_num ,            // 조회수
-            nick:this.$store.state.member.nick
+            nick:this.$store.state.member.nick   // 작성자 닉네임
         }
         console.log("POST\n",post);
         this.$store.dispatch('POST_DELIVERY_POST', post)
@@ -143,7 +143,7 @@ export default {
       }
     },
 		submitData() {
-      // console.log("submit data" + this.valid_time);
+      
       if (this.post_name != "" && this.post_content != "" && 
           this.category != "카테고리" && this.take_loc != "" &&
           this.valid_time != "" && 

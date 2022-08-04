@@ -35,7 +35,6 @@ public class Member implements UserDetails {
 //        this.roles = Collections.singletonList("ROLE_USER");
 //    }
 
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return this.roles.stream()
