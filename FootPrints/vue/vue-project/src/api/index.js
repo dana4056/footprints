@@ -131,19 +131,19 @@ function fetchDeliveryList_Category(category) {
 
 // 시간별로 불러오기 위함
 function fetchDeliveryList_Time(time) {
-    return axios.get(`${config.baseUrl}/delivery/post/sort_time`, time, {
+    return axios.post(`${config.baseUrl}/delivery/post/sort_time`, time, {
         headers: {
-            // 'X-AUTH-TOKEN': localStorage.getItem('jwt')
+            'Content-Type': 'text/plain',
+            'X-AUTH-TOKEN': localStorage.getItem('jwt')
         },
     });
 }
 
 // 지역별로 불러오기 위함
 function fetchDeliveryList_Area(area) {
-    return axios.get(`${config.baseUrl}/delivery/post/sort_area`, {
-        area,
+    return axios.post(`${config.baseUrl}/delivery/post/sort_area`, area, {
         headers: {
-            'X-AUTH-TOKEN': localStorage.getItem('jwt')
+            'Content-Type': 'text/plain',
         },
     });
 }

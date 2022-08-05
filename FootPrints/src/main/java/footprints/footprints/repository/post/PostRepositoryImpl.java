@@ -79,7 +79,7 @@ public class PostRepositoryImpl implements PostRepository{
 
     @Override
     public List<Post> findCategory(String category, String areaName) {
-        log.info("레파지토리에 진입 with {}, {}", category, areaName);
+        log.info("카테고리별 레파지토리에 진입 with {}, {}", category, areaName);
         TypedQuery<Post> sameCategory = em.createQuery("select p from Post p where p.member.area = :areaName and p.category = :category", Post.class)
                 .setParameter("areaName", areaName)
                 .setParameter("category", category);
@@ -95,13 +95,18 @@ public class PostRepositoryImpl implements PostRepository{
 
     @Override
     public List<Post> findSortTime(String time, String areaName){
+        log.info("시간별 sorting 레파지토리에 진입 with {}, {}", time, areaName);
         if(time.equals("near")){
-            TypedQuery<Post> nearTime = em.createQuery("select p from Post p where p.member.area = :areaName " +
-                            "order by p.valid_time",
+            TypedQuery<Post> nearTime = em.createQuery("select p from Post p where p.member.area = :areaName order by p.valid_time",
                     Post.class).setParameter("areaName", areaName);
 
             List<Post> resultList = nearTime.getResultList();
-            return resultList;
+            if(resultList.size() == 0){
+                return null;
+            }
+            else{
+                return resultList;
+            }
         }
         else if(time.equals("far")){
             TypedQuery<Post> farTime = em.createQuery("select p from Post p where p.member.area = :areaName " +
@@ -109,7 +114,12 @@ public class PostRepositoryImpl implements PostRepository{
                     Post.class).setParameter("areaName", areaName);
 
             List<Post> resultList = farTime.getResultList();
-            return resultList;
+            if(resultList.size() == 0){
+                return null;
+            }
+            else {
+                return resultList;
+            }
         }
         else{
             //default
@@ -117,8 +127,12 @@ public class PostRepositoryImpl implements PostRepository{
                     Post.class).setParameter("area_name", areaName);
 
             List<Post> resultList = sameArea.getResultList();
-
-            return resultList;
+            if(resultList.size() == 0){
+                return null;
+            }
+            else {
+                return resultList;
+            }
         }
     }
 }

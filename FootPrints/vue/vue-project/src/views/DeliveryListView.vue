@@ -21,7 +21,7 @@
 
         <label>정렬 기준</label>
           <div>
-            <select class="sortThing" v-model="sort" v-on:focus="BeforeSort" v-on:focusout="SelectSortCriteria">
+            <select class="sortThing" v-model="sort_criteria" v-on:focus="BeforeSort" v-on:focusout="SelectSortCriteria">
               <option value="" selected="selected" disabled hidden>----- 선택 -----</option>
               <option value="default">글 작성 시간 순</option>
               <option value="near">마감기한 가까운 순</option>
@@ -121,7 +121,6 @@ export default {
       this.$store.dispatch('FETCH_DELIVERY_LIST_CATEGORY', this.category);
       console.log(this.category);
       setTimeout(() => { 
-          console.log("여기서 무언가를 해야 제대로 찍힐라나 싶네");
           this.$store.getters.GET_DELIVERIES;
         }, 200);   
     },
@@ -130,11 +129,13 @@ export default {
     },
     SelectSortCriteria(){
       if(this.sort_criteria == "near" | this.sort_criteria == 'far'){
-        this.$store.dispatch('FETCH_DELIVERY_LIST_SORT_TIME', this.sort);
+        this.$store.dispatch('FETCH_DELIVERY_LIST_SORT_TIME', this.sort_criteria);
+      }
+      else if(this.sort_criteria == "default"){
+        this.$store.dispatch('FETCH_DELIVERY_LIST')
       }
       //혹시 다른 조건 걸릴까봐 이런 if문으로 분기 해놓음
       setTimeout(() => { 
-        console.log("여기서 무언가를 해야 제대로 찍힐라나 싶네");
         this.$store.getters.GET_DELIVERIES;
       }, 100);   
     },
@@ -150,7 +151,6 @@ export default {
           this.$store.dispatch('FETCH_DELIVERY_LIST_SORT_AREA', this.Area);
 
           setTimeout(() => { 
-            console.log("여기서 무언가를 해야 제대로 찍힐라나 싶네");
             this.$store.getters.GET_DELIVERIES;
           }, 100);  
         }

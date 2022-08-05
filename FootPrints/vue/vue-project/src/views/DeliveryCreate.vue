@@ -71,18 +71,28 @@ export default {
     let kakao = window.kakao;
     var container = this.$refs.map;
     var options = { 
-      center: new kakao.maps.LatLng(37.56676113296615, 126.97865227682179),
-      level: 10
+      center: new kakao.maps.LatLng(37.56676113296615, 126.97865227682179), //지도의 중심 좌표 
+      level: 10 //지도의 확대 레벨 
     };
     const mapInstance = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
+
+    // 선진 추가 주소-좌표 변환 객체  
+    //저기 있는 키값으로 services 라이브러리를 가져와야 geocoder를 쓸 수 있는데 추가가 안되는 상황 
+    // var src = 'http://dapi.kakao.com/v2/maps/sdk.js?appkey=a8e4571be7c0330201b9afb76da37875&libraries=services'
+    // document.head.appendChild(src);
+    // var geocoder = new kakao.maps.services.Geocoder(); 
+
     // 마커 생성
     var marker = new kakao.maps.Marker({ 
       position: mapInstance.getCenter(),
     }); 
+
     marker.setMap(mapInstance);
+
     // 줌인 줌아웃
     var zoomControl = new kakao.maps.ZoomControl();
     mapInstance.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
+
     // 클릭 이벤트 등록
     kakao.maps.event.addListener(mapInstance, 'click', function(mouseEvent) {        
       var latlng = mouseEvent.latLng; 
@@ -91,6 +101,12 @@ export default {
       $vm.latitude = latlng.getLat();
       $vm.longtitude = latlng.getLng();
       $vm.inputVisible = true;
+
+      //선진 추가 geocoder 안 불러와짐 
+      // var result = geocoder.coord2RegionCode(latlng.getLng(), latlng.getLat());
+      // var area_Name = result[0].address.address_name;
+      // console.log(area_Name);
+
       });
   },
   data() {

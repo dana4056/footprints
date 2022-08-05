@@ -59,7 +59,7 @@ public class PostController {
     // 카테고리에서 선택한 종류에 대한 리스트뷰 뿌려주기
     @PostMapping(value = "/delivery/post/sort_category")
     public ResponseEntity<List<Post>> listOfCategory(@RequestBody String category, Authentication authentication) {
-        log.info("카테고리 진입");
+        log.info("카테고리별 sorting 진입");
         Member member = (Member) authentication.getPrincipal();
         List<Post> categoryList = postService.getCategoryList(category, member.getArea());
 
@@ -73,15 +73,22 @@ public class PostController {
     }
 
     // 시간 순서에 대한 리스트뷰 뿌려주기
-    @GetMapping(value = "/delivery/post/sort_time")
+    @PostMapping(value = "/delivery/post/sort_time")
     public ResponseEntity<List<Post>> listOfTime(@RequestBody String time, Authentication authentication) {
+        log.info("시간 순서별 sorting 진입");
         Member member = (Member) authentication.getPrincipal();
         List<Post> timeList = postService.getSortTimeList(time, member.getArea());
 
-        return new ResponseEntity<List<Post>>(timeList, HttpStatus.OK);
+        if(timeList == null){
+            log.info("시간별 리스트 널 값 반환");
+            return new ResponseEntity<List<Post>>((List<Post>) null, HttpStatus.OK);
+        }
+        else{
+            return new ResponseEntity<List<Post>>(timeList, HttpStatus.OK);
+        }
     }
-    // 시간 순서에 대한 리스트뷰 뿌려주기
-    @GetMapping(value = "/delivery/post/sort_area")
+    // 지역에 대한 리스트뷰 뿌려주기
+    @PostMapping(value = "/delivery/post/sort_area")
     public ResponseEntity<List<Post>> listOfArea(@RequestBody String areaName) {
         log.info("=============/delivery/post/sort_area 진입");
         log.info("============= sort area : {}", areaName);
