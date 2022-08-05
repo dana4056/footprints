@@ -62,7 +62,7 @@ public class PostController {
         log.info("카테고리별 sorting 진입");
         Member member = (Member) authentication.getPrincipal();
         List<Post> categoryList = postService.getCategoryList(category, member.getArea());
-
+//        List<Post> categoryList = postService.getCategoryList(category, area);
         if(categoryList == null){
             log.info("카테고리 리스트 널 값 반환");
             return new ResponseEntity<List<Post>>((List<Post>) null, HttpStatus.OK);

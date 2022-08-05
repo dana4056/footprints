@@ -92,7 +92,7 @@ export default {
       },
       category: "",
       sort_criteria: "",
-      Area: "",
+      area: "",
     } 
   },
   beforeCreate(){
@@ -118,8 +118,10 @@ export default {
       this.category = "";
     },
     SelectCategory(){
+      // this.area = this.$store.getters.GET_DELIVERY_PRESENT_AREA;
       this.$store.dispatch('FETCH_DELIVERY_LIST_CATEGORY', this.category);
       console.log(this.category);
+      // console.log(this.area);
       setTimeout(() => { 
           this.$store.getters.GET_DELIVERIES;
         }, 200);   
@@ -147,8 +149,8 @@ export default {
           const sigoongu = data.sigungu;
           const eupmyeondong = data.bname;
           
-          this.Area = sido+" "+sigoongu+" "+eupmyeondong;
-          this.$store.dispatch('FETCH_DELIVERY_LIST_SORT_AREA', this.Area);
+          this.area = sido+" "+sigoongu+" "+eupmyeondong;
+          this.$store.dispatch('FETCH_DELIVERY_LIST_SORT_AREA', this.area);
 
           setTimeout(() => { 
             this.$store.getters.GET_DELIVERIES;

@@ -23,6 +23,7 @@ export const store = new Vuex.Store({
         eupmyeondongList:{},
         sessionId:"",
         deliveryPostList:[],
+        // deliveryPost_presentArea: "",
         deliveryPost:{},
         postIDList: [],
         roomList: [],
@@ -45,6 +46,9 @@ export const store = new Vuex.Store({
         GET_DELIVERIES(state){
             return state.deliveryPostList;
         },
+        // GET_DELIVERY_PRESENT_AREA(state){
+        //     return state.deliveryPost_presentArea;
+        // },
         GET_DELIVERY_POST(state){
             console.log("디테일\n",state.deliveryPost)
             return state.deliveryPost;
@@ -93,6 +97,8 @@ export const store = new Vuex.Store({
         },
         SET_DELIVERIES(state, list){
             state.deliveryPostList = list;
+            // console.log(list[0].area_Name);
+            // state.deliveryPost_presentArea = list[0].area_Name;
             let idx = 0;
             for(let value of list){
                 const Cdate = dayjs(value.createdDate);
