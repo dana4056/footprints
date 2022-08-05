@@ -1,15 +1,16 @@
 <template>
-  <div>
-    안녕 난 좋아요 뷰
+  <div class="container">
+    난 좋아요뷰..
   </div>
 </template>
 
 <script>
 export default {
-
+methods: {
+}
 }
 </script>
 
-<style>
+<style scoped>
 
 </style>

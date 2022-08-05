@@ -2,6 +2,7 @@
   <div>
     <tool-bar></tool-bar>
     <div class="wrap">
+      <p :id="[clickAll ? 'isClicked' : ' ']"  v-on:click.prevent="goAll">전체</p>
       <p :id="[clickDelivery ? 'isClicked' : ' ']"  v-on:click.prevent="goDelivery">배달</p>
       <p :id="[clickLike ? 'isClicked' : ' ']"      v-on:click.prevent="goLike">좋아요</p>
       <p :id="[clickSetting ? 'isClicked' : ' ']"   v-on:click.prevent="goSetting">설정</p>
@@ -28,6 +29,7 @@
         </div>
       </div>
       <div class="component">
+        <my-all @setting="setComponent" v-if="clickAll"></my-all>
         <my-delivery v-if="clickDelivery"></my-delivery>
         <my-like v-if="clickLike"></my-like>
         <my-setting v-if="clickSetting"></my-setting>
@@ -38,6 +40,7 @@
 
 <script>
 import ToolBar from '../components/ToolBar.vue'
+import MyAll from '../components/MyAll.vue'
 import MyDelivery from '../components/MyDelivery.vue'
 import MyLike from '../components/MyLike.vue'
 import MySetting from '../components/MySetting.vue'
@@ -45,6 +48,7 @@ import MySetting from '../components/MySetting.vue'
 export default {
   components:{
     ToolBar,
+    MyAll,
     MyDelivery,
     MyLike,
     MySetting
@@ -54,26 +58,45 @@ export default {
   },
   data() {
     return {
-      clickDelivery: true,
+      clickAll: true,
+      clickDelivery: false,
       clickLike: false,
       clickSetting: false,
     }
   },
   methods: {
+    setComponent(data) {
+      if(data == "delivery") {
+        this.goDelivery();
+      }
+      else if(data == "like") {
+        this.goLike();
+      }
+    },
+    goAll() {
+      console.log("전체 뷰 클릭");
+      this.clickAll = true;
+      this.clickDelivery = false;
+      this.clickLike = false;
+      this.clickSetting = false;
+    },
     goDelivery() {
       console.log("배달 뷰 클릭");
+      this.clickAll = false;
       this.clickDelivery = true;
       this.clickLike = false;
       this.clickSetting = false;
     },
     goLike() {
       console.log("좋아요 뷰 클릭");
+      this.clickAll = false;
       this.clickDelivery = false;
       this.clickLike = true;
       this.clickSetting = false;
     },
     goSetting() {
       console.log("설정 뷰 클릭");
+      this.clickAll = false;
       this.clickDelivery = false;
       this.clickLike = false;
       this.clickSetting = true;
@@ -115,8 +138,8 @@ export default {
   /* background-color: aqua; */
 }
 #profileBox {
-  margin: 50px 100px 0px 320px;
-  width: 350px;
+  margin: 50px 100px 0px 370px;
+  width: 300px;
   height: 420px;
   background-color: rgb(255, 255, 255);
   border-radius: 40px;
@@ -183,9 +206,7 @@ export default {
 #chat > p {
   margin: 13px 0px 0 0px;
 }
-
 .component {
   height: 100%;
-  
 }
 </style>

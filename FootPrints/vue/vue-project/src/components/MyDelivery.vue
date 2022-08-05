@@ -1,15 +1,16 @@
 <template>
-  <div>
-    안녕 난 딜리버리뷰
+  <div class="container">
+    난 배달뷰..
   </div>
 </template>
 
 <script>
 export default {
-
+methods: {
+}
 }
 </script>
 
-<style>
+<style scoped>
 
 </style>
