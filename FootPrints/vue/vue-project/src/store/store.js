@@ -16,7 +16,7 @@ export const store = new Vuex.Store({
         member:{
             nick: "춘식", 
             email: "ccap122@skuniv.ac.kr",
-            pw: "",
+            pw: "jw123123!",
             area: "서울시 송파구 잠실동"
         },
         sidoList:{},
@@ -76,6 +76,7 @@ export const store = new Vuex.Store({
         },
         SET_MEMBER(state, member){
             state.member = member;
+            console.log(state.member);
         },
         SET_SIDO_LIST(state, List){
             state.sidoList = List;

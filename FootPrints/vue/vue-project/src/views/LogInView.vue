@@ -49,9 +49,9 @@ export default {
       if(this.PostValid()){
         const member = {
           nick: this.Nick,
-          email: 'email',
+          email: 'email123@naver.com',
           pw: this.Pw,
-          area: 'area'
+          area: '서울시 성북구 동소문동'
         }
         this.$store.dispatch('POST_LOGIN', member)
         // console.log(this.Pw); 

@@ -118,7 +118,7 @@ export default {
       this.isDupliEmail = false;
     },
     checkNick() { 
-      if (this.Nick != "") {
+      if (this.Nick != "" && this.Nick != this.$store.state.member.nick) {
         this.$store.dispatch('POST_NICK', this.Nick);
         setTimeout(() => { 
           this.isDupliNick =  this.$store.state.isDuplicateNick;
@@ -138,7 +138,7 @@ export default {
       this.isSelectBox = !this.isSelectBox;
     },
     checkEmail() {
-      if (this.Email1 != "" && this.Email2 != "") {
+      if (this.Email1 != "" && this.Email2 != "" && this.email != this.$store.state.member.email) {
         this.$store.dispatch('POST_EMAIL', this.email);
         setTimeout(() => { 
           this.isDupliEmail =  this.$store.state.isDuplicateEmail;
