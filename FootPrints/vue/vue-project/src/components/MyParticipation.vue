@@ -1,6 +1,8 @@
 <template>
   <div class="container">
-    난 좋아요뷰..
+    배달 같이하기 누른 글들 쫘락
+    from RoomInfo r 
+    where r.member.nick = :nick
   </div>
 </template>
 

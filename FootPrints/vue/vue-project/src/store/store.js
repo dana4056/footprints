@@ -14,7 +14,7 @@ export const store = new Vuex.Store({
         pwchange_done: 'FAILED',
         member:{
             nick: "춘식", 
-            email: "",
+            email: "ccap122@skuniv.ac.kr",
             pw: "",
             area: "서울시 송파구 잠실동"
         },

@@ -126,7 +126,7 @@ export default{
 
             findRoom(response.data)
             .then(response => {
-              console.log("API:SET_FIND_ROOM 사용자의 Room 리스트 받아오기 성공", response.data);
+              console.log("API:SET_FIND_ROOM 4 Room 리스트 받아오기 성공", response.data);
               commit('SET_FIND_ROOM', response.data);
             })
             .catch(error => {

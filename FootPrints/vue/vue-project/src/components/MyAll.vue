@@ -2,8 +2,8 @@
   <div>
     <div class="container">
       <div class="header">
-        <p class="category">배달</p>
-        <p class="seeAll" id="delivery" @click="setting">전체보기</p>
+        <p class="category">내 글</p>
+        <p class="seeAll" id="Mine" @click="setting">전체보기</p>
       </div>
       <div class="list">
         <div class="image"></div>
@@ -25,8 +25,8 @@
 
     <div class="container">
       <div class="header">
-        <p class="category">좋아요</p>
-        <p class="seeAll" id="like" @click="setting">전체보기</p>
+        <p class="category">참여</p>
+        <p class="seeAll" id="Participation" @click="setting">전체보기</p>
       </div>
       <div class="list">
         <div class="image"></div>
@@ -60,7 +60,8 @@ export default {
 
 <style scoped>
 .container {
-  margin-top: 50px;
+  margin-top: 30px;
+  margin-bottom: 60px;
   height: 270px;
   width: 1000px;
 }
@@ -79,16 +80,17 @@ export default {
   font-size: 30px;
 }
 .seeAll {
-  margin-left: 620px;
+  margin-left: 450px;
+  margin-right: 250px;
   margin-top: 40px;
   font-size: 18px;
   font-weight: bold;
   cursor: pointer;
 }
 .list {
-  width: 185px;
-  height: 300px;
-  margin-right: 60px;
+  width: 155px;
+  height: 200px;
+  margin-right: 40px;
   float: left;
 }
 .title {
@@ -96,9 +98,9 @@ export default {
   float: center;
 }
 .image {
-  width: 180px;
-  height: 180px;
-  border: 3px solid rgba(0, 0, 0, 0.385);
+  width: 150px;
+  height: 150px;
+  border: 3px solid rgba(0, 0, 0, 0.222);
   border-radius: 15px;
 }
 </style>

@@ -1,6 +1,9 @@
 <template>
   <div class="container">
-    난 배달뷰..
+    내가 쓴글 쫘라락
+    from Post p
+    where p.nick = :nick 
+    싹 불러오자.
   </div>
 </template>
 
@@ -12,5 +15,7 @@ methods: {
 </script>
 
 <style scoped>
+.container {
 
+}
 </style>

@@ -3,8 +3,8 @@
     <tool-bar></tool-bar>
     <div class="wrap">
       <p :id="[clickAll ? 'isClicked' : ' ']"  v-on:click.prevent="goAll">전체</p>
-      <p :id="[clickDelivery ? 'isClicked' : ' ']"  v-on:click.prevent="goDelivery">배달</p>
-      <p :id="[clickLike ? 'isClicked' : ' ']"      v-on:click.prevent="goLike">좋아요</p>
+      <p :id="[clickMine ? 'isClicked' : ' ']"  v-on:click.prevent="goMine">내 글</p>
+      <p :id="[clickParticipation ? 'isClicked' : ' ']"      v-on:click.prevent="goParticipation">참여</p>
       <p :id="[clickSetting ? 'isClicked' : ' ']"   v-on:click.prevent="goSetting">설정</p>
     </div>
     <div class="wrap2">
@@ -30,8 +30,10 @@
       </div>
       <div class="component">
         <my-all @setting="setComponent" v-if="clickAll"></my-all>
-        <my-delivery v-if="clickDelivery"></my-delivery>
-        <my-like v-if="clickLike"></my-like>
+        <my-post v-if="clickMine"></my-post>
+        <my-participation v-if="clickParticipation"></my-participation>
+      </div>
+      <div class="component2">
         <my-setting v-if="clickSetting"></my-setting>
       </div>
     </div>
@@ -41,16 +43,16 @@
 <script>
 import ToolBar from '../components/ToolBar.vue'
 import MyAll from '../components/MyAll.vue'
-import MyDelivery from '../components/MyDelivery.vue'
-import MyLike from '../components/MyLike.vue'
+import MyPost from '../components/MyPost.vue'
+import MyParticipation from '../components/MyParticipation.vue'
 import MySetting from '../components/MySetting.vue'
 
 export default {
   components:{
     ToolBar,
     MyAll,
-    MyDelivery,
-    MyLike,
+    MyPost,
+    MyParticipation,
     MySetting
   },
  created(){
@@ -59,46 +61,43 @@ export default {
   data() {
     return {
       clickAll: true,
-      clickDelivery: false,
-      clickLike: false,
+      clickMine: false,
+      clickParticipation: false,
       clickSetting: false,
     }
   },
   methods: {
     setComponent(data) {
-      if(data == "delivery") {
-        this.goDelivery();
+      if(data == "Mine") {
+        this.goMine();
       }
-      else if(data == "like") {
-        this.goLike();
+      else if(data == "Participation") {
+        this.goParticipation();
       }
     },
     goAll() {
       console.log("전체 뷰 클릭");
       this.clickAll = true;
-      this.clickDelivery = false;
-      this.clickLike = false;
+      this.clickMine = false;
+      this.clickParticipation = false;
       this.clickSetting = false;
     },
-    goDelivery() {
-      console.log("배달 뷰 클릭");
+    goMine() {
       this.clickAll = false;
-      this.clickDelivery = true;
-      this.clickLike = false;
+      this.clickMine = true;
+      this.clickParticipation = false;
       this.clickSetting = false;
     },
-    goLike() {
-      console.log("좋아요 뷰 클릭");
+    goParticipation() {
       this.clickAll = false;
-      this.clickDelivery = false;
-      this.clickLike = true;
+      this.clickMine = false;
+      this.clickParticipation = true;
       this.clickSetting = false;
     },
     goSetting() {
-      console.log("설정 뷰 클릭");
       this.clickAll = false;
-      this.clickDelivery = false;
-      this.clickLike = false;
+      this.clickMine = false;
+      this.clickParticipation = false;
       this.clickSetting = true;
     }
   }
@@ -125,20 +124,20 @@ export default {
 }
 
 .wrap2 {
+  width: 100%;
   background-color: rgb(255, 255, 255);
-  height: 1000px;
+  height: 1400px;
 }
-.wrap2 > div {
+.wrap2 > div{
   float: left;
 }
-
 .profile {
   width: 775px;
   height: 100%; 
   /* background-color: aqua; */
 }
 #profileBox {
-  margin: 50px 100px 0px 370px;
+  margin: 50px 100px 0px 350px;
   width: 300px;
   height: 420px;
   background-color: rgb(255, 255, 255);
@@ -207,6 +206,10 @@ export default {
   margin: 13px 0px 0 0px;
 }
 .component {
+  height: 100%;
+}
+.component2 {
+  width: 100%;
   height: 100%;
 }
 </style>
