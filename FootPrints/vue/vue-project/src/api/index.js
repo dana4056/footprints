@@ -216,6 +216,10 @@ function postDeliveryPost(post){
     });
   }
 
+  function changeMember(memberDTO){
+    return axios.post(`${config.baseUrl}/ChangeMember`, memberDTO);
+  }
+
 export{
     fetchUser,
     fetchNoticeList,
@@ -243,4 +247,5 @@ export{
     findChatLogs,
     postChatData,
     fetchDeliveryList_Area,
+    changeMember,
 }

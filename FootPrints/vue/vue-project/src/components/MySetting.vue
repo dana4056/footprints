@@ -61,14 +61,22 @@
       <button type="button" class="btn2" v-on:click="searchArea">지역 검색</button>
     </div>
 
-    <button type="submit" class="submitBtn" v-on:click.prevent="submitData" v-on:keyup.enter="submitData">수정하기</button>
+    <button type="submit" class="submitBtn" v-on:click.prevent="change" v-on:keyup.enter="change">수정하기</button>
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
   data() {
     return {
+      memberDTO:{
+        nick: "",
+        email: "",
+        pw: "",
+        area: "",
+      },
       Image: require("../assets/user.png"),
       Nick: this.$store.state.member.nick,
       Email1: this.$store.state.member.email.split('@')[0],
@@ -86,7 +94,11 @@ export default {
   computed: {
     email() {
       return this.Email1 + "@" + this.Email2;
-    }
+    },
+    ...mapGetters([
+      'GET_MEMBER',
+      'GET_MEMBER_CHANGE_DONE'
+    ])
   },
   methods: {
     setImage() {
@@ -192,21 +204,29 @@ export default {
         return false;
       }
     },
-    submitData() {
-      if (this.isValidAll()) {
-        const member = {
-          nick: this.Nick,
-          email: this.email,
-          pw: this.Pw1,
-          area: this.Area
-        }
-        console.log(member);
-        // this.$store.dispatch('POST_MEMBER', member); 
-      }
-      else {
-        alert("입력한 정보들을 확인해주세요");
-      }
+    change() {
+      if (this.isValidAll()){
+        this.memberDTO.nick = this.Nick;
+        this.memberDTO.email = this.email;
+        this.memberDTO.pw = this.Pw1;
+        this.memberDTO.area = this.Area;
+
+        // console.log(this.memberDTO);
+        // this.$store.dispatch('CHANGE_MEMBER', this.memberDTO);
+        
+        setTimeout(() => { 
+        this.represent() ;
+        }, 200); 	
+			}
+      else 
+				alert("형식을 다시 확인해주세요.")
     },
+    represent() {
+      if(this.GET_MEMBER_CHANGE_DONE == 'SUCCESS'){
+        alert("회원정보가 성공적으로 변경되었습니다.")
+        this.$router.replace("/home");
+      }
+    }
   }
 }
 </script>

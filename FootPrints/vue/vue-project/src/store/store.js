@@ -12,6 +12,7 @@ export const store = new Vuex.Store({
         find_nick: 'CANNOT_FIND_ID',
         find_email: 'CANNOT_FIND_ID',
         pwchange_done: 'FAILED',
+        memberChange_done: 'FAILED',
         member:{
             nick: "춘식", 
             email: "ccap122@skuniv.ac.kr",
@@ -54,7 +55,10 @@ export const store = new Vuex.Store({
         },
         GET_ROOMINDEX(state) {
             return state.roomIndex;
-        }
+        },
+        GET_MEMBER_CHANGE_DONE(state){
+            return state.memberChange_done;
+        },
     },
     actions,
     mutations:{
@@ -122,6 +126,9 @@ export const store = new Vuex.Store({
         },
         SET_FIND_CHAT_LOGS(state, list) {
             state.chatLogs = list;
+        },
+        SET_MEMBER_CHANGE_DONE(state, string) {
+            state.memberChange_done = string;
         }
     },
     

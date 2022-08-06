@@ -4,6 +4,7 @@ import { postEmail, postNick, postLogin, postMemberInfo } from "../api/index.js"
 import { findID, findPW, changePWD } from "../api/index.js"
 import { findPostID, findRoom, findUser, findChatLogs, postChatData } from "../api/index.js"
 import { fetchUser, fetchDeliveryList, postDeliveryPost, fetchDeliveryDetail, fetchDeliveryList_Category, fetchDeliveryList_Time, fetchDeliveryList_Area } from "../api/index.js";
+import { changeMember } from "../api/index.js";
 import { router } from '../routes/index.js';
 
 export default{ 
@@ -410,5 +411,15 @@ FETCH_DELIVERY_LIST_SORT_AREA({ commit }, area) {
       .catch(error => {
         console.log("채팅 보내기 실패", error);
       })
-  }
+  },
+  CHANGE_MEMBER({ commit }, memberDTO) {
+    return changeMember(memberDTO)
+      .then(response => {
+        console.log('API:CHANGE_PWD\n회원정보 변경 성공', response);
+        commit('SET_MEMBER_CHANGE_DONE', response.data);
+      })
+      .catch(error => {
+        console.log('API:CHANGE_PWD\n회원정보 변경 실패', error);
+      })
+  },
 }
