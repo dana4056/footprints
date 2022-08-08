@@ -215,7 +215,7 @@ export default {
         this.memberDTO.area = this.Area;
 
         console.log(this.memberDTO);
-        // this.$store.dispatch('CHANGE_MEMBER', this.memberDTO);
+        this.$store.dispatch('CHANGE_MEMBER', this.memberDTO);
         
         setTimeout(() => { 
         this.represent() ;

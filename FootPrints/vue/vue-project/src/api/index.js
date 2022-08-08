@@ -216,8 +216,24 @@ function postDeliveryPost(post){
     });
   }
 
+  function fetchMyDPost(nick) {
+    return axios.post(`${config.baseUrl}/myPage/main-myPost`, nick, {
+        headers: {
+            'Content-Type': 'text/plain'
+        }
+    });
+  }
+
+  function fetchMyPartici(nick) {
+    return axios.post(`${config.baseUrl}/myPage/main-attendPost`, nick, {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+  }
+
   function changeMember(memberDTO){
-    return axios.post(`${config.baseUrl}/ChangeMember`, memberDTO);
+    return axios.post(`${config.baseUrl}/myPage/changeMyInfo`, memberDTO);
   }
 
 export{
@@ -247,5 +263,7 @@ export{
     findChatLogs,
     postChatData,
     fetchDeliveryList_Area,
+    fetchMyDPost,
+    fetchMyPartici,
     changeMember,
 }

@@ -1,6 +1,7 @@
 package footprints.footprints.domain.member;
 import footprints.footprints.domain.post.PostDTO;
 import lombok.*;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,6 +18,7 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 @Builder
 @Entity
+@Slf4j
 public class Member implements UserDetails {
 
 
@@ -39,9 +41,13 @@ public class Member implements UserDetails {
 
     public void InfoUpdate(MemberDTO memberDTO){
         this.nick = memberDTO.getNick();
+        log.info("--------InfoUpdate---------{}", this.nick);
         this.email = memberDTO.getEmail();
+        log.info("--------InfoUpdate---------{}", this.email);
         this.pw = memberDTO.getPw();
+        log.info("--------InfoUpdate---------{}", this.pw);
         this.area = memberDTO.getArea();
+        log.info("--------InfoUpdate---------{}", this.area);
     }
 
     @ElementCollection(fetch = FetchType.EAGER)

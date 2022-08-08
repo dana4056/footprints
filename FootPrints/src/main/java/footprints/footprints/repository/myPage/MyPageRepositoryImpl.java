@@ -2,6 +2,7 @@ package footprints.footprints.repository.myPage;
 
 import footprints.footprints.domain.member.MemberDTO;
 import footprints.footprints.domain.post.Post;
+import footprints.footprints.domain.roomInfo.RoomInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 
@@ -34,9 +35,15 @@ public class MyPageRepositoryImpl implements MyPageRepository {
 
         List<Post> resultList = postList.getResultList();
 
+        log.info("-------------getAttendPost-------- {}", resultList);
+
+
+        TypedQuery<RoomInfo> postList2 = em.createQuery("select r from RoomInfo r where r.member.nick = :nick",
+                RoomInfo.class).setParameter("nick", nick);
+
+        List<RoomInfo> resultList2 = postList2.getResultList();
+
+        log.info("-------------getAttendPost2-------- {}", resultList2);
         return resultList;
     }
-
-
-
 }

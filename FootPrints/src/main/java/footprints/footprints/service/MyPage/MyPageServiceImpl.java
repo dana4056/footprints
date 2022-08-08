@@ -7,12 +7,15 @@ import footprints.footprints.repository.member.MemberRepository;
 import footprints.footprints.repository.member.MemberRepositoryImpl;
 import footprints.footprints.repository.myPage.MyPageRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
 @Service
+@Slf4j
 @Transactional
 @RequiredArgsConstructor
 public class MyPageServiceImpl implements MyPageService {
@@ -30,18 +33,24 @@ public class MyPageServiceImpl implements MyPageService {
     @Override
     public List<Post> getAttendPost(String nick) {
         List<Post> attendPost = myPageRepository.getAttendPost(nick);
-
+        log.info("-------------getAttendPost-------- {}", attendPost);
         return attendPost;
     }
 
     @Override
     public boolean changeInfo(MemberDTO memberDTO) {
+        log.info("-----------changeInfo0------{}", memberDTO);
         String nick = memberDTO.getNick();
+        log.info("-----------changeInfo1------{}", nick);
         Member member = memberRepository.findByNick(nick);
+        log.info("-----------changeInfo2------{}", member);
         if (member == null) {
-            Member byNick = memberRepository.findByNick(nick);
+            Member byNick = memberRepository.findByNick("춘식");
+            log.info("-----------changeInfo3------{}", byNick);
             byNick.InfoUpdate(memberDTO);
+            log.info("-----------changeInfo4------{}", byNick);
             memberRepository.save(byNick);
+            log.info("-----------changeInfo5------");
             return true;
         }
         else return false;

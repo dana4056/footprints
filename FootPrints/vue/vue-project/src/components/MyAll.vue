@@ -51,6 +51,7 @@ export default {
       categories:{
         'KOR': '한식',
         'CHI': '중식',
+        'JAP': '일식',
         'ETC': '기타'
       },
     } 

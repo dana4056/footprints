@@ -61,7 +61,10 @@ export default {
       alert("놉!");
       router.replace("/home");
     }
-    // 뭔가 엄청 해야겠지..?
+    else {
+      this.$store.dispatch('FETCH_MY_DPOST', this.$store.state.member.nick);
+      this.$store.dispatch('FETCH_MY_PARTICI', this.$store.state.member.nick);
+    }
   },
   data() {
     return {

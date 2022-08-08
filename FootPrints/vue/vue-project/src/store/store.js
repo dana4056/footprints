@@ -142,6 +142,12 @@ export const store = new Vuex.Store({
         SET_FIND_CHAT_LOGS(state, list) {
             state.chatLogs = list;
         },
+        SET_MY_DPOST(state, list) {
+            state.myDPostList = list;
+        },
+        SET_MY_PARTICI(state, list) {
+            state.myParticiList = list;
+        },
         SET_MEMBER_CHANGE_DONE(state, string) {
             state.memberChange_done = string;
         }

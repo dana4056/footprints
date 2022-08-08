@@ -4,7 +4,7 @@ import { postEmail, postNick, postLogin, postMemberInfo } from "../api/index.js"
 import { findID, findPW, changePWD } from "../api/index.js"
 import { findPostID, findRoom, findUser, findChatLogs, postChatData } from "../api/index.js"
 import { fetchUser, fetchDeliveryList, postDeliveryPost, fetchDeliveryDetail, fetchDeliveryList_Category, fetchDeliveryList_Time, fetchDeliveryList_Area } from "../api/index.js";
-import { changeMember } from "../api/index.js";
+import { fetchMyDPost, fetchMyPartici, changeMember } from "../api/index.js";
 import { router } from '../routes/index.js';
 import { store } from "./store.js";
 
@@ -387,14 +387,36 @@ FETCH_DELIVERY_LIST_SORT_AREA({ commit }, area) {
         console.log("채팅 보내기 실패", error);
       })
   },
+
+  // 마이페이지 기능
+  FETCH_MY_DPOST({commit}, nick) {
+    return fetchMyDPost(nick) 
+      .then(response => {
+        console.log('API:FETCH_MY_DPOST\n작성한 글 받아오기 성공', response);
+        commit('SET_MY_DPOST', response.data);
+      })
+      .catch(error => {
+        console.log('API:FETCH_MY_DPOST\n작성한 글 받아오기 실패', error);
+      })
+  },
+  FETCH_MY_PARTICI({commit}, nick) {
+    return fetchMyPartici(nick)
+      .then(response => {
+        console.log('API:FETCH_MY_PARTICI\n참여한 글 받아오기 성공', response);
+        commit('SET_MY_PARTICI', response.data);
+      })
+      .catch(error => {
+        console.log('API:FETCH_MY_PARTICI\n참여한 글 받아오기 실패', error);
+      })
+  },
   CHANGE_MEMBER({ commit }, memberDTO) {
     return changeMember(memberDTO)
       .then(response => {
-        console.log('API:CHANGE_PWD\n회원정보 변경 성공', response);
+        console.log('API:CHANGE_MEMBER\n회원정보 변경 성공', response);
         commit('SET_MEMBER_CHANGE_DONE', response.data);
       })
       .catch(error => {
-        console.log('API:CHANGE_PWD\n회원정보 변경 실패', error);
+        console.log('API:CHANGE_MEMBER\n회원정보 변경 실패', error);
       })
   },
 }

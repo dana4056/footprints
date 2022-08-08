@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -21,14 +22,15 @@ public class MyPageController {
 
     private final MyPageService myPageService;
 
-    @GetMapping(value = "/myPage/main-myPost") // 마이페이지 메인페이지 접속시
+    @PostMapping(value = "/myPage/main-myPost") // 마이페이지 메인페이지 접속시
     public ResponseEntity<List<Post>> getMyPostList(@RequestBody String nick){
+        log.info("--------------------- getMyPostList {}", nick);
         List<Post> myPost = myPageService.getMyPost(nick);
 
         return new ResponseEntity<List<Post>>(myPost, HttpStatus.OK);
     }
 
-    @GetMapping(value = "/myPage/main-attendPost") // 마이페이지 메인페이지 접속시
+    @PostMapping(value = "/myPage/main-attendPost") // 마이페이지 메인페이지 접속시
     public ResponseEntity<List<Post>> getAttendPostList(@RequestBody String nick){
         List<Post> attendPost = myPageService.getAttendPost(nick);
 
@@ -38,7 +40,7 @@ public class MyPageController {
     @PostMapping(value = "/myPage/changeMyInfo") // 마이페이지 메인페이지 접속시
     public ResponseEntity<String> changeMyInfo(@RequestBody MemberDTO memberDTO){
         boolean changeInfo = myPageService.changeInfo(memberDTO);
-
+        log.info("-----------changeMyInfo-----{}", myPageService.changeInfo(memberDTO));
         if (changeInfo == true) {
             return new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
         }

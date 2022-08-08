@@ -21,14 +21,19 @@ public class MemberRepositoryImpl implements MemberRepository {
     @Override
     public void save(Member member) {
         //Member member = memberDTO.toEntity();
+        log.info("-----------save1------{}", member);
         member.setRoles();
+        log.info("-----------save2------{}", member);
         if(member.getNick() == null){
+            log.info("-----------save3------");
             log.info("새로운 member 저장");
             em.persist(member);
         }
         else{
+            log.info("-----------save4------");
             log.info("기존의 member 수정");
             em.merge(member);
+            log.info("-----------save5------");
         }
         log.info("--------saveSuccess-----------");
     }

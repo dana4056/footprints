@@ -88,6 +88,7 @@ export default {
       categories:{
         'KOR': '한식',
         'CHI': '중식',
+        'JAP': '일식',
         'ETC': '기타'
       },
       category: "",
@@ -272,6 +273,9 @@ label {
 }
 .CHI{
   background-color: #ff6e6c;
+}
+.JAP{
+  background-color: #ff0400;
 }
 .ETC{
   background-color: #8c8c8c;
