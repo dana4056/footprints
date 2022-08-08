@@ -1,4 +1,4 @@
-package footprints.footprints.security.jwt;
+package footprints.footprints.controller.security.jwt;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

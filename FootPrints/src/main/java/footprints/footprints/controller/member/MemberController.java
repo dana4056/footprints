@@ -2,8 +2,7 @@ package footprints.footprints.controller.member;
 
 import footprints.footprints.domain.member.Member;
 import footprints.footprints.domain.member.MemberDTO;
-import footprints.footprints.domain.member.MemberResponseDTO;
-import footprints.footprints.security.jwt.JwtTokenProvider;
+import footprints.footprints.controller.security.jwt.JwtTokenProvider;
 import footprints.footprints.repository.member.MemberRepository;
 import footprints.footprints.service.member.MemberService;
 import lombok.RequiredArgsConstructor;

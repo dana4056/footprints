@@ -1,7 +1,7 @@
-package footprints.footprints.security;
+package footprints.footprints.controller.security;
 
-import footprints.footprints.security.jwt.JwtAuthenticationFilter;
-import footprints.footprints.security.jwt.JwtTokenProvider;
+import footprints.footprints.controller.security.jwt.JwtAuthenticationFilter;
+import footprints.footprints.controller.security.jwt.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
@@ -14,7 +14,6 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
-import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import javax.servlet.ServletException;
