@@ -20,19 +20,21 @@ import java.util.stream.Collectors;
 public class Member implements UserDetails {
 
 
-//    @GeneratedValue
+    //    @GeneratedValue
 //    private Long id;
     @Id
     private String nick;    //id -> nick 으로 pk 변경
     private String email;
     private String pw;
     private String area;
-<<<<<<< HEAD
-=======
 
     public void Update(MemberDTO memberDTO){
         this.email = memberDTO.getEmail();
         this.pw = memberDTO.getPw();
+    }
+
+    public void setRoles() {
+        this.roles = Collections.singletonList("ROLE_USER");
     }
 
     public void InfoUpdate(MemberDTO memberDTO){
@@ -42,31 +44,15 @@ public class Member implements UserDetails {
         this.area = memberDTO.getArea();
     }
 
->>>>>>> yuseok
     @ElementCollection(fetch = FetchType.EAGER)
-    private List<String> roles;
-
-//    public Member(){
-//        System.out.println("Member 생성자");
-//        this.roles = Collections.singletonList("ROLE_USER");
-//    }
-
+    @Builder.Default
+    private List<String> roles = new ArrayList<>();
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return this.roles.stream()
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
-    }
-
-
-    public void Update(MemberDTO memberDTO){
-        this.email = memberDTO.getEmail();
-        this.pw = memberDTO.getPw();
-    }
-
-    public void setRoles() {
-        this.roles = Collections.singletonList("ROLE_USER");
     }
 
     @Override
