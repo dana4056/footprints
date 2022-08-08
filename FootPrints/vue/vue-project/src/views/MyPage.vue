@@ -46,6 +46,7 @@ import MyAll from '../components/MyAll.vue'
 import MyPost from '../components/MyPost.vue'
 import MyParticipation from '../components/MyParticipation.vue'
 import MySetting from '../components/MySetting.vue'
+import { router } from '../routes/index.js';
 
 export default {
   components:{
@@ -56,9 +57,9 @@ export default {
     MySetting
   },
  created(){
-    if(localStorage.getItem('jwt') != null){
-      console.log("안농");
+    if(localStorage.getItem('jwt') == null){
       alert("놉!");
+      router.replace("/home");
     }
     // 뭔가 엄청 해야겠지..?
   },

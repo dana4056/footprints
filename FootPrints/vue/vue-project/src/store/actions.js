@@ -6,6 +6,7 @@ import { findPostID, findRoom, findUser, findChatLogs, postChatData } from "../a
 import { fetchUser, fetchDeliveryList, postDeliveryPost, fetchDeliveryDetail, fetchDeliveryList_Category, fetchDeliveryList_Time, fetchDeliveryList_Area } from "../api/index.js";
 import { changeMember } from "../api/index.js";
 import { router } from '../routes/index.js';
+import { store } from "./store.js";
 
 export default{ 
   FETCH_USER({commit}){
@@ -119,24 +120,8 @@ export default{
           localStorage.setItem('jwt', response.data); // 로컬 스토리지에 저장
           commit('SET_MEMBER', member);
           router.replace("/home");
-
-          findPostID(member.nick)
-          .then(response => {
-            console.log("API:SET_FIND_POSTID 사용자의 POST_ID 리스트 받아오기 성공", response.data);
-            commit('SET_FIND_POSTID', response.data);
-
-            findRoom(response.data)
-            .then(response => {
-              console.log("API:SET_FIND_ROOM 4 Room 리스트 받아오기 성공", response.data);
-              commit('SET_FIND_ROOM', response.data);
-            })
-            .catch(error => {
-              console.log("사용자의 Room 리스트 받아오기 실패", error);
-            })
-          })
-          .catch(error => {
-            console.log("사용자의 POST_ID 리스트 받아오기 실패", error);
-          })
+          
+          store.dispatch('FIND_POST_ID', member.nick);
         })
         .catch(error => { 
           const code = error.response.status;
@@ -304,13 +289,12 @@ FETCH_DELIVERY_LIST_SORT_AREA({ commit }, area) {
       }
     })
 },
-
-
   // 게시물 작성
   POST_DELIVERY_POST(content, post){
     postDeliveryPost(post)
     .then(response =>{
       console.log("API:POST_DELIVERY_POST\n게시물 등록 성공",response);
+      // 여기에 대대적인 수정이 필요..!s
     })
     .catch(error => {
       const code = error.response.status;
@@ -352,27 +336,27 @@ FETCH_DELIVERY_LIST_SORT_AREA({ commit }, area) {
         }
       })
   },
-  // POST_LOGIN 안으로 이동 -> 초기에 PostIdList와 RoomList가 초기화 되어야 채팅 뷰 이동시 올바르게 생성됨
-  // FIND_POST_ID({ commit }, nick) {
-  //   findPostID(nick)
-  //     .then(response => {
-  //       console.log("API:SET_FIND_POSTID 사용자의 POST_ID 리스트 받아오기 성공", response.data);
-  //       commit('SET_FIND_POSTID', response.data);
-  //     })
-  //     .catch(error => {
-  //       console.log("사용자의 POST_ID 리스트 받아오기 실패", error);
-  //     })
-  // },
-  // FIND_ROOM({ commit }, list) {
-  //   findRoom(list)
-  //     .then(response => {
-  //       console.log("API:SET_FIND_ROOM 사용자의 Room 리스트 받아오기 성공", response.data);
-  //       commit('SET_FIND_ROOM', response.data);
-  //     })
-  //     .catch(error => {
-  //       console.log("사용자의 Room 리스트 받아오기 실패", error);
-  //     })
-  // },
+  FIND_POST_ID({ commit }, nick) {
+    findPostID(nick)
+      .then(response => {
+        console.log("API:SET_FIND_POSTID 사용자의 POST_ID 리스트 받아오기 성공", response.data);
+        commit('SET_FIND_POSTID', response.data);
+        store.dispatch('FIND_ROOM', response.data);
+      })
+      .catch(error => {
+        console.log("사용자의 POST_ID 리스트 받아오기 실패", error);
+      })
+  },
+  FIND_ROOM({ commit }, list) {
+    findRoom(list)
+      .then(response => {
+        console.log("API:SET_FIND_ROOM 사용자의 Room 리스트 받아오기 성공", response.data);
+        commit('SET_FIND_ROOM', response.data);
+      })
+      .catch(error => {
+        console.log("사용자의 Room 리스트 받아오기 실패", error);
+      })
+  },
   FIND_USER({ commit }, post_id) {
     findUser(post_id)
       .then(response => {
@@ -393,20 +377,11 @@ FETCH_DELIVERY_LIST_SORT_AREA({ commit }, area) {
         console.log("채팅방 chatlogs 리스트 받아오기 실패", error);
     })
   },
-  POST_CHAT_DATA({ commit }, chatData) {
+  POST_CHAT_DATA(c, chatData) {
     postChatData(chatData)
       .then(response => {
         console.log("채팅 보내기 성공", response.data);
-
-        findChatLogs(chatData.post_id)
-        .then(response => {
-          console.log("API:SET_FIND_CHAT_LOGS 채팅방 chatlogs 리스트 받아오기 성공", response.data);
-          commit('SET_FIND_CHAT_LOGS', response.data);
-        })
-        .catch(error => {
-          console.log("채팅방 chatlogs 리스트 받아오기 실패", error);
-        })
-
+        store.dispatch('FIND_CHAT_LOGS', chatData.post_id)
       })
       .catch(error => {
         console.log("채팅 보내기 실패", error);

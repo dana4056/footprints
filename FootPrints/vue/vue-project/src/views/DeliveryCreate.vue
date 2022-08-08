@@ -138,8 +138,6 @@ export default {
         // }
 
         // this.$store.dispatch('POST_ROOMINFO', roomInfo)
-
-
 				Swal.fire({
           icon: 'success',
           title: '글이 등록되었습니다.',

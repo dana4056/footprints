@@ -91,6 +91,9 @@ export default {
       isSelectBox:true
     }
   },
+  created() {
+    this.Image = require("../assets/" + this.$store.state.member.nick +".png");
+  },
   computed: {
     email() {
       return this.Email1 + "@" + this.Email2;
