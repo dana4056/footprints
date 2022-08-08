@@ -37,11 +37,10 @@ const routes = [
     {   path: '/delivery/post', component: DeliveryList    },
     {   path: '/delivery/post/:id', component: DeliveryDetail  },
     {   path: '/myPage/:nick', component: MyPage  },
-    { path: '/notice/:id', component: NoticeDetail },
-    { path: '/notice/post', component: NoticeList },
-    { path: '/notice/post/create', component: NoticeCreate },
-
-    {   path: '/chat', component: ChatView  },
+    {   path: '/notice/:id', component: NoticeDetail },
+    {   path: '/notice/post', component: NoticeList },
+    {   path: '/notice/post/create', component: NoticeCreate },
+    {   path: '/chat/:nick', component: ChatView  },
 ]
 
 export const router = new createRouter({

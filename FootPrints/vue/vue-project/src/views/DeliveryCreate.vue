@@ -10,6 +10,7 @@
               <option value="카테고리" selected="selected" disabled hidden>카테고리</option>
               <option value="KOR">한식</option>
               <option value="CHI">중식</option>
+              <option value="JAP">일식</option>
               <option value="ETC">기타</option>
             </select>
           </div>

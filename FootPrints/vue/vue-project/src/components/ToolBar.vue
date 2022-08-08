@@ -13,7 +13,7 @@
         <router-link  v-bind:to="`/myPage/${this.$store.state.member.nick}`" id="u_name">{{this.$store.state.member.nick}}</router-link>
         님 | 
         <span id="logout" v-on:click="logout">로그아웃</span>
-        <router-link to="/chat">      채팅방</router-link>
+        <router-link v-bind:to="`/chat/${this.$store.state.member.nick}`">      채팅방</router-link>
     </div>
   </div>
 </header>
@@ -24,7 +24,7 @@
 export default {
     data(){
         return {
-            isLogin:false,
+            isLogin:true,
             userName:""
         }
     },

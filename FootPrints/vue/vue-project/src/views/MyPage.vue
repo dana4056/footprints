@@ -10,7 +10,7 @@
     <div class="wrap2">
       <div v-if="clickSetting === false" class="profile">
         <div id="profileBox">
-          <img id="profileImage" src="../assets/donut.png">
+          <img id="profileImage" :src="require('../assets/' + this.$store.state.member.nick + '.png')">
           <p id="profileNick">{{this.$store.state.member.nick}}</p>
           <div id="profileArea">
             <img id="areaImage" src="../assets/placeholder.png">
@@ -21,7 +21,7 @@
               <img id="likeImage" src="../assets/heart.png">
               <p>좋아요</p>
             </router-link>
-            <router-link to="/chat" id="chat">
+            <router-link v-bind:to="`/chat/${this.$store.state.member.nick}`" id="chat">
               <img id="chatImage" src="../assets/chatting.jpg">
               <p>채팅</p>
             </router-link>
@@ -56,6 +56,10 @@ export default {
     MySetting
   },
  created(){
+    if(localStorage.getItem('jwt') != null){
+      console.log("안농");
+      alert("놉!");
+    }
     // 뭔가 엄청 해야겠지..?
   },
   data() {
@@ -108,7 +112,7 @@ export default {
 .wrap {
   height: 50px;
   background-color: rgb(243, 243, 243);
-  padding-left: 775px;
+  padding-left: 750px;
   padding-top: 200px;
 }
 .wrap > p {
@@ -122,36 +126,35 @@ export default {
   padding-bottom: 7px;
   border-bottom:#7aab85 solid 15px;
 }
-
 .wrap2 {
   width: 100%;
   background-color: rgb(255, 255, 255);
-  height: 1400px;
+  height: 800px;
 }
 .wrap2 > div{
   float: left;
 }
 .profile {
-  width: 775px;
+  width: 750px;
   height: 100%; 
   /* background-color: aqua; */
 }
 #profileBox {
   margin: 50px 100px 0px 350px;
-  width: 300px;
-  height: 420px;
+  width: 270px;
+  height: 380px;
   background-color: rgb(255, 255, 255);
   border-radius: 40px;
   box-shadow: 1px 1px 2px 6px #98d0a443;
 }
 #profileImage {
   margin-top: 30px;
-  width: 120px;
-  height: 120px;
+  width: 100px;
+  height: 100px;
   border-radius: 50%;
 }
 #profileNick {
-  font-size: 23px;
+  font-size: 21px;
   font-weight: bold;
   margin: 10px 0 20px 0
 }
@@ -167,14 +170,14 @@ export default {
   opacity: 0.7;
 }
 #areaName {
-  font-size: 18px;
-  margin: 2px 0;
+  font-size: 16px;
+  margin: 2px 0 0 0;
   color: rgb(166, 166, 166);
 }
 .router{
-  padding: 0 50px 0 70px;
+  padding: 0 40px 0 50px;
   margin-top: 30px;
-  width: 180px;
+  width: 160px;
   height: 120px;
   /* background-color: aqua; */
   text-align: center;
@@ -192,11 +195,11 @@ export default {
 }
 #likeImage{
   margin-top: 5px;
-  width: 40px;
-  height: 35px;
+  width: 35px;
+  height: 34px;
 }
 #chat {
-  margin: 0 0 0 75px;
+  margin: 0 0 0 58px;
 }
 #chatImage {
   width: 40px;
@@ -210,6 +213,5 @@ export default {
 }
 .component2 {
   width: 100%;
-  height: 100%;
 }
 </style>

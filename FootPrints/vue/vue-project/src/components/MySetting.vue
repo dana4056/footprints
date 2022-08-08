@@ -211,7 +211,7 @@ export default {
         this.memberDTO.pw = this.Pw1;
         this.memberDTO.area = this.Area;
 
-        // console.log(this.memberDTO);
+        console.log(this.memberDTO);
         // this.$store.dispatch('CHANGE_MEMBER', this.memberDTO);
         
         setTimeout(() => { 
@@ -235,6 +235,7 @@ export default {
 .container {
   margin: 0 auto;
   width: 800px;
+  padding-bottom: 200px;
 }
 .header {
   width: 100%;
@@ -247,17 +248,17 @@ export default {
 }
 .profileImage {
   margin: 0px auto;
-  width: 200px;
-  height: 200px;
+  width: 150px;
+  height: 150px;
   border-radius: 50%;
 }
 .btn1 {
   position: absolute;
-  top: 130px;
-  left : 300px;
+  top: 100px;
+  left : 250px;
   width: 50px;
-  height: 45px;
-  font-size: 15px;
+  height: 40px;
+  font-size: 13px;
   color: rgba(0, 0, 0, 0.688);
 }
 .setImage {
@@ -268,7 +269,7 @@ export default {
   border-top: 1px solid rgb(226, 226, 226);
 }
 .inputDiv {
-  width: 500px;
+  width: 450px;
   margin: 40px auto;
 }
 label {
@@ -334,7 +335,7 @@ input::placeholder {
 }
 button {
   font-family: 'Noto Sans KR', sans-serif;
-  width: 500px;
+  width: 450px;
   height: 40px;
   background: #ffffff;
   color: #7aab85;
@@ -369,7 +370,7 @@ button {
 }
 .emailItem2 {
   width:10%;
-  padding:0 15px 0 15px;
+  padding:0 12px 0 12px;
 }
 .emailItem3 {
   width:45%;
