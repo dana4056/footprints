@@ -1,16 +1,18 @@
 package footprints.footprints.service.member;
 
+import footprints.footprints.domain.member.DTO.ReqChangePwDTO;
+import footprints.footprints.domain.member.DTO.ReqLoginMemberDTO;
 import footprints.footprints.domain.member.Member;
-import footprints.footprints.domain.member.MemberDTO;
+import footprints.footprints.domain.member.DTO.MemberDTO;
 
 public interface MemberService {
 
-    void join(Member member);
+    void join(MemberDTO memberDTO);
     boolean emailOverlapCheck(String email);
     boolean nickOverlapCheck(String nick);
-    int loginCheck(MemberDTO memberDTO);
+    int loginCheck(ReqLoginMemberDTO loginMemberDTO);
     String findID(String email);
     String findPwd(String email);
-    void changeDBPwd(MemberDTO memberDTO);
+    void changeDBPwd(ReqChangePwDTO changePwDTO);
 
 }

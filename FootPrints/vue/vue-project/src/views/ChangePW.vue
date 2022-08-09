@@ -26,11 +26,9 @@ import { mapGetters } from 'vuex';
 export default {
 	data() {
 		return {
-      memberDTO:{
-        nick: "",
+      changePwMemberDTO:{
         email: "",
         pw: "",
-        area: "",
       },
 			Pw1: "",
       Pw2: "",
@@ -60,17 +58,13 @@ export default {
     compPw(){      // 비밀번호 & 비밀번호 확인란 일치 여부
       if(this.Pw1 != "" && this.Pw2 != ""){
         this.isDiffrentPw = (this.Pw1 != this.Pw2) ? true : false;
-        //member에 뭐가 담겨있는줄 알고 이걸 넣지? 아니 정확히는 member에 nick이랑 email이 담겨 있어? 애초에?
-        this.memberDTO.nick = this.GET_MEMBER.nick;
-        this.memberDTO.email = this.GET_MEMBER.email;
-        this.memberDTO.pw = this.Pw1;
+        this.changePwMemberDTO.pw = this.Pw1;
       }
     },
     change() {
       if (this.submitData()){
-        console.log("비밀번호 변경해보자");
-        this.memberDTO.email = localStorage.getItem('email');
-        this.$store.dispatch('CHANGE_PWD', this.memberDTO);
+        this.changePwMemberDTO.email = localStorage.getItem('email');
+        this.$store.dispatch('CHANGE_PWD', this.changePwMemberDTO);
         setTimeout(() => { 
         this.represent() ;
         }, 200); 	

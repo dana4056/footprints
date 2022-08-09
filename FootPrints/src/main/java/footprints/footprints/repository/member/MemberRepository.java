@@ -1,11 +1,11 @@
 package footprints.footprints.repository.member;
 
 import footprints.footprints.domain.member.Member;
-import footprints.footprints.domain.member.MemberDTO;
+import footprints.footprints.domain.member.DTO.MemberDTO;
 
 public interface MemberRepository {
 
-    void save(Member member);
+    void save(MemberDTO memberDTO);
     Member findByEmail(String email);
     Member findByNick(String nick);
 

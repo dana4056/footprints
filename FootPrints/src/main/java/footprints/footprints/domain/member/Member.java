@@ -1,12 +1,11 @@
 package footprints.footprints.domain.member;
-import footprints.footprints.domain.post.PostDTO;
+import footprints.footprints.domain.member.DTO.MemberDTO;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -29,11 +28,6 @@ public class Member implements UserDetails {
     private String area;
     @ElementCollection(fetch = FetchType.EAGER)
     private List<String> roles;
-
-//    public Member(){
-//        System.out.println("Member 생성자");
-//        this.roles = Collections.singletonList("ROLE_USER");
-//    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

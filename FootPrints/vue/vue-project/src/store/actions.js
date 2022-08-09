@@ -110,16 +110,16 @@ export default{
         .catch( error=>{console.log('API:POST_MEMBER\n회원가입 실패',error);} )
   }, 
   // 로그인
-  POST_LOGIN({commit}, member) {
-    postLogin(member)
+  POST_LOGIN({commit}, loginMember) {
+    postLogin(loginMember)
         .then(response => {
           console.log('API:POST_LOGIN\n로그인 성공',response);
             
           localStorage.setItem('jwt', response.data); // 로컬 스토리지에 저장
-          commit('SET_MEMBER', member);
+          commit('SET_MEMBER', loginMember);
           router.replace("/home");
 
-          findPostID(member.nick)
+          findPostID(loginMember.nick)
           .then(response => {
             console.log("API:SET_FIND_POSTID 사용자의 POST_ID 리스트 받아오기 성공", response.data);
             commit('SET_FIND_POSTID', response.data);
@@ -214,8 +214,8 @@ export default{
       })
   },
   // 비밀번호 변경
-  CHANGE_PWD({ commit }, memberDTO) {
-    return changePWD(memberDTO)
+  CHANGE_PWD({ commit }, changePwMemberDTO) {
+    return changePWD(changePwMemberDTO)
       .then(response => {
         console.log('API:CHANGE_PWD\n비밀번호 변경 성공',response);
         commit('SET_PWCHANGE_DONE', response.data);

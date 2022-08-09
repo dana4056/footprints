@@ -47,14 +47,11 @@ export default {
   methods: {
     checkLogin(){
       if(this.PostValid()){
-        const member = {
+        const loginMember = {
           nick: this.Nick,
-          email: 'email',
           pw: this.Pw,
-          area: 'area'
         }
-        this.$store.dispatch('POST_LOGIN', member)
-        // console.log(this.Pw); 
+        this.$store.dispatch('POST_LOGIN', loginMember)
       }
     },
     PostValid(){

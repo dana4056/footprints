@@ -1,7 +1,7 @@
 //package footprints.footprints.member;
 //
 //import footprints.footprints.domain.member.Member;
-//import footprints.footprints.domain.member.MemberDTO;
+//import footprints.footprints.domain.member.DTO.MemberDTO;
 //import footprints.footprints.domain.post.Post;
 //import footprints.footprints.domain.post.PostDTO;
 //import footprints.footprints.repository.member.MemberRepository;
