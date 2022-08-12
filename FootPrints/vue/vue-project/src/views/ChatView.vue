@@ -25,6 +25,7 @@ import ChatRoom from '../components/ChatRoom.vue'
 import ChatHeader from '../components/ChatHeader.vue'
 import ChatList from '../components/ChatList.vue'
 import ChatForm from '../components/ChatForm.vue'
+import { router } from '../routes/index.js';
 
 export default {
   components: {
@@ -35,9 +36,15 @@ export default {
     ChatForm,
   },
   created() {
-    let post_id = this.$store.state.postIdList[this.$store.state.roomIndex];
-    this.$store.dispatch('FIND_USER', post_id);
-    this.$store.dispatch('FIND_CHAT_LOGS', post_id);
+    if(localStorage.getItem('jwt') == null){
+      alert("놉!");
+      router.replace("/home");
+    }
+    else {
+      let post_id = this.$store.state.postIdList[this.$store.state.roomIndex];
+      this.$store.dispatch('FIND_USER', post_id);
+      this.$store.dispatch('FIND_CHAT_LOGS', post_id);
+    }
   },
   mounted() {
     setTimeout(() => {

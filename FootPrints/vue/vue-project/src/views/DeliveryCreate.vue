@@ -10,6 +10,7 @@
               <option value="카테고리" selected="selected" disabled hidden>카테고리</option>
               <option value="KOR">한식</option>
               <option value="CHI">중식</option>
+              <option value="JAP">일식</option>
               <option value="ETC">기타</option>
             </select>
           </div>
@@ -142,6 +143,13 @@ export default {
         }
         console.log("POST\n",post); 
         this.$store.dispatch('POST_DELIVERY_POST', post)
+
+        // const roomInfo = {
+        //   member: this.$store.state.member,
+        //   post_id: this.$store.state.post_id
+        // }
+
+        // this.$store.dispatch('POST_ROOMINFO', roomInfo)
 				Swal.fire({
           icon: 'success',
           title: '글이 등록되었습니다.',

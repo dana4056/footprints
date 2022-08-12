@@ -12,6 +12,7 @@ export const store = new Vuex.Store({
         find_nick: 'CANNOT_FIND_ID',
         find_email: 'CANNOT_FIND_ID',
         pwchange_done: 'FAILED',
+        memberChange_done: 'FAILED',
         member:{
             nick: "", 
             email: "",
@@ -25,15 +26,33 @@ export const store = new Vuex.Store({
         deliveryPostList:[],
         // deliveryPost_presentArea: "",
         deliveryPost:{},
+        postIdList: [0],
+        roomList: [{post_id: 0, post_name: " "}],
         delivery_category: "",
         delivery_category_sort: "",
         delivery_category_area: "",
         postIDList: [],
         roomList: [],
         roomIndex: 0,
-        userList: ["", ""],
-        chatLogs: [
-            {from_name:"", time:"", message:""},
+        userList: [" "],
+        chatLogs: [],
+        myDPostList:[
+            // { post_id: 1, category: 'KOR', created_date: '2022-07-27 02:30:46', max_person_num: 5, participant_num: 1, post_content: '안농',
+            // post_name: '비빔밥 같이 먹을 사람~!', take_loc: '서울시 송파구 잠실동', valid_time: '2022-08-06T11:35', view_num: 0, member_nick: '지원'},
+            // { post_id: 2, category: 'JAP', created_date: '2022-07-27 02:30:46', max_person_num: 5, participant_num: 1, post_content: '안농',
+            // post_name: '초밥 같이 ㄱㄱ', take_loc: '서울시 송파구 잠실동', valid_time: '2022-08-06T11:35', view_num: 0, member_nick: '지원'},
+        ],
+        myParticiList: [
+            // { post_id: 1, category: 'KOR', created_date: '2022-07-27 02:30:46', max_person_num: 5,  participant_num: 1, post_content: '안농',
+            // post_name: '비빔밥 같이 먹을 사람~!', take_loc: '서울시 송파구 잠실동', valid_time: '2022-08-21T11:35', view_num: 0, member_nick: '지원'},
+            // { post_id: 2, category: 'JAP', created_date: '2022-07-27 02:30:46', max_person_num: 5, participant_num: 2, post_content: '바이바이',
+            // post_name: '초밥 같이 ㄱㄱ', take_loc: '서울시 송파구 잠실동', valid_time: '2022-08-22T11:35', view_num: 0, member_nick: '지원'},
+            // { post_id: 3, category: 'CHI', created_date: '2022-07-27 02:30:46', max_person_num: 4, participant_num: 2, post_content: '뿡',
+            // post_name: '짜장면엔 탕수육', take_loc: '서울시 송파구 잠실동', valid_time: '2022-08-23T11:35', view_num: 0, member_nick: '춘식'},
+            // { post_id: 4, category: 'ETC', created_date: '2022-07-27 02:30:46', max_person_num: 3, participant_num: 3, post_content: '기타~~',
+            // post_name: '돼라..', take_loc: '서울시 송파구 잠실동', valid_time: '2022-08-14T11:35', view_num: 0, member_nick: '춘식'},
+            // { post_id: 5, category: 'ETC', created_date: '2022-07-27 02:30:46', max_person_num: 2, participant_num: 1, post_content: '안농',
+            // post_name: 'ㅇㅇㅇㅇㅇ', take_loc: '서울시 송파구 잠실동', valid_time: '2022-08-06T11:35', view_num: 0, member_nick: '춘식'},
         ],
     },
     getters:{
@@ -61,7 +80,10 @@ export const store = new Vuex.Store({
         },
         GET_ROOMINDEX(state) {
             return state.roomIndex;
-        }
+        },
+        GET_MEMBER_CHANGE_DONE(state){
+            return state.memberChange_done;
+        },
     },
     actions,
     mutations:{
@@ -135,6 +157,15 @@ export const store = new Vuex.Store({
         },
         SET_FIND_CHAT_LOGS(state, list) {
             state.chatLogs = list;
+        },
+        SET_MY_DPOST(state, list) {
+            state.myDPostList = list;
+        },
+        SET_MY_PARTICI(state, list) {
+            state.myParticiList = list;
+        },
+        SET_MEMBER_CHANGE_DONE(state, string) {
+            state.memberChange_done = string;
         }
     },
     

@@ -42,7 +42,7 @@
 
       <!------------------------------------ 게시물 리스트 요소 ---------------------------------------->
       <div v-for="delivery in this.$store.state.deliveryPostList" class="listbox" v-bind:key="delivery">
-        <img class="listbox-img" src="../assets/blank.png" alt="">
+        <img class="listbox-img" :src="require('../assets/' + delivery.category + '.png')" alt="">
         <div class="listbox-content">
           <div class="listbox-head">
             <div class="res-name"><router-link v-bind:to="`/delivery/post/${delivery.post_id}`">{{ delivery.post_name }}</router-link></div>
@@ -88,6 +88,7 @@ export default {
       categories:{
         'KOR': '한식',
         'CHI': '중식',
+        'JAP': '일식',
         'ETC': '기타'
       },
       category: "",
@@ -97,6 +98,9 @@ export default {
   },
   beforeCreate(){
     this.$store.dispatch('FETCH_DELIVERY_LIST');
+  },
+  created() {
+    this.$store.dispatch('FIND_POST_ID', this.$store.state.member.nick);
   },
   methods:{
     caltime(created){
@@ -280,6 +284,9 @@ label {
 }
 .CHI{
   background-color: #ff6e6c;
+}
+.JAP{
+  background-color: #ff0400;
 }
 .ETC{
   background-color: #8c8c8c;

@@ -4,7 +4,9 @@ import { postEmail, postNick, postLogin, postMemberInfo } from "../api/index.js"
 import { findID, findPW, changePWD, findUserArea } from "../api/index.js"
 import { findUser, findChatLogs, postChatData } from "../api/index.js"
 import { fetchUser, fetchDeliveryList, postDeliveryPost, fetchDeliveryDetail, fetchDeliveryList_Category, fetchDeliveryList_Time, fetchDeliveryList_Area } from "../api/index.js";
+import { fetchMyDPost, fetchMyPartici, changeMember } from "../api/index.js";
 import { router } from '../routes/index.js';
+import { store } from "./store.js";
 
 export default{ 
   FETCH_USER({commit}){
@@ -133,6 +135,8 @@ export default{
                 })
 
             router.replace("/home");
+            store.dispatch('FIND_POST_ID', loginMember.nick);
+
         })
         .catch(error => { 
           const code = error.response.status;
@@ -153,14 +157,14 @@ export default{
   //       .then(response => {
   //         console.log(response);
   //       })
-  //       .catch(error => {
+  //       .catch(error => { 
   //         console.log(error);
   //       })
   // },
   // 시/도 정보 가져오기
   // FETCH_SIDO({commit}){
   //   fetchSido()
-  //   .then(response =>{
+  //   .then(response =>{ 
   //     console.log(response);
   //     const sidoList = response.data.response.result.featureCollection.features;
   //     commit("SET_SIDO_LIST", sidoList);
@@ -174,7 +178,7 @@ export default{
   // // 시/군/구 정보 가져오기
   // FETCH_SIGOONGU({commit}, code){
   //   fetchSigoongu(code)
-  //   .then(response =>{
+  //   .then(response =>{ 
   //     const sigoonguList = response.data.response.result.featureCollection.features;
   //     commit("SET_SIGOONGU_LIST", sigoonguList);
   //     })
@@ -183,7 +187,7 @@ export default{
   // // 읍/면/리 정보 가져오기
   // FETCH_EUPMYEONDONG({commit}, code){
   //   fetchEupmyeondong(code)
-  //   .then(response =>{
+  //   .then(response =>{ 
   //     const eupmyeondongList = response.data.response.result.featureCollection.features;
   //     commit("SET_EUPMYEONDONG_LIST", eupmyeondongList);
   //     })
@@ -307,6 +311,7 @@ FETCH_DELIVERY_LIST_SORT_AREA({ commit }, area) {
     postDeliveryPost(post)
     .then(response =>{
       console.log("API:POST_DELIVERY_POST\n게시물 등록 성공",response);
+      // 여기에 대대적인 수정이 필요..!s
     })
     .catch(error => {
       const code = error.response.status;
@@ -319,6 +324,16 @@ FETCH_DELIVERY_LIST_SORT_AREA({ commit }, area) {
       }
     })
   },
+  // 글 작성시 방 정보 테이블에 row 추가
+  // POST_ROOMINFO(content, roomInfo){
+  //   postRoomInfo(roomInfo)
+  //   .then(response =>{
+  //     console.log("API:POST_ROOMINFO\n방 정보 등록 성공",response);
+  //   })
+  //   .catch(error => {
+  //     console.log("API:POST_ROOMINFO\n방 정보 등록 실패",error);
+  //   })
+  // },
   // 상세 페이지 데이터 로드
   FETCH_DELIVERY_DETAIL({commit}, post_id){
     fetchDeliveryDetail(post_id)
@@ -338,27 +353,27 @@ FETCH_DELIVERY_LIST_SORT_AREA({ commit }, area) {
         }
       })
   },
-  // POST_LOGIN 안으로 이동 -> 초기에 PostIdList와 RoomList가 초기화 되어야 채팅 뷰 이동시 올바르게 생성됨
-  // FIND_POST_ID({ commit }, nick) {
-  //   findPostID(nick)
-  //     .then(response => {
-  //       console.log("API:SET_FIND_POSTID 사용자의 POST_ID 리스트 받아오기 성공", response.data);
-  //       commit('SET_FIND_POSTID', response.data);
-  //     })
-  //     .catch(error => {
-  //       console.log("사용자의 POST_ID 리스트 받아오기 실패", error);
-  //     })
-  // },
-  // FIND_ROOM({ commit }, list) {
-  //   findRoom(list)
-  //     .then(response => {
-  //       console.log("API:SET_FIND_ROOM 사용자의 Room 리스트 받아오기 성공", response.data);
-  //       commit('SET_FIND_ROOM', response.data);
-  //     })
-  //     .catch(error => {
-  //       console.log("사용자의 Room 리스트 받아오기 실패", error);
-  //     })
-  // },
+  FIND_POST_ID({ commit }, nick) {
+    findPostID(nick)
+      .then(response => {
+        console.log("API:SET_FIND_POSTID 사용자의 POST_ID 리스트 받아오기 성공", response.data);
+        commit('SET_FIND_POSTID', response.data);
+        store.dispatch('FIND_ROOM', response.data);
+      })
+      .catch(error => {
+        console.log("사용자의 POST_ID 리스트 받아오기 실패", error);
+      })
+  },
+  FIND_ROOM({ commit }, list) {
+    findRoom(list)
+      .then(response => {
+        console.log("API:SET_FIND_ROOM 사용자의 Room 리스트 받아오기 성공", response.data);
+        commit('SET_FIND_ROOM', response.data);
+      })
+      .catch(error => {
+        console.log("사용자의 Room 리스트 받아오기 실패", error);
+      })
+  },
   FIND_USER({ commit }, post_id) {
     findUser(post_id)
       .then(response => {
@@ -377,15 +392,47 @@ FETCH_DELIVERY_LIST_SORT_AREA({ commit }, area) {
       })
       .catch(error => {
         console.log("채팅방 chatlogs 리스트 받아오기 실패", error);
-      })
+    })
   },
   POST_CHAT_DATA(c, chatData) {
     postChatData(chatData)
       .then(response => {
         console.log("채팅 보내기 성공", response.data);
+        store.dispatch('FIND_CHAT_LOGS', chatData.post_id)
       })
       .catch(error => {
         console.log("채팅 보내기 실패", error);
       })
-  }
+  },
+  // 마이페이지 기능
+  FETCH_MY_DPOST({commit}, nick) {
+    return fetchMyDPost(nick)
+      .then(response => {
+        console.log('API:FETCH_MY_DPOST\n작성한 글 받아오기 성공', response);
+        commit('SET_MY_DPOST', response.data);
+      })
+      .catch(error => {
+        console.log('API:FETCH_MY_DPOST\n작성한 글 받아오기 실패', error);
+      })
+  },
+  FETCH_MY_PARTICI({commit}, nick) {
+    return fetchMyPartici(nick)
+      .then(response => {
+        console.log('API:FETCH_MY_PARTICI\n참여한 글 받아오기 성공', response);
+        commit('SET_MY_PARTICI', response.data);
+      })
+      .catch(error => {
+        console.log('API:FETCH_MY_PARTICI\n참여한 글 받아오기 실패', error);
+      })
+  },
+  CHANGE_MEMBER({ commit }, memberDTO) {
+    return changeMember(memberDTO)
+      .then(response => {
+        console.log('API:CHANGE_MEMBER\n회원정보 변경 성공', response);
+        commit('SET_MEMBER_CHANGE_DONE', response.data);
+      })
+      .catch(error => {
+        console.log('API:CHANGE_MEMBER\n회원정보 변경 실패', error);
+      })
+  },
 }

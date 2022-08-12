@@ -1,4 +1,4 @@
-package footprints.footprints.security.jwt;
+package footprints.footprints.controller.security.jwt;
 
 import footprints.footprints.domain.member.Member;
 import io.jsonwebtoken.Claims;

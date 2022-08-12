@@ -17,6 +17,7 @@ div {
   box-shadow: 0px 3px 10px 0px rgba(0, 0, 0, 0.05);
   padding: 0px 1.8rem 20px 1.8rem;
   text-align: left;
+  height: 91px;
 }
 #title {
   font-size: 20px;
