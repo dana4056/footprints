@@ -172,6 +172,7 @@ function fetchDeliveryList_Area(area) {
 
   function findRoom(list) {
     console.log("postIDList: " + list);
+    // const data = JSON.stringify(list)  //JSON으로 변환
     return axios.post(`${config.baseUrl}/chat/get-PostInfoList`, list);
   }
 

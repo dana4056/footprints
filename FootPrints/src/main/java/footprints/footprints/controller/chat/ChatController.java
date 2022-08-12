@@ -30,7 +30,7 @@ public class ChatController {
     }
 
     @PostMapping(value = "/chat/get-PostInfoList") // 각 방들의 post_name과 category post_id를 리스트(String) 형태로 가져온다.
-    public ResponseEntity<List<Post>> getPostInfoList(@RequestBody List<Long> postIdList){
+    public ResponseEntity<List<Post>> getPostInfoList(@RequestBody List<Long> postIdList){  //리스트 제대로 못받아오는 듯 (https://wedul.site/148)
         log.info("-------------------getPostInfoList--{}",postIdList );
         List<Post> postInfoList = chatService.getPostInfoList(postIdList);
 
@@ -38,7 +38,7 @@ public class ChatController {
     }
 
     @PostMapping(value = "/chat/get-NickList") // 그 방에 속한 사용자들의 nick을 리스트(String) 형태로 가져온다.
-    public ResponseEntity<List<String>> getNickList(@RequestBody Long post_id){
+    public ResponseEntity<List<String>> getNickList(@RequestBody Long post_id){  //컨트롤러 들어오지도 못하는거 ResponseEntity에 값이 없어서인듯
         log.info("-------------------getNickList--{}",post_id);
         List<String> nickList = chatService.getNickList(post_id);
 
