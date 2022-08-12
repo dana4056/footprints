@@ -52,7 +52,7 @@ export default {
           email: 'email',
           pw: this.Pw,
           area: 'area'
-        }
+        } 
         this.$store.dispatch('POST_LOGIN', member)
         // console.log(this.Pw); 
       }

@@ -37,6 +37,15 @@ function fetchNoticeDetail(notice_id){
     return axios.get(`${config.baseUrl}/notice/${notice_id}`,);
 }
 
+function findUserArea(nick){
+    console.log("function findUserArea 실행")
+    return axios.post(`${config.baseUrl}/findUserArea`, nick, {
+        headers: {
+            'Content-Type': 'text/plain'
+        }
+    });
+}
+
 function postNotice(noticeDTO){
     return axios.post(`${config.baseUrl}/notice/create`, noticeDTO, {
         headers: {
@@ -211,4 +220,5 @@ export{
     findChatLogs,
     postChatData,
     fetchDeliveryList_Area,
+    findUserArea,
 }

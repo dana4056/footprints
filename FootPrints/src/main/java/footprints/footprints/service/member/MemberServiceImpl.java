@@ -63,6 +63,17 @@ public class MemberServiceImpl implements MemberService{
     }
 
     @Override
+    public String findArea(String nick) {
+        Member member = memberRepository.findByNick(nick);
+        if(member == null){
+            return null;
+        }
+        else{
+            return member.getArea();
+        }
+    }
+
+    @Override
     public String findID(String email) {
         Member member = memberRepository.findByEmail(email);
         if(member == null){

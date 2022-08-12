@@ -9,6 +9,7 @@ public interface MemberService {
     boolean emailOverlapCheck(String email);
     boolean nickOverlapCheck(String nick);
     int loginCheck(MemberDTO memberDTO);
+    String findArea(String nick);
     String findID(String email);
     String findPwd(String email);
     void changeDBPwd(MemberDTO memberDTO);

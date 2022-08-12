@@ -1,8 +1,8 @@
 import { fetchNoticeList, fetchNoticeDetail, postNotice } from "../api/index.js"
 import { postEmail, postNick, postLogin, postMemberInfo } from "../api/index.js"
 // import { fetchSido, fetchSigoongu, fetchEupmyeondong } from "../api/index.js"
-import { findID, findPW, changePWD } from "../api/index.js"
-import { findPostID, findRoom, findUser, findChatLogs, postChatData } from "../api/index.js"
+import { findID, findPW, changePWD, findUserArea } from "../api/index.js"
+import { findUser, findChatLogs, postChatData } from "../api/index.js"
 import { fetchUser, fetchDeliveryList, postDeliveryPost, fetchDeliveryDetail, fetchDeliveryList_Category, fetchDeliveryList_Time, fetchDeliveryList_Area } from "../api/index.js";
 import { router } from '../routes/index.js';
 
@@ -117,26 +117,18 @@ export default{
             
           localStorage.setItem('jwt', response.data); // 로컬 스토리지에 저장
           console.log(response.data);
-          commit('SET_MEMBER', member);
-          router.replace("/home");
+          
 
-          findPostID(member.nick)
-          .then(response => {
-            console.log("API:SET_FIND_POSTID 사용자의 POST_ID 리스트 받아오기 성공", response.data);
-            commit('SET_FIND_POSTID', response.data);
-
-            findRoom(response.data)
+          findUserArea(member.nick)
             .then(response => {
-              console.log("API:SET_FIND_ROOM 사용자의 Room 리스트 받아오기 성공", response.data);
-              commit('SET_FIND_ROOM', response.data);
+              console.log("지역 얻기 성공", response.data);
+              member.area = response.data;
+              commit('SET_MEMBER', member);
             })
             .catch(error => {
-              console.log("사용자의 Room 리스트 받아오기 실패", error);
+              console.log("지역 읽기 실패", error);
             })
-          })
-          .catch(error => {
-            console.log("사용자의 POST_ID 리스트 받아오기 실패", error);
-          })
+          router.replace("/home");
         })
         .catch(error => { 
           const code = error.response.status;

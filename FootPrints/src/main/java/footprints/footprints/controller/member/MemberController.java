@@ -112,7 +112,12 @@ public class MemberController {
             return new ResponseEntity<String>("LOGIN_FAILED:NOT_MATCH_PW", HttpStatus.NOT_FOUND);
         }
     }
-
+    // 지역 찾기
+    @PostMapping(value="/findUserArea")
+    public ResponseEntity<String> findArea(@RequestBody String nick){
+        String userArea = memberService.findArea(nick);
+        return new ResponseEntity<String>(userArea, HttpStatus.OK);
+    }
 
     // 아이디 찾기
     @PostMapping(value = "/findID")
