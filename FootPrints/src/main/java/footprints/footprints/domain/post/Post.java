@@ -40,7 +40,6 @@ public class Post {
     private Member member;
     private String post_area;
 
-
     @Builder
     public Post(String post_name, String post_content, String category, String take_loc,
                 int participant_num, int max_person_num, String valid_time, int view_num, Member member, String post_area){

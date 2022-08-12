@@ -43,7 +43,6 @@ public class PostDTO {
         this.post_area = post.getPost_area();
     }
 
-
     public Post toEntity() {
         return Post.builder()
                 .post_name(post_name)
