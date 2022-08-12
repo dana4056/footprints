@@ -71,22 +71,17 @@ export default {
     let kakao = window.kakao;
     var container = this.$refs.map;
     var options = { 
-      center: new kakao.maps.LatLng(37.56676113296615, 126.97865227682179), //지도의 중심 좌표 
-      level: 10 //지도의 확대 레벨 
+      center: new kakao.maps.LatLng(37.56676113296615, 126.97865227682179),
+      level: 10
     };
     const mapInstance = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
 
-    // 선진 추가 주소-좌표 변환 객체  
-    //저기 있는 키값으로 services 라이브러리를 가져와야 geocoder를 쓸 수 있는데 추가가 안되는 상황 
-    // var src = 'http://dapi.kakao.com/v2/maps/sdk.js?appkey=a8e4571be7c0330201b9afb76da37875&libraries=services'
-    // document.head.appendChild(src);
-    // var geocoder = new kakao.maps.services.Geocoder(); 
+    var geocoder = new kakao.maps.services.Geocoder();
 
     // 마커 생성
     var marker = new kakao.maps.Marker({ 
       position: mapInstance.getCenter(),
     }); 
-
     marker.setMap(mapInstance);
 
     // 줌인 줌아웃
@@ -96,18 +91,18 @@ export default {
     // 클릭 이벤트 등록
     kakao.maps.event.addListener(mapInstance, 'click', function(mouseEvent) {        
       var latlng = mouseEvent.latLng; 
+
       marker.setPosition(latlng);
-      
-      $vm.latitude = latlng.getLat();
-      $vm.longtitude = latlng.getLng();
+
+      // 지원 - 79번째 줄에서 geocoder 선언해줬고, 97번째줄 부터 103번째 줄까지가 주소 가져오는 코드입니다!
+      let callback = function(result, status) {
+        if (status === kakao.maps.services.Status.OK) {
+            console.log(result[0].address_name);
+        }
+      }
+      geocoder.coord2RegionCode(latlng.getLng(), latlng.getLat(), callback);
       $vm.inputVisible = true;
-
-      //선진 추가 geocoder 안 불러와짐 
-      // var result = geocoder.coord2RegionCode(latlng.getLng(), latlng.getLat());
-      // var area_Name = result[0].address.address_name;
-      // console.log(area_Name);
-
-      });
+    });
   },
   data() {
     return {
@@ -142,7 +137,7 @@ export default {
             max_person_num: this.max_person_num, // 모집 인원
             valid_time: this.valid_time,         // 게시물 유효 시간
             view_num: this.view_num ,            // 조회수
-            nick:this.$store.state.member.nick   // 작성자 닉네임
+            nick:this.$store.state.member.nick
         }
         console.log("POST\n",post);
         this.$store.dispatch('POST_DELIVERY_POST', post)
@@ -159,7 +154,7 @@ export default {
       }
     },
 		submitData() {
-      
+      // console.log("submit data" + this.valid_time);
       if (this.post_name != "" && this.post_content != "" && 
           this.category != "카테고리" && this.take_loc != "" &&
           this.valid_time != "" && 
