@@ -38,9 +38,9 @@ public class MyPageServiceImpl implements MyPageService {
     public boolean changeInfo(MemberDTO memberDTO) {
         String nick = memberDTO.getNick();
         Member member = memberRepository.findByNick(nick);
-        if (member == null) {
+        if (member != null) {
             Member byNick = memberRepository.findByNick(nick);
-            byNick.InfoUpdate(memberDTO);
+            //byNick.InfoUpdate(memberDTO);
             memberRepository.save(byNick);
             return true;
         }

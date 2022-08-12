@@ -32,12 +32,12 @@ public class Member implements UserDetails {
         this.pw = memberDTO.getPw();
     }
 
-    public void InfoUpdate(MemberDTO memberDTO){
-        this.nick = memberDTO.getNick();
-        this.email = memberDTO.getEmail();
-        this.pw = memberDTO.getPw();
-        this.area = memberDTO.getArea();
-    }
+//    public void InfoUpdate(MemberDTO memberDTO){
+//        this.nick = memberDTO.getNick();
+//        this.email = memberDTO.getEmail();
+//        this.pw = memberDTO.getPw();
+//        this.area = memberDTO.getArea();
+//    }
 
     @ElementCollection(fetch = FetchType.EAGER)
     @Builder.Default
