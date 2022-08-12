@@ -92,7 +92,8 @@ export default {
     }
   },
   created() {
-    this.Image = require("../assets/" + this.$store.state.member.nick +".png");
+    // this.Image = require("../assets/" + this.$store.state.member.nick +".png");
+    this.Image = require('../assets/user.png')
   },
   computed: {
     email() {

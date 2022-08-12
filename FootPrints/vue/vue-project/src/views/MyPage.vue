@@ -10,7 +10,8 @@
     <div class="wrap2">
       <div v-if="clickSetting === false" class="profile">
         <div id="profileBox">
-          <img id="profileImage" :src="require('../assets/' + this.$store.state.member.nick + '.png')">
+          <!-- <img id="profileImage" :src="require('../assets/' + this.$store.state.member.nick + '.png')"> -->
+          <img id="profileImage" :src="require('../assets/user.png')">
           <p id="profileNick">{{this.$store.state.member.nick}}</p>
           <div id="profileArea">
             <img id="areaImage" src="../assets/placeholder.png">

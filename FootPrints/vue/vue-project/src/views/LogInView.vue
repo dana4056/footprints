@@ -51,7 +51,7 @@ export default {
           nick: this.Nick,
           email: 'email123@naver.com',
           pw: this.Pw,
-          area: '서울시 성북구 동소문동'
+          area: 'area'
         }
         this.$store.dispatch('POST_LOGIN', member)
         // console.log(this.Pw); 

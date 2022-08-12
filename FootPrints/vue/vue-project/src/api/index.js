@@ -227,7 +227,7 @@ function postDeliveryPost(post){
   function fetchMyPartici(nick) {
     return axios.post(`${config.baseUrl}/myPage/main-attendPost`, nick, {
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'text/plain'
         }
     });
   }

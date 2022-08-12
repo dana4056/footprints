@@ -387,7 +387,6 @@ FETCH_DELIVERY_LIST_SORT_AREA({ commit }, area) {
         console.log("채팅 보내기 실패", error);
       })
   },
-
   // 마이페이지 기능
   FETCH_MY_DPOST({commit}, nick) {
     return fetchMyDPost(nick) 
