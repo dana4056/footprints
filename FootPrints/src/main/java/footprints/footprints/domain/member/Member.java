@@ -26,6 +26,22 @@ public class Member implements UserDetails {
     private String email;
     private String pw;
     private String area;
+<<<<<<< HEAD
+=======
+
+    public void Update(MemberDTO memberDTO){
+        this.email = memberDTO.getEmail();
+        this.pw = memberDTO.getPw();
+    }
+
+//    public void InfoUpdate(MemberDTO memberDTO){
+//        this.nick = memberDTO.getNick();
+//        this.email = memberDTO.getEmail();
+//        this.pw = memberDTO.getPw();
+//        this.area = memberDTO.getArea();
+//    }
+
+>>>>>>> 2c4388a1aecfbdfa45304960895f89deac16190e
     @ElementCollection(fetch = FetchType.EAGER)
     private List<String> roles;
 

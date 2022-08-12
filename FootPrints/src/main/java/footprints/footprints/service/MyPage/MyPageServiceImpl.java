@@ -43,12 +43,18 @@ public class MyPageServiceImpl implements MyPageService {
         String nick = memberDTO.getNick();
         log.info("-----------changeInfo1------{}", nick);
         Member member = memberRepository.findByNick(nick);
+<<<<<<< HEAD
         log.info("-----------changeInfo2------{}", member);
         if (member == null) {
             Member byNick = memberRepository.findByNick("춘식");
             log.info("-----------changeInfo3------{}", byNick);
             byNick.InfoUpdate(memberDTO);
             log.info("-----------changeInfo4------{}", byNick);
+=======
+        if (member != null) {
+            Member byNick = memberRepository.findByNick(nick);
+            //byNick.InfoUpdate(memberDTO);
+>>>>>>> 2c4388a1aecfbdfa45304960895f89deac16190e
             memberRepository.save(byNick);
             log.info("-----------changeInfo5------");
             return true;
