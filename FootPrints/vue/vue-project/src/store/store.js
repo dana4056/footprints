@@ -25,6 +25,9 @@ export const store = new Vuex.Store({
         deliveryPostList:[],
         // deliveryPost_presentArea: "",
         deliveryPost:{},
+        delivery_category: "",
+        delivery_category_sort: "",
+        delivery_category_area: "",
         postIDList: [],
         roomList: [],
         roomIndex: 0,
@@ -115,6 +118,9 @@ export const store = new Vuex.Store({
             state.deliveryPost = post;
             state.deliveryPost.createdDate = Cdate;
             state.deliveryPost.valid_time = Vdate;
+        },
+        SET_DELIVERIES_CATEGORY_AREA(state, category_area){
+            state.delivery_category_area = category_area;
         },
         SET_FIND_POSTID(state, list) {
             state.postIdList = list;

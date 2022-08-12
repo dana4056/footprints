@@ -119,6 +119,13 @@ export default {
     },
     SelectCategory(){
       // this.area = this.$store.getters.GET_DELIVERY_PRESENT_AREA;
+      // if(this.$store.state.delivery_category_area == "" && this.$store.state.delivery_category_sort == ""){
+
+      // }
+      // else{
+      //   this.$store.dispatch('FETCH_DELIVERY_LIST_CATEGORY', this.category);
+      //   console.log(this.category);
+      // }
       this.$store.dispatch('FETCH_DELIVERY_LIST_CATEGORY', this.category);
       console.log(this.category);
       // console.log(this.area);
@@ -151,10 +158,11 @@ export default {
           
           this.area = sido+" "+sigoongu+" "+eupmyeondong;
           this.$store.dispatch('FETCH_DELIVERY_LIST_SORT_AREA', this.area);
+          console.log(this.area);
 
           setTimeout(() => { 
             this.$store.getters.GET_DELIVERIES;
-          }, 100);  
+          }, 200);  
         }
       }).open();
     }

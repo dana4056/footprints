@@ -48,7 +48,7 @@ export default {
     checkLogin(){
       if(this.PostValid()){
         const member = {
-          nick: this.Nick,
+          nick: this.Nick, 
           email: 'email',
           pw: this.Pw,
           area: 'area'

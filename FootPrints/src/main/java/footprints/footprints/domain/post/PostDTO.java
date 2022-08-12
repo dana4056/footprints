@@ -28,6 +28,7 @@ public class PostDTO {
     // ------- member entity 참조할건데 임시로 --------------
     private String nick;
     private Member member;  //0725추가
+    private String post_area;  //0812추가
 
     public PostDTO(Post post){
         this.post_name = post.getPost_name();
@@ -39,6 +40,7 @@ public class PostDTO {
         this.valid_time = post.getValid_time();
         this.view_num = post.getView_num();
         this.member = post.getMember();  //0725추가
+        this.post_area = post.getPost_area();
     }
 
 

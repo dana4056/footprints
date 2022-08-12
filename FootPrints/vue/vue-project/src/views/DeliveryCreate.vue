@@ -127,7 +127,7 @@ export default {
   methods: {
     register() {
       if (this.submitData()){
-        this.$store.dispatch('FETCH_USER')
+        this.$store.dispatch('FETCH_USER') //의도가 뭐지
           const post = {
             post_name: this.post_name,           // 글 제목
             post_content: this.post_content,     // 글 내용
@@ -137,9 +137,10 @@ export default {
             max_person_num: this.max_person_num, // 모집 인원
             valid_time: this.valid_time,         // 게시물 유효 시간
             view_num: this.view_num ,            // 조회수
-            nick:this.$store.state.member.nick
+            nick:this.$store.state.member.nick,
+            area : this.area_name
         }
-        console.log("POST\n",post);
+        console.log("POST\n",post); 
         this.$store.dispatch('POST_DELIVERY_POST', post)
 				Swal.fire({
           icon: 'success',

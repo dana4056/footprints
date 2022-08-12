@@ -38,11 +38,12 @@ public class Post {
     @JoinColumn(name="MEMBER_NICK")
 //    @JsonIgnore
     private Member member;
+    private String post_area;
 
 
     @Builder
     public Post(String post_name, String post_content, String category, String take_loc,
-                int participant_num, int max_person_num, String valid_time, int view_num, Member member){
+                int participant_num, int max_person_num, String valid_time, int view_num, Member member, String post_area){
         this.post_name = post_name;
         this.post_content = post_content;
         this.category = category;
@@ -52,6 +53,7 @@ public class Post {
         this.valid_time = valid_time;
         this.view_num = view_num;
         this.member = member;
+        this.post_area = post_area;
     }
 
     public void Update(PostDTO postDTO){

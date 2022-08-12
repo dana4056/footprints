@@ -1,6 +1,6 @@
 package footprints.footprints.security.jwt;
 
-import footprints.footprints.repository.member.MemberRepositoryImpl;
+import footprints.footprints.repository.member.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 public class CustomUserDetailService implements UserDetailsService {
 
 //    private final UserRepository userRepository;
-    private final MemberRepositoryImpl memberRepository;
+    private final MemberRepository memberRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

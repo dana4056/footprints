@@ -1,11 +1,12 @@
 회원가입은 member_role 부여 이슈로 직접 해야함
 
 -- 글 작성 편하게 사용자 이름쪽만 건드리면 test 가능
-INSERT INTO `test_db`.`post` (`post_id`, `category`, `created_date`,`max_person_num`, `participant_num`, `post_content`, `post_name`, `take_loc`, `valid_time`, `view_num`, `member_nick`)
-VALUES (1, 'CHI', '2022-07-27 02:30:46', 5, 1, 'cc', '중국음식 배달시간3', 'zzz', '2022-08-05T11:38', 0, '악마선진');
-INSERT INTO `test_db`.`post` (`post_id`, `category`, `created_date`,`max_person_num`, `participant_num`, `post_content`, `post_name`, `take_loc`, `valid_time`, `view_num`, `member_nick`)
-VALUES (2, 'KOR', '2022-07-27 02:31:46', 5, 1, 'cc', '한국음식 배달시간4', 'zzz', '2022-08-06T11:35', 0, '악마선진');
-INSERT INTO `test_db`.`post` (`post_id`, `category`, `created_date`,`max_person_num`, `participant_num`, `post_content`, `post_name`, `take_loc`, `valid_time`, `view_num`, `member_nick`)
-VALUES (3, 'CHI', '2022-07-27 02:32:46', 5, 1, 'cc', '중국음식 배달시간2', 'zzz', '2022-08-04T11:38', 0, '악마선진');
-INSERT INTO `test_db`.`post` (`post_id`, `category`, `created_date`,`max_person_num`, `participant_num`, `post_content`, `post_name`, `take_loc`, `valid_time`, `view_num`, `member_nick`)
-VALUES (4, 'KOR', '2022-07-27 02:33:46', 5, 1, 'cc', '한국음식 배달시간1', 'zzz', '2022-08-04T11:35', 0, '악마선진');
+-- 글 작성 편하게 사용자 이름쪽만 건드리면 test 가능
+INSERT INTO `test_db`.`post` (`post_id`, `category`, `created_date`,`max_person_num`, `participant_num`, `post_content`, `post_name`, `take_loc`, `valid_time`, `view_num`, `member_nick`, `post_area`)
+VALUES (1, 'CHI', '2022-07-27 02:30:46', 5, 1, 'cc', '중국음식 배달시간3', 'zzz', '2022-08-05T11:38', 0, '악마선진', '서울 성북구 정릉동');
+INSERT INTO `test_db`.`post` (`post_id`, `category`, `created_date`,`max_person_num`, `participant_num`, `post_content`, `post_name`, `take_loc`, `valid_time`, `view_num`, `member_nick`, `post_area`)
+VALUES (2, 'KOR', '2022-07-27 02:31:46', 5, 1, 'cc', '한국음식 배달시간4', 'zzz', '2022-08-06T11:35', 0, '악마선진', '서울 성북구 정릉동');
+INSERT INTO `test_db`.`post` (`post_id`, `category`, `created_date`,`max_person_num`, `participant_num`, `post_content`, `post_name`, `take_loc`, `valid_time`, `view_num`, `member_nick`, `post_area`)
+VALUES (3, 'CHI', '2022-07-27 02:32:46', 5, 1, 'cc', '중국음식 배달시간2', 'zzz', '2022-08-04T11:38', 0, '악마선진', '서울 성북구 정릉동');
+INSERT INTO `test_db`.`post` (`post_id`, `category`, `created_date`,`max_person_num`, `participant_num`, `post_content`, `post_name`, `take_loc`, `valid_time`, `view_num`, `member_nick`, `post_area`)
+VALUES (4, 'KOR', '2022-07-27 02:33:46', 5, 1, 'cc', '한국음식 배달시간1', 'zzz', '2022-08-04T11:35', 0, '악마선진', '서울 성북구 정릉동');
