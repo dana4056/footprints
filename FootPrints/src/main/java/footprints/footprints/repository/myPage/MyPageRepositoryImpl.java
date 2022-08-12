@@ -1,6 +1,5 @@
 package footprints.footprints.repository.myPage;
 
-import footprints.footprints.domain.member.MemberDTO;
 import footprints.footprints.domain.post.Post;
 import footprints.footprints.domain.roomInfo.RoomInfo;
 import lombok.extern.slf4j.Slf4j;

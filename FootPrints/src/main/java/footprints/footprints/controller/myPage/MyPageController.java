@@ -1,6 +1,6 @@
 package footprints.footprints.controller.myPage;
 
-import footprints.footprints.domain.member.MemberDTO;
+import footprints.footprints.domain.member.DTO.MemberDTO;
 import footprints.footprints.domain.post.Post;
 import footprints.footprints.service.MyPage.MyPageService;
 import lombok.RequiredArgsConstructor;
@@ -39,16 +39,9 @@ public class MyPageController {
 
     @PostMapping(value = "/myPage/changeMyInfo") // 마이페이지 메인페이지 접속시
     public ResponseEntity<String> changeMyInfo(@RequestBody MemberDTO memberDTO){
-        boolean changeInfo = myPageService.changeInfo(memberDTO);
-        log.info("-----------changeMyInfo-----{}", myPageService.changeInfo(memberDTO));
-        if (changeInfo == true) {
-            return new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
-        }
-        else {
-            return new ResponseEntity<String>("FAIL", HttpStatus.OK);
-        }
+        myPageService.changeInfo(memberDTO);
 
-
+        return new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
     }
 }
 

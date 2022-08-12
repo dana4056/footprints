@@ -1,6 +1,6 @@
 package footprints.footprints.service.MyPage;
 
-import footprints.footprints.domain.member.MemberDTO;
+import footprints.footprints.domain.member.DTO.MemberDTO;
 import footprints.footprints.domain.post.Post;
 
 import java.util.List;
@@ -11,5 +11,5 @@ public interface MyPageService {
 
     List<Post> getAttendPost(String nick);
 
-    boolean changeInfo(MemberDTO memberDTO);
+    void changeInfo(MemberDTO memberDTO);
 }
