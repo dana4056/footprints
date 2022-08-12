@@ -41,7 +41,8 @@ export default {
     register() {
         const noticeDTO = {
           title: this.notice_title,           // 글 제목
-          author: this.$store.state.member.nick,
+          // author: this.$store.state.member.nick,
+          author: "임시로 넣어봤다네",
           post_time: dayjs(),
           content: this.notice_content,     // 글 내용
           view_num: 0,
@@ -52,9 +53,9 @@ export default {
 				Swal.fire({
           icon: 'success',
           title: '공지사항이 등록되었습니다.',
-          confirmButtonText: '홈페이지로 가기',
+          confirmButtonText: '공지사항으로 가기',
         }).then(() => {
-          this.$router.replace("/home");
+          this.$router.replace("/notice/post");
         })
 			},
       submitData(){

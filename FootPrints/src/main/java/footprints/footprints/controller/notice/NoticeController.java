@@ -42,6 +42,7 @@ public class NoticeController {
 
     @PostMapping("/notice/create")
     public ResponseEntity<String> CreateNotice(@RequestBody NoticeDTO noticeDTO){
+        log.info("notice/create whit {}", noticeDTO);
         noticeService.join(noticeDTO);
         return new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
     }

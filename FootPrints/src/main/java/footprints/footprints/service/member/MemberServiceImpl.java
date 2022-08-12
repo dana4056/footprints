@@ -1,8 +1,10 @@
 package footprints.footprints.service.member;
 
 
+import footprints.footprints.domain.member.DTO.ReqChangePwDTO;
+import footprints.footprints.domain.member.DTO.ReqLoginMemberDTO;
 import footprints.footprints.domain.member.Member;
-import footprints.footprints.domain.member.MemberDTO;
+import footprints.footprints.domain.member.DTO.MemberDTO;
 import footprints.footprints.repository.member.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,8 +19,8 @@ public class MemberServiceImpl implements MemberService{
     private final MemberRepository memberRepository;
 
     @Override
-    public void join(Member member){
-        memberRepository.save(member);
+    public void join(MemberDTO memberDTO){
+        memberRepository.save(memberDTO);
     }
 
     @Override
@@ -44,8 +46,8 @@ public class MemberServiceImpl implements MemberService{
 
     @Transactional(readOnly = true)
     @Override
-    public int loginCheck(MemberDTO memberDTO) {
-        Member member = memberRepository.findByNick(memberDTO.getNick());
+    public int loginCheck(ReqLoginMemberDTO loginMemberDTO) {
+        Member member = memberRepository.findByNick(loginMemberDTO.getNick());
 
         if(member == null){
             return 0;  //닉네임 존재x
@@ -53,7 +55,7 @@ public class MemberServiceImpl implements MemberService{
         else{
             String real_pwd = member.getPw();
 
-            if(memberDTO.getPw().equals(real_pwd)){
+            if(loginMemberDTO.getPw().equals(real_pwd)){
                 return 1; //로그인 성금
             }
             else{
@@ -96,12 +98,12 @@ public class MemberServiceImpl implements MemberService{
     }
 
     @Override
-    public void changeDBPwd(MemberDTO memberDTO) {
-        String email = memberDTO.getEmail();
+    public void changeDBPwd(ReqChangePwDTO changePwDTO) {
+        String email = changePwDTO.getEmail();
         Member member = memberRepository.findByEmail(email);
         log.info("before password : {}", member.getPassword());
-        member.Update(memberDTO);
-        log.info("new password : {}", member.getPassword());
-        memberRepository.save(member);
+        log.info("new password : {}", changePwDTO.getPw());
+        MemberDTO changePwMemberDTO = new MemberDTO(member.getNick(), email, changePwDTO.getPw(), member.getArea());
+        memberRepository.save(changePwMemberDTO);
     }
 }

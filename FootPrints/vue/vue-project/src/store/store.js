@@ -77,8 +77,9 @@ export const store = new Vuex.Store({
         SET_DUPLI_EMAIL(state, bool){
             state.isDuplicateEmail = bool;
         },
-        SET_MEMBER(state, member){
-            state.member = member;
+        SET_MEMBER(state, loginMember){
+            state.member.nick = loginMember.nick;
+            state.member.pw = loginMember.pw;
         },
         SET_SIDO_LIST(state, List){
             state.sidoList = List;

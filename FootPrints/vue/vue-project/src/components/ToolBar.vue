@@ -3,6 +3,7 @@
   <div class="header">
       <!-- router-link는 자동으로 a태그로 변환하고 부가적인 기능 제공 -->
     <router-link to="/home" class="logo"><img src="../assets/logo.png">발자취</router-link>
+    <router-link to="/notice/post" class="">공지사항</router-link>
     <div v-if="!this.isLogin">
         <router-link to="/delivery/post" class="item"><button>배달 같이하기</button></router-link>
         <router-link to="/login" class="item">로그인</router-link> | 
@@ -28,11 +29,6 @@ export default {
         }
     },
     created(){
-        // const id = this.$cookies.get("JSESSIONID");
-        // if(id != null){
-        //     this.$cookies.set("JSESSIONID", id);
-        //     this.isLogin = true;
-        // }
         console.log("toolbar created")
         if(localStorage.getItem('jwt') != null){
             this.$store.dispatch('FETCH_NICK')
@@ -41,7 +37,6 @@ export default {
             }
         }
         
-        // axios.get
     },
     methods: {
         logout(){
@@ -50,7 +45,6 @@ export default {
             this.$router.go(0);       
         }
     }
-
 
 }
 </script>

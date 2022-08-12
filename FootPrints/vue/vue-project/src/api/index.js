@@ -20,7 +20,7 @@ const config = {
 //     geomfilter:"BOX(13663271.680031825,3894007.9689600193,14817776.555251127,4688953.0631258525)",
 //   }	
 
-// 2. API 함수들을 정리
+
 function fetchUser(){
     return axios.get(`${config.baseUrl}/user`, {
         headers: {
@@ -47,11 +47,7 @@ function findUserArea(nick){
 }
 
 function postNotice(noticeDTO){
-    return axios.post(`${config.baseUrl}/notice/create`, noticeDTO, {
-        headers: {
-            'Content-Type': 'text/plain'
-        }
-    });
+    return axios.post(`${config.baseUrl}/notice/create`, noticeDTO);
 }
 
 function postEmail(email){
@@ -70,8 +66,8 @@ function postNick(nick){
     });
 }
 
-function postLogin(member){
-    return axios.post(`${config.baseUrl}/login`, member);
+function postLogin(loginMember){
+    return axios.post(`${config.baseUrl}/login`, loginMember);
 }
 
 function postMemberInfo(member){
@@ -94,8 +90,8 @@ function findPW(email){
     });
 }
   
-function changePWD(memberDTO){
-    return axios.post(`${config.baseUrl}/ChangePW`, memberDTO);
+function changePWD(changePwMemberDTO){
+    return axios.post(`${config.baseUrl}/ChangePW`, changePwMemberDTO);
 }
 
 function fetchDeliveryList(){
@@ -164,6 +160,7 @@ function fetchDeliveryList_Area(area) {
 
   function findRoom(list) {
     console.log("postIDList: " + list);
+    // const data = JSON.stringify(list)  //JSON으로 변환
     return axios.post(`${config.baseUrl}/chat/get-PostInfoList`, list);
   }
 

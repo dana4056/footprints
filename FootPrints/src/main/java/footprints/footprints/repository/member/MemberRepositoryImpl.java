@@ -1,10 +1,10 @@
 package footprints.footprints.repository.member;
 
 import footprints.footprints.domain.member.Member;
-import footprints.footprints.domain.member.MemberDTO;
-import footprints.footprints.domain.post.Post;
+import footprints.footprints.domain.member.DTO.MemberDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -19,9 +19,9 @@ public class MemberRepositoryImpl implements MemberRepository {
     private EntityManager em;
 
     @Override
-    public void save(Member member) {
-        //Member member = memberDTO.toEntity();
-        member.setRoles();
+    public void save(MemberDTO memberDTO) {
+        Member member = memberDTO.toEntity();
+//        member.setRoles();
         if(member.getNick() == null){
             log.info("새로운 member 저장");
             em.persist(member);

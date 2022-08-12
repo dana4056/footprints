@@ -110,25 +110,29 @@ export default{
         .catch( error=>{console.log('API:POST_MEMBER\n회원가입 실패',error);} )
   }, 
   // 로그인
-  POST_LOGIN({commit}, member) {
-    postLogin(member)
+  POST_LOGIN({commit}, loginMember) {
+    postLogin(loginMember)
         .then(response => {
-          console.log('API:POST_LOGIN\n로그인 성공',response);
-            
-          localStorage.setItem('jwt', response.data); // 로컬 스토리지에 저장
-          console.log(response.data);
-          
+            console.log('API:POST_LOGIN\n로그인 성공', response);
 
-          findUserArea(member.nick)
-            .then(response => {
-              console.log("지역 얻기 성공", response.data);
-              member.area = response.data;
-              commit('SET_MEMBER', member);
-            })
-            .catch(error => {
-              console.log("지역 읽기 실패", error);
-            })
-          router.replace("/home");
+            localStorage.setItem('jwt', response.data); // 로컬 스토리지에 저장
+
+            findUserArea(loginMember.nick)
+                .then(response => {
+                    console.log("지역 얻기 성공", response.data);
+                    const member = {
+                        nick: loginMember.nick,
+                        email: "",
+                        pw: "",
+                        area: response.data
+                    }
+                    commit('SET_MEMBER', member);
+                })
+                .catch(error => {
+                    console.log("지역 읽기 실패", error);
+                })
+
+            router.replace("/home");
         })
         .catch(error => { 
           const code = error.response.status;
@@ -143,6 +147,49 @@ export default{
           else{console.log("API:POST_LOGIN\n로그인 실패",error)}
         })
   },
+  // 로그아웃
+  // POST_LOGOUT() {
+  //   postLogout()
+  //       .then(response => {
+  //         console.log(response);
+  //       })
+  //       .catch(error => {
+  //         console.log(error);
+  //       })
+  // },
+  // 시/도 정보 가져오기
+  // FETCH_SIDO({commit}){
+  //   fetchSido()
+  //   .then(response =>{
+  //     console.log(response);
+  //     const sidoList = response.data.response.result.featureCollection.features;
+  //     commit("SET_SIDO_LIST", sidoList);
+  //     })
+  //   .catch(response => {
+  //     console.log(response)
+  //     const sidoList = response.data.response.result.featureCollection.features;
+  //     commit("SET_SIDO_LIST", sidoList);
+  //     })
+  // },
+  // // 시/군/구 정보 가져오기
+  // FETCH_SIGOONGU({commit}, code){
+  //   fetchSigoongu(code)
+  //   .then(response =>{
+  //     const sigoonguList = response.data.response.result.featureCollection.features;
+  //     commit("SET_SIGOONGU_LIST", sigoonguList);
+  //     })
+  //   .catch(error => {console.log(error)})
+  // },
+  // // 읍/면/리 정보 가져오기
+  // FETCH_EUPMYEONDONG({commit}, code){
+  //   fetchEupmyeondong(code)
+  //   .then(response =>{
+  //     const eupmyeondongList = response.data.response.result.featureCollection.features;
+  //     commit("SET_EUPMYEONDONG_LIST", eupmyeondongList);
+  //     })
+  //   .catch(error => {console.log(error)})
+  // },
+
   // 아이디 찾기
   FIND_NICK({ commit }, email) {
     return findID(email)
@@ -180,7 +227,6 @@ export default{
       .then(response =>{
         console.log("API:FETCH_DELIVERY_LIST\n배달 리스트 뷰 페이지 정보 받아오기 성공",response.data);
         commit('SET_DELIVERIES', response.data);
-        commit('SET_DELIVERIES_CATEGORY_AREA', response.data[0].post_area);
       })
       .catch(error =>{
         const code = error.response.status;
