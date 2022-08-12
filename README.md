@@ -8,25 +8,6 @@
 <br>
 백에서는 POST 도메인에 컬럼 하나 추가하면 로직 바꾸는게 어렵지 않을 것 같고,
 <br>
-프론트는 할 게 좀 많음
-create 과정에서 핀 꽂으면 위도 경도 -> 서울 성북구 정릉동 으로 찍는 코드 필요    
-찾아보니 카카오 API 관련해서 아래 링크에 자세히 설명 되어 있음    
-https://apis.map.kakao.com/web/sample/coord2addr/       
-<br>
-근데 서비스 라이브러리를 불러오지 못해서 Geocoder()이 안 먹음  
-찾아보니 아래 링크에 자세히 설명되어 있음  
-https://devtalk.kakao.com/t/geocoder/36665  
-<br>
-서비스 라이브러리 불러오는 코드는 찾아보니 다음과 같음  
-https://apis.map.kakao.com/web/guide/#whatlibrary  
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=APIKEY&libraries=services"></script>
-<br>
-근데 Vue.js는 싱글 파일 컴포넌트라 그래서인지 잘 모르겠지만 여러개의 스크립트 파일이 안 넣어짐   
-Webpack에 넣으려는 시도를 해봤으나 아직 좀 버거운 상태  
-<br>
-이거만 해결하면 일단 POST를 우리가 원하는 엔티티로 넘길 수 있음
-<br>
-<br>
 권한에 따른 공지사항 작성 위해 관리자 회원가입 시 role 부여 필요<br>        
 마이페이지 작업 필요 지역 추가 개념 넣고 필요시 토큰에 지역1,2,3 추가<br>                
 Security 관련 정확한 개념 정립 필요<br>           
