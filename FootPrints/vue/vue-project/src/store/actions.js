@@ -2,7 +2,7 @@ import { fetchNoticeList, fetchNoticeDetail, postNotice } from "../api/index.js"
 import { postEmail, postNick, postLogin, postMemberInfo } from "../api/index.js"
 // import { fetchSido, fetchSigoongu, fetchEupmyeondong } from "../api/index.js"
 import { findID, findPW, changePWD, findUserArea } from "../api/index.js"
-import { findUser, findChatLogs, postChatData } from "../api/index.js"
+import { findUser, findChatLogs, postChatData, findRoom, findPostID } from "../api/index.js"
 import { fetchUser, fetchDeliveryList, postDeliveryPost, fetchDeliveryDetail, fetchDeliveryList_Category, fetchDeliveryList_Time, fetchDeliveryList_Area } from "../api/index.js";
 import { fetchMyDPost, fetchMyPartici, changeMember } from "../api/index.js";
 import { router } from '../routes/index.js';

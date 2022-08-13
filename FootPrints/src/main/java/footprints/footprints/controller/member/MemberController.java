@@ -1,11 +1,11 @@
 package footprints.footprints.controller.member;
 
+import footprints.footprints.controller.security.jwt.JwtTokenProvider;
 import footprints.footprints.domain.member.DTO.ReqChangePwDTO;
 import footprints.footprints.domain.member.DTO.ReqLoginMemberDTO;
 import footprints.footprints.domain.member.DTO.ResLoginedMemberDTO;
 import footprints.footprints.domain.member.Member;
 import footprints.footprints.domain.member.DTO.MemberDTO;
-import footprints.footprints.security.jwt.JwtTokenProvider;
 import footprints.footprints.repository.member.MemberRepository;
 import footprints.footprints.service.member.MemberService;
 import lombok.RequiredArgsConstructor;

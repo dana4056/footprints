@@ -32,7 +32,7 @@ export const store = new Vuex.Store({
         delivery_category_sort: "",
         delivery_category_area: "",
         postIDList: [],
-        roomList: [],
+        // roomList: [],
         roomIndex: 0,
         userList: [" "],
         chatLogs: [],

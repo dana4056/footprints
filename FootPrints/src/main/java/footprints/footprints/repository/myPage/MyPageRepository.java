@@ -1,6 +1,5 @@
 package footprints.footprints.repository.myPage;
 
-import footprints.footprints.domain.member.MemberDTO;
 import footprints.footprints.domain.post.Post;
 
 import java.util.List;
