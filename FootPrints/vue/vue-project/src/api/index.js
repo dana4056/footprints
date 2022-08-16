@@ -140,31 +140,66 @@ function postDeliveryPost(post){
     });
 }
 
-  function postRoomInfo(roomInfo) {
-    return axios.post(`${config.baseUrl}/delivery/roomInfo/create`, roomInfo,{
+function postRoomInfo(roomInfo) {
+    return axios.post(`${config.baseUrl}/delivery/roomInfo/create`, roomInfo);
+}
+
+function amendDeliveryPost(post) {
+    return axios.post(`${config.baseUrl}/delivery/post/amend`, post, {
         headers: {
             'X-AUTH-TOKEN': localStorage.getItem('jwt')
         }
-    }
-    );
-  }
+    });
+}
 
-  function fetchDeliveryDetail(post_id){
+function deleteChatData(post_id) {
+    axios.post(`${config.baseUrl}/chat/delete`, post_id, {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+}
+
+function deleteRoomInfo(post_id) {
+    axios.post(`${config.baseUrl}/roomInfo/delete`, post_id, {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+}
+
+function deletePost(post_id) {
+    axios.post(`${config.baseUrl}/post/delete`, post_id, {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+}
+
+function joinDeliveryPost(roomInfo) {
+    axios.post(`${config.baseUrl}/roomInfo/join`, roomInfo);
+}
+
+function exitDeliveryPost(roomInfo) {
+    axios.post(`${config.baseUrl}/roomInfo/exit`, roomInfo);
+}
+
+function fetchDeliveryDetail(post_id){
     return axios.get(`${config.baseUrl}/delivery/post/${post_id}`,{
         headers: {
             'X-AUTH-TOKEN': localStorage.getItem('jwt')
         }
     });
-  }
+}
 
-  function findPostID(nick) {
+function findPostID(nick) {
     console.log("nick: " + nick);
 	return axios.post(`${config.baseUrl}/chat/get-PostIdlist`, nick , {
         headers: {
             'Content-Type': 'text/plain'
         }
     });
-  }
+}
 
   function findRoom(list) {
     console.log("postIDList: " + list);
@@ -228,23 +263,30 @@ export{
     postNick,
     postLogin,
     postMemberInfo,
-    // fetchSido,
-    // fetchSigoongu,
-    // fetchEupmyeondong,
     findID,
     findPW,
     changePWD,
-    fetchDeliveryList,
+    
     postDeliveryPost,
     postRoomInfo,
+    amendDeliveryPost,
+    deleteChatData,
+    deleteRoomInfo,
+    deletePost,
+    joinDeliveryPost,
+    exitDeliveryPost,
+
+    fetchDeliveryList,
     fetchDeliveryDetail,
     fetchDeliveryList_Category,
     fetchDeliveryList_Time,
+
     findPostID,
     findRoom,
     findUser,
     findChatLogs,
     postChatData,
+
     fetchDeliveryList_Area,
     fetchMyDPost,
     fetchMyPartici,

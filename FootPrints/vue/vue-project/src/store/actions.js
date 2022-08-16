@@ -3,7 +3,8 @@ import { postEmail, postNick, postLogin, postMemberInfo } from "../api/index.js"
 // import { fetchSido, fetchSigoongu, fetchEupmyeondong } from "../api/index.js"
 import { findID, findPW, changePWD, findUserArea } from "../api/index.js"
 import { findUser, findChatLogs, postChatData, findRoom, findPostID } from "../api/index.js"
-import { fetchUser, fetchDeliveryList, postDeliveryPost, fetchDeliveryDetail, fetchDeliveryList_Category, fetchDeliveryList_Time, fetchDeliveryList_Area } from "../api/index.js";
+import { fetchUser, fetchDeliveryList, fetchDeliveryDetail, fetchDeliveryList_Category, fetchDeliveryList_Time, fetchDeliveryList_Area } from "../api/index.js";
+import { postDeliveryPost,  postRoomInfo, amendDeliveryPost, deleteChatData, deleteRoomInfo, deletePost, joinDeliveryPost, exitDeliveryPost} from "../api/index.js";
 import { fetchMyDPost, fetchMyPartici, changeMember } from "../api/index.js";
 import { router } from '../routes/index.js';
 import { store } from "./store.js";
@@ -305,13 +306,13 @@ FETCH_DELIVERY_LIST_SORT_AREA({ commit }, area) {
     })
 },
 
-
   // 게시물 작성
   POST_DELIVERY_POST(content, post){
     postDeliveryPost(post)
     .then(response =>{
       console.log("API:POST_DELIVERY_POST\n게시물 등록 성공",response);
-      // 여기에 대대적인 수정이 필요..!s
+
+      // store.dispatch('POST_ROOMINFO', 하..);
     })
     .catch(error => {
       const code = error.response.status;
@@ -324,16 +325,78 @@ FETCH_DELIVERY_LIST_SORT_AREA({ commit }, area) {
       }
     })
   },
+
   // 글 작성시 방 정보 테이블에 row 추가
-  // POST_ROOMINFO(content, roomInfo){
-  //   postRoomInfo(roomInfo)
-  //   .then(response =>{
-  //     console.log("API:POST_ROOMINFO\n방 정보 등록 성공",response);
-  //   })
-  //   .catch(error => {
-  //     console.log("API:POST_ROOMINFO\n방 정보 등록 실패",error);
-  //   })
-  // },
+  POST_ROOMINFO(content, roomInfo){
+    postRoomInfo(roomInfo)
+    .then(response =>{
+      console.log("API:POST_ROOMINFO\n방 정보 등록 성공",response);
+    })
+    .catch(error => {
+      console.log("API:POST_ROOMINFO\n방 정보 등록 실패",error);
+    })
+  },
+
+  // 글 수정
+  AMEND_DELIVERY_POST(content, post) {
+    amendDeliveryPost(post)
+    .then(response => {
+      console.log("API:AMEND_DELIVERY_POST\n게시물 수정 성공", response);
+    })
+    .catch(error => {
+      console.log("API:AMEND_DELIVERY_POST\n게시물 수정 실패", error);
+    })
+  },
+
+  // 글 삭제: 채팅 로그 삭제 -> 방 정보 삭제 -> 글 삭제 순으로 이루어져야할 것 같아서 아래와 같이 작성
+  DELETE_DELIVERY_POST(content, post_id){
+    deleteChatData(post_id)
+      .then(response => {
+        console.log('API:DELETE_DELIVERY_POST\n채팅 로그 삭제 성공', response);
+
+        deleteRoomInfo(post_id)
+        .then(response => {
+          console.log('API:DELETE_DELIVERY_POST\n방 정보 삭제 성공', response);
+
+          deletePost(post_id)
+          .then(response => {
+            console.log('API:DELETE_DELIVERY_POST\n글 삭제 성공', response);
+          })
+          .catch(error => {
+            console.log('API:DELETE_DELIVERY_POST\n글 삭제 실패', error);
+          })
+        })
+        .catch(error => {
+          console.log('API:DELETE_DELIVERY_POST\n방 정보 삭제 실패', error);
+        })
+      })
+      .catch(error => {
+        console.log('API:DELETE_DELIVERY_POST\n채팅 로그 삭제 실패', error);
+      })
+  },
+
+  // 참여하기
+  JOIN_DELIVERY_POST(content, roomInfo) {
+    joinDeliveryPost(roomInfo)
+    .then(response => {
+        console.log('API:JOIN_DELIVERY_POST\n배달 참여 성공',response);
+      })
+      .catch(error => {
+        console.log('API:JOIN_DELIVERY_POST\n배달 참여 실패',error);
+      })
+  },
+  
+  // 참여 취소하기
+  EXIT_DELIVERY_POST(content, roomInfo) {
+    exitDeliveryPost(roomInfo)
+      .then(response => {
+        console.log('API:EXIT_DELIVERY_POST\n참여 취소 성공',response);
+      })
+      .catch(error => {
+        console.log('API:EXIT_DELIVERY_POST\n참여 취소 실패',error);
+      })
+  },
+
   // 상세 페이지 데이터 로드
   FETCH_DELIVERY_DETAIL({commit}, post_id){
     fetchDeliveryDetail(post_id)
@@ -353,6 +416,7 @@ FETCH_DELIVERY_LIST_SORT_AREA({ commit }, area) {
         }
       })
   },
+  
   FIND_POST_ID({ commit }, nick) {
     findPostID(nick)
       .then(response => {

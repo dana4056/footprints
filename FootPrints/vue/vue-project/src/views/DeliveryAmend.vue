@@ -142,11 +142,11 @@ export default {
             area : this.area_name
         }
         console.log("POST\n",post); 
-        this.$store.dispatch('POST_DELIVERY_POST', post)
+        // this.$store.dispatch('AMEND_DELIVERY_POST', post);
 
 				Swal.fire({
           icon: 'success',
-          title: '글이 등록되었습니다.',
+          title: '글이 수정되었습니다.',
           confirmButtonText: '배달 모집 목록 보러가기',
         }).then(() => {
           this.$router.replace("/delivery/post");
@@ -157,6 +157,7 @@ export default {
       }
     },
 		submitData() {
+      // console.log("submit data" + this.valid_time);
       if (this.post_name != "" && this.post_content != "" && 
           this.category != "카테고리" && this.take_loc != "" &&
           this.valid_time != ""){

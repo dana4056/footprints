@@ -15,6 +15,7 @@
               <!-- 여기서 값들 스트링으로 안 넣고 data.categories로 넣을 수 있을거같은데 -->
               <option value="KOR">한식</option>
               <option value="CHI">중식</option>
+              <option value="JAP">일식</option>
               <option value="ETC">기타</option> 
             </select>  
           </div>

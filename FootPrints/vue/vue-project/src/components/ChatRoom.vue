@@ -22,10 +22,12 @@ export default {
   },
   created() {
     this.dataNum = this.$store.state.postIdList.length;
-    this.chekcedArr[this.$store.state.roomIndex] = true;
     for (let i = 0; i < this.dataNum; i++) {
       if (i != 0) {
         this.chekcedArr[i] = false;
+      }
+      else {
+        this.chekcedArr[i] = true;
       }
     }
   },

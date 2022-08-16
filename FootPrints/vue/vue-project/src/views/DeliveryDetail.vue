@@ -30,8 +30,25 @@
           <img src="../assets/people.png" alt="">
           <span>{{fetched.participant_num}} / {{fetched.max_person_num}}</span>
         </div>
-        <button type="button" id="join">참여하기</button>
-        <button type="button" id="seePlace">나눔 장소 보기</button>
+
+        <div v-if="this.$store.state.member.nick == fetched.member.nick">
+          <button type="button" id="delete" v-on:click="deletePost">삭제</button>
+          <button type="button" id="amend" v-on:click="amendPost">수정</button>
+        </div>
+        <div v-else>
+          <div v-if="isJoin">
+            <button type="button" id="chat" v-on:click="moveChat">채팅방 이동</button>
+          </div>
+          <div v-else>
+            <div v-if="fetched.max_person_num > fetched.participant_num">
+              <button type="button" id="join" v-on:click="joinPost">참여하기</button>
+            </div>
+            <div v-else>
+              <button id="block">참여 불가</button>
+            </div>
+          </div>
+        </div>
+        <button type="button" id="seePlace" v-on:click="seePlace">나눔 장소 보기</button>
       </div>
       
     </div>
@@ -41,10 +58,11 @@
 </template>
 
 <script>
-import ToolBar from '../components/ToolBar.vue'
-import FooterArea from '../components/FooterArea.vue'
-import ToDelivery from '../components/ToDelivery.vue'
-import dayjs from 'dayjs'
+import ToolBar from '../components/ToolBar.vue';
+import FooterArea from '../components/FooterArea.vue';
+import ToDelivery from '../components/ToDelivery.vue';
+import Swal from 'sweetalert2';
+import dayjs from 'dayjs';
 
 export default {
   components:{
@@ -59,16 +77,24 @@ export default {
   },
   data() {
     return {
+      isJoin: false,
+      post_id: 0,
       categories:{
         'KOR': '한식',
         'CHI': '중식',
       },
-
     }
   },
   created(){
-    const post_id = this.$route.params.id;
-    this.$store.dispatch('FETCH_DELIVERY_DETAIL', post_id);
+    this.post_id = this.$route.params.id;
+    console.log(this.post_id);
+    this.$store.dispatch('FETCH_DELIVERY_DETAIL', this.post_id);
+
+    for(var i = 0; i < this.$store.state.postIdList.length; i++){
+      if(this.$store.state.postIdList[i] == this.post_id) {
+        this.isJoin = true;
+      }
+    }
   },
   methods:{
     calDay(){
@@ -99,6 +125,42 @@ export default {
           const ago_D = now.diff(created,"d");
           return String(ago_D)+"일 ";
       }
+    },
+    amendPost() {
+      this.$router.replace("/delivery/post/amend/" + this.post_id);
+    },
+    deletePost() {
+      // this.$store.dispatch('DELETE_DELIVERY_POST', this.post_id);
+
+      Swal.fire({
+        icon: 'success',
+        title: '글 삭제 완료!',
+        confirmButtonText: '배달 모집 목록 보러가기',
+      }).then(() => {
+        this.$router.replace("/delivery/post");
+      })
+    },
+    joinPost() {
+      const roomInfo = {
+        nick: this.$store.state.member.nick,
+        post_id: this.post_id
+      };
+      console.log(roomInfo);
+      // this.$store.dispatch('JOIN_DELIVERY_POST', roomInfo);
+
+      Swal.fire({
+        icon: 'success',
+        title: '참여 완료!',
+        confirmButtonText: '배달 모집 목록 보러가기',
+      }).then(() => {
+        this.$router.replace("/delivery/post");
+      })
+    },
+    moveChat() {
+      this.$router.replace("/chat/" + this.$store.state.member.nick);
+    },
+    seePlace() {
+      console.log("seePlace");
     }
   }
 }
@@ -119,8 +181,11 @@ export default {
   margin-bottom: 30px;
   width: 100%;
 }
-#headBox > *, #footBox > * {
+#headBox > * {
   float: left;
+}
+#footBox > * {
+  float: right;
 }
 #headBox {
   line-height: 40px;
@@ -164,13 +229,14 @@ export default {
   margin-right: 10px;
 }
 #parti{
+  float: left;
   margin-top: 4px;
 }
 #parti > *{
   vertical-align: middle;
 }
 
-#footBox > button {
+#footBox button{
   float: right;
   height: 40px;
   border-radius: 20px;
@@ -206,24 +272,24 @@ export default {
 #remTime {
   font-size: 3px;
 }
-
 #orderTime {
   color: rgba(255, 23, 23, 0.635);
   position:absolute;
   bottom:0px;
   right:30px;
 }
-/* hr {
-  margin-bottom: 25px;
-} */
-
 #seePlace {
   border: 1px solid #aaa;
   background-color: #fff;
 }
-#join {
+#join, #chat, #amend, #delete {
   border: none;
   background-color: #ccc;
+}
+#block {
+  pointer-events: none;
+  border: none;
+  background-color: rgba(255, 127, 127, 0.826);
 }
 #footer{
     height: 300px;
