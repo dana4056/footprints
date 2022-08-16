@@ -140,10 +140,6 @@ function postDeliveryPost(post){
     });
 }
 
-function postRoomInfo(roomInfo) {
-    return axios.post(`${config.baseUrl}/delivery/roomInfo/create`, roomInfo);
-}
-
 function amendDeliveryPost(post) {
     return axios.post(`${config.baseUrl}/delivery/post/amend`, post, {
         headers: {
@@ -268,7 +264,6 @@ export{
     changePWD,
     
     postDeliveryPost,
-    postRoomInfo,
     amendDeliveryPost,
     deleteChatData,
     deleteRoomInfo,

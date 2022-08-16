@@ -4,7 +4,7 @@ import { postEmail, postNick, postLogin, postMemberInfo } from "../api/index.js"
 import { findID, findPW, changePWD, findUserArea } from "../api/index.js"
 import { findUser, findChatLogs, postChatData, findRoom, findPostID } from "../api/index.js"
 import { fetchUser, fetchDeliveryList, fetchDeliveryDetail, fetchDeliveryList_Category, fetchDeliveryList_Time, fetchDeliveryList_Area } from "../api/index.js";
-import { postDeliveryPost,  postRoomInfo, amendDeliveryPost, deleteChatData, deleteRoomInfo, deletePost, joinDeliveryPost, exitDeliveryPost} from "../api/index.js";
+import { postDeliveryPost,  amendDeliveryPost, deleteChatData, deleteRoomInfo, deletePost, joinDeliveryPost, exitDeliveryPost} from "../api/index.js";
 import { fetchMyDPost, fetchMyPartici, changeMember } from "../api/index.js";
 import { router } from '../routes/index.js';
 import { store } from "./store.js";
@@ -312,7 +312,7 @@ FETCH_DELIVERY_LIST_SORT_AREA({ commit }, area) {
     .then(response =>{
       console.log("API:POST_DELIVERY_POST\n게시물 등록 성공",response);
 
-      // store.dispatch('POST_ROOMINFO', 하..);
+      // store.dispatch('JOIN_DELIVERY_POST', 하..);
     })
     .catch(error => {
       const code = error.response.status;
@@ -323,17 +323,6 @@ FETCH_DELIVERY_LIST_SORT_AREA({ commit }, area) {
       else{
         console.log("API:POST_DELIVERY_POST\n게시물 등록 실패",error);
       }
-    })
-  },
-
-  // 글 작성시 방 정보 테이블에 row 추가
-  POST_ROOMINFO(content, roomInfo){
-    postRoomInfo(roomInfo)
-    .then(response =>{
-      console.log("API:POST_ROOMINFO\n방 정보 등록 성공",response);
-    })
-    .catch(error => {
-      console.log("API:POST_ROOMINFO\n방 정보 등록 실패",error);
     })
   },
 
