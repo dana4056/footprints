@@ -47,10 +47,10 @@ public class PostController {
 
     // 이거 어디서 쓰이는거지?
     @PostMapping(value = "/delivery/post/{post_id}/update")
-    public ResponseEntity<String> update(@RequestBody Long post_id, PostDTO postDTO){
+    public ResponseEntity<String> update(@RequestBody PostDTO postDTO){
         log.info("--------Id:{}", postDTO.getPost_name());
         log.info("--------Id:{}", postDTO.getCategory());
-        postService.update(post_id, postDTO);
+        postService.update(postDTO);
         return new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
     }
 
@@ -105,7 +105,7 @@ public class PostController {
     // 글 수정하기
     @PostMapping(value = "/delivery/post/amend")
     public ResponseEntity<String> deliveryAmendPost(@RequestBody PostDTO postDTO){
-        postService.join(postDTO);
+        postService.update(postDTO);
         return new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
     }
 }
