@@ -36,7 +36,7 @@ const routes = [
     {   path: '/findPW', component: FindPW  },
     {   path: '/changePW', component: ChangePW  },
     {   path: '/delivery/post/create', component: DeliveryCreate } ,
-    {   path: '/delivery/post/amend/:id', component: DeliveryAmend } ,
+    {   path: '/delivery/post/amend/:post_id', component: DeliveryAmend } ,
     {   path: '/delivery/post', component: DeliveryList    },
     {   path: '/delivery/post/:id', component: DeliveryDetail  },
     {   path: '/myPage/:nick', component: MyPage  },

@@ -16,6 +16,7 @@ import javax.persistence.EntityListeners;
 
 public class PostDTO {
 
+    private Long post_id;
     private String post_name;     // 글 제목
     private String post_content;  // 글 내용
     private String category;      // 음식 카테고리

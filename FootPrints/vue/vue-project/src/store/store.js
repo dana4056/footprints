@@ -24,13 +24,12 @@ export const store = new Vuex.Store({
         eupmyeondongList:{},
         sessionId:"",
         deliveryPostList:[],
-        // deliveryPost_presentArea: "",
+        deliveryPost_presentArea: "",
         deliveryPost:{},
         postIdList: [0],
         roomList: [{post_id: 0, post_name: " "}],
         delivery_category: "",
         delivery_category_sort: "",
-        delivery_category_area: "",
         postIDList: [],
         // roomList: [],
         roomIndex: 0,
@@ -121,6 +120,9 @@ export const store = new Vuex.Store({
         SET_PWCHANGE_DONE(state, string){
             state.pwchange_done = string;
         },
+        SET_DELIVERY_AREA(state, area){
+            state.deliveryPost_presentArea = area;
+        },
         SET_DELIVERIES(state, list){
             state.deliveryPostList = list;
             // console.log(list[0].area_Name);
@@ -141,9 +143,6 @@ export const store = new Vuex.Store({
             state.deliveryPost = post;
             state.deliveryPost.createdDate = Cdate;
             state.deliveryPost.valid_time = Vdate;
-        },
-        SET_DELIVERIES_CATEGORY_AREA(state, category_area){
-            state.delivery_category_area = category_area;
         },
         SET_FIND_POSTID(state, list) {
             state.postIdList = list;

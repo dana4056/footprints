@@ -49,7 +49,7 @@
             <div class="res-name"><router-link v-bind:to="`/delivery/post/${delivery.post_id}`">{{ delivery.post_name }}</router-link></div>
             <div class="category" v-bind:class="delivery.category">{{this.categories[delivery.category]}}</div>
             <div class="time"><small>마감기한 : {{  delivery.valid_time.format("M/D  HH:mm")}}</small></div>
-          </div>
+          </div> 
           <router-link v-bind:to="`/delivery/post/${delivery.post_id}`"><p>{{ delivery.post_content }}</p></router-link>
           <div class="listbox-foot">
             <div class="detail-info">
@@ -98,7 +98,7 @@ export default {
     } 
   },
   beforeCreate(){
-    this.$store.dispatch('FETCH_DELIVERY_LIST');
+    this.$store.dispatch('FETCH_DELIVERY_LIST', this.$store.state.deliveryPost_presentArea);
   },
   created() {
     this.$store.dispatch('FIND_POST_ID', this.$store.state.member.nick);
@@ -162,11 +162,13 @@ export default {
           const eupmyeondong = data.bname;
           
           this.area = sido+" "+sigoongu+" "+eupmyeondong;
-          this.$store.dispatch('FETCH_DELIVERY_LIST_SORT_AREA', this.area);
+          // this.$store.dispatch('FETCH_DELIVERY_LIST_SORT_AREA', this.area);
           console.log(this.area);
 
           setTimeout(() => { 
-            this.$store.getters.GET_DELIVERIES;
+            // this.$store.getters.GET_DELIVERIES;
+            this.$store.state.deliveryPost_presentArea = this.area;
+            this.$router.push("/delivery/post");
           }, 200);  
         }
       }).open();

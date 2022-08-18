@@ -31,14 +31,11 @@ public class PostController {
 
 
     // 리스트뷰
-    @GetMapping(value = "/delivery/post")
-    public ResponseEntity<List<Post>> deliveryListView(Authentication authentication){
-        Member member = (Member) authentication.getPrincipal();
-        List<Post> postList = postService.getPostList(member.getArea());
+    @PostMapping(value = "/delivery/post")
+    public ResponseEntity<List<Post>> deliveryListView(@RequestBody String area){
+        List<Post> postList = postService.getPostList(area);
         return new ResponseEntity<List<Post>>(postList, HttpStatus.OK);
     }
-
-
 
     // 상세페이지
     @GetMapping(value = "/delivery/post/{post_id}")
@@ -48,7 +45,7 @@ public class PostController {
         return new ResponseEntity<Post>(post, HttpStatus.OK);
     }
 
-
+    // 이거 어디서 쓰이는거지?
     @PostMapping(value = "/delivery/post/{post_id}/update")
     public ResponseEntity<String> update(@RequestBody Long post_id, PostDTO postDTO){
         log.info("--------Id:{}", postDTO.getPost_name());
@@ -97,5 +94,19 @@ public class PostController {
         return new ResponseEntity<List<Post>>(postList, HttpStatus.OK);
     }
 
+
+    // 글 수정 상세페이지
+    @GetMapping(value = "/delivery/post/amend/{post_id}")
+    public ResponseEntity<Post> deliveryAmendDetailPage(@PathVariable Long post_id){
+        Post post = postService.getPost(post_id);
+        return new ResponseEntity<Post>(post, HttpStatus.OK);
+    }
+
+    // 글 수정하기
+    @PostMapping(value = "/delivery/post/amend")
+    public ResponseEntity<String> deliveryAmendPost(@RequestBody PostDTO postDTO){
+        postService.join(postDTO);
+        return new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+    }
 }
 

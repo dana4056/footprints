@@ -3,10 +3,7 @@ package footprints.footprints.domain.post;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import footprints.footprints.domain.member.Member;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -14,6 +11,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
+@AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @ToString(exclude = "member")
@@ -43,6 +41,22 @@ public class Post {
     @Builder
     public Post(String post_name, String post_content, String category, String take_loc,
                 int participant_num, int max_person_num, String valid_time, int view_num, Member member, String post_area){
+        this.post_name = post_name;
+        this.post_content = post_content;
+        this.category = category;
+        this.take_loc = take_loc;
+        this.participant_num = participant_num;
+        this.max_person_num = max_person_num;
+        this.valid_time = valid_time;
+        this.view_num = view_num;
+        this.member = member;
+        this.post_area = post_area;
+    }
+
+    @Builder
+    public Post(Long post_id, String post_name, String post_content, String category, String take_loc,
+                int participant_num, int max_person_num, String valid_time, int view_num, Member member, String post_area){
+        this.post_id = post_id;
         this.post_name = post_name;
         this.post_content = post_content;
         this.category = category;

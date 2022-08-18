@@ -47,7 +47,7 @@
           <input v-model="post_name" id="post_name" placeholder="제목을 입력하세요.">
           <hr>
           <textarea v-model="post_content" id="post_content" type="text" placeholder="배달팁, 최소주문 금액을 적어주세요!"></textarea>
-          <button type="submit" v-on:click.prevent="register">등록</button>
+          <button type="submit" v-on:click.prevent="register">수정</button>
         </div>
       </div>
     </div>
@@ -63,6 +63,11 @@ export default {
   components:{
         ToolBar,
   },
+  // created:{
+  //   fetched(){
+  //     return this.$store.getters.GET_DELIVERY_POST;
+  //   },
+  // },
   mounted() {
     let $vm = this;
     // 날짜 입력 최소값 지정(현시간)
@@ -107,17 +112,18 @@ export default {
   },
   data() {
     return {
-      post_name: "",     // 글 제목
-      post_content: "",  // 글 내용
-      category: "카테고리",      // 음식 카테고리
-      take_loc: "",      // 음식 나눌 장소
-      participant_num: 0,  // 현재 참가 인원
-      max_person_num: 0,   // 모집 인원
-      valid_time: "",       // 게시물 유효 시간
-      view_num:0,         // 조회수
+      post_id: this.$store.state.deliveryPost.post_id,
+      post_name: this.$store.state.deliveryPost.post_name,     // 글 제목
+      post_content: this.$store.state.deliveryPost.post_content,  // 글 내용
+      category: this.$store.state.deliveryPost.category,      // 음식 카테고리
+      take_loc: this.$store.state.deliveryPost.take_loc,      // 음식 나눌 장소
+      participant_num: this.$store.state.deliveryPost.participant_num,  // 현재 참가 인원
+      max_person_num: this.$store.state.deliveryPost.max_person_num,   // 모집 인원
+      valid_time: this.$store.state.deliveryPost.valid_time,       // 게시물 유효 시간
+      view_num: this.$store.state.deliveryPost.view_num,         // 조회수
       // ------- member entity 참조할건데 임시로 --------------
-      user_name: "",     // 작성자 이름
-      area_name: "",     // 행정지역명
+      user_name: this.$store.state.deliveryPost.user_name,     // 작성자 이름
+      area_name: this.$store.state.deliveryPost.area_name,     // 행정지역명
       
       minDate: "",
       latitude: 0,
@@ -130,19 +136,20 @@ export default {
       if (this.submitData()){
         this.$store.dispatch('FETCH_USER') //의도가 뭐지
           const post = {
+            post_id: this.post_id,
             post_name: this.post_name,           // 글 제목
             post_content: this.post_content,     // 글 내용
             category: this.category,             // 음식 카테고리
             take_loc: this.take_loc,             // 음식 나눌 장소
-            participant_num: 1,                  // 현재 참가 인원
+            participant_num: this.participant_num,                  // 현재 참가 인원
             max_person_num: this.max_person_num, // 모집 인원
             valid_time: this.valid_time,         // 게시물 유효 시간
             view_num: this.view_num ,            // 조회수
             nick:this.$store.state.member.nick,
             area : this.area_name
         }
-        console.log("POST\n",post); 
-        // this.$store.dispatch('AMEND_DELIVERY_POST', post);
+        console.log("AMEND_DELIVERY_POST\n",post); 
+        this.$store.dispatch('AMEND_DELIVERY_POST', post);
 
 				Swal.fire({
           icon: 'success',

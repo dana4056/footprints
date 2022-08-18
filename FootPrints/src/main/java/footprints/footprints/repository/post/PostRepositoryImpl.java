@@ -28,7 +28,7 @@ public class PostRepositoryImpl implements PostRepository{
     @Override
     public void save_d(PostDTO postDTO){
         Member member = memberRepository.findByNick(postDTO.getNick());
-        Post post = new Post(postDTO.getPost_name(), postDTO.getPost_content(), postDTO.getCategory(),
+        Post post = new Post(postDTO.getPost_id(), postDTO.getPost_name(), postDTO.getPost_content(), postDTO.getCategory(),
                 postDTO.getTake_loc(), postDTO.getParticipant_num(), postDTO.getMax_person_num(), postDTO.getValid_time(),
                 postDTO.getView_num(), member, postDTO.getPost_area());
         log.info("PostRepositoryImpl-post: {}",post);

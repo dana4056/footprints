@@ -130,13 +130,15 @@ export default{
                         area: response.data
                     }
                     commit('SET_MEMBER', member);
+                    commit('SET_DELIVERY_AREA', member.area);
+                    router.replace("/home");
+                    store.dispatch('FIND_POST_ID', loginMember.nick);
                 })
                 .catch(error => {
                     console.log("지역 읽기 실패", error);
                 })
 
-            router.replace("/home");
-            store.dispatch('FIND_POST_ID', loginMember.nick);
+
 
         })
         .catch(error => { 
@@ -227,8 +229,8 @@ export default{
       })
   },
   // 리스트뷰 페이지 데이터 로드
-  FETCH_DELIVERY_LIST({commit}){
-    fetchDeliveryList()
+  FETCH_DELIVERY_LIST({commit}, area){
+    fetchDeliveryList(area)
       .then(response =>{
         console.log("API:FETCH_DELIVERY_LIST\n배달 리스트 뷰 페이지 정보 받아오기 성공",response.data);
         commit('SET_DELIVERIES', response.data);
@@ -326,6 +328,27 @@ FETCH_DELIVERY_LIST_SORT_AREA({ commit }, area) {
     })
   },
 
+  // 글 수정 페이지로
+  // AMEND_DELIVERY_POST_DETAIL(commit, post_id) {
+  //   fetchAmendDeliveryPost(post_id)
+  //     .then(response => {
+  //       console.log("API:FETCH_DELIVERY_DETAIL\n수정 위한 상세페이지 정보 받아오기 성공", response.data);
+  //       commit('SET_DELIVERY_POST', response.data);
+  //       // this.$router.replace("/delivery/post/amend/");
+  //     })
+  //     .catch(error => {
+  //       const code = error.response.status;
+  //       if (code == 403) {
+  //         console.log("API:FETCH_DELIVERY_DETAIL\n수정 위한 상세페이지 정보 받아오기 실패 - 로그인 필요", error);
+  //         alert("FETCH_DELIVERY_DETAIL 로그인 후 이용하세요");
+  //         router.replace("/home");
+  //       }
+  //       else {
+  //         console.log("API:FETCH_DELIVERY_DETAIL\n수정 위한 상세페이지 정보 받아오기 실패", error);
+  //       }
+  //     })
+  // },
+
   // 글 수정
   AMEND_DELIVERY_POST(content, post) {
     amendDeliveryPost(post)
@@ -333,7 +356,14 @@ FETCH_DELIVERY_LIST_SORT_AREA({ commit }, area) {
       console.log("API:AMEND_DELIVERY_POST\n게시물 수정 성공", response);
     })
     .catch(error => {
-      console.log("API:AMEND_DELIVERY_POST\n게시물 수정 실패", error);
+      const code = error.response.status;
+      if (code == 403) {
+        alert("POST_DELIVERY_POST 로그인 후 이용하세요");
+        router.replace("/home");
+      }
+      else {
+        console.log("API:POST_DELIVERY_POST\n게시물 수정 실패", error);
+      }
     })
   },
 

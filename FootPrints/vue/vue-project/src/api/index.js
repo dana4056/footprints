@@ -94,10 +94,11 @@ function changePWD(changePwMemberDTO){
     return axios.post(`${config.baseUrl}/ChangePW`, changePwMemberDTO);
 }
 
-function fetchDeliveryList(){
+function fetchDeliveryList(area){
     console.log("function fetchDeliveryList 실행")
-    return axios.get(`${config.baseUrl}/delivery/post`, {
+    return axios.post(`${config.baseUrl}/delivery/post`, area, {
         headers: {
+            'Content-Type': 'text/plain',
             'X-AUTH-TOKEN': localStorage.getItem('jwt')
         }
     });
@@ -139,6 +140,15 @@ function postDeliveryPost(post){
         }
     });
 }
+
+function fetchAmendDeliveryPost(post_id) {
+    return axios.get(`${config.baseUrl}/delivery/post/amend/${post_id}`, {
+        headers: {
+            'X-AUTH-TOKEN': localStorage.getItem('jwt')
+        }
+    });
+}
+
 
 function amendDeliveryPost(post) {
     return axios.post(`${config.baseUrl}/delivery/post/amend`, post, {
@@ -264,6 +274,7 @@ export{
     changePWD,
     
     postDeliveryPost,
+    fetchAmendDeliveryPost,
     amendDeliveryPost,
     deleteChatData,
     deleteRoomInfo,
