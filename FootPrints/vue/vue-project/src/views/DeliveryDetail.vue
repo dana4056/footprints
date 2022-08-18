@@ -1,5 +1,8 @@
 <template>
-  <div>
+  <div :class="{fixedWrapper:isShowmap, scrollWrapper:!isShowmap}">
+    <!-- 나눔 장소 보기 모달 -->
+    <show-map ref="showMap" v-on:change="change()"></show-map>
+
     <tool-bar></tool-bar>
     <div id="wrap">
       <div id="headBox">
@@ -31,7 +34,7 @@
           <span>{{fetched.participant_num}} / {{fetched.max_person_num}}</span>
         </div>
         <button type="button" id="join">참여하기</button>
-        <button type="button" id="seePlace">나눔 장소 보기</button>
+        <button type="button" id="seePlace" v-on:click="this.$refs.showMap.showMap(), change()">나눔 장소 보기</button>
       </div>
       
     </div>
@@ -44,6 +47,7 @@
 import ToolBar from '../components/ToolBar.vue'
 import FooterArea from '../components/FooterArea.vue'
 import ToDelivery from '../components/ToDelivery.vue'
+import ShowMap from '../components/ShowMap.vue'
 import dayjs from 'dayjs'
 
 export default {
@@ -51,6 +55,7 @@ export default {
     ToolBar,
     FooterArea,
     ToDelivery,
+    ShowMap,
   },
   computed:{
     fetched(){
@@ -63,14 +68,44 @@ export default {
         'KOR': '한식',
         'CHI': '중식',
       },
-
+      isShowmap : false,
+      take_loc: "",      // 음식 나눌 장소
+      latitude: 0,
+      longtitude: 0
     }
   },
   created(){
     const post_id = this.$route.params.id;
     this.$store.dispatch('FETCH_DELIVERY_DETAIL', post_id);
   },
+  mounted(){
+       
+    let kakao = window.kakao;
+    var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+    mapOption = { 
+        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+        level: 3 // 지도의 확대 레벨
+    };
+    console.log(mapContainer);
+
+    var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+    // 마커가 표시될 위치입니다 
+    var markerPosition  = new kakao.maps.LatLng(33.450701, 126.570667); 
+
+    // 마커를 생성합니다
+    var marker = new kakao.maps.Marker({
+        position: markerPosition
+    });
+
+    // 마커가 지도 위에 표시되도록 설정합니다
+    marker.setMap(map); 
+  
+  },
   methods:{
+    change(){
+        console.log("change");
+        this.isShowmap =  this.$refs.showMap.openMap;
+    },
     calDay(){
       const created = this.fetched.createdDate;
       const valid = this.fetched.valid_time;
@@ -99,12 +134,23 @@ export default {
           const ago_D = now.diff(created,"d");
           return String(ago_D)+"일 ";
       }
-    }
+    },
   }
 }
 </script>
 
 <style scoped>
+.fixedWrapper{
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.scrollWrapper{
+    min-height: 100%;
+    position: relative;
+}
 #wrap {
   width: 650px;
   height: 570px;
@@ -237,4 +283,5 @@ export default {
     bottom: 0;
     right: 200px;
 }
+
 </style>

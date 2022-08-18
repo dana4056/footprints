@@ -30,7 +30,7 @@ public class PostRepositoryImpl implements PostRepository{
         Member member = memberRepository.findByNick(postDTO.getNick());
         Post post = new Post(postDTO.getPost_name(), postDTO.getPost_content(), postDTO.getCategory(),
                 postDTO.getTake_loc(), postDTO.getParticipant_num(), postDTO.getMax_person_num(), postDTO.getValid_time(),
-                postDTO.getView_num(), member, postDTO.getPost_area());
+                postDTO.getView_num(), postDTO.getNick(), member, postDTO.getArea_name(), postDTO.getX(), postDTO.getY());
         log.info("PostRepositoryImpl-post: {}",post);
         if(post.getPost_id() == null){
             log.info("-------------------------------------------");

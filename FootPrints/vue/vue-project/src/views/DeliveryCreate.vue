@@ -98,6 +98,9 @@ export default {
       // 지원 - 79번째 줄에서 geocoder 선언해줬고, 97번째줄 부터 103번째 줄까지가 주소 가져오는 코드입니다!
       let callback = function(result, status) {
         if (status === kakao.maps.services.Status.OK) {
+            $vm.area_name = result[0].address_name;
+            $vm.latitude = result[0].x;
+            $vm.longtitude = result[0].y;
             console.log(result[0].address_name);
         }
       }
@@ -107,28 +110,28 @@ export default {
   },
   data() {
     return {
-      post_name: "",     // 글 제목
-      post_content: "",  // 글 내용
-      category: "카테고리",      // 음식 카테고리
-      take_loc: "",      // 음식 나눌 장소
-      participant_num: 0,  // 현재 참가 인원
-      max_person_num: 0,   // 모집 인원
+      post_name: "",        // 글 제목
+      post_content: "",     // 글 내용
+      category: "카테고리",  // 음식 카테고리
+      take_loc: "",         // 음식 나눌 장소 이름(ex. 북악관)
+      participant_num: 0,   // 현재 참가 인원
+      max_person_num: 0,    // 모집 인원
       valid_time: "",       // 게시물 유효 시간
-      view_num:0,         // 조회수
+      view_num:0,           // 조회수
+      area_name: "",        // 행정지역명(선택 장소)
+      latitude: 0,          // 선택지역 정보
+      longtitude: 0,        // 선택지역 정보
       // ------- member entity 참조할건데 임시로 --------------
       user_name: "",     // 작성자 이름
-      area_name: "",     // 행정지역명
       
       minDate: "",
-      latitude: 0,
-      longtitude: 0,
       inputVisible: false,
     }
   },
   methods: {
     register() {
       if (this.submitData()){
-        this.$store.dispatch('FETCH_USER') //의도가 뭐지
+        this.$store.dispatch('FETCH_USER') //의도가 뭐지 -> 작성자 정보 포함해야하니까
           const post = {
             post_name: this.post_name,           // 글 제목
             post_content: this.post_content,     // 글 내용
@@ -139,7 +142,9 @@ export default {
             valid_time: this.valid_time,         // 게시물 유효 시간
             view_num: this.view_num ,            // 조회수
             nick:this.$store.state.member.nick,
-            area : this.area_name
+            area_name : this.area_name,
+            x: this.longtitude,
+            y: this.latitude,
         }
         console.log("POST\n",post); 
         this.$store.dispatch('POST_DELIVERY_POST', post)
@@ -166,8 +171,7 @@ export default {
       // console.log("submit data" + this.valid_time);
       if (this.post_name != "" && this.post_content != "" && 
           this.category != "카테고리" && this.take_loc != "" &&
-          this.valid_time != "" && 
-          this.latitude != 0 && this.longtitude != 0 ){
+          this.valid_time != "" ){
         return true;
       }
       else {
