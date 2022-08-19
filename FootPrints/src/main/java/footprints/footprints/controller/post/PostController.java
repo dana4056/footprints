@@ -1,5 +1,6 @@
 package footprints.footprints.controller.post;
 
+import footprints.footprints.domain.member.Member;
 import footprints.footprints.domain.post.Post;
 import footprints.footprints.domain.post.PostDTO;
 import footprints.footprints.domain.post.SortDTO;
@@ -8,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,7 +32,10 @@ public class PostController {
 
     // 리스트뷰
     @PostMapping(value = "/delivery/post")
-    public ResponseEntity<List<Post>> deliveryListView(@RequestBody String area){
+    public ResponseEntity<List<Post>> deliveryListView(@RequestBody String area, Authentication authentication){
+        if(area.equals("")){
+            return new ResponseEntity<List<Post>>((List<Post>) null, HttpStatus.UNAUTHORIZED); // 이게 안 먹어 지금
+        }
         List<Post> postList = postService.getPostList(area);
         return new ResponseEntity<List<Post>>(postList, HttpStatus.OK);
     }

@@ -24,7 +24,7 @@ export const store = new Vuex.Store({
         eupmyeondongList:{},
         sessionId:"",
         deliveryPostList:[],
-        deliveryPost_presentArea: "",
+        deliveryPost_presentArea: "로그인 시 지역 설정 됨",
         deliveryPost:{},
         postIdList: [0],
         roomList: [{post_id: 0, post_name: " "}],

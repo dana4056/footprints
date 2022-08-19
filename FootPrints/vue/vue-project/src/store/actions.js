@@ -237,8 +237,8 @@ export default{
       })
       .catch(error =>{
         const code = error.response.status;
-        if(code == 403){
-          alert("FETCH_DELIVERY_LIST 로그인 후 이용하세요");
+        if(code == 401){
+          alert("권한 없음 로그인 후 이용하세요");
           //history.back(); 
           router.replace("/home");
           // location.href = "http://localhost:8080/home"
