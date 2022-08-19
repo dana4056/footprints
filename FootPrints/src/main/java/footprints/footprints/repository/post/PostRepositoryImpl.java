@@ -80,29 +80,13 @@ public class PostRepositoryImpl implements PostRepository{
     }
 
     @Override
-    public List<Post> findCategory(String category, String areaName) {
-        log.info("카테고리별 레파지토리에 진입 with {}, {}", category, areaName);
-        TypedQuery<Post> sameCategory = em.createQuery("select p from Post p where p.member.area = :areaName and p.category = :category", Post.class)
-                .setParameter("areaName", areaName)
-                .setParameter("category", category);
-
-        List<Post> resultList = sameCategory.getResultList();
-        if (resultList.size() == 0) {
-            return null;
-        }
-        else{
-            return resultList;
-        }
-    }
-
-    @Override
-    public List<Post> findSortTime(String time, String areaName){
-        log.info("시간별 sorting 레파지토리에 진입 with {}, {}", time, areaName);
-        if(time.equals("near")){
-            TypedQuery<Post> nearTime = em.createQuery("select p from Post p where p.member.area = :areaName order by p.valid_time",
-                    Post.class).setParameter("areaName", areaName);
-
-            List<Post> resultList = nearTime.getResultList();
+    public List<Post> findSortAll(String category, String sort_criteria, String area) {
+        log.info("SORT 레파지토리에 진입 with {}, {}, {}", category, sort_criteria, area);
+        if(sort_criteria.equals("near")){
+            TypedQuery<Post> nearTimeSort = em.createQuery("select p from Post p where p.member.area = :areaName and p.category = :category order by p.valid_time", Post.class)
+                    .setParameter("areaName", area)
+                    .setParameter("category", category);
+            List<Post> resultList = nearTimeSort.getResultList();
             if(resultList.size() == 0){
                 return null;
             }
@@ -110,12 +94,11 @@ public class PostRepositoryImpl implements PostRepository{
                 return resultList;
             }
         }
-        else if(time.equals("far")){
-            TypedQuery<Post> farTime = em.createQuery("select p from Post p where p.member.area = :areaName " +
-                            "order by p.valid_time desc",
-                    Post.class).setParameter("areaName", areaName);
-
-            List<Post> resultList = farTime.getResultList();
+        else if(sort_criteria.equals("far")){
+            TypedQuery<Post> farTimeSort = em.createQuery("select p from Post p where p.member.area = :areaName and p.category = :category order by p.valid_time desc", Post.class)
+                    .setParameter("areaName", area)
+                    .setParameter("category", category);
+            List<Post> resultList = farTimeSort.getResultList();
             if(resultList.size() == 0){
                 return null;
             }
@@ -124,11 +107,10 @@ public class PostRepositoryImpl implements PostRepository{
             }
         }
         else{
-            //default
-            TypedQuery<Post> sameArea = em.createQuery("select p from Post p where p.member.area = :area_name",
-                    Post.class).setParameter("area_name", areaName);
-
-            List<Post> resultList = sameArea.getResultList();
+            TypedQuery<Post> defaultSort = em.createQuery("select p from Post p where p.member.area = :areaName and p.category = :category", Post.class)
+                    .setParameter("areaName", area)
+                    .setParameter("category", category);
+            List<Post> resultList = defaultSort.getResultList();
             if(resultList.size() == 0){
                 return null;
             }

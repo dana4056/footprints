@@ -1,15 +1,13 @@
 package footprints.footprints.controller.post;
 
-import com.fasterxml.jackson.annotation.JsonAlias;
-import footprints.footprints.domain.member.Member;
 import footprints.footprints.domain.post.Post;
 import footprints.footprints.domain.post.PostDTO;
+import footprints.footprints.domain.post.SortDTO;
 import footprints.footprints.service.post.PostServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -55,11 +53,10 @@ public class PostController {
     }
 
     // 카테고리에서 선택한 종류에 대한 리스트뷰 뿌려주기
-    @PostMapping(value = "/delivery/post/sort_category")
-    public ResponseEntity<List<Post>> listOfCategory(@RequestBody String category, Authentication authentication) {
+    @PostMapping(value = "/delivery/post/sort")
+    public ResponseEntity<List<Post>> listOfCategory(@RequestBody SortDTO sortDTO) {
         log.info("카테고리별 sorting 진입");
-        Member member = (Member) authentication.getPrincipal();
-        List<Post> categoryList = postService.getCategoryList(category, member.getArea());
+        List<Post> categoryList = postService.getSortingList(sortDTO.getCategory(), sortDTO.getSort_criteria(), sortDTO.getArea());
         if(categoryList == null){
             log.info("카테고리 리스트 널 값 반환");
             return new ResponseEntity<List<Post>>((List<Post>) null, HttpStatus.OK);
@@ -68,32 +65,6 @@ public class PostController {
             return new ResponseEntity<List<Post>>(categoryList, HttpStatus.OK);
         }
     }
-
-    // 시간 순서에 대한 리스트뷰 뿌려주기
-    @PostMapping(value = "/delivery/post/sort_time")
-    public ResponseEntity<List<Post>> listOfTime(@RequestBody String time, Authentication authentication) {
-        log.info("시간 순서별 sorting 진입");
-        Member member = (Member) authentication.getPrincipal();
-        List<Post> timeList = postService.getSortTimeList(time, member.getArea());
-
-        if(timeList == null){
-            log.info("시간별 리스트 널 값 반환");
-            return new ResponseEntity<List<Post>>((List<Post>) null, HttpStatus.OK);
-        }
-        else{
-            return new ResponseEntity<List<Post>>(timeList, HttpStatus.OK);
-        }
-    }
-    // 지역에 대한 리스트뷰 뿌려주기
-    @PostMapping(value = "/delivery/post/sort_area")
-    public ResponseEntity<List<Post>> listOfArea(@RequestBody String areaName) {
-        log.info("=============/delivery/post/sort_area 진입");
-        log.info("============= sort area : {}", areaName);
-        List<Post> postList = postService.getPostList(areaName);
-        log.info("{}", postList);
-        return new ResponseEntity<List<Post>>(postList, HttpStatus.OK);
-    }
-
 
     // 글 수정 상세페이지
     @GetMapping(value = "/delivery/post/amend/{post_id}")

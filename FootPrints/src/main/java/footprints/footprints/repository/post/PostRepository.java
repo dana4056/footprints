@@ -15,9 +15,7 @@ public interface PostRepository {
 
     Post findDetail(Long post_num);
 
-    List<Post> findCategory(String category, String areaName);
-
-    List<Post> findSortTime(String time, String areaName);
+    List<Post> findSortAll(String category, String sort_criteria, String area);
 
     Post findByPostId(Long post_id);
 

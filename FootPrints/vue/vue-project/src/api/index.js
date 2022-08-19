@@ -105,30 +105,10 @@ function fetchDeliveryList(area){
 }
 
 //카테고리 별로 불러오기 위함
-function fetchDeliveryList_Category(category) {
-    return axios.post(`${config.baseUrl}/delivery/post/sort_category`, category,{
+function fetchDeliveryList_SORT(sortDTO) {
+    return axios.post(`${config.baseUrl}/delivery/post/sort`, sortDTO,{
         headers: {
-            'Content-Type': 'text/plain',
             'X-AUTH-TOKEN': localStorage.getItem('jwt'),
-        },
-    });
-}
-
-// 시간별로 불러오기 위함
-function fetchDeliveryList_Time(time) {
-    return axios.post(`${config.baseUrl}/delivery/post/sort_time`, time, {
-        headers: {
-            'Content-Type': 'text/plain',
-            'X-AUTH-TOKEN': localStorage.getItem('jwt')
-        },
-    });
-}
-
-// 지역별로 불러오기 위함
-function fetchDeliveryList_Area(area) {
-    return axios.post(`${config.baseUrl}/delivery/post/sort_area`, area, {
-        headers: {
-            'Content-Type': 'text/plain',
         },
     });
 }
@@ -284,8 +264,7 @@ export{
 
     fetchDeliveryList,
     fetchDeliveryDetail,
-    fetchDeliveryList_Category,
-    fetchDeliveryList_Time,
+    fetchDeliveryList_SORT,
 
     findPostID,
     findRoom,
@@ -293,7 +272,6 @@ export{
     findChatLogs,
     postChatData,
 
-    fetchDeliveryList_Area,
     fetchMyDPost,
     fetchMyPartici,
     changeMember,

@@ -94,7 +94,7 @@ export default {
       },
       category: "",
       sort_criteria: "",
-      area: "",
+      area: this.$store.state.deliveryPost_presentArea,
     } 
   },
   beforeCreate(){
@@ -123,17 +123,13 @@ export default {
       this.category = "";
     },
     SelectCategory(){
-      // this.area = this.$store.getters.GET_DELIVERY_PRESENT_AREA;
-      // if(this.$store.state.delivery_category_area == "" && this.$store.state.delivery_category_sort == ""){
-
-      // }
-      // else{
-      //   this.$store.dispatch('FETCH_DELIVERY_LIST_CATEGORY', this.category);
-      //   console.log(this.category);
-      // }
-      this.$store.dispatch('FETCH_DELIVERY_LIST_CATEGORY', this.category);
-      console.log(this.category);
-      // console.log(this.area);
+      const sortDTO = {
+        category : this.category,
+        sort_criteria: this.sort_criteria,
+        area : this.area,
+      }
+      this.$store.dispatch('FETCH_DELIVERY_LIST_SORT', sortDTO);
+      console.log(sortDTO.category, sortDTO.sort_criteria, sortDTO.area);
       setTimeout(() => { 
           this.$store.getters.GET_DELIVERIES;
         }, 200);   
@@ -142,16 +138,16 @@ export default {
       this.sort_criteria = "";
     },
     SelectSortCriteria(){
-      if(this.sort_criteria == "near" | this.sort_criteria == 'far'){
-        this.$store.dispatch('FETCH_DELIVERY_LIST_SORT_TIME', this.sort_criteria);
+      const sortDTO = {
+        category : this.category,
+        sort_criteria: this.sort_criteria,
+        area : this.area,
       }
-      else if(this.sort_criteria == "default"){
-        this.$store.dispatch('FETCH_DELIVERY_LIST')
-      }
-      //혹시 다른 조건 걸릴까봐 이런 if문으로 분기 해놓음
+      this.$store.dispatch('FETCH_DELIVERY_LIST_SORT', sortDTO);
+      console.log(sortDTO.category, sortDTO.sort_criteria, sortDTO.area);
       setTimeout(() => { 
-        this.$store.getters.GET_DELIVERIES;
-      }, 100);   
+          this.$store.getters.GET_DELIVERIES;
+        }, 200);   
     },
     searchArea() {
       new window.daum.Postcode({
@@ -164,12 +160,14 @@ export default {
           this.area = sido+" "+sigoongu+" "+eupmyeondong;
           // this.$store.dispatch('FETCH_DELIVERY_LIST_SORT_AREA', this.area);
           console.log(this.area);
-
+          this.$store.state.deliveryPost_presentArea = this.area;
+          this.$store.dispatch('FETCH_DELIVERY_LIST', this.$store.state.deliveryPost_presentArea);
+          
           setTimeout(() => { 
-            // this.$store.getters.GET_DELIVERIES;
-            this.$store.state.deliveryPost_presentArea = this.area;
-            this.$router.push("/delivery/post");
-          }, 200);  
+            this.$store.getters.GET_DELIVERIES;
+            // this.$store.state.deliveryPost_presentArea = this.area;
+            // this.$router.push("/delivery/post");
+          }, 100);  
         }
       }).open();
     }
