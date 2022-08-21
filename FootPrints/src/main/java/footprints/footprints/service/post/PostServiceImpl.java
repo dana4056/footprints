@@ -33,6 +33,11 @@ public class PostServiceImpl implements PostService{
         //PostDTO postDTO1 = new PostDTO(post);
         postRepository.save_d(postDTO);
     }
+    @Override
+    public void remove(Long post_id){
+        Post post = postRepository.findDetail(post_id);
+        postRepository.delete(post);
+    }
 
     @Override
     public List<Post> getPostList(String area_name) {

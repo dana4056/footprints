@@ -11,6 +11,8 @@ public interface PostRepository {
 
     void save(Post post);
 
+    void delete(Post post);
+
     List<Post> findAll(String area_name);
 
     Post findDetail(Long post_num);

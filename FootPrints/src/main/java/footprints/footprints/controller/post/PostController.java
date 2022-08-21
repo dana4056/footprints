@@ -22,10 +22,20 @@ public class PostController {
 
     private final PostServiceImpl postService;
 
-    // 배달 게시물 작성
+    // 배달 게시물 작성, 게시물 작성시 room_info에 row 추가
     @PostMapping(value = "/delivery/post/create")
     public ResponseEntity<String> post(@RequestBody PostDTO postDTO){
-        postService.join(postDTO);
+        postService.join(postDTO);  //db에 post 추가는 여기서 이미 되긴함
+        //글 작성과 동시에 room_info에 (nick, post_id) 추가해야 되는데 post_id를 어떻게 가져옴?
+        //nick은 프론트에서 넘겨받던가 하면 되는데 post_id는 결국 post를 검색해서 찾아야 되는데 post의 pk가 post_id여서 뭐로 검색함?
+        //프론트에서 nick 넘겨준다고 하면 검색은 되는데 해당 nick의 작성자가 post 여러개 등록한 경우는 post_id가 여러개가 되버림
+        return new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+    }
+
+    //게시물 삭제
+    @PostMapping(value = "“/delivery/post/delete”")
+    public ResponseEntity<String> deletePost (@RequestBody Long post_id){
+        postService.remove(post_id);
         return new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
     }
 
@@ -96,6 +106,7 @@ public class PostController {
         log.info("{}", postList);
         return new ResponseEntity<List<Post>>(postList, HttpStatus.OK);
     }
+
 
 }
 
