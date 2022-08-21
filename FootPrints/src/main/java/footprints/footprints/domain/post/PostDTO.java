@@ -16,6 +16,7 @@ import javax.persistence.EntityListeners;
 
 public class PostDTO {
 
+    private Long post_id;
     private String post_name;     // 글 제목
     private String post_content;  // 글 내용
     private String category;      // 음식 카테고리
@@ -43,16 +44,16 @@ public class PostDTO {
         this.post_area = post.getPost_area();
     }
 
-    public Post toEntity() {
-        return Post.builder()
-                .post_name(post_name)
-                .post_content(post_content)
-                .category(category)
-                .take_loc(take_loc)
-                .participant_num(participant_num)
-                .max_person_num(max_person_num)
-                .valid_time(valid_time)
-                .view_num(view_num)
-                .build();
-    }
+//    public Post toEntity() {
+//        return Post.builder()
+//                .post_name(post_name)
+//                .post_content(post_content)
+//                .category(category)
+//                .take_loc(take_loc)
+//                .participant_num(participant_num)
+//                .max_person_num(max_person_num)
+//                .valid_time(valid_time)
+//                .view_num(view_num)
+//                .build();
+//    }
 }

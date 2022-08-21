@@ -4,7 +4,11 @@ import com.fasterxml.jackson.annotation.JsonAlias;
 import footprints.footprints.domain.member.Member;
 import footprints.footprints.domain.post.Post;
 import footprints.footprints.domain.post.PostDTO;
+import footprints.footprints.domain.roomInfo.RoomInfo;
+import footprints.footprints.domain.roomInfo.RoomInfoDTO;
+import footprints.footprints.repository.post.PostRepository;
 import footprints.footprints.service.post.PostServiceImpl;
+import footprints.footprints.service.roominfo.RoomInfoService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -21,14 +25,20 @@ import java.util.List;
 public class PostController {
 
     private final PostServiceImpl postService;
+    private final PostRepository postRepository;
+
+    private final RoomInfoService roomInfoService;
 
     // 배달 게시물 작성, 게시물 작성시 room_info에 row 추가
     @PostMapping(value = "/delivery/post/create")
     public ResponseEntity<String> post(@RequestBody PostDTO postDTO){
-        postService.join(postDTO);  //db에 post 추가는 여기서 이미 되긴함
-        //글 작성과 동시에 room_info에 (nick, post_id) 추가해야 되는데 post_id를 어떻게 가져옴?
-        //nick은 프론트에서 넘겨받던가 하면 되는데 post_id는 결국 post를 검색해서 찾아야 되는데 post의 pk가 post_id여서 뭐로 검색함?
-        //프론트에서 nick 넘겨준다고 하면 검색은 되는데 해당 nick의 작성자가 post 여러개 등록한 경우는 post_id가 여러개가 되버림
+        postService.join(postDTO);
+
+        //post 추가 시 room_info 테이블에 row 추가
+        Post post = postRepository.findDetail(postDTO.getPost_id());
+        RoomInfoDTO roomInfoDTO = new RoomInfoDTO(post.getMember(), post);
+        roomInfoService.join(roomInfoDTO);
+
         return new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
     }
 
@@ -69,7 +79,7 @@ public class PostController {
     public ResponseEntity<String> update(@RequestBody Long post_id, PostDTO postDTO){
         log.info("--------Id:{}", postDTO.getPost_name());
         log.info("--------Id:{}", postDTO.getCategory());
-        postService.update(post_id, postDTO);
+        postService.update(postDTO);
         return new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
     }
 

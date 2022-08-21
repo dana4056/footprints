@@ -24,11 +24,11 @@ public class RoomInfoDTO {
         this.post = roomInfo.getPost();
     }
 
-    public RoomInfo toEntity() {
-        return RoomInfo.builder()
-                .member(member)
-                .post(post)
-                .build();
-    }
+//    public RoomInfo toEntity() {
+//        return RoomInfo.builder()
+//                .member(member)
+//                .post(post)
+//                .build();
+//    }
 
 }

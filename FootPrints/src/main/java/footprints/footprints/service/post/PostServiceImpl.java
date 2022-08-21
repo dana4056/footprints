@@ -25,14 +25,14 @@ public class PostServiceImpl implements PostService{
         postRepository.save_d(postDTO);
     }
 
-//    @Override
-//    public void update(PostDTO postDTO){
-//        //프론트에서 넘겨받은 id를 이용하여 해당 post를 db에서 검색
-//        Post post = postRepository.findDetail(postDTO.getPost_id());
-//        post.Update(postDTO);
-//        //PostDTO postDTO1 = new PostDTO(post);
-//        postRepository.save(post);
-//    }
+    @Override
+    public void update(PostDTO postDTO){
+        //프론트에서 넘겨받은 id를 이용하여 해당 post를 db에서 검색
+        Post post = postRepository.findDetail(postDTO.getPost_id());
+        post.Update(postDTO);
+        //PostDTO postDTO1 = new PostDTO(post);
+        postRepository.save(post);
+    }
 
     @Override
     public void remove(Long post_id){

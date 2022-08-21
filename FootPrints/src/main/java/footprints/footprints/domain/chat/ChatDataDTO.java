@@ -31,12 +31,12 @@ public class ChatDataDTO {
     }
 
 
-    public ChatData toEntity() {
-        return ChatData.builder()
-                .from_name(from_name)
-                .time(time)
-                .message(message)
-                .build();
-    }
+//    public ChatData toEntity() {
+//        return ChatData.builder()
+//                .from_name(from_name)
+//                .time(time)
+//                .message(message)
+//                .build();
+//    }
 
 }
