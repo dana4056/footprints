@@ -63,4 +63,8 @@ public class PostServiceImpl implements PostService{
         post.Plus_view();
         postRepository.save(post);
     }
+
+    public void delete(Long post_id) {
+        postRepository.delete_all(post_id);
+    }
 }

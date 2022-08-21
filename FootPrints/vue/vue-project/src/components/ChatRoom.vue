@@ -21,6 +21,7 @@ export default {
     }
   },
   created() {
+    this.$store.state.roomIndex = 0;
     this.dataNum = this.$store.state.postIdList.length;
     for (let i = 0; i < this.dataNum; i++) {
       if (i != 0) {

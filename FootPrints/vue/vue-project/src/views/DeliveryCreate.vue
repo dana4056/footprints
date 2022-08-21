@@ -141,7 +141,7 @@ export default {
             nick:this.$store.state.member.nick,
             area : this.area_name
         }
-        console.log("POST\n",post); 
+        console.log("POST\n",post);
         this.$store.dispatch('POST_DELIVERY_POST', post)
 
 				Swal.fire({

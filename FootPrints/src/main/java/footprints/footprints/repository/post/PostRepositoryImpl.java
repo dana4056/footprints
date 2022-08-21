@@ -4,6 +4,8 @@ import footprints.footprints.domain.member.Member;
 import footprints.footprints.domain.post.Post;
 import footprints.footprints.domain.post.PostDTO;
 import footprints.footprints.repository.member.MemberRepository;
+import footprints.footprints.repository.roomInfo.RoomInfoRepository;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
@@ -11,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
@@ -19,7 +22,7 @@ import java.util.List;
 @Transactional
 @RequiredArgsConstructor
 public class PostRepositoryImpl implements PostRepository{
-
+//    private final RoomInfoRepository roomInfoRepository;
     private final MemberRepository memberRepository;
 
     @PersistenceContext
@@ -37,6 +40,7 @@ public class PostRepositoryImpl implements PostRepository{
             log.info("id 없음");
             log.info("-------------------------------------------");
             em.persist(post);
+//            roomInfoRepository.save_d(member.getNick(), post.getPost_id());
         }
         else{
             log.info("-------------------------------------------");
@@ -136,5 +140,10 @@ public class PostRepositoryImpl implements PostRepository{
                 return resultList;
             }
         }
+    }
+
+    public void delete_all(Long post_id) {
+        Query query = em.createQuery("delete from Post p where p.post_id = :post_id");
+        query.setParameter("post_id", post_id).executeUpdate();
     }
 }

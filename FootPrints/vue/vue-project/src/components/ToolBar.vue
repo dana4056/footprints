@@ -21,32 +21,28 @@
 </template>
 
 <script>
-// import axios from 'axios';
 export default {
     data(){
         return {
             isLogin:false,
-            userName:""
+            userName:"",
+            temp: ""
         }
     },
     created(){
-        console.log("toolbar created")
         if(localStorage.getItem('jwt') != null){
             this.$store.dispatch('FETCH_NICK')
             if(this.$store.state.member.nick != ""){
                 this.isLogin = true;
             }
         }
-
     },
     methods: {
         logout(){
             localStorage.removeItem('jwt');
-            // this.$store.dispatch('POST_LOGOUT');
-            this.$router.go(0);       
+            this.$router.replace("/home"); 
         }
     }
-
 }
 </script>
 

@@ -30,5 +30,4 @@ public class RoomInfoDTO {
                 .post(post)
                 .build();
     }
-
 }

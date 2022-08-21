@@ -91,7 +91,7 @@ export default {
     this.$store.dispatch('FETCH_DELIVERY_DETAIL', this.post_id);
 
     for(var i = 0; i < this.$store.state.postIdList.length; i++){
-      if(this.$store.state.postIdList[i] == this.post_id) {
+      if(this.$store.state.roomList[i].post_id == this.post_id) {
         this.isJoin = true;
       }
     }
@@ -130,7 +130,7 @@ export default {
       this.$router.replace("/delivery/post/amend/" + this.post_id);
     },
     deletePost() {
-      // this.$store.dispatch('DELETE_DELIVERY_POST', this.post_id);
+      this.$store.dispatch('DELETE_DELIVERY_POST', this.post_id);
 
       Swal.fire({
         icon: 'success',
@@ -145,8 +145,7 @@ export default {
         nick: this.$store.state.member.nick,
         post_id: this.post_id
       };
-      console.log(roomInfo);
-      // this.$store.dispatch('JOIN_DELIVERY_POST', roomInfo);
+      this.$store.dispatch('JOIN_DELIVERY_POST', roomInfo);
 
       Swal.fire({
         icon: 'success',

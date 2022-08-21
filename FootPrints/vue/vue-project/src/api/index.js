@@ -149,7 +149,7 @@ function amendDeliveryPost(post) {
 }
 
 function deleteChatData(post_id) {
-    axios.post(`${config.baseUrl}/chat/delete`, post_id, {
+    return axios.post(`${config.baseUrl}/chat/delete`, post_id, {
         headers: {
             'Content-Type': 'application/json'
         }
@@ -157,7 +157,7 @@ function deleteChatData(post_id) {
 }
 
 function deleteRoomInfo(post_id) {
-    axios.post(`${config.baseUrl}/roomInfo/delete`, post_id, {
+    return axios.post(`${config.baseUrl}/roomInfo/delete`, post_id, {
         headers: {
             'Content-Type': 'application/json'
         }
@@ -165,7 +165,7 @@ function deleteRoomInfo(post_id) {
 }
 
 function deletePost(post_id) {
-    axios.post(`${config.baseUrl}/post/delete`, post_id, {
+    return axios.post(`${config.baseUrl}/post/delete`, post_id, {
         headers: {
             'Content-Type': 'application/json'
         }
@@ -173,11 +173,11 @@ function deletePost(post_id) {
 }
 
 function joinDeliveryPost(roomInfo) {
-    axios.post(`${config.baseUrl}/roomInfo/join`, roomInfo);
+    return axios.post(`${config.baseUrl}/roomInfo/join/${roomInfo.nick}/${roomInfo.post_id}`);
 }
 
 function exitDeliveryPost(roomInfo) {
-    axios.post(`${config.baseUrl}/roomInfo/exit`, roomInfo);
+    return axios.post(`${config.baseUrl}/roomInfo/exit/${roomInfo.nick}/${roomInfo.post_id}`);
 }
 
 function fetchDeliveryDetail(post_id){
@@ -199,7 +199,6 @@ function findPostID(nick) {
 
   function findRoom(list) {
     console.log("postIDList: " + list);
-    // const data = JSON.stringify(list)  //JSON으로 변환
     return axios.post(`${config.baseUrl}/chat/get-PostInfoList`, list);
   }
 

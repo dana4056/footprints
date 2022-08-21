@@ -9,6 +9,7 @@ import { fetchMyDPost, fetchMyPartici, changeMember } from "../api/index.js";
 import { router } from '../routes/index.js';
 import { store } from "./store.js";
 
+
 export default{ 
   FETCH_USER({commit}){
     fetchUser()
@@ -137,7 +138,6 @@ export default{
 
             router.replace("/home");
             store.dispatch('FIND_POST_ID', loginMember.nick);
-
         })
         .catch(error => { 
           const code = error.response.status;
@@ -311,8 +311,6 @@ FETCH_DELIVERY_LIST_SORT_AREA({ commit }, area) {
     postDeliveryPost(post)
     .then(response =>{
       console.log("API:POST_DELIVERY_POST\n게시물 등록 성공",response);
-
-      // store.dispatch('JOIN_DELIVERY_POST', 하..);
     })
     .catch(error => {
       const code = error.response.status;
@@ -340,28 +338,28 @@ FETCH_DELIVERY_LIST_SORT_AREA({ commit }, area) {
   // 글 삭제: 채팅 로그 삭제 -> 방 정보 삭제 -> 글 삭제 순으로 이루어져야할 것 같아서 아래와 같이 작성
   DELETE_DELIVERY_POST(content, post_id){
     deleteChatData(post_id)
+    .then(response => {
+      console.log('API:DELETE_DELIVERY_POST\n채팅 로그 삭제 성공', response);
+
+      deleteRoomInfo(post_id)
       .then(response => {
-        console.log('API:DELETE_DELIVERY_POST\n채팅 로그 삭제 성공', response);
+        console.log('API:DELETE_DELIVERY_POST\n방 정보 삭제 성공', response);
 
-        deleteRoomInfo(post_id)
+        deletePost(post_id)
         .then(response => {
-          console.log('API:DELETE_DELIVERY_POST\n방 정보 삭제 성공', response);
-
-          deletePost(post_id)
-          .then(response => {
-            console.log('API:DELETE_DELIVERY_POST\n글 삭제 성공', response);
-          })
-          .catch(error => {
-            console.log('API:DELETE_DELIVERY_POST\n글 삭제 실패', error);
-          })
+          console.log('API:DELETE_DELIVERY_POST\n글 삭제 성공', response);
         })
         .catch(error => {
-          console.log('API:DELETE_DELIVERY_POST\n방 정보 삭제 실패', error);
+          console.log('API:DELETE_DELIVERY_POST\n글 삭제 실패', error);
         })
       })
       .catch(error => {
-        console.log('API:DELETE_DELIVERY_POST\n채팅 로그 삭제 실패', error);
+        console.log('API:DELETE_DELIVERY_POST\n방 정보 삭제 실패', error);
       })
+    })
+    .catch(error => {
+      console.log('API:DELETE_DELIVERY_POST\n채팅 로그 삭제 실패', error);
+    })
   },
 
   // 참여하기

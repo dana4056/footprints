@@ -16,8 +16,7 @@ export default {
         nick: this.$store.state.member.nick,
         post_id: this.$store.state.roomList[this.$store.state.roomIndex].post_id
       };
-      console.log(roomInfo);
-      // this.$store.dispatch('EXIT_DELIVERY_POST', roomInfo);
+      this.$store.dispatch('EXIT_DELIVERY_POST', roomInfo);
 
       Swal.fire({
         icon: 'success',
@@ -52,10 +51,12 @@ div {
   margin-right: 20px;
 }
 button {
-  font-size: 16px;
+  font-size: 14px;
+  font-weight: bold;
   float:right;
   border: none;
-  border-radius: 20%;
-  background-color: rgba(255, 123, 123, 0.826);
+  border-radius: 15%;
+  background-color: rgba(255, 103, 103, 0.526);
+  padding: 7px;
 }
 </style>

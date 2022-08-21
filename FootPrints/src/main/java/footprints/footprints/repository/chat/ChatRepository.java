@@ -17,4 +17,6 @@ public interface ChatRepository {
     List<ChatDataDTO> getChatList(Long post_id);
 
     void save(ChatDataDTO chatDataDTO);
+
+    void delete_all(Long post_id);
 }

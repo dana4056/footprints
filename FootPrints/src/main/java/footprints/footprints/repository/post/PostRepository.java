@@ -21,4 +21,5 @@ public interface PostRepository {
 
     Post findByPostId(Long post_id);
 
+    void delete_all(Long post_id);
 }

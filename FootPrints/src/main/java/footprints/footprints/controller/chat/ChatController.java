@@ -68,5 +68,9 @@ public class ChatController {
         return  new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
     }
 
-
+    @PostMapping(value = "/chat/delete")
+    public ResponseEntity<String> deleteChat(@RequestBody Long post_id) {
+        chatService.delete(post_id);
+        return new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+    }
 }

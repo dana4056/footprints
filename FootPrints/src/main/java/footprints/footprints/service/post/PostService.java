@@ -20,4 +20,6 @@ public interface PostService {
     List<Post> getSortTimeList(String time, String areaName); //시간별 리스트뷰
 
     public void plusView(Post post);
+
+    void delete(Long post_id);
 }

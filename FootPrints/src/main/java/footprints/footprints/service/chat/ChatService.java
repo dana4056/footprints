@@ -16,4 +16,6 @@ public interface ChatService {
     List<ChatDataDTO> getChatList(Long post_id);
 
     void save(ChatDataDTO chatDataDTO);
+
+    void delete(Long post_id);
 }

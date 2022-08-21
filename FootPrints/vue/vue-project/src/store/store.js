@@ -31,8 +31,6 @@ export const store = new Vuex.Store({
         delivery_category: "",
         delivery_category_sort: "",
         delivery_category_area: "",
-        postIDList: [],
-        // roomList: [],
         roomIndex: 0,
         userList: [" "],
         chatLogs: [],

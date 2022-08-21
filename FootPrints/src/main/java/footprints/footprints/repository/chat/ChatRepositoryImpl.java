@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.util.List;
 import java.util.*;
@@ -98,5 +99,10 @@ public class ChatRepositoryImpl implements ChatRepository {
         log.info("-------------------save--{}", chatDataDTO.getPost_id());
         ChatData chatData = new ChatData(chatDataDTO.getFrom_name(), chatDataDTO.getTime(), chatDataDTO.getMessage(), post);
         em.persist(chatData);
+    }
+
+    public void delete_all(Long post_id) {
+        Query query = em.createQuery("delete from ChatData c where c.post.post_id = :post_id");
+        query.setParameter("post_id", post_id).executeUpdate();
     }
 }

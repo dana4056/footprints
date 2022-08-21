@@ -51,4 +51,8 @@ public class ChatServiceImpl implements ChatService {
     public void save(ChatDataDTO chatDataDTO) {
         chatRepository.save(chatDataDTO);
     }
+
+    public void delete(Long post_id) {
+        chatRepository.delete_all(post_id);
+    }
 }
