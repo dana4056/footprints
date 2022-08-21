@@ -39,6 +39,12 @@ public class PostController {
         return new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
     }
 
+    // 글 수정하기
+    @PostMapping(value = "/delivery/post/amend")
+    public ResponseEntity<String> deliveryAmendPost(@RequestBody PostDTO postDTO){
+        postService.update(postDTO);
+        return new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+    }
 
     // 리스트뷰
     @GetMapping(value = "/delivery/post")

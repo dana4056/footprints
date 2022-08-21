@@ -9,7 +9,7 @@ public interface PostService {
 
     void join(PostDTO postDTO);
 
-    void update(Long post_id, PostDTO postDTO);
+    void update(PostDTO postDTO);
 
     void remove(Long post_id);
 
