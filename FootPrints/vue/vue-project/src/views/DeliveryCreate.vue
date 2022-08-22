@@ -1,7 +1,7 @@
 <template>
   <div>
     <tool-bar></tool-bar>
-    <div id="wrap">
+    <!-- <div id="wrap">
       <div id="wrap2">
         <div style="float:left; width:300px;">
           <div id="category">
@@ -31,7 +31,6 @@
               <option value="5">5명</option>
               <option value="6">6명</option>
               <option value="7">7명</option>
-              <!-- <option value="etc">그 외</option> -->
             </select>
           </div>
 
@@ -50,7 +49,7 @@
           <button type="submit" v-on:click.prevent="register">등록</button>
         </div>
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -63,48 +62,48 @@ export default {
   components:{
         ToolBar,
   },
-  mounted() {
-    let $vm = this;
-    // 날짜 입력 최소값 지정(현시간)
-    $vm.minDate = dayjs().format("YYYY-MM-DDTHH:mm");
+  // mounted() {
+  //   let $vm = this;
+  //   // 날짜 입력 최소값 지정(현시간)
+  //   $vm.minDate = dayjs().format("YYYY-MM-DDTHH:mm");
 
-    // 지도 창 생성
-    let kakao = window.kakao;
-    var container = this.$refs.map;
-    var options = { 
-      center: new kakao.maps.LatLng(37.56676113296615, 126.97865227682179),
-      level: 10
-    };
-    const mapInstance = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
+  //   // 지도 창 생성
+  //   let kakao = window.kakao;
+  //   var container = this.$refs.map;
+  //   var options = { 
+  //     center: new kakao.maps.LatLng(37.56676113296615, 126.97865227682179),
+  //     level: 10
+  //   };
+  //   const mapInstance = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
 
-    var geocoder = new kakao.maps.services.Geocoder();
+  //   var geocoder = new kakao.maps.services.Geocoder();
 
-    // 마커 생성
-    var marker = new kakao.maps.Marker({ 
-      position: mapInstance.getCenter(),
-    }); 
-    marker.setMap(mapInstance);
+  //   // 마커 생성
+  //   var marker = new kakao.maps.Marker({ 
+  //     position: mapInstance.getCenter(),
+  //   }); 
+  //   marker.setMap(mapInstance);
 
-    // 줌인 줌아웃
-    var zoomControl = new kakao.maps.ZoomControl();
-    mapInstance.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
+  //   // 줌인 줌아웃
+  //   var zoomControl = new kakao.maps.ZoomControl();
+  //   mapInstance.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
 
-    // 클릭 이벤트 등록
-    kakao.maps.event.addListener(mapInstance, 'click', function(mouseEvent) {        
-      var latlng = mouseEvent.latLng; 
+  //   // 클릭 이벤트 등록
+  //   kakao.maps.event.addListener(mapInstance, 'click', function(mouseEvent) {        
+  //     var latlng = mouseEvent.latLng; 
 
-      marker.setPosition(latlng);
+  //     marker.setPosition(latlng);
 
-      // 지원 - 79번째 줄에서 geocoder 선언해줬고, 97번째줄 부터 103번째 줄까지가 주소 가져오는 코드입니다!
-      let callback = function(result, status) {
-        if (status === kakao.maps.services.Status.OK) {
-            console.log(result[0].address_name);
-        }
-      }
-      geocoder.coord2RegionCode(latlng.getLng(), latlng.getLat(), callback);
-      $vm.inputVisible = true;
-    });
-  },
+  //     // 지원 - 79번째 줄에서 geocoder 선언해줬고, 97번째줄 부터 103번째 줄까지가 주소 가져오는 코드입니다!
+  //     let callback = function(result, status) {
+  //       if (status === kakao.maps.services.Status.OK) {
+  //           console.log(result[0].address_name);
+  //       }
+  //     }
+  //     geocoder.coord2RegionCode(latlng.getLng(), latlng.getLat(), callback);
+  //     $vm.inputVisible = true;
+  //   });
+  // },
   data() {
     return {
       post_name: "",     // 글 제목
