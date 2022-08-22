@@ -2,18 +2,19 @@
 <header>
   <div class="header">
     <router-link to="/home" class="logo"><img src="../assets/logo.png">발자취</router-link>
-    <router-link to="/notice/post" class="">공지사항</router-link>
     <div v-if="this.$store.state.member.nick ==''">
+        <router-link to="/notice/post" class="menutext">공지사항</router-link>
         <router-link to="/delivery/posta" class="item"><button>배달 같이하기</button></router-link>
-        <router-link to="/login" class="item">로그인</router-link> | 
+        <router-link to="/login" class="item">로그인</router-link> |
         <router-link to="/signup" class="item">회원가입</router-link>
     </div>
     <div v-else>
+        <router-link to="/notice/post" class="menutext">공지사항</router-link>
+        <router-link v-bind:to="`/chat/${this.$store.state.member.nick}`" class="chatlogo"><img src="../assets/chat.png"></router-link>
         <router-link to="/delivery/posta" class="item"><button>배달 같이하기</button></router-link>
         <router-link  v-bind:to="`/myPage/${this.$store.state.member.nick}`" id="u_name">{{this.$store.state.member.nick}}</router-link>
         님 |
         <span id="logout" v-on:click="logout">로그아웃</span>
-        <router-link v-bind:to="`/chat/${this.$store.state.member.nick}`">      채팅방</router-link>
     </div>
   </div>
 </header>
@@ -49,6 +50,15 @@ header{
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+.menutext{
+    text-decoration: none;
+    color: black;
+    margin: 0 15px;
+}
+.chatlogo {
+    display: inline-block;
+    vertical-align: middle;
 }
 .logo {
     display: flex;

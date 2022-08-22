@@ -32,15 +32,19 @@ public class Post {
     private LocalDateTime createdDate;  //게시물 등록 시간
     private int view_num;         // 조회수
     // ------- member entity 참조할건데 임시로 --------------
+    private String nick;
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name="MEMBER_NICK")
 //    @JsonIgnore
     private Member member;
-    private String post_area;
+    private String area_name;
+    private long x;
+    private long y;
 
     @Builder
     public Post(String post_name, String post_content, String category, String take_loc,
-                int participant_num, int max_person_num, String valid_time, int view_num, Member member, String post_area){
+                int participant_num, int max_person_num, String valid_time, int view_num, String nick, Member member,
+                String area_name, long x, long y){
         this.post_name = post_name;
         this.post_content = post_content;
         this.category = category;
@@ -49,8 +53,11 @@ public class Post {
         this.max_person_num = max_person_num;
         this.valid_time = valid_time;
         this.view_num = view_num;
+        this.nick = nick;
         this.member = member;
-        this.post_area = post_area;
+        this.area_name = area_name;
+        this.x = x;
+        this.y = y;
     }
 
     @Builder

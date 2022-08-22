@@ -1,13 +1,10 @@
 <template>
-  <div id="wrap">
+  <div class="wrap">
+
       <tool-bar></tool-bar>
       <div id="content">
-        <!-- <div id="notice">
-          <div>
-            <router-link v-bind:to="`/notice/post`"><p>공지사항</p></router-link>
-          </div>
-          <notice-area></notice-area>
-        </div> -->
+        
+    
       </div>
       <up-button id="up_button"></up-button>
       <!-- footer 지역에 닿으면 사라지는 이슈 -->
@@ -19,20 +16,21 @@
 import ToolBar from '../components/ToolBar.vue'
 import FooterArea from '../components/FooterArea.vue'
 import UpButton from '../components/UpButton.vue'
+
 // import NoticeArea from '../components/NoticeArea.vue'
 
 export default {
     components:{
         ToolBar,
         FooterArea,
-        UpButton, 
+        UpButton,
         // NoticeArea,
     }
 }
 </script>
 
 <style scoped>
-#wrap{
+.wrap{
     min-height: 100%;
     position: relative;
 }
@@ -47,10 +45,10 @@ export default {
     left: 0;
 }
 #up_button{
-    height: 100x;
     position: fixed;
-    bottom: 0;
+    bottom: 70px;
     right: 200px;
+    z-index: 1000;
 }
 #delivery{
   float:left;

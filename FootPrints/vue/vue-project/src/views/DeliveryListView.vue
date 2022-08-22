@@ -205,11 +205,12 @@ export default {
     width: 100%;
     left: 0;
 }
-#up_button{ 
-    height: 700px;
+
+#up_button{
     position: fixed;
-    bottom: 0;
+    bottom: 70px;
     right: 200px;
+    z-index: 1000;
 }
 #sort-box{
   display: -webkit-box;
