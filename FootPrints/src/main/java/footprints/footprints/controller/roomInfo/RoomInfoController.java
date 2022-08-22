@@ -4,7 +4,7 @@ package footprints.footprints.controller.roomInfo;
 import footprints.footprints.domain.post.Post;
 import footprints.footprints.domain.roomInfo.RoomInfoDTO;
 import footprints.footprints.repository.post.PostRepository;
-import footprints.footprints.service.roominfo.RoomInfoService;
+import footprints.footprints.service.roomInfo.RoomInfoService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
