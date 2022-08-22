@@ -234,10 +234,15 @@ export default{
       .then(response =>{
         console.log("API:FETCH_DELIVERY_LIST\n배달 리스트 뷰 페이지 정보 받아오기 성공",response.data);
         commit('SET_DELIVERIES', response.data);
+        if(response == null){
+          alert("null권한 없음 로그인 후 이용하세요");
+          router.replace("/home");
+        }
       })
       .catch(error =>{
         const code = error.response.status;
-        if(code == 401){
+        // 일단 405로 바꿔놨는데 POST메소드 아니고 GET 쓰도록 PATHVARIABLE로 지역만 쓰는 식으로 가야할듯
+        if(code == 405){
           alert("권한 없음 로그인 후 이용하세요");
           //history.back(); 
           router.replace("/home");

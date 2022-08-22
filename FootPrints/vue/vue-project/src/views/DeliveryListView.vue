@@ -165,6 +165,8 @@ export default {
           this.$store.dispatch('FETCH_DELIVERY_LIST', this.$store.state.deliveryPost_presentArea);
           
           setTimeout(() => { 
+            this.NoneCategory();
+            this.BeforeSort();
             this.$store.getters.GET_DELIVERIES;
             // this.$store.state.deliveryPost_presentArea = this.area;
             // this.$router.push("/delivery/post");
