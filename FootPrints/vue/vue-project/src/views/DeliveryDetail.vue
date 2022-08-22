@@ -121,8 +121,10 @@ export default {
     caltime(created){
 
       const now = dayjs();
-
-      if(created.isSame(now,"day")){
+      console.log("now",now);
+      console.log("created",created);
+      console.log("created.isSame(now,`d`)", created.isSame(now,"d"));
+      if(created.isSame(now,"d")){
           const ago_H = now.diff(created,"h");
           const ago_M = now.diff(created,"m");
           if(ago_H == 0){

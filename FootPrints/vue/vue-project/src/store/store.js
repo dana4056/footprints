@@ -139,7 +139,7 @@ export const store = new Vuex.Store({
             const Vdate = dayjs(post.valid_time);
 
             state.deliveryPost = post;
-            state.deliveryPost.createdDate = Cdate;
+            state.deliveryPost.createdDate = Cdate.subtract(9,'h');
             state.deliveryPost.valid_time = Vdate;
         },
         SET_DELIVERIES_CATEGORY_AREA(state, category_area){

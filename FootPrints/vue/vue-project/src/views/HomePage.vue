@@ -45,10 +45,10 @@ export default {
     left: 0;
 }
 #up_button{
-    height: 100x;
     position: fixed;
-    bottom: 0;
+    bottom: 70px;
     right: 200px;
+    z-index: 1000;
 }
 #delivery{
   float:left;
