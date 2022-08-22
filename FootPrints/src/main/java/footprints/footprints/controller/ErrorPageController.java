@@ -21,6 +21,6 @@ public class ErrorPageController implements ErrorController {
         }
 
         public String getErrorPath(){
-            return "home";
+            return null;
         }
 }

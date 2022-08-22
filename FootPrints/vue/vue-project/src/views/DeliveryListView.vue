@@ -3,11 +3,12 @@
   <div display="flex">
     <tool-bar></tool-bar>
     <div id="content">
+      <div>현재 설정 지역은 {{this.$store.state.deliveryPost_presentArea}} 입니다.</div>
       <!-- <router-link v-bind:to="`/delivery/post/${delivery.post_id}`" class="link">상세보기 페이지 예시</router-link>  -->
       <div id="sort-box"> 
         <!-- 수정 필요 부분 -->
         <!-- <button>음식 카테고리</button>
-        <button>정렬: 기한 가까운 순</button> -->
+        <button>정렬: 기한 가까운 순</button> --> 
         <label>음식 카테고리</label>
           <div>
             <select class="sortThing" v-model="category" v-on:focus="NoneCategory" v-on:focusout="SelectCategory">
@@ -55,7 +56,7 @@
             <div class="res-name"><router-link v-bind:to="`/delivery/post/${delivery.post_id}`">{{ delivery.post_name }}</router-link></div>
             <div class="category" v-bind:class="delivery.category">{{this.categories[delivery.category]}}</div>
             <div class="time"><small>마감기한 : {{  delivery.valid_time.format("M/D  HH:mm")}}</small></div>
-          </div>
+          </div> 
           <router-link v-bind:to="`/delivery/post/${delivery.post_id}`"><p>{{ delivery.post_content }}</p></router-link>
           <div class="listbox-foot">
             <div class="detail-info">
@@ -106,11 +107,11 @@ export default {
       },
       category: "",
       sort_criteria: "",
-      area: "",
+      area: this.$store.state.deliveryPost_presentArea,
     } 
   },
   beforeCreate(){
-    this.$store.dispatch('FETCH_DELIVERY_LIST');
+    this.$store.dispatch('FETCH_DELIVERY_LIST', this.$store.state.deliveryPost_presentArea);
   },
   methods:{
     caltime(created){
@@ -132,17 +133,13 @@ export default {
       this.category = "";
     },
     SelectCategory(){
-      // this.area = this.$store.getters.GET_DELIVERY_PRESENT_AREA;
-      // if(this.$store.state.delivery_category_area == "" && this.$store.state.delivery_category_sort == ""){
-
-      // }
-      // else{
-      //   this.$store.dispatch('FETCH_DELIVERY_LIST_CATEGORY', this.category);
-      //   console.log(this.category);
-      // }
-      this.$store.dispatch('FETCH_DELIVERY_LIST_CATEGORY', this.category);
-      console.log(this.category);
-      // console.log(this.area);
+      const sortDTO = {
+        category : this.category,
+        sort_criteria: this.sort_criteria,
+        area : this.area,
+      }
+      this.$store.dispatch('FETCH_DELIVERY_LIST_SORT', sortDTO);
+      console.log(sortDTO.category, sortDTO.sort_criteria, sortDTO.area);
       setTimeout(() => { 
           this.$store.getters.GET_DELIVERIES;
         }, 200);   
@@ -151,16 +148,16 @@ export default {
       this.sort_criteria = "";
     },
     SelectSortCriteria(){
-      if(this.sort_criteria == "near" | this.sort_criteria == 'far'){
-        this.$store.dispatch('FETCH_DELIVERY_LIST_SORT_TIME', this.sort_criteria);
+      const sortDTO = {
+        category : this.category,
+        sort_criteria: this.sort_criteria,
+        area : this.area,
       }
-      else if(this.sort_criteria == "default"){
-        this.$store.dispatch('FETCH_DELIVERY_LIST')
-      }
-      //혹시 다른 조건 걸릴까봐 이런 if문으로 분기 해놓음
+      this.$store.dispatch('FETCH_DELIVERY_LIST_SORT', sortDTO);
+      console.log(sortDTO.category, sortDTO.sort_criteria, sortDTO.area);
       setTimeout(() => { 
-        this.$store.getters.GET_DELIVERIES;
-      }, 100);   
+          this.$store.getters.GET_DELIVERIES;
+        }, 200);   
     },
     searchArea() {
       new window.daum.Postcode({
@@ -171,12 +168,18 @@ export default {
           const eupmyeondong = data.bname;
           
           this.area = sido+" "+sigoongu+" "+eupmyeondong;
-          this.$store.dispatch('FETCH_DELIVERY_LIST_SORT_AREA', this.area);
+          // this.$store.dispatch('FETCH_DELIVERY_LIST_SORT_AREA', this.area);
           console.log(this.area);
-
+          this.$store.state.deliveryPost_presentArea = this.area;
+          this.$store.dispatch('FETCH_DELIVERY_LIST', this.$store.state.deliveryPost_presentArea);
+          
           setTimeout(() => { 
+            this.NoneCategory();
+            this.BeforeSort();
             this.$store.getters.GET_DELIVERIES;
-          }, 200);  
+            // this.$store.state.deliveryPost_presentArea = this.area;
+            // this.$router.push("/delivery/post");
+          }, 100);  
         }
       }).open();
     }

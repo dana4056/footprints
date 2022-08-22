@@ -3,12 +3,11 @@ import { postEmail, postNick, postLogin, postMemberInfo } from "../api/index.js"
 // import { fetchSido, fetchSigoongu, fetchEupmyeondong } from "../api/index.js"
 import { findID, findPW, changePWD, findUserArea } from "../api/index.js"
 import { findUser, findChatLogs, postChatData, findRoom, findPostID } from "../api/index.js"
-import { fetchUser, fetchDeliveryList, fetchDeliveryDetail, fetchDeliveryList_Category, fetchDeliveryList_Time, fetchDeliveryList_Area } from "../api/index.js";
+import { fetchUser, fetchDeliveryList, fetchDeliveryDetail, fetchDeliveryList_SORT} from "../api/index.js";
 import { postDeliveryPost,  amendDeliveryPost, deleteChatData, deleteRoomInfo, deletePost, joinDeliveryPost, exitDeliveryPost} from "../api/index.js";
 import { fetchMyDPost, fetchMyPartici, changeMember } from "../api/index.js";
 import { router } from '../routes/index.js';
 import { store } from "./store.js";
-
 
 export default{ 
   FETCH_USER({commit}){
@@ -130,6 +129,9 @@ export default{
                         area: response.data
                     }
                     commit('SET_MEMBER', member);
+                    commit('SET_DELIVERY_AREA', member.area);
+                    router.replace("/home");
+                    store.dispatch('FIND_POST_ID', loginMember.nick);
                 })
                 .catch(error => {
                     console.log("지역 읽기 실패", error);
@@ -226,16 +228,21 @@ export default{
       })
   },
   // 리스트뷰 페이지 데이터 로드
-  FETCH_DELIVERY_LIST({commit}){
-    fetchDeliveryList()
+  FETCH_DELIVERY_LIST({commit}, area){
+    fetchDeliveryList(area)
       .then(response =>{
         console.log("API:FETCH_DELIVERY_LIST\n배달 리스트 뷰 페이지 정보 받아오기 성공",response.data);
         commit('SET_DELIVERIES', response.data);
+        if(response == null){
+          alert("null권한 없음 로그인 후 이용하세요");
+          router.replace("/home");
+        }
       })
       .catch(error =>{
         const code = error.response.status;
-        if(code == 403){
-          alert("FETCH_DELIVERY_LIST 로그인 후 이용하세요");
+        // 일단 405로 바꿔놨는데 POST메소드 아니고 GET 쓰도록 PATHVARIABLE로 지역만 쓰는 식으로 가야할듯
+        if(code == 405){
+          alert("권한 없음 로그인 후 이용하세요");
           //history.back(); 
           router.replace("/home");
           // location.href = "http://localhost:8080/home"
@@ -246,10 +253,10 @@ export default{
       })
   },
   // 카테고리별 리스트뷰 페이지 데이터 로드
-  FETCH_DELIVERY_LIST_CATEGORY({ commit }, category) {
-    fetchDeliveryList_Category(category)
+  FETCH_DELIVERY_LIST_SORT({ commit }, sortDTO) {
+    fetchDeliveryList_SORT(sortDTO)
       .then(response => {
-        console.log("API:FETCH_DELIVERY_LIST_CATEGORY\n카테고리별 배달 리스트 뷰 페이지 정보 받아오기 성공\n", response.data);
+        console.log("API:FETCH_DELIVERY_LIST_CATEGORY\n정렬(카테고리) 배달 리스트 뷰 페이지 정보 받아오기 성공\n", response.data);
         commit('SET_DELIVERIES', response.data);
       })
       .catch(error => {
@@ -265,46 +272,6 @@ export default{
         }
       })
   },
-  FETCH_DELIVERY_LIST_SORT_TIME({ commit }, time) {
-    fetchDeliveryList_Time(time)
-      .then(response => {
-        console.log("API:FETCH_DELIVERY_LIST_TIME\n시간별 배달 리스트 뷰 페이지 정보 받아오기 성공(GET success)\n", response.data);
-        commit('SET_DELIVERIES', response.data);
-      })
-      .catch(error => {
-        const code = error.response.status;
-        if (code == 403) {
-          alert("FETCH_DELIVERY_LIST_SORT_TIME 로그인 후 이용하세요");
-          //history.back();
-          router.replace("/home");
-          // location.href = "http://localhost:8080/home"
-        }
-        else {
-          console.log("API:FETCH_DELIVERY_LIST_TIME\n시간별 배달 리스트 뷰 페이지 정보 받아오기 실패\n", error);
-        }
-      })
-  },
-
-FETCH_DELIVERY_LIST_SORT_AREA({ commit }, area) {
-  fetchDeliveryList_Area(area)
-    .then(response => {
-      console.log("API:FETCH_DELIVERY_LIST_SORT_AREA\n지역별 배달 리스트 뷰 페이지 정보 받아오기 성공(GET success)\n", response.data);
-      commit('SET_DELIVERIES', response.data);
-    })
-    .catch(error => {
-      const code = error.response.status;
-      if (code == 403) {
-        alert("FETCH_DELIVERY_LIST_SORT_AREA 로그인 후 이용하세요");
-        //history.back();
-        router.replace("/home");
-        // location.href = "http://localhost:8080/home"
-      }
-      else {
-        console.log("API:FETCH_DELIVERY_LIST_SORT_AREA\n지역별 배달 리스트 뷰 페이지 정보 받아오기 실패\n", error);
-      }
-    })
-},
-
   // 게시물 작성
   POST_DELIVERY_POST(content, post){
     postDeliveryPost(post)
@@ -330,7 +297,14 @@ FETCH_DELIVERY_LIST_SORT_AREA({ commit }, area) {
       console.log("API:AMEND_DELIVERY_POST\n게시물 수정 성공", response);
     })
     .catch(error => {
-      console.log("API:AMEND_DELIVERY_POST\n게시물 수정 실패", error);
+      const code = error.response.status;
+      if (code == 403) {
+        alert("POST_DELIVERY_POST 로그인 후 이용하세요");
+        router.replace("/home");
+      }
+      else {
+        console.log("API:POST_DELIVERY_POST\n게시물 수정 실패", error);
+      }
     })
   },
 
@@ -367,7 +341,6 @@ FETCH_DELIVERY_LIST_SORT_AREA({ commit }, area) {
     joinDeliveryPost(roomInfo)
     .then(response => {
         console.log('API:JOIN_DELIVERY_POST\n배달 참여 성공',response);
-        store.dispatch('FIND_POST_ID', store.state.member.nick);
       })
       .catch(error => {
         console.log('API:JOIN_DELIVERY_POST\n배달 참여 실패',error);
@@ -379,7 +352,6 @@ FETCH_DELIVERY_LIST_SORT_AREA({ commit }, area) {
     exitDeliveryPost(roomInfo)
       .then(response => {
         console.log('API:EXIT_DELIVERY_POST\n참여 취소 성공',response);
-        store.dispatch('FIND_POST_ID', store.state.member.nick);
       })
       .catch(error => {
         console.log('API:EXIT_DELIVERY_POST\n참여 취소 실패',error);

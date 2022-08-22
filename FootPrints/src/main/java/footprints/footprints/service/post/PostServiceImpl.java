@@ -26,12 +26,18 @@ public class PostServiceImpl implements PostService{
     }
 
     @Override
-    public void update(Long post_id, PostDTO postDTO){
+    public void update(PostDTO postDTO){
         //프론트에서 넘겨받은 id를 이용하여 해당 post를 db에서 검색
-        Post post = postRepository.findDetail(post_id);
+        Post post = postRepository.findDetail(postDTO.getPost_id());
         post.Update(postDTO);
         //PostDTO postDTO1 = new PostDTO(post);
-        postRepository.save_d(postDTO);
+        postRepository.save(post);
+    }
+
+    @Override
+    public void remove(Long post_id){
+        Post post = postRepository.findDetail(post_id);
+        postRepository.delete(post);
     }
 
     @Override
@@ -47,13 +53,8 @@ public class PostServiceImpl implements PostService{
     }
 
     @Override
-    public List<Post> getCategoryList(String category, String areaName) {
-        List<Post> posts = postRepository.findCategory(category, areaName);
-        return posts;
-    }
-    @Override
-    public List<Post> getSortTimeList(String time, String areaName){
-        List<Post> posts = postRepository.findSortTime(time, areaName);
+    public List<Post> getSortingList(String category, String sort_criteria, String area) {
+        List<Post> posts = postRepository.findSortAll(category, sort_criteria, area);
         return posts;
     }
 

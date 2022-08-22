@@ -23,11 +23,4 @@ public class RoomInfoDTO {
         this.member = roomInfo.getMember();
         this.post = roomInfo.getPost();
     }
-
-    public RoomInfo toEntity() {
-        return RoomInfo.builder()
-                .member(member)
-                .post(post)
-                .build();
-    }
 }

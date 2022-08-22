@@ -1,14 +1,24 @@
--- 회원가입은 멤버롤 이슈로 직접 
+-- 회원가입 - 악마선진, 악마다은
 
 -- 글 작성 편하게 사용자 이름쪽만 건드리면 test 가능
 INSERT INTO `test_db`.`post` (`post_id`, `category`, `created_date`,`max_person_num`, `participant_num`, `post_content`, `post_name`, `take_loc`, `valid_time`, `view_num`, `member_nick`, `post_area`)
-VALUES (1, 'CHI', '2022-07-27 02:30:46', 5, 1, 'cc', '중국음식 배달시간3', 'zzz', '2022-08-05T11:38', 0, '악마선진', '서울 성북구 정릉동');
+VALUES (1, 'CHI', '2022-07-27 02:30:46', 5, 1, '중국음식 배달시간4 내용', '중국음식 배달시간4', '북악1', '2022-09-23T11:38', 0, '악마선진', '서울 성북구 정릉동');
 INSERT INTO `test_db`.`post` (`post_id`, `category`, `created_date`,`max_person_num`, `participant_num`, `post_content`, `post_name`, `take_loc`, `valid_time`, `view_num`, `member_nick`, `post_area`)
-VALUES (2, 'KOR', '2022-07-27 02:31:46', 5, 1, 'cc', '한국음식 배달시간4', 'zzz', '2022-08-06T11:35', 0, '악마선진', '서울 성북구 정릉동');
+VALUES (2, 'KOR', '2022-07-27 02:31:46', 5, 1, '한국음식 배달시간3 내용', '한국음식 배달시간3', '북악2', '2022-08-27T11:35', 0, '악마선진', '서울 성북구 정릉동');
 INSERT INTO `test_db`.`post` (`post_id`, `category`, `created_date`,`max_person_num`, `participant_num`, `post_content`, `post_name`, `take_loc`, `valid_time`, `view_num`, `member_nick`, `post_area`)
-VALUES (3, 'CHI', '2022-07-27 02:32:46', 5, 1, 'cc', '중국음식 배달시간2', 'zzz', '2022-08-04T11:38', 0, '악마선진', '서울 성북구 정릉동');
+VALUES (3, 'JAP', '2022-07-27 02:32:46', 5, 1, '일본음식 배달시간2 내용', '일본음식 배달시간2', '북악3', '2022-08-25T11:38', 0, '악마선진', '서울 성북구 정릉동');
 INSERT INTO `test_db`.`post` (`post_id`, `category`, `created_date`,`max_person_num`, `participant_num`, `post_content`, `post_name`, `take_loc`, `valid_time`, `view_num`, `member_nick`, `post_area`)
-VALUES (4, 'KOR', '2022-07-27 02:33:46', 5, 1, 'cc', '한국음식 배달시간1', 'zzz', '2022-08-04T11:35', 0, '악마선진', '서울 성북구 정릉동');
+VALUES (4, 'KOR', '2022-07-27 02:33:46', 5, 1, '한국음식 배달시간1 내용', '한국음식 배달시간1', '북악4', '2022-08-23T11:35', 0, '악마선진', '서울 성북구 정릉동');
+INSERT INTO `test_db`.`post` (`post_id`, `category`, `created_date`,`max_person_num`, `participant_num`, `post_content`, `post_name`, `take_loc`, `valid_time`, `view_num`, `member_nick`, `post_area`)
+VALUES (5, 'KOR', '2022-07-27 02:33:46', 5, 1, '타인이 쓴 글 내용1', '타인이 쓴 글', '북악관', '2022-09-03T11:35', 0, '악마다은', '서울 성북구 정릉동');
+INSERT INTO `test_db`.`post` (`post_id`, `category`, `created_date`,`max_person_num`, `participant_num`, `post_content`, `post_name`, `take_loc`, `valid_time`, `view_num`, `member_nick`, `post_area`)
+VALUES (6, 'KOR', '2022-07-27 02:33:46', 5, 1, '타지역 한국음식 배달시간4 내용', '타지역 한국음식 배달시간4', '개봉1', '2022-09-06T11:35', 0, '악마다은', '서울 구로구 개봉동');
+INSERT INTO `test_db`.`post` (`post_id`, `category`, `created_date`,`max_person_num`, `participant_num`, `post_content`, `post_name`, `take_loc`, `valid_time`, `view_num`, `member_nick`, `post_area`)
+VALUES (7, 'CHI', '2022-07-27 02:33:46', 5, 1, '타지역 중국음식 배달시간2 내용', '타지역 중국음식 배달시간2', '개봉2', '2022-09-04T11:35', 0, '악마다은', '서울 구로구 개봉동');
+INSERT INTO `test_db`.`post` (`post_id`, `category`, `created_date`,`max_person_num`, `participant_num`, `post_content`, `post_name`, `take_loc`, `valid_time`, `view_num`, `member_nick`, `post_area`)
+VALUES (8, 'JAP', '2022-07-27 02:33:46', 5, 1, '타지역 일본음식 배달시간3 내용', '타지역 일본음식 배달시간3', '개봉3', '2022-09-05T11:35', 0, '악마다은', '서울 구로구 개봉동');
+INSERT INTO `test_db`.`post` (`post_id`, `category`, `created_date`,`max_person_num`, `participant_num`, `post_content`, `post_name`, `take_loc`, `valid_time`, `view_num`, `member_nick`, `post_area`)
+VALUES (9, 'KOR', '2022-07-27 02:33:46', 5, 1, '타지역 한국음식 배달시간1 내용', '타지역 한국음식 배달시간1', '개봉4', '2022-09-03T11:35', 0, '악마다은', '서울 구로구 개봉동');
 
 -- 공지사항 등록 
 INSERT INTO `test_db`.`notice` (`id`, `author`, `content`,`post_time`, `title`, `view_num`)
