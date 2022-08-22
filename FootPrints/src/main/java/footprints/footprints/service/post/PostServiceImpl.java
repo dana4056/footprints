@@ -35,6 +35,12 @@ public class PostServiceImpl implements PostService{
     }
 
     @Override
+    public void remove(Long post_id){
+        Post post = postRepository.findDetail(post_id);
+        postRepository.delete(post);
+    }
+
+    @Override
     public List<Post> getPostList(String area_name) {
         List<Post> posts = postRepository.findAll(area_name);
         return posts;

@@ -45,7 +45,7 @@ public class PostRepositoryImpl implements PostRepository{
             em.merge(post);
         }
     }
-
+    @Override
     public void save(Post post){
         if(post.getPost_id() == null){
             log.info("-------------------------------------------");
@@ -58,6 +58,16 @@ public class PostRepositoryImpl implements PostRepository{
             log.info("id 있음");
             log.info("-------------------------------------------");
             em.merge(post);
+        }
+    }
+
+    @Override
+    public void delete(Post post){
+        if(post.getPost_id() == null){
+            log.info("존재하지 않는 post");
+        }
+        else{
+            em.remove(post);
         }
     }
 

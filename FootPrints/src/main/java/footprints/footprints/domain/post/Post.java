@@ -78,7 +78,6 @@ public class Post {
         this.max_person_num = postDTO.getMax_person_num();
         this.valid_time = postDTO.getValid_time();
         this.view_num = postDTO.getView_num();
-//        this.member = postDTO.getMember();
     }
 
     public void Plus_view(){
