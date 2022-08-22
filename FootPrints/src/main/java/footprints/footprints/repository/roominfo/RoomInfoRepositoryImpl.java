@@ -24,4 +24,10 @@ public class RoomInfoRepositoryImpl implements RoomInfoRepository{
         RoomInfo roomInfo = new RoomInfo(roomInfoDTO.getMember(), roomInfoDTO.getPost());
         em.persist(roomInfo);
     }
+
+    @Override
+    public void delete(RoomInfoDTO roomInfoDTO){
+        RoomInfo roomInfo = new RoomInfo(roomInfoDTO.getMember(), roomInfoDTO.getPost());
+        em.remove(roomInfo);
+    }
 }

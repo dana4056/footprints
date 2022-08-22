@@ -44,16 +44,4 @@ public class PostDTO {
         this.post_area = post.getPost_area();
     }
 
-//    public Post toEntity() {
-//        return Post.builder()
-//                .post_name(post_name)
-//                .post_content(post_content)
-//                .category(category)
-//                .take_loc(take_loc)
-//                .participant_num(participant_num)
-//                .max_person_num(max_person_num)
-//                .valid_time(valid_time)
-//                .view_num(view_num)
-//                .build();
-//    }
 }

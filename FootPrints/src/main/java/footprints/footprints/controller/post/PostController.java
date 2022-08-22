@@ -75,14 +75,6 @@ public class PostController {
     }
 
 
-    @PostMapping(value = "/delivery/post/{post_id}/update")
-    public ResponseEntity<String> update(@RequestBody Long post_id, PostDTO postDTO){
-        log.info("--------Id:{}", postDTO.getPost_name());
-        log.info("--------Id:{}", postDTO.getCategory());
-        postService.update(postDTO);
-        return new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
-    }
-
     // 카테고리에서 선택한 종류에 대한 리스트뷰 뿌려주기
     @PostMapping(value = "/delivery/post/sort_category")
     public ResponseEntity<List<Post>> listOfCategory(@RequestBody String category, Authentication authentication) {

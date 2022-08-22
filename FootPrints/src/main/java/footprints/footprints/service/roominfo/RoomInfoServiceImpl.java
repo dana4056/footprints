@@ -22,4 +22,9 @@ public class RoomInfoServiceImpl implements RoomInfoService {
         roomInfoRepository.save(roomInfoDTO);
     }
 
+    @Override
+    public void remove(RoomInfoDTO roomInfoDTODTO){
+        roomInfoRepository.delete(roomInfoDTODTO);
+    }
+
 }
