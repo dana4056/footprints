@@ -39,7 +39,7 @@ const routes = [
     {   path: '/delivery/post/amend/:id', component: DeliveryAmend } ,
     {   path: '/delivery/posta', component: DeliveryList    },
     {   path: '/delivery/post/:id', component: DeliveryDetail  },
-    {   path: '/myPage/:nick', component: MyPage  },S
+    {   path: '/myPage/:nick', component: MyPage  },
     {   path: '/notice/:id', component: NoticeDetail },
     {   path: '/notice/post', component: NoticeList },
     {   path: '/notice/post/create', component: NoticeCreate },
