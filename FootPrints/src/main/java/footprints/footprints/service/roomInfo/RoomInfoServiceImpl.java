@@ -18,7 +18,7 @@ public class RoomInfoServiceImpl implements RoomInfoService {
     private final RoomInfoRepository roomInfoRepository;
 
     @Override
-    public void join(RoomInfoDTO roomInfoDTO){
+    public void join1(RoomInfoDTO roomInfoDTO){
         roomInfoRepository.save(roomInfoDTO);
     }
 
@@ -27,4 +27,16 @@ public class RoomInfoServiceImpl implements RoomInfoService {
         roomInfoRepository.delete(roomInfoDTODTO);
     }
 
+    public void join(String nick, Long post_id){
+        roomInfoRepository.save_d(nick, post_id);
+    }
+
+    public void exit(String nick, Long post_id){
+        log.info("exit {} {}", nick, post_id);
+        roomInfoRepository.delete_d(nick, post_id);
+    }
+
+    public void delete(Long post_id) {
+        roomInfoRepository.delete_all(post_id);
+    }
 }

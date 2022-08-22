@@ -8,7 +8,7 @@ import footprints.footprints.domain.roomInfo.RoomInfo;
 import footprints.footprints.domain.roomInfo.RoomInfoDTO;
 import footprints.footprints.repository.post.PostRepository;
 import footprints.footprints.service.post.PostServiceImpl;
-import footprints.footprints.service.roominfo.RoomInfoService;
+import footprints.footprints.service.roomInfo.RoomInfoService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -37,14 +37,14 @@ public class PostController {
         //post 추가 시 room_info 테이블에 row 추가
         Post post = postRepository.findDetail(postDTO.getPost_id());
         RoomInfoDTO roomInfoDTO = new RoomInfoDTO(post.getMember(), post);
-        roomInfoService.join(roomInfoDTO);
+        roomInfoService.join1(roomInfoDTO);
 
         return new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
     }
 
     //게시물 삭제
     @PostMapping(value = "“/delivery/post/delete”")
-    public ResponseEntity<String> deletePost (@RequestBody Long post_id){
+    public ResponseEntity<String> deletePost1 (@RequestBody Long post_id){
         postService.remove(post_id);
         return new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
     }
