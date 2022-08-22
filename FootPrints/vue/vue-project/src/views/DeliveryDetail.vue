@@ -82,6 +82,14 @@ export default {
       categories:{
         'KOR': '한식',
         'CHI': '중식',
+        'JAP': '일식',
+        'PIZ': '피자',
+        'FRI': '치킨',
+        'BUN': '분식',
+        'FAS': '패스트푸드',
+        'JOK': '족발/보쌈',
+        'DES': '디저트',
+        'ETC': '기타',
       },
     }
   },
@@ -137,7 +145,7 @@ export default {
         title: '글 삭제 완료!',
         confirmButtonText: '배달 모집 목록 보러가기',
       }).then(() => {
-        this.$router.replace("/delivery/post");
+        this.$router.replace("/delivery/posta");
       })
     },
     joinPost() {
@@ -152,7 +160,7 @@ export default {
         title: '참여 완료!',
         confirmButtonText: '배달 모집 목록 보러가기',
       }).then(() => {
-        this.$router.replace("/delivery/post");
+        this.$router.replace("/delivery/posta");
       })
     },
     moveChat() {
@@ -259,6 +267,27 @@ export default {
 }
 .CHI{
   background-color: #ff6e6c;
+}
+.JAP{
+  background-color: #ff0400;
+}
+.PIZ{
+  background-color: #7cc66bbd;
+}
+.FRI{
+  background-color: #ffde5b;
+}
+.BUN{
+  background-color: #e55e5e;
+}
+.FAS{
+  background-color: #ffaa00;
+}
+.JOK{
+  background-color: #c28156;
+}
+.DES{
+  background-color: #ff67949f;
 }
 .ETC{
   background-color: #8c8c8c;

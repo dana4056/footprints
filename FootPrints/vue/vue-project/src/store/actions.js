@@ -347,6 +347,7 @@ FETCH_DELIVERY_LIST_SORT_AREA({ commit }, area) {
         deletePost(post_id)
         .then(response => {
           console.log('API:DELETE_DELIVERY_POST\n글 삭제 성공', response);
+          store.dispatch('FIND_POST_ID', store.state.member.nick);
         })
         .catch(error => {
           console.log('API:DELETE_DELIVERY_POST\n글 삭제 실패', error);
@@ -366,6 +367,7 @@ FETCH_DELIVERY_LIST_SORT_AREA({ commit }, area) {
     joinDeliveryPost(roomInfo)
     .then(response => {
         console.log('API:JOIN_DELIVERY_POST\n배달 참여 성공',response);
+        store.dispatch('FIND_POST_ID', store.state.member.nick);
       })
       .catch(error => {
         console.log('API:JOIN_DELIVERY_POST\n배달 참여 실패',error);
@@ -377,6 +379,7 @@ FETCH_DELIVERY_LIST_SORT_AREA({ commit }, area) {
     exitDeliveryPost(roomInfo)
       .then(response => {
         console.log('API:EXIT_DELIVERY_POST\n참여 취소 성공',response);
+        store.dispatch('FIND_POST_ID', store.state.member.nick);
       })
       .catch(error => {
         console.log('API:EXIT_DELIVERY_POST\n참여 취소 실패',error);
@@ -408,7 +411,7 @@ FETCH_DELIVERY_LIST_SORT_AREA({ commit }, area) {
       .then(response => {
         console.log("API:SET_FIND_POSTID 사용자의 POST_ID 리스트 받아오기 성공", response.data);
         commit('SET_FIND_POSTID', response.data);
-        console.log(Object.keys(response.data.length).length);
+
         if(Object.keys(response.data).length != 0) {
           store.dispatch('FIND_ROOM', response.data);
         }

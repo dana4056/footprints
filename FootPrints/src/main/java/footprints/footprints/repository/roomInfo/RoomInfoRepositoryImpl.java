@@ -3,11 +3,9 @@ package footprints.footprints.repository.roomInfo;
 import footprints.footprints.domain.member.Member;
 import footprints.footprints.domain.post.Post;
 import footprints.footprints.domain.roomInfo.RoomInfo;
-import footprints.footprints.domain.roomInfo.RoomInfoDTO;
 
 import footprints.footprints.repository.member.MemberRepository;
 import footprints.footprints.repository.post.PostRepository;
-import footprints.footprints.service.roomInfo.RoomInfoService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
@@ -16,8 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import javax.persistence.TypedQuery;
-import java.util.List;
 
 @Repository
 @Slf4j
@@ -42,7 +38,7 @@ public class RoomInfoRepositoryImpl implements RoomInfoRepository{
     }
 
     public void delete_d(String nick, Long post_id) {
-        Query query = em.createQuery("delete from RoomInfo r where r.member.nick = :nick and r.post.post_id = :post_id");
+        Query query = em.createQuery(" delete from RoomInfo r where r.member.nick = :nick and r.post.post_id = :post_id");
         query.setParameter("nick", nick).setParameter("post_id", post_id).executeUpdate();
     }
 

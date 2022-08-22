@@ -16,7 +16,13 @@
               <option value="KOR">한식</option>
               <option value="CHI">중식</option>
               <option value="JAP">일식</option>
-              <option value="ETC">기타</option> 
+              <option value="PIZ">피자</option>
+              <option value="FRI">치킨</option>
+              <option value="BUN">분식</option>
+              <option value="FAS">패스트푸드</option>
+              <option value="JOK">족발/보쌈</option>
+              <option value="DES">디저트</option>
+              <option value="ETC">기타</option>
             </select>  
           </div>
 
@@ -90,7 +96,13 @@ export default {
         'KOR': '한식',
         'CHI': '중식',
         'JAP': '일식',
-        'ETC': '기타'
+        'PIZ': '피자',
+        'FRI': '치킨',
+        'BUN': '분식',
+        'FAS': '패스트푸드',
+        'JOK': '족발/보쌈',
+        'DES': '디저트',
+        'ETC': '기타',
       },
       category: "",
       sort_criteria: "",
@@ -99,9 +111,6 @@ export default {
   },
   beforeCreate(){
     this.$store.dispatch('FETCH_DELIVERY_LIST');
-  },
-  created() {
-    this.$store.dispatch('FIND_POST_ID', this.$store.state.member.nick);
   },
   methods:{
     caltime(created){
@@ -279,6 +288,7 @@ label {
   margin: 0 0 12px;
 }
 
+
 /* ----- 카테고리 태그 색상 지정 -------*/
 .KOR{
   background-color: #6157cf;
@@ -288,6 +298,24 @@ label {
 }
 .JAP{
   background-color: #ff0400;
+}
+.PIZ{
+  background-color: #7cc66bbd;
+}
+.FRI{
+  background-color: #ffde5b;
+}
+.BUN{
+  background-color: #e55e5e;
+}
+.FAS{
+  background-color: #ffaa00;
+}
+.JOK{
+  background-color: #c28156;
+}
+.DES{
+  background-color: #ff67949f;
 }
 .ETC{
   background-color: #8c8c8c;

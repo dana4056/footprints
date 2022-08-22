@@ -1,9 +1,10 @@
 import Vuex from 'vuex'
 import actions from './actions'
 import dayjs from 'dayjs'
-
+import createPersistedState from "vuex-persistedstate";
 
 export const store = new Vuex.Store({
+    plugins: [createPersistedState()],
     state:{
         noticeList:[],
         notice:{},
@@ -34,24 +35,8 @@ export const store = new Vuex.Store({
         roomIndex: 0,
         userList: [" "],
         chatLogs: [],
-        myDPostList:[
-            // { post_id: 1, category: 'KOR', created_date: '2022-07-27 02:30:46', max_person_num: 5, participant_num: 1, post_content: '안농',
-            // post_name: '비빔밥 같이 먹을 사람~!', take_loc: '서울시 송파구 잠실동', valid_time: '2022-08-06T11:35', view_num: 0, member_nick: '지원'},
-            // { post_id: 2, category: 'JAP', created_date: '2022-07-27 02:30:46', max_person_num: 5, participant_num: 1, post_content: '안농',
-            // post_name: '초밥 같이 ㄱㄱ', take_loc: '서울시 송파구 잠실동', valid_time: '2022-08-06T11:35', view_num: 0, member_nick: '지원'},
-        ],
-        myParticiList: [
-            // { post_id: 1, category: 'KOR', created_date: '2022-07-27 02:30:46', max_person_num: 5,  participant_num: 1, post_content: '안농',
-            // post_name: '비빔밥 같이 먹을 사람~!', take_loc: '서울시 송파구 잠실동', valid_time: '2022-08-21T11:35', view_num: 0, member_nick: '지원'},
-            // { post_id: 2, category: 'JAP', created_date: '2022-07-27 02:30:46', max_person_num: 5, participant_num: 2, post_content: '바이바이',
-            // post_name: '초밥 같이 ㄱㄱ', take_loc: '서울시 송파구 잠실동', valid_time: '2022-08-22T11:35', view_num: 0, member_nick: '지원'},
-            // { post_id: 3, category: 'CHI', created_date: '2022-07-27 02:30:46', max_person_num: 4, participant_num: 2, post_content: '뿡',
-            // post_name: '짜장면엔 탕수육', take_loc: '서울시 송파구 잠실동', valid_time: '2022-08-23T11:35', view_num: 0, member_nick: '춘식'},
-            // { post_id: 4, category: 'ETC', created_date: '2022-07-27 02:30:46', max_person_num: 3, participant_num: 3, post_content: '기타~~',
-            // post_name: '돼라..', take_loc: '서울시 송파구 잠실동', valid_time: '2022-08-14T11:35', view_num: 0, member_nick: '춘식'},
-            // { post_id: 5, category: 'ETC', created_date: '2022-07-27 02:30:46', max_person_num: 2, participant_num: 1, post_content: '안농',
-            // post_name: 'ㅇㅇㅇㅇㅇ', take_loc: '서울시 송파구 잠실동', valid_time: '2022-08-06T11:35', view_num: 0, member_nick: '춘식'},
-        ],
+        myDPostList:[],
+        myParticiList: [],
     },
     getters:{
         GET_MEMBER(state){
