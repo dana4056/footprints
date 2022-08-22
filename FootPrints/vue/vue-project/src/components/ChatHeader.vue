@@ -1,8 +1,10 @@
 <template>
-  <div>
-    <p id="title">{{ this.$store.state.roomList[this.$store.state.roomIndex].post_name }}</p>
-    <p id="userList" v-for="user in this.$store.state.userList" v-bind:key="user"> {{ user }}</p>
-    <button v-if="this.$store.state.roomList[this.$store.state.roomIndex].member.nick != this.$store.state.member.nick" v-on:click="exitPost">나가기</button>
+  <div id="wrap">
+    <div v-if="this.$store.state.postIdList[0] != 0">
+      <p id="title">{{ this.$store.state.roomList[this.$store.state.roomIndex].post_name }}</p>
+      <p id="userList" v-for="user in this.$store.state.userList" v-bind:key="user"> {{ user }}</p>
+      <button v-if="this.$store.state.roomList[this.$store.state.roomIndex].member.nick != this.$store.state.member.nick" v-on:click="exitPost">나가기</button>
+    </div>
   </div>
 </template>
 
@@ -31,7 +33,7 @@ export default {
 </script>
 
 <style scoped>
-div {
+#wrap {
   border-radius: 0px 24px 0px 0px;
   background: #ffffff;
   box-shadow: 0px 3px 10px 0px rgba(0, 0, 0, 0.05);

@@ -36,11 +36,10 @@ export default {
     ChatForm,
   },
   created() {
-    if(localStorage.getItem('jwt') == null){
-      alert("놉!");
+    if(localStorage.getItem('jwt') == null) {
       router.replace("/home");
     }
-    else {
+    else if(this.$store.state.postIdList[0] != 0) {
       let post_id = this.$store.state.postIdList[this.$store.state.roomIndex];
       this.$store.dispatch('FIND_USER', post_id);
       this.$store.dispatch('FIND_CHAT_LOGS', post_id);

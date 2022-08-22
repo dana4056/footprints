@@ -409,7 +409,14 @@ FETCH_DELIVERY_LIST_SORT_AREA({ commit }, area) {
       .then(response => {
         console.log("API:SET_FIND_POSTID 사용자의 POST_ID 리스트 받아오기 성공", response.data);
         commit('SET_FIND_POSTID', response.data);
-        store.dispatch('FIND_ROOM', response.data);
+        console.log(Object.keys(response.data.length).length);
+        if(Object.keys(response.data).length != 0) {
+          store.dispatch('FIND_ROOM', response.data);
+        }
+        else {
+          store.state.postIdList = [0];
+          store.state.roomList = [{post_id: 0, post_name: " "}];
+        }
       })
       .catch(error => {
         console.log("사용자의 POST_ID 리스트 받아오기 실패", error);

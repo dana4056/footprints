@@ -4,12 +4,12 @@
       <!-- router-link는 자동으로 a태그로 변환하고 부가적인 기능 제공 -->
     <router-link to="/home" class="logo"><img src="../assets/logo.png">발자취</router-link>
     <router-link to="/notice/post" class="">공지사항</router-link>
-    <div v-if="!this.isLogin">
+    <div v-if="this.$store.state.member.nick ==''">
         <router-link to="/delivery/post" class="item"><button>배달 같이하기</button></router-link>
         <router-link to="/login" class="item">로그인</router-link> | 
         <router-link to="/signup" class="item">회원가입</router-link>
     </div>
-    <div v-if="this.isLogin">
+    <div v-else>
         <router-link to="/delivery/post" class="item"><button>배달 같이하기</button></router-link>
         <router-link  v-bind:to="`/myPage/${this.$store.state.member.nick}`" id="u_name">{{this.$store.state.member.nick}}</router-link>
         님 |
@@ -22,25 +22,16 @@
 
 <script>
 export default {
-    data(){
-        return {
-            isLogin:false,
-            userName:"",
-            temp: ""
-        }
-    },
     created(){
-        if(localStorage.getItem('jwt') != null){
+        if(localStorage.getItem('jwt') != null) {
             this.$store.dispatch('FETCH_NICK')
-            if(this.$store.state.member.nick != ""){
-                this.isLogin = true;
-            }
         }
     },
     methods: {
         logout(){
             localStorage.removeItem('jwt');
-            this.$router.replace("/home"); 
+            this.$router.replace("/home");
+            this.$store.state.member = {nick: "",  email: "", pw: "", area: ""}
         }
     }
 }

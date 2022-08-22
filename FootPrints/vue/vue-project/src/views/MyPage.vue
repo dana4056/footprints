@@ -59,7 +59,6 @@ export default {
   },
  created(){
     if(localStorage.getItem('jwt') == null){
-      alert("놉!");
       router.replace("/home");
     }
     else {
