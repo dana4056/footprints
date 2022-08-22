@@ -1,7 +1,6 @@
 <template>
 <header>
   <div class="header">
-      <!-- router-link는 자동으로 a태그로 변환하고 부가적인 기능 제공 -->
     <router-link to="/home" class="logo"><img src="../assets/logo.png">발자취</router-link>
     <router-link to="/notice/post" class="">공지사항</router-link>
     <div v-if="this.$store.state.member.nick ==''">
@@ -22,11 +21,6 @@
 
 <script>
 export default {
-    created(){
-        if(localStorage.getItem('jwt') != null) {
-            this.$store.dispatch('FETCH_NICK')
-        }
-    },
     methods: {
         logout(){
             localStorage.removeItem('jwt');

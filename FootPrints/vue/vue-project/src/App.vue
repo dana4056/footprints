@@ -5,7 +5,11 @@
 </template>
 <script>
 export default {
-
+  created(){
+    if(localStorage.getItem('jwt') != null) {
+      this.$store.dispatch('FETCH_USER')
+    }
+  },
 }
 </script>
 

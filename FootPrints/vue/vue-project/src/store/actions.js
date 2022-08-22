@@ -28,12 +28,11 @@ export default{
         if(code == 403){
           console.log("API:FETCH_USER\n멤버 가져오기 실패(로그인 필요)",error);
           alert("FETCH_USER 로그인 후 이용하세요");
-          //history.back(); 
           router.replace("/home");
-          // location.href = "http://localhost:8080/home"
         }
         else{
           console.log("API:FETCH_USER\n멤버 가져오기 실패(??)",error);
+          console.log("페이지 최초 방문할 때 가끔 500오류 발생?");
         }
       })
   },
