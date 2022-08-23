@@ -24,7 +24,8 @@ public class Post {
     private String post_name;     // 글 제목
     private String post_content;  // 글 내용
     private String category;      // 음식 카테고리
-    private String take_loc;      // 음식 나눌 장소
+    private String take_loc;      // 음식 나눌 장소(닉네임)
+    private String post_area;     // 음식 나누는 주소!
     private int participant_num;  // 현재 참가 인원
     private int max_person_num;       // 모집 인원
     private String valid_time;       // 게시물 유효 시간
@@ -32,48 +33,25 @@ public class Post {
     private LocalDateTime createdDate;  //게시물 등록 시간
     private int view_num;         // 조회수
     // ------- member entity 참조할건데 임시로 --------------
-    private String nick;
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name="MEMBER_NICK")
 //    @JsonIgnore
     private Member member;
-    private String area_name;
-    private long x;
-    private long y;
+
 
     @Builder
-    public Post(String post_name, String post_content, String category, String take_loc,
-                int participant_num, int max_person_num, String valid_time, int view_num, String nick, Member member,
-                String area_name, long x, long y){
+    public Post(String post_name, String post_content, String category, String take_loc, String post_area,
+                int participant_num, int max_person_num, String valid_time, int view_num, Member member){
         this.post_name = post_name;
         this.post_content = post_content;
         this.category = category;
         this.take_loc = take_loc;
-        this.participant_num = participant_num;
-        this.max_person_num = max_person_num;
-        this.valid_time = valid_time;
-        this.view_num = view_num;
-        this.nick = nick;
-        this.member = member;
-        this.area_name = area_name;
-        this.x = x;
-        this.y = y;
-    }
-
-    @Builder
-    public Post(Long post_id, String post_name, String post_content, String category, String take_loc,
-                int participant_num, int max_person_num, String valid_time, int view_num, Member member, String post_area){
-        this.post_id = post_id;
-        this.post_name = post_name;
-        this.post_content = post_content;
-        this.category = category;
-        this.take_loc = take_loc;
-        this.participant_num = participant_num;
-        this.max_person_num = max_person_num;
-        this.valid_time = valid_time;
-        this.view_num = view_num;
-        this.member = member;
         this.post_area = post_area;
+        this.participant_num = participant_num;
+        this.max_person_num = max_person_num;
+        this.valid_time = valid_time;
+        this.view_num = view_num;
+        this.member = member;
     }
 
     public void Update(PostDTO postDTO){
@@ -81,10 +59,12 @@ public class Post {
         this.post_content = postDTO.getPost_content();
         this.category = postDTO.getCategory();
         this.take_loc = postDTO.getTake_loc();
+        this.post_area = postDTO.getPost_area();
         this.participant_num = postDTO.getParticipant_num();
         this.max_person_num = postDTO.getMax_person_num();
         this.valid_time = postDTO.getValid_time();
         this.view_num = postDTO.getView_num();
+//        this.member = postDTO.getMember();
     }
 
     public void Plus_view(){
