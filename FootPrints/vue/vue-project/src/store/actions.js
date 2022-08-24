@@ -37,6 +37,8 @@ export default{
   },
 
   // 리스트뷰 페이지 데이터 로드
+  // axios.get 내부에 new Promise가 들어있으므로 then, catch가 사용 가능한 것.
+  // 프로미스이므로 async/await 방식으로 변경 가능.
   FETCH_NOTICE_LIST({ commit }) {
     fetchNoticeList()
       .then(response => {
