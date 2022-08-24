@@ -38,6 +38,21 @@ public class Post {
 //    @JsonIgnore
     private Member member;
 
+    @Builder
+    public Post(Long post_id, String post_name, String post_content, String category, String take_loc, int participant_num,
+                int max_person_num, String valid_time, int view_num, Member member, String post_area){
+        this.post_name = post_name;
+        this.post_content = post_content;
+        this.category = category;
+        this.take_loc = take_loc;
+        this.post_area = post_area;
+        this.participant_num = participant_num;
+        this.max_person_num = max_person_num;
+        this.valid_time = valid_time;
+        this.view_num = view_num;
+        this.member = member;
+        this.post_area = post_area;
+    }
 
     @Builder
     public Post(String post_name, String post_content, String category, String take_loc, String post_area,

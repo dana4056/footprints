@@ -42,7 +42,7 @@
         </div>
 
         <div class="add-btn">
-          <router-link to="/delivery/posta/create" class="link">
+          <router-link to="/delivery/post/create" class="link">
             <i class="fa-solid fa-circle-plus"></i>
           </router-link>
         </div>
