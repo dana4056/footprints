@@ -37,9 +37,9 @@ public class PostController {
         postService.join(postDTO);
 
         //post 추가 시 room_info 테이블에 row 추가
-        Post post = postRepository.findDetail(postDTO.getPost_id());
-        RoomInfoDTO roomInfoDTO = new RoomInfoDTO(post.getMember(), post);
-        roomInfoService.join1(roomInfoDTO);
+//        Post post = postRepository.findDetail(postDTO.getPost_id());
+//        RoomInfoDTO roomInfoDTO = new RoomInfoDTO(post.getMember(), post);
+//        roomInfoService.join(roomInfoDTO);
 
         return new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
     }

@@ -25,14 +25,6 @@ public class RoomInfoController {
 
     private PostRepository postRepository;
 
-    @PostMapping(value = "roominfo/delete")
-    public ResponseEntity<String> deleteRoomInfo(@RequestBody Long post_id){
-        Post post = postRepository.findDetail(post_id);
-        RoomInfoDTO roomInfoDTO = new RoomInfoDTO(post.getMember(), post);
-        roomInfoService.remove(roomInfoDTO);
-        return new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
-    }
-
     @PostMapping(value = "/roomInfo/join/{nick}/{post_id}")
     public ResponseEntity<String> joinRoom(@PathVariable String nick, @PathVariable Long post_id){
         roomInfoService.join(nick, post_id);
