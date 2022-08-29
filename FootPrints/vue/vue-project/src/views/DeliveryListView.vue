@@ -42,7 +42,7 @@
         </div>
 
         <div class="add-btn">
-          <router-link to="/delivery/posta/create" class="link">
+          <router-link to="/delivery/post/create" class="link">
             <i class="fa-solid fa-circle-plus"></i>
           </router-link>
         </div>
@@ -205,11 +205,12 @@ export default {
     width: 100%;
     left: 0;
 }
-#up_button{ 
-    height: 700px;
+
+#up_button{
     position: fixed;
-    bottom: 0;
+    bottom: 70px;
     right: 200px;
+    z-index: 1000;
 }
 #sort-box{
   display: -webkit-box;

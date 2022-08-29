@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -29,6 +30,24 @@ public class RoomInfoController {
         Post post = postRepository.findDetail(post_id);
         RoomInfoDTO roomInfoDTO = new RoomInfoDTO(post.getMember(), post);
         roomInfoService.remove(roomInfoDTO);
+        return new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/roomInfo/join/{nick}/{post_id}")
+    public ResponseEntity<String> joinRoom(@PathVariable String nick, @PathVariable Long post_id){
+        roomInfoService.join(nick, post_id);
+        return new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/roomInfo/exit/{nick}/{post_id}")
+    public ResponseEntity<String> exitRoom(@PathVariable String nick, @PathVariable Long post_id) {
+        roomInfoService.exit(nick, post_id);
+        return new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/roomInfo/delete")
+    public ResponseEntity<String> deleteRoomInfo1(@RequestBody Long post_id) {
+        roomInfoService.delete(post_id);
         return new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
     }
 }

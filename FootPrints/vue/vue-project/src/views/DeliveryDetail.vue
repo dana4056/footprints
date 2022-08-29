@@ -1,5 +1,8 @@
 <template>
-  <div>
+  <div :class="{fixedWrapper:isShowmap, scrollWrapper:!isShowmap}">
+    <!-- 나눔 장소 보기 모달 -->
+    <show-map ref="showMap" v-on:change="change()"></show-map>
+
     <tool-bar></tool-bar>
     <div id="wrap">
       <div id="headBox">
@@ -48,7 +51,7 @@
             </div>
           </div>
         </div>
-        <button type="button" id="seePlace" v-on:click="seePlace">나눔 장소 보기</button>
+        <button type="button" id="seePlace" v-on:click="this.$refs.showMap.showMap(), change()">나눔 장소 보기</button>
       </div>
       
     </div>
@@ -58,17 +61,19 @@
 </template>
 
 <script>
-import ToolBar from '../components/ToolBar.vue';
-import FooterArea from '../components/FooterArea.vue';
-import ToDelivery from '../components/ToDelivery.vue';
+import ToolBar from '../components/ToolBar.vue'
+import FooterArea from '../components/FooterArea.vue'
+import ToDelivery from '../components/ToDelivery.vue'
+import ShowMap from '../components/ShowMap.vue'
 import Swal from 'sweetalert2';
-import dayjs from 'dayjs';
+import dayjs from 'dayjs'
 
 export default {
   components:{
     ToolBar,
     FooterArea,
     ToDelivery,
+    ShowMap,
   },
   computed:{
     fetched(){
@@ -91,6 +96,10 @@ export default {
         'DES': '디저트',
         'ETC': '기타',
       },
+      isShowmap : false,
+      take_loc: "",      // 음식 나눌 장소
+      latitude: 0,
+      longtitude: 0
     }
   },
   created(){
@@ -104,7 +113,34 @@ export default {
       }
     }
   },
+  mounted(){
+
+    let kakao = window.kakao;
+    var mapContainer = document.getElementById('map'), // 지도를 표시할 div
+    mapOption = {
+        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+        level: 3 // 지도의 확대 레벨
+    };
+    console.log(mapContainer);
+
+    var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+    // 마커가 표시될 위치입니다
+    var markerPosition  = new kakao.maps.LatLng(33.450701, 126.570667);
+
+    // 마커를 생성합니다
+    var marker = new kakao.maps.Marker({
+        position: markerPosition
+    });
+
+    // 마커가 지도 위에 표시되도록 설정합니다
+    marker.setMap(map);
+
+  },
   methods:{
+    change(){
+        console.log("change");
+        this.isShowmap =  this.$refs.showMap.openMap;
+    },
     calDay(){
       const created = this.fetched.createdDate;
       const valid = this.fetched.valid_time;
@@ -120,8 +156,10 @@ export default {
     caltime(created){
 
       const now = dayjs();
-
-      if(created.isSame(now,"day")){
+      console.log("now",now);
+      console.log("created",created);
+      console.log("created.isSame(now,`d`)", created.isSame(now,"d"));
+      if(created.isSame(now,"d")){
           const ago_H = now.diff(created,"h");
           const ago_M = now.diff(created,"m");
           if(ago_H == 0){
@@ -166,14 +204,22 @@ export default {
     moveChat() {
       this.$router.replace("/chat/" + this.$store.state.member.nick);
     },
-    seePlace() {
-      console.log("seePlace");
-    }
   }
 }
 </script>
 
 <style scoped>
+.fixedWrapper{
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.scrollWrapper{
+    min-height: 100%;
+    position: relative;
+}
 #wrap {
   width: 650px;
   height: 570px;
@@ -331,4 +377,5 @@ export default {
     bottom: 0;
     right: 200px;
 }
+
 </style>

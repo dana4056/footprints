@@ -10,7 +10,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.List;
 
 @Service
@@ -32,12 +31,25 @@ public class MyPageServiceImpl implements MyPageService {
     @Override
     public List<Post> getAttendPost(String nick) {
         List<Post> attendPost = myPageRepository.getAttendPost(nick);
-        log.info("-------------getAttendPost-------- {}", attendPost);
+
         return attendPost;
     }
 
     @Override
     public void changeInfo(MemberDTO memberDTO) {
-        memberRepository.save(memberDTO);
+        String nick = memberDTO.getNick();
+        Member member = memberRepository.findByNick(nick);
+        member.InfoUpdate(memberDTO);
+        myPageRepository.changeInfo(member);
     }
+
+//    @Override
+//    public void changeDBPwd(MemberDTO memberDTO) {
+//        String email = memberDTO.getEmail();
+//        Member member = memberRepository.findByEmail(email);
+//        log.info("before password : {}", member.getPassword());
+//        member.Update(memberDTO);
+//        log.info("new password : {}", member.getPassword());
+//        memberRepository.save(member);
+//    }
 }
