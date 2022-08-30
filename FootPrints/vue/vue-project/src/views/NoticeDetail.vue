@@ -11,7 +11,7 @@
         </div>
       </div>
       <div class="content">
-        <p v-for="c in content" v-bind:key="c">{{c}}</p>
+        <p v-for="content in this.$store.state.notice.content.split('\n')" v-bind:key="content">{{content}}</p>
       </div>
     </div>
     <footer-area id="footer"></footer-area>
@@ -35,9 +35,6 @@ components:{
   },
 created(){
   const notice_id = this.$route.params.id;
-
-  this.content = this.$store.state.notice.content.split('\n');
-  
   this.$store.dispatch('FETCH_NOTICE_DETAIL', notice_id);
   setTimeout(() => { 
     return this.$store.state.notice;
