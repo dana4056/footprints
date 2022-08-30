@@ -99,12 +99,11 @@ export default {
       isShowmap : false,
       take_loc: "",      // 음식 나눌 장소
       latitude: 0,
-      longtitude: 0
+      longtitude: 0,
     }
   },
   created(){
     this.post_id = this.$route.params.id;
-    console.log(this.post_id);
     this.$store.dispatch('FETCH_DELIVERY_DETAIL', this.post_id);
 
     for(var i = 0; i < this.$store.state.postIdList.length; i++){
@@ -154,11 +153,11 @@ export default {
       }
     },
     caltime(created){
-
       const now = dayjs();
       console.log("now",now);
       console.log("created",created);
       console.log("created.isSame(now,`d`)", created.isSame(now,"d"));
+      
       if(created.isSame(now,"d")){
           const ago_H = now.diff(created,"h");
           const ago_M = now.diff(created,"m");

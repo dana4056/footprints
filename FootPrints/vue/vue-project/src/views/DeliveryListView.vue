@@ -48,30 +48,58 @@
         </div>
       </div>
 
-      <!------------------------------------ 게시물 리스트 요소 ---------------------------------------->
-      <div v-for="delivery in this.$store.state.deliveryPostList" class="listbox" v-bind:key="delivery">
-        <img class="listbox-img" :src="require('../assets/' + delivery.category + '.png')" alt="">
-        <div class="listbox-content">
-          <div class="listbox-head">
-            <div class="res-name"><router-link v-bind:to="`/delivery/post/${delivery.post_id}`">{{ delivery.post_name }}</router-link></div>
-            <div class="category" v-bind:class="delivery.category">{{this.categories[delivery.category]}}</div>
-            <div class="time"><small>마감기한 : {{  delivery.valid_time.format("M/D  HH:mm")}}</small></div>
-          </div> 
-          <router-link v-bind:to="`/delivery/post/${delivery.post_id}`"><p>{{ delivery.post_content }}</p></router-link>
-          <div class="listbox-foot">
-            <div class="detail-info">
-              <small>{{delivery.area_name}}</small>
-              <button class="area-btn"><img src="../assets/placeholder.png">{{ delivery.take_loc }}</button>
-              <img src="../assets/people.png" alt="">
-              <small class="cnt">{{ delivery.participant_num }}/{{ delivery.max_person_num }}</small>
-            </div>
-            <div class="ago">
-              <small>{{caltime(delivery.createdDate)}}전 게시</small>
+      <!------------------------------------ 유효한 게시물 리스트 요소 ---------------------------------------->
+      <div v-for="delivery in this.$store.state.deliveryPostList" v-bind:key="delivery">
+        <div v-if="delivery.valid_time.diff(this.now) >= 0" class="valid listbox">
+          <img class="listbox-img" :src="require('../assets/' + delivery.category + '.png')" alt="">
+          <div class="listbox-content">
+            <div class="listbox-head">
+              <div class="res-name"><router-link v-bind:to="`/delivery/post/${delivery.post_id}`">{{ delivery.post_name }}</router-link></div>
+              <div class="category" v-bind:class="delivery.category">{{this.categories[delivery.category]}}</div>
+              <div class="time"><small>마감기한 : {{  delivery.valid_time.format("M/D  HH:mm")}}</small></div>
+            </div> 
+            <router-link v-bind:to="`/delivery/post/${delivery.post_id}`"><p>{{ delivery.post_content }}</p></router-link>
+            <div class="listbox-foot">
+              <div class="detail-info">
+                <small>{{delivery.area_name}}</small>
+                <button class="area-btn"><img src="../assets/placeholder.png">{{ delivery.take_loc }}</button>
+                <img src="../assets/people.png" alt="">
+                <small class="cnt">{{ delivery.participant_num }}/{{ delivery.max_person_num }}</small>
+              </div>
+              <div class="ago">
+                <small>{{caltime(delivery.createdDate)}}전 게시</small>
+              </div>
             </div>
           </div>
         </div>
       </div>
-      <!------------------------------------------------------------------------------------------------->  
+      <!------------------------------------------------------------------------------------------------->
+      <!------------------------------------ 무효한 게시물 리스트 요소 ----------------------------------------->
+      <div v-for="delivery in this.$store.state.deliveryPostList" v-bind:key="delivery">
+        <div v-if="delivery.valid_time.diff(this.now) < 0" class="invalid listbox">
+          <img class="listbox-img" :src="require('../assets/' + delivery.category + '.png')" alt="">
+          <div class="listbox-content">
+            <div class="listbox-head">
+              <div class="res-name"><router-link v-bind:to="`/delivery/post/${delivery.post_id}`">{{ delivery.post_name }}</router-link></div>
+              <div class="category" v-bind:class="delivery.category">{{this.categories[delivery.category]}}</div>
+              <div class="time" id="invalid"><small>마감기한이 지난 글입니다.</small></div>
+            </div> 
+            <p>{{ delivery.post_content }}</p>
+            <div class="listbox-foot">
+              <div class="detail-info">
+                <small>{{delivery.area_name}}</small>
+                <button class="area-btn"><img src="../assets/placeholder.png">{{ delivery.take_loc }}</button>
+                <img src="../assets/people.png" alt="">
+                <small class="cnt">{{ delivery.participant_num }}/{{ delivery.max_person_num }}</small>
+              </div>
+              <div class="ago">
+                <small>{{caltime(delivery.createdDate)}}전 게시</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-------------------------------------------------------------------------------------------------> 
     </div>
     <up-button id="up_button"></up-button>
     <!-- 절대적으로 위치를 잡아준거라 relative하게 버튼의 위치를 잡아주는 작업 필요 -->
@@ -108,10 +136,14 @@ export default {
       category: "",
       sort_criteria: "",
       area: this.$store.state.deliveryPost_presentArea,
+      now: "",
     } 
   },
   beforeCreate(){
     this.$store.dispatch('FETCH_DELIVERY_LIST', this.$store.state.deliveryPost_presentArea);
+  },
+  created() {
+    this.now = dayjs();
   },
   methods:{
     caltime(created){
@@ -385,5 +417,13 @@ button {
   padding: 8px 15px 9px;
 }
 
-
+.invalid {
+  background-color: rgb(176, 176, 176);
+  pointer-events: none;
+  opacity: 0.7;
+}
+#invalid {
+  color: red;
+  font-weight: bold;
+}
 </style>
