@@ -100,8 +100,9 @@ export default {
 }
 #wrap { 
     width: 330px;
+    height: 650px;
     margin: 0 auto;
-    padding: 143px 0;
+    padding: 200px 0;
 }
 .logo {
    display: flex;

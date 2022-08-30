@@ -182,7 +182,7 @@ export default {
         title: '글 삭제 완료!',
         confirmButtonText: '배달 모집 목록 보러가기',
       }).then(() => {
-        this.$router.replace("/delivery/posta");
+        this.$router.replace("/delivery/post");
       })
     },
     joinPost() {
@@ -197,7 +197,7 @@ export default {
         title: '참여 완료!',
         confirmButtonText: '배달 모집 목록 보러가기',
       }).then(() => {
-        this.$router.replace("/delivery/posta");
+        this.$router.replace("/delivery/post");
       })
     },
     moveChat() {

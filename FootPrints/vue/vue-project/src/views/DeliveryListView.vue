@@ -1,14 +1,9 @@
-
 <template>
-  <div display="flex">
+  <div id="wrap">
     <tool-bar></tool-bar>
     <div id="content">
-      <div>현재 설정 지역은 {{this.$store.state.deliveryPost_presentArea}} 입니다.</div>
-      <!-- <router-link v-bind:to="`/delivery/post/${delivery.post_id}`" class="link">상세보기 페이지 예시</router-link>  -->
+      <div id="area">현재 설정된 지역은 {{this.$store.state.deliveryPost_presentArea}} 입니다.</div>
       <div id="sort-box"> 
-        <!-- 수정 필요 부분 -->
-        <!-- <button>음식 카테고리</button>
-        <button>정렬: 기한 가까운 순</button> --> 
         <label>음식 카테고리</label>
           <div>
             <select class="sortThing" v-model="category" v-on:focus="NoneCategory" v-on:focusout="SelectCategory">
@@ -47,7 +42,8 @@
           </router-link>
         </div>
       </div>
-
+      
+      <div id="box" v-bind:style="{height: (this.$store.state.deliveryPostList.length * 170 + 400) + 'px'}">
       <!------------------------------------ 유효한 게시물 리스트 요소 ---------------------------------------->
       <div v-for="delivery in this.$store.state.deliveryPostList" v-bind:key="delivery">
         <div v-if="delivery.valid_time.diff(this.now) >= 0" class="valid listbox">
@@ -100,6 +96,7 @@
         </div>
       </div>
       <!-------------------------------------------------------------------------------------------------> 
+    </div>
     </div>
     <up-button id="up_button"></up-button>
     <!-- 절대적으로 위치를 잡아준거라 relative하게 버튼의 위치를 잡아주는 작업 필요 -->
@@ -220,24 +217,18 @@ export default {
 </script>
 
 <style scoped>
-
-#wrap{
-    height : 100%;
-    position: relative;
-}
 #content{
-    margin: 0 auto;
-    width: 700px;
-    padding: 100px 0;
-      
+  margin: 0 auto;
+  width: 700px;
+  padding: 50px 0 0 0;
+}
+#area{
+  margin-bottom: 50px;
 }
 #footer{
-    height: 300px;
-    position: absolute;  
-    width: 100%;
-    left: 0;
+  height: 300px;
+  width: 100%;
 }
-
 #up_button{
     position: fixed;
     bottom: 70px;
@@ -418,12 +409,13 @@ button {
 }
 
 .invalid {
-  background-color: rgb(176, 176, 176);
+  background-color: rgb(192, 192, 192);
   pointer-events: none;
   opacity: 0.7;
 }
 #invalid {
   color: red;
   font-weight: bold;
+  font-size: 14px;
 }
 </style>

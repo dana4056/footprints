@@ -17,7 +17,6 @@
 </template>
 
 <script>
-// import emailjs from 'emailjs-com';
 import { mapGetters } from 'vuex';
 export default {
 	data() {
@@ -41,34 +40,19 @@ export default {
 	methods: {
 		getCode() {
 			if (this.email != "") {
-				//이메일 입력시 
 				this.$store.dispatch('FIND_PWD', this.email);
 				setTimeout(() => { 
-        // console.log("3");
         this.represent() ;
         }, 100); 	
 			}
 			else{
-				//이메일 입력 안했을 시
 				alert("메일을 입력해주세요.");
 			}
 		},
 		represent() {
 			if(this.GET_FIND_MEMBER_EMAIL != "CANNOT_FIND_ID"){
-				// 이메일 디비에 있는게 확인 됐다면
 				this.sysCode = Math.floor(Math.random() * 900001) + 100000;
 				console.log(this.sysCode);
-				// let templateParams  = { 
-				// 	user_email: this.email,
-				// 	sys_code: this.sysCode,
-				// }
-				// emailjs.init('REMuhzEQAisDSZ2hk');
-				// emailjs.send('email', 'template_q0r3oy4', templateParams)
-				// 	.then((result) => {
-				//   console.log('SUCCESS!', result.text);
-				// 	}, (error) => {
-				//   console.log('FAILED...', error.text);
-				// 	});
 				this.emailtext = false;
 				this.inputVisible = true;
 				this.getBtnVisible = false;
@@ -85,7 +69,6 @@ export default {
 		},
 		checkCode() {
 			if (this.sysCode == parseInt(this.userCode) && this.userCode != "") {
-				// 2.getPW 뷰로 넘어갈 때 입력받은 이메일도 넘겨야함---------------------------------------
 				localStorage.setItem('email', this.email);
 				this.$router.replace("/changePW");
 			}
@@ -102,6 +85,7 @@ export default {
 }
 #wrap{
   width: 330px;
+	height: 650px;
   margin: 0 auto;
   padding: 239px 0;
 }

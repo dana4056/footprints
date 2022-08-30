@@ -1,6 +1,5 @@
 <template>
   <div class="body">
-    <!-- <NavigationBar></NavigationBar> -->
     <header>
       <div class="header">
         <!-- router-link는 자동으로 a태그로 변환하고 부가적인 기능 제공 -->
@@ -8,7 +7,6 @@
       </div>
     </header>
     <div id="wrap">
-      <!-- SNS 회원가입 -->
       <h3>회원가입</h3>
       <div class="SnsBox">
         <div class="tinytext">SNS로 간편 회원가입</div>
@@ -78,28 +76,6 @@
             <input id='userArea' v-model="Area" type="text" readOnly placeholder="지역명(ex. 성북구 정릉동)">
             <button type="button" class="btn2" v-on:click="searchArea">지역 검색</button>
           </div>
-          <!-- <div v-if="visable" class="search">
-            <p>지역 검색</p>
-            <div class="select-box">
-              <select v-model="sido" v-on:change="serachSigoongu" class="sido">
-                <option value="시/도" selected="selected">시/도</option>
-                <option v-for="i in this.$store.state.sidoList" v-bind:key="i.properties.ctprvn_cd" v-bind:value="i.properties">
-                  {{ i.properties.ctp_kor_nm }}
-                </option>
-              </select>
-              <select v-model="sigoongu" v-on:change="serachEupmyeondong" class="sigoon">
-                <option value="시/군/구" selected="selected">시/군/구</option>
-                <option v-for="i in this.$store.state.sigoonguList" v-bind:key="i.properties.sig_cd" 
-                v-bind:value="i.properties">{{ i.properties.sig_kor_nm }}</option>
-              </select>
-              <select v-model="eupmyeondong">
-                <option value="읍/면/동" selected="selected" >읍/면/동</option>
-                <option v-for="i in this.$store.state.eupmyeondongList" v-bind:key="i.properties.emd_cd" 
-                v-bind:value="i.properties">{{ i.properties.emd_kor_nm }}</option>
-              </select>
-              <button type="button" class="btn2" v-on:click="fixArea">확인</button>
-            </div>
-          </div> -->
 
           <button type="submit" class="submitBtn" v-on:click.prevent="submitData" v-on:keyup.enter="submitData">회원가입하기</button>
         </form>
@@ -120,9 +96,6 @@ export default {
       Pw1: "",
       Pw2: "",
       Area: "",
-      // sido:{},
-      // sigoongu:{},
-      // eupmyeondong:{},
       visable:false,
       isUniqNick:false,
       isDupliNick:false,
@@ -135,12 +108,6 @@ export default {
     email() {
       return this.Email1 + "@" + this.Email2;
     },
-    // area(){
-    //   return this.sido.ctp_kor_nm + " " + this.sigoongu.sig_kor_nm + " " + this.eupmyeondong.emd_kor_nm;
-    // }
-  },
-  created(){
-    // this.searchSido();
   },
   methods: {
     ignoreInputN() {
@@ -151,7 +118,7 @@ export default {
       this.isUniqEmail = false;
       this.isDupliEmail = false;
     },
-    checkNick() {   //닉네임 중복체크 위해 보냄
+    checkNick() { 
       if (this.Nick != "") {
         this.$store.dispatch('POST_NICK', this.Nick);
         setTimeout(() => { 
@@ -171,7 +138,7 @@ export default {
       this.Email2 = "";
       this.isSelectBox = !this.isSelectBox;
     },
-    checkEmail() {   //이메일 중복체크 위해 보냄
+    checkEmail() {
       if (this.Email1 != "" && this.Email2 != "") {
         this.$store.dispatch('POST_EMAIL', this.email);
         setTimeout(() => { 
@@ -180,11 +147,6 @@ export default {
         }, 100);    
       }
     },
-    // sendAuthenticCode() {
-    //   if (this.Phone != "") {
-    //     this.$store.dispatch('POST_PHONE', this.Phone);
-    //   }
-    // },
     submitData() {
       if (this.isValidAll()) {
         const member = {
@@ -199,7 +161,7 @@ export default {
         alert("입력한 정보들을 확인해주세요");
       }
     },
-    isValidAll() {  // 최종 양식 확인
+    isValidAll() {
       if (this.Id1 != "" && this.Id2 != "" && this.Pw1 != "" && this.Pw2 != "" &&
           this.Nick != "" && this.Phone != "" && this.Area != "") {
         if (this.isValidNick() && !this.isDiferrentPw()) {
@@ -211,7 +173,7 @@ export default {
         return false;
       }
     },
-    isDiferrentPw() {      // 비밀번호 & 비밀번호 확인란 일치 여부
+    isDiferrentPw() {
       if (this.Pw1 != "" && this.Pw2 != "") {
         if (this.Pw1 != this.Pw2) {
           return true;
@@ -246,21 +208,6 @@ export default {
         return true;
       }
     },
-    // searchSido(){     
-    //   this.$store.dispatch('FETCH_SIDO');
-    // },
-    // serachSigoongu(){
-    //   this.$store.dispatch('FETCH_SIGOONGU', this.sido.ctprvn_cd);
-    // },
-    // serachEupmyeondong(){   
-    //   this.$store.dispatch('FETCH_EUPMYEONDONG', this.sigoongu.sig_cd);
-    // },
-    // fixArea(){
-    //   this.Area = this.area;
-    // },
-    // searchBox(){
-    //   this.visable = !this.visable;
-    // },
     searchArea() {
       new window.daum.Postcode({
         oncomplete: (data) => {
@@ -314,7 +261,7 @@ h3 {
 #wrap {
   width: 360px;
   margin: 0 auto;
-  padding: 100px 0;
+  padding: 50px 0 100px 0;
 }
 
 .SnsBox ul {
