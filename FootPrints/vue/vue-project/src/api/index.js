@@ -1,102 +1,134 @@
 import axios from 'axios';
 
-
 // 1. HTTP Request & Response와 관련된 기본 설정
 const config = {
     baseUrl:"http://localhost:8080"
 };
  
-// const areaConfig={
-//     key:"CEB52025-E065-364C-9DBA-44880E3B02B8",
-//     domain:"http://localhost:8080",
-//     service:"data",
-//     version:"2.0",
-//     request:"getfeature",
-//     format:"json",
-//     size:"1000",
-//     page:"1",
-//     attribue:"true",
-//     crs:"EPSG:3857",
-//     geomfilter:"BOX(13663271.680031825,3894007.9689600193,14817776.555251127,4688953.0631258525)",
-//   }	
+////////////////////////// TOKEN //////////////////////////
 
-
-function fetchUser(){
-    return axios.get(`${config.baseUrl}/user`, {
+function fetchToken() {
+    return axios.get(`${config.baseUrl}/token`, {
         headers: {
             'X-AUTH-TOKEN': localStorage.getItem('jwt')
         }
     });
 }
 
-function fetchNoticeList() {
+////////////////////////// MEMBER //////////////////////////
+
+function postSignup(member) {
+    return axios.post(`${config.baseUrl}/member`, member);
+}
+
+function patchChangePwd(changePwMemberDTO) {
+    return axios.patch(`${config.baseUrl}/member`, changePwMemberDTO);
+}
+
+function getUserArea(nick) {
+    console.log("function findUserArea 실행")
+    return axios.get(`${config.baseUrl}/member/login`, {
+        params: {
+            nick: nick,
+        },
+        headers: {
+            'Content-Type': 'text/plain'
+        }
+    });
+}
+
+function postLogin(loginMember) {
+    return axios.post(`${config.baseUrl}/member/login`, loginMember);
+}
+
+function getFindId(email) {
+    return axios.get(`${config.baseUrl}/member/find-id`, {
+        params: {
+            email: email,
+        },
+        headers: {
+            'Content-Type': 'text/plain'
+        }
+    });
+}
+
+function getFindPwd(email) {
+    return axios.get(`${config.baseUrl}/member/find-password`, {
+        params : {
+            email: email,
+        },
+        headers: {
+            'Content-Type': 'text/plain'
+        }
+    });
+}
+
+function getCheckNick(nick) {
+    return axios.get(`${config.baseUrl}/member/check-nick`, {
+        params: {
+            nick: nick,
+        },
+        headers: {
+            'Content-Type': 'text/plain'
+        }
+    });
+}
+
+function getCheckEmail(email) {
+    return axios.get(`${config.baseUrl}/member/check-email`, {
+        params: {
+            email: email,
+        },
+        headers: {
+            'Content-Type': 'text/plain'
+        }
+    });
+}
+
+////////////////////////// NOTICE //////////////////////////
+
+function getNoticeList() {
     return axios.get(`${config.baseUrl}/notice`);
 }
 
-function fetchNoticeDetail(notice_id){
-    return axios.get(`${config.baseUrl}/notice/${notice_id}`,);
+function postNotice(noticeDTO) {
+    return axios.post(`${config.baseUrl}/notice`, noticeDTO);
 }
 
-function findUserArea(nick){
-    console.log("function findUserArea 실행")
-    return axios.post(`${config.baseUrl}/findUserArea`, nick, {
+function getNoticeDetail(notice_id) {
+    return axios.get(`${config.baseUrl}/notice/${notice_id}`);
+}
+
+////////////////////////// USERS //////////////////////////
+
+function getMyPost(nick) {
+    return axios.get(`${config.baseUrl}/users/${nick}/my-post`, {
         headers: {
             'Content-Type': 'text/plain'
         }
     });
 }
 
-function postNotice(noticeDTO){
-    return axios.post(`${config.baseUrl}/notice/create`, noticeDTO);
-}
-
-function postEmail(email){
-    return axios.post(`${config.baseUrl}/signup/check-email`, email, {
+function getAttendPost(nick) {
+    return axios.get(`${config.baseUrl}/users/${nick}/attend-post`, {
         headers: {
             'Content-Type': 'text/plain'
         }
     });
 }
 
-function postNick(nick){
-    return axios.post(`${config.baseUrl}/signup/check-nick`, nick, {
-        headers: {
-            'Content-Type': 'text/plain'
-        }
-    });
+function patchUserInfo(memberDTO) {
+    return axios.patch(`${config.baseUrl}/users`, memberDTO);
 }
 
-function postLogin(loginMember){
-    return axios.post(`${config.baseUrl}/login`, loginMember);
-}
+////////////////////////// DELIVERY //////////////////////////
 
-function postMemberInfo(member){
-    return axios.post(`${config.baseUrl}/signup`, member);
-}
-
-function findID(email){
-    return axios.post(`${config.baseUrl}/findID`, email, {
-        headers: {
-            'Content-Type': 'text/plain'
-        }
-    });
-}
-
-function findPW(email){
-    return axios.post(`${config.baseUrl}/findPW`, email, {
-        headers: {
-            'Content-Type': 'text/plain'
-        }
-    });
-}
-  
-function changePWD(changePwMemberDTO){
-    return axios.post(`${config.baseUrl}/ChangePW`, changePwMemberDTO);
-}
-
-function fetchDeliveryList(area){
+function getDeliveryList(area) {
     console.log("function fetchDeliveryList 실행")
-    return axios.post(`${config.baseUrl}/delivery/post`, area, {
+    return axios.get(`${config.baseUrl}/delivery/post`, {
+        params: {
+            area: area,
+        },
         headers: {
             'Content-Type': 'text/plain',
             'X-AUTH-TOKEN': localStorage.getItem('jwt')
@@ -105,33 +137,108 @@ function fetchDeliveryList(area){
 }
 
 //카테고리 별로 불러오기 위함
-function fetchDeliveryList_SORT(sortDTO) {
-    return axios.post(`${config.baseUrl}/delivery/post/sort`, sortDTO,{
-        headers: {
-            'X-AUTH-TOKEN': localStorage.getItem('jwt'),
+function getSortDeliveryList(sortDTO) {
+    return axios.get(`${config.baseUrl}/delivery/post/sort`, {
+        params: {
+            sortDTO: sortDTO,
         },
+        headers: {
+            'Content-Type': 'text/plain',
+            'X-AUTH-TOKEN': localStorage.getItem('jwt')
+        }
     });
 }
 
-function postDeliveryPost(post){
-    return axios.post(`${config.baseUrl}/delivery/post/create`, post,{
+function postDeliveryPost(post) {
+    return axios.post(`${config.baseUrl}/delivery/post`, post, {
         headers: {
             'X-AUTH-TOKEN': localStorage.getItem('jwt')
         }
     });
 }
 
-function fetchAmendDeliveryPost(post_id) {
-    return axios.get(`${config.baseUrl}/delivery/post/amend/${post_id}`, {
+function patchDeliveryPost(post) {
+    return axios.patch(`${config.baseUrl}/delivery/post`, post, {
         headers: {
             'X-AUTH-TOKEN': localStorage.getItem('jwt')
         }
     });
 }
 
+function deleteDeliveryPost(post_id) {
+    return axios.delete(`${config.baseUrl}/delivery/post`, {
+        params: {
+            post_id: post_id,
+        },
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+}
 
-function amendDeliveryPost(post) {
-    return axios.post(`${config.baseUrl}/delivery/post/amend`, post, {
+function getDeliveryPostDetail(post_id) {
+    return axios.get(`${config.baseUrl}/delivery/post/${post_id}`, {
+        headers: {
+            'X-AUTH-TOKEN': localStorage.getItem('jwt')
+        }
+    });
+}
+
+function getDeliveryPostEdit(post_id) {
+    return axios.get(`${config.baseUrl}/delivery/post/${post_id}/edit`, {
+        headers: {
+            'X-AUTH-TOKEN': localStorage.getItem('jwt')
+        }
+    });
+}
+
+////////////////////////// CHAT //////////////////////////
+
+function getPostIdList(nick) {
+    return axios.get(`${config.baseUrl}/chat/post-id-list`, {
+        params: {
+            nick: nick,
+        },
+        headers: {
+            'Content-Type': 'text/plain'
+        }
+    });
+}
+
+function getPostInfoList(list) {
+    console.log("postIDList: " + list);
+    return axios.get(`${config.baseUrl}/chat/get-PostInfoList`, {
+        params:{
+            list: list,
+        }
+    });
+}
+
+function getNickList(post_id) {
+    return axios.get(`${config.baseUrl}/chat/get-nick-list`, {
+        params: {
+            post_id: post_id,
+        },
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+}
+
+function getChatList(post_id) {
+    return axios.get(`${config.baseUrl}/chat`, {
+        params: {
+            post_id: post_id,
+        },
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+}
+
+function postChatData(chatData) {
+    console.log(chatData);
+    return axios.post(`${config.baseUrl}/chat`, chatData, {
         headers: {
             'X-AUTH-TOKEN': localStorage.getItem('jwt')
         }
@@ -139,7 +246,29 @@ function amendDeliveryPost(post) {
 }
 
 function deleteChatData(post_id) {
-    return axios.post(`${config.baseUrl}/chat/delete`, post_id, {
+    return axios.delete(`${config.baseUrl}/chat`, {
+        params: {
+            post_id: post_id,
+        },
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+}
+
+////////////////////////// ROOMINFO //////////////////////////
+
+
+function postRoomInfo(roomInfo) {
+    return axios.post(`${config.baseUrl}/roomInfo`, roomInfo);
+}
+
+function patchRoomInfo(roomInfo) {
+    return axios.patch(`${config.baseUrl}/roomInfo`, {
+        params: {
+            nick : roomInfo.nick,
+            post_id: roomInfo.post_id,
+        },
         headers: {
             'Content-Type': 'application/json'
         }
@@ -147,132 +276,60 @@ function deleteChatData(post_id) {
 }
 
 function deleteRoomInfo(post_id) {
-    return axios.post(`${config.baseUrl}/roomInfo/delete`, post_id, {
+    return axios.delete(`${config.baseUrl}/roomInfo`, {
+        params: {
+            post_id: post_id,
+        },
         headers: {
             'Content-Type': 'application/json'
         }
     });
 }
 
-function deletePost(post_id) {
-    return axios.post(`${config.baseUrl}/post/delete`, post_id, {
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    });
-}
-
-function joinDeliveryPost(roomInfo) {
-    return axios.post(`${config.baseUrl}/roomInfo/join/${roomInfo.nick}/${roomInfo.post_id}`);
-}
-
-function exitDeliveryPost(roomInfo) {
-    return axios.post(`${config.baseUrl}/roomInfo/exit/${roomInfo.nick}/${roomInfo.post_id}`);
-}
-
-function fetchDeliveryDetail(post_id){
-    return axios.get(`${config.baseUrl}/delivery/post/${post_id}`,{
-        headers: {
-            'X-AUTH-TOKEN': localStorage.getItem('jwt')
-        }
-    });
-}
-
-function findPostID(nick) {
-    console.log("nick: " + nick);
-	return axios.post(`${config.baseUrl}/chat/get-PostIdlist`, nick , {
-        headers: {
-            'Content-Type': 'text/plain'
-        }
-    });
-}
-
-  function findRoom(list) {
-    console.log("postIDList: " + list);
-    return axios.post(`${config.baseUrl}/chat/get-PostInfoList`, list);
-  }
-
-  function findUser(post_id) {
-    console.log("post_id:" + post_id);
-    return axios.post(`${config.baseUrl}/chat/get-NickList`, post_id, {
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    });
-  }
-
-  function findChatLogs(post_id) {
-    console.log("post_id:" + post_id);
-    return axios.post(`${config.baseUrl}/chat/get-ChatList`, post_id, {
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    });
-  }
-  
-  function postChatData(chatData) {
-    console.log(chatData);
-    return axios.post(`${config.baseUrl}/chat/post-ChatDataList`, chatData, {
-        headers: {
-            'X-AUTH-TOKEN': localStorage.getItem('jwt')
-        }
-    });
-  }
-
-  function fetchMyDPost(nick) {
-    return axios.post(`${config.baseUrl}/myPage/main-myPost`, nick, {
-        headers: {
-            'Content-Type': 'text/plain'
-        }
-    });
-  }
-
-  function fetchMyPartici(nick) {
-    return axios.post(`${config.baseUrl}/myPage/main-attendPost`, nick, {
-        headers: {
-            'Content-Type': 'text/plain'
-        }
-    });
-  }
-
-  function changeMember(memberDTO){
-    return axios.post(`${config.baseUrl}/myPage/changeMyInfo`, memberDTO);
-  }
 
 export{
-    fetchUser,
-    fetchNoticeList,
-    fetchNoticeDetail,
-    postNotice,
-    postEmail,
-    postNick,
+    //Token
+    fetchToken,
+
+    //Member
+    postSignup,
+    patchChangePwd,
+    getUserArea,
     postLogin,
-    postMemberInfo,
-    findID,
-    findPW,
-    changePWD,
-    
+    getFindId,
+    getFindPwd,
+    getCheckNick,
+    getCheckEmail,
+
+    //Notice
+    getNoticeList,
+    postNotice,
+    getNoticeDetail,
+
+    //Users
+    getMyPost,
+    getAttendPost,
+    patchUserInfo,
+
+    //Delivery
+    getDeliveryList,
+    getSortDeliveryList,
     postDeliveryPost,
-    fetchAmendDeliveryPost,
-    amendDeliveryPost,
-    deleteChatData,
-    deleteRoomInfo,
-    deletePost,
-    joinDeliveryPost,
-    exitDeliveryPost,
+    patchDeliveryPost,
+    deleteDeliveryPost,
+    getDeliveryPostDetail,
+    getDeliveryPostEdit,
 
-    fetchDeliveryList,
-    fetchDeliveryDetail,
-    fetchDeliveryList_SORT,
-
-    findPostID,
-    findRoom,
-    findUser,
-    findChatLogs,
+    //Chat
+    getPostIdList,
+    getPostInfoList,
+    getNickList,
+    getChatList,
     postChatData,
+    deleteChatData,
 
-    fetchMyDPost,
-    fetchMyPartici,
-    changeMember,
-    findUserArea,
+    //RoomInfo
+    postRoomInfo,
+    patchRoomInfo,
+    deleteRoomInfo
 }

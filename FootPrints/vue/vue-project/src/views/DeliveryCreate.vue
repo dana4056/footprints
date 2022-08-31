@@ -160,7 +160,7 @@ export default {
           title: '글이 등록되었습니다.',
           confirmButtonText: '배달 모집 목록 보러가기',
         }).then(() => {
-          this.$router.replace("/delivery/posta");
+          this.$router.replace("/delivery/post");
         })
 			}
       else {

@@ -172,7 +172,8 @@ export default {
       }
     },
     amendPost() {
-      this.$router.replace("/delivery/post/amend/" + this.post_id);
+      // 수정했는데 안 되면 바꿔야함
+      this.$router.replace("/delivery/post/" + this.post_id + "/amend"); 
     },
     deletePost() {
       this.$store.dispatch('DELETE_DELIVERY_POST', this.post_id);

@@ -70,7 +70,7 @@ export default {
 		checkCode() {
 			if (this.sysCode == parseInt(this.userCode) && this.userCode != "") {
 				localStorage.setItem('email', this.email);
-				this.$router.replace("/changePW");
+				this.$router.replace("/change-password");
 			}
 			else
 				alert("인증번호를 다시 입력해주세요.");

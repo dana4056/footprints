@@ -3,7 +3,7 @@
     <tool-bar></tool-bar>
     <div id="content">
       <div id="area">현재 설정된 지역은 {{this.$store.state.deliveryPost_presentArea}} 입니다.</div>
-      <div id="sort-box"> 
+      <div id="sort-box">
         <label>음식 카테고리</label>
           <div>
             <select class="sortThing" v-model="category" v-on:focus="NoneCategory" v-on:focusout="SelectCategory">
@@ -37,12 +37,12 @@
         </div>
 
         <div class="add-btn">
-          <router-link to="/delivery/post/create" class="link">
+          <router-link to="/delivery/post/new-post" class="link">
             <i class="fa-solid fa-circle-plus"></i>
           </router-link>
         </div>
       </div>
-      
+
       <div id="box" v-bind:style="{height: (this.$store.state.deliveryPostList.length * 170 + 400) + 'px'}">
       <!------------------------------------ 유효한 게시물 리스트 요소 ---------------------------------------->
       <div v-for="delivery in this.$store.state.deliveryPostList" v-bind:key="delivery">
@@ -53,7 +53,7 @@
               <div class="res-name"><router-link v-bind:to="`/delivery/post/${delivery.post_id}`">{{ delivery.post_name }}</router-link></div>
               <div class="category" v-bind:class="delivery.category">{{this.categories[delivery.category]}}</div>
               <div class="time"><small>마감기한 : {{  delivery.valid_time.format("M/D  HH:mm")}}</small></div>
-            </div> 
+            </div>
             <router-link v-bind:to="`/delivery/post/${delivery.post_id}`"><p>{{ delivery.post_content }}</p></router-link>
             <div class="listbox-foot">
               <div class="detail-info">
@@ -79,7 +79,7 @@
               <div class="res-name"><router-link v-bind:to="`/delivery/post/${delivery.post_id}`">{{ delivery.post_name }}</router-link></div>
               <div class="category" v-bind:class="delivery.category">{{this.categories[delivery.category]}}</div>
               <div class="time" id="invalid"><small>마감기한이 지난 글입니다.</small></div>
-            </div> 
+            </div>
             <p>{{ delivery.post_content }}</p>
             <div class="listbox-foot">
               <div class="detail-info">
@@ -95,7 +95,7 @@
           </div>
         </div>
       </div>
-      <!-------------------------------------------------------------------------------------------------> 
+      <!------------------------------------------------------------------------------------------------->
     </div>
     </div>
     <up-button id="up_button"></up-button>
@@ -134,7 +134,7 @@ export default {
       sort_criteria: "",
       area: this.$store.state.deliveryPost_presentArea,
       now: "",
-    } 
+    }
   },
   beforeCreate(){
     this.$store.dispatch('FETCH_DELIVERY_LIST', this.$store.state.deliveryPost_presentArea);
@@ -206,8 +206,6 @@ export default {
             this.NoneCategory();
             this.BeforeSort();
             this.$store.getters.GET_DELIVERIES;
-            // this.$store.state.deliveryPost_presentArea = this.area;
-            // this.$router.push("/delivery/post");
           }, 100);  
         }
       }).open();
