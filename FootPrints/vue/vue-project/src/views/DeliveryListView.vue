@@ -4,11 +4,7 @@
     <tool-bar></tool-bar>
     <div id="content">
       <div>현재 설정 지역은 {{this.$store.state.deliveryPost_presentArea}} 입니다.</div>
-      <!-- <router-link v-bind:to="`/delivery/post/${delivery.post_id}`" class="link">상세보기 페이지 예시</router-link>  -->
       <div id="sort-box"> 
-        <!-- 수정 필요 부분 -->
-        <!-- <button>음식 카테고리</button>
-        <button>정렬: 기한 가까운 순</button> --> 
         <label>음식 카테고리</label>
           <div>
             <select class="sortThing" v-model="category" v-on:focus="NoneCategory" v-on:focusout="SelectCategory">
@@ -42,7 +38,7 @@
         </div>
 
         <div class="add-btn">
-          <router-link to="/delivery/post/create" class="link">
+          <router-link to="/delivery/post/new-post" class="link">
             <i class="fa-solid fa-circle-plus"></i>
           </router-link>
         </div>
@@ -177,8 +173,6 @@ export default {
             this.NoneCategory();
             this.BeforeSort();
             this.$store.getters.GET_DELIVERIES;
-            // this.$store.state.deliveryPost_presentArea = this.area;
-            // this.$router.push("/delivery/post");
           }, 100);  
         }
       }).open();

@@ -135,12 +135,6 @@ export default {
     email() {
       return this.Email1 + "@" + this.Email2;
     },
-    // area(){
-    //   return this.sido.ctp_kor_nm + " " + this.sigoongu.sig_kor_nm + " " + this.eupmyeondong.emd_kor_nm;
-    // }
-  },
-  created(){
-    // this.searchSido();
   },
   methods: {
     ignoreInputN() {

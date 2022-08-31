@@ -87,7 +87,7 @@ export default {
 			if (this.sysCode == parseInt(this.userCode) && this.userCode != "") {
 				// 2.getPW 뷰로 넘어갈 때 입력받은 이메일도 넘겨야함---------------------------------------
 				localStorage.setItem('email', this.email);
-				this.$router.replace("/changePW");
+				this.$router.replace("/change-password");
 			}
 			else
 				alert("인증번호를 다시 입력해주세요.");

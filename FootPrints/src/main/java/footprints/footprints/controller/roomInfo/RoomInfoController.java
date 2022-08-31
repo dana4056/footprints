@@ -10,44 +10,37 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-
-import java.util.List;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequiredArgsConstructor
 @Slf4j
 public class RoomInfoController {
 
-    private RoomInfoService roomInfoService;
+    private final RoomInfoService roomInfoService;
+    private final PostRepository postRepository;
 
-    private PostRepository postRepository;
 
-    @PostMapping(value = "roominfo/delete")
-    public ResponseEntity<String> deleteRoomInfo(@RequestBody Long post_id){
+    @PostMapping(value = "/room-info")
+    public ResponseEntity<String> joinRoom(@RequestBody RoomInfoDTO roomInfoDTO){
+        String nick = roomInfoDTO.getMember().getNick();
+        Long post_id = roomInfoDTO.getPost().getPost_id();
+        roomInfoService.join(nick, post_id);
+        return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
+    }
+
+    // 방 정보 수정
+    @PatchMapping(value = "/room-info")
+    public ResponseEntity<String> exitRoom(@RequestParam String nick, @RequestParam Long post_id) {
+        roomInfoService.exit(nick, post_id);
+        return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
+    }
+
+    @DeleteMapping(value = "/room-info")
+    public ResponseEntity<String> deleteRoomInfo(@RequestParam Long post_id){
         Post post = postRepository.findDetail(post_id);
         RoomInfoDTO roomInfoDTO = new RoomInfoDTO(post.getMember(), post);
         roomInfoService.remove(roomInfoDTO);
-        return new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
-    }
-
-    @PostMapping(value = "/roomInfo/join/{nick}/{post_id}")
-    public ResponseEntity<String> joinRoom(@PathVariable String nick, @PathVariable Long post_id){
-        roomInfoService.join(nick, post_id);
-        return new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
-    }
-
-    @PostMapping(value = "/roomInfo/exit/{nick}/{post_id}")
-    public ResponseEntity<String> exitRoom(@PathVariable String nick, @PathVariable Long post_id) {
-        roomInfoService.exit(nick, post_id);
-        return new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
-    }
-
-    @PostMapping(value = "/roomInfo/delete")
-    public ResponseEntity<String> deleteRoomInfo1(@RequestBody Long post_id) {
-        roomInfoService.delete(post_id);
-        return new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+        return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
     }
 }

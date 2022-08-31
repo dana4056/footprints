@@ -3,7 +3,7 @@
     <tool-bar></tool-bar>
     <!-- 애초에 add-btn은 권한이 있는 사람만 볼 수 있는건지 아니면 글 추가 하면 권한 없다고 하게 할지 -->
     <div class="add-btn">
-        <router-link to="/notice/post/create" class="link">
+        <router-link to="/notice/new-notice" class="link">
           <i class="fa-solid fa-circle-plus fa-3x"></i>
         </router-link>
     </div>
