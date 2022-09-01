@@ -2,6 +2,7 @@ package footprints.footprints.controller.roomInfo;
 
 
 import footprints.footprints.domain.post.Post;
+import footprints.footprints.domain.roomInfo.JoinDTO;
 import footprints.footprints.domain.roomInfo.RoomInfoDTO;
 import footprints.footprints.repository.post.PostRepository;
 import footprints.footprints.service.roomInfo.RoomInfoService;
@@ -22,9 +23,9 @@ public class RoomInfoController {
 
 
     @PostMapping(value = "/room-info")
-    public ResponseEntity<String> joinRoom(@RequestBody RoomInfoDTO roomInfoDTO){
-        String nick = roomInfoDTO.getMember().getNick();
-        Long post_id = roomInfoDTO.getPost().getPost_id();
+    public ResponseEntity<String> joinRoom(@RequestBody JoinDTO joinDTO){
+        String nick = joinDTO.getNick();
+        Long post_id = joinDTO.getPost_id();
         roomInfoService.join(nick, post_id);
         return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
     }
@@ -39,8 +40,7 @@ public class RoomInfoController {
     @DeleteMapping(value = "/room-info")
     public ResponseEntity<String> deleteRoomInfo(@RequestParam Long post_id){
         Post post = postRepository.findDetail(post_id);
-        RoomInfoDTO roomInfoDTO = new RoomInfoDTO(post.getMember(), post);
-        roomInfoService.remove(roomInfoDTO);
+        roomInfoService.delete(post.getPost_id());
         return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
     }
 }

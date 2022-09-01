@@ -22,26 +22,10 @@ public class RoomInfoRepositoryImpl implements RoomInfoRepository{
 
 
     private final MemberRepository memberRepository;
-
     private final PostRepository postRepository;
-
 
     @PersistenceContext
     private EntityManager em;
-
-    @Override
-    public void save(RoomInfoDTO roomInfoDTO){
-        RoomInfo roomInfo = new RoomInfo(roomInfoDTO.getMember(), roomInfoDTO.getPost());
-        em.persist(roomInfo);
-    }
-
-    @Override
-    public void delete(RoomInfoDTO roomInfoDTO){
-        RoomInfo roomInfo = new RoomInfo(roomInfoDTO.getMember(), roomInfoDTO.getPost());
-        em.remove(roomInfo);
-    }
-
-
 
     public void save_d(String nick, Long post_id) {
         Member member = memberRepository.findByNick(nick);
@@ -53,8 +37,10 @@ public class RoomInfoRepositoryImpl implements RoomInfoRepository{
     }
 
     public void delete_d(String nick, Long post_id) {
-        Query query = em.createQuery(" delete from RoomInfo r where r.member.nick = :nick and r.post.post_id = :post_id");
-        query.setParameter("nick", nick).setParameter("post_id", post_id).executeUpdate();
+        Member member = memberRepository.findByNick(nick);
+        Post post = postRepository.findByPostId(post_id);
+        RoomInfo roomInfo = new RoomInfo(member, post);
+        em.remove(roomInfo);
     }
 
     public void delete_all(Long post_id) {

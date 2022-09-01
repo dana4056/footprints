@@ -36,7 +36,7 @@ public class PostRepositoryImpl implements PostRepository{
                 .category(postDTO.getCategory())
                 .take_loc(postDTO.getTake_loc())
                 .participant_num(postDTO.getParticipant_num())
-                .max_person_num(postDTO.getParticipant_num())
+                .max_person_num(postDTO.getMax_person_num())
                 .valid_time(postDTO.getValid_time())
                 .view_num(postDTO.getView_num())
                 .member(member)

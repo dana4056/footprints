@@ -7,7 +7,7 @@ import { getNoticeList, postNotice, getNoticeDetail } from "../api/index.js";
 //Users
 import { getMyPost, getAttendPost, patchUserInfo } from "../api/index.js";
 //Delivery
-import { getDeliveryList, getSortDeliveryList, postDeliveryPost, postMakeRoomInfo, patchDeliveryPost, deleteDeliveryPost, getDeliveryPostDetail } from "../api/index.js";
+import { getDeliveryList, getSortDeliveryList, postDeliveryPost, patchDeliveryPost, deleteDeliveryPost, getDeliveryPostDetail } from "../api/index.js";
 //Chat
 import { getPostIdList, getPostInfoList, getNickList, getChatList, postChatData, deleteChatData  } from "../api/index.js";
 //RoomInfo
@@ -300,13 +300,8 @@ export default{
     postDeliveryPost(post)
       .then(response => {
         console.log("API:POST_DELIVERY_POST\n게시물 등록 성공", response);
-        postMakeRoomInfo(response.data)
-          .then(response => {
-            console.log("API:POST_MAKE_ROOMINFO\n방정보 생성 성공", response);
-          })
-          .catch(error => {
-            console.log("API:POST_MAKE_ROOMINFO\n방정보 생성 실패", error);
-          })
+        console.log(response.data);
+        store.dispatch("FIND_POST_ID", store.state.member.nick);
       })
       .catch(error => {
         const code = error.response.status;
@@ -458,6 +453,7 @@ export default{
     postRoomInfo(roomInfo)
       .then(response => {
         console.log('API:JOIN_DELIVERY_POST\n배달 참여 성공', response);
+        store.dispatch("FIND_POST_ID", store.state.member.nick);
       })
       .catch(error => {
         console.log('API:JOIN_DELIVERY_POST\n배달 참여 실패', error);
@@ -469,6 +465,7 @@ export default{
     patchRoomInfo(roomInfo)
       .then(response => {
         console.log('API:EXIT_DELIVERY_POST\n참여 취소 성공', response);
+        store.dispatch("FIND_POST_ID", store.state.member.nick);
       })
       .catch(error => {
         console.log('API:EXIT_DELIVERY_POST\n참여 취소 실패', error);

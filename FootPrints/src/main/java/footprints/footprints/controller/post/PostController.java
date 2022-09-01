@@ -1,5 +1,6 @@
 package footprints.footprints.controller.post;
 
+import footprints.footprints.domain.member.Member;
 import footprints.footprints.domain.post.Post;
 import footprints.footprints.domain.post.PostDTO;
 import footprints.footprints.domain.roomInfo.RoomInfoDTO;
@@ -50,19 +51,13 @@ public class PostController {
 
     // 배달 게시물 작성
     @PostMapping(value = "/delivery/post")
-    public ResponseEntity<Long> post(@RequestBody PostDTO postDTO){
+    public ResponseEntity<String> post(@RequestBody PostDTO postDTO){
+        log.info("백 진입1");
         long post_id = postService.join(postDTO);
-        return new ResponseEntity<>(post_id, HttpStatus.OK);
-    }
 
-
-    //게시물 작성시 room_info -> row 추가
-    @PostMapping(value = "/delivery/post/room-info")
-    public ResponseEntity<String> makeRoomInfo(@RequestParam Long post_id){
-        //        post 추가 시 room_info 테이블에 row 추가
         Post post = postRepository.findDetail(post_id);
-        RoomInfoDTO roomInfoDTO = new RoomInfoDTO(post.getMember(), post);
-        roomInfoService.join1(roomInfoDTO);
+        Member member = post.getMember();
+        roomInfoService.join(member.getNick(), post.getPost_id());
 
         return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
     }

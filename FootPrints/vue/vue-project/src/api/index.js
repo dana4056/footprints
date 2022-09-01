@@ -159,16 +159,13 @@ function postDeliveryPost(post) {
     });
 }
 
-function postMakeRoomInfo(post_id){
-    return axios.post(`${config.baseUrl}/delivery/post/room-info`, {
-        params: {
-            post_id: post_id
-        },
-        headers: {
-            'X-AUTH-TOKEN': localStorage.getItem('jwt')
-        }
-    })
-}
+// function postMakeRoomInfo(post_id){
+//     return axios.post(`${config.baseUrl}/delivery/post/aa`, post_id,{
+//         headers: {
+//             'X-AUTH-TOKEN': localStorage.getItem('jwt')
+//         }
+//     })
+// }
 
 function patchDeliveryPost(post) {
     return axios.patch(`${config.baseUrl}/delivery/post`, post, {
@@ -220,11 +217,7 @@ function getPostIdList(nick) {
 
 function getPostInfoList(list) {
     console.log("postIDList: " + list);
-    return axios.get(`${config.baseUrl}/chat/get-PostInfoList`, {
-        params:{
-            list: list,
-        }
-    });
+    return axios.post(`${config.baseUrl}/chat/get-PostInfoList`, list);
 }
 
 function getNickList(post_id) {
@@ -273,11 +266,11 @@ function deleteChatData(post_id) {
 
 
 function postRoomInfo(roomInfo) {
-    return axios.post(`${config.baseUrl}/roomInfo`, roomInfo);
+    return axios.post(`${config.baseUrl}/room-info`, roomInfo);
 }
 
 function patchRoomInfo(roomInfo) {
-    return axios.patch(`${config.baseUrl}/roomInfo`, {
+    return axios.patch(`${config.baseUrl}/room-info`, {
         params: {
             nick : roomInfo.nick,
             post_id: roomInfo.post_id,
@@ -289,7 +282,7 @@ function patchRoomInfo(roomInfo) {
 }
 
 function deleteRoomInfo(post_id) {
-    return axios.delete(`${config.baseUrl}/roomInfo`, {
+    return axios.delete(`${config.baseUrl}/room-info`, {
         params: {
             post_id: post_id,
         },
@@ -328,7 +321,7 @@ export{
     getDeliveryList,
     getSortDeliveryList,
     postDeliveryPost,
-    postMakeRoomInfo,
+    // postMakeRoomInfo,
     patchDeliveryPost,
     deleteDeliveryPost,
     getDeliveryPostDetail,
