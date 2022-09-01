@@ -41,23 +41,6 @@ public class Post {
     private long y;
 
     @Builder
-    public Post(Long post_id, String post_name, String post_content, String category, String take_loc, String post_area,
-                int participant_num, int max_person_num, String valid_time, int view_num, Member member, long x, long y){
-        this.post_name = post_name;
-        this.post_content = post_content;
-        this.category = category;
-        this.take_loc = take_loc;
-        this.post_area = post_area;
-        this.participant_num = participant_num;
-        this.max_person_num = max_person_num;
-        this.valid_time = valid_time;
-        this.view_num = view_num;
-        this.member = member;
-        this.x = x;
-        this.y = y;
-    }
-
-    @Builder
     public Post(String post_name, String post_content, String category, String take_loc, String post_area,
                 int participant_num, int max_person_num, String valid_time, int view_num, Member member, long x, long y){
         this.post_name = post_name;

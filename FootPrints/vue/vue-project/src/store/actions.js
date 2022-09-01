@@ -7,7 +7,7 @@ import { getNoticeList, postNotice, getNoticeDetail } from "../api/index.js";
 //Users
 import { getMyPost, getAttendPost, patchUserInfo } from "../api/index.js";
 //Delivery
-import { getDeliveryList, getSortDeliveryList, postDeliveryPost, patchDeliveryPost, deleteDeliveryPost, getDeliveryPostDetail } from "../api/index.js";
+import { getDeliveryList, getSortDeliveryList, postDeliveryPost, postMakeRoomInfo, patchDeliveryPost, deleteDeliveryPost, getDeliveryPostDetail } from "../api/index.js";
 //Chat
 import { getPostIdList, getPostInfoList, getNickList, getChatList, postChatData, deleteChatData  } from "../api/index.js";
 //RoomInfo
@@ -300,6 +300,13 @@ export default{
     postDeliveryPost(post)
       .then(response => {
         console.log("API:POST_DELIVERY_POST\n게시물 등록 성공", response);
+        postMakeRoomInfo(response.data)
+          .then(response => {
+            console.log("API:POST_MAKE_ROOMINFO\n방정보 생성 성공", response);
+          })
+          .catch(error => {
+            console.log("API:POST_MAKE_ROOMINFO\n방정보 생성 실패", error);
+          })
       })
       .catch(error => {
         const code = error.response.status;

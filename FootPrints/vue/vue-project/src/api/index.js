@@ -159,6 +159,17 @@ function postDeliveryPost(post) {
     });
 }
 
+function postMakeRoomInfo(post_id){
+    return axios.post(`${config.baseUrl}/delivery/post/room-info`, {
+        params: {
+            post_id: post_id
+        },
+        headers: {
+            'X-AUTH-TOKEN': localStorage.getItem('jwt')
+        }
+    })
+}
+
 function patchDeliveryPost(post) {
     return axios.patch(`${config.baseUrl}/delivery/post`, post, {
         headers: {
@@ -317,6 +328,7 @@ export{
     getDeliveryList,
     getSortDeliveryList,
     postDeliveryPost,
+    postMakeRoomInfo,
     patchDeliveryPost,
     deleteDeliveryPost,
     getDeliveryPostDetail,

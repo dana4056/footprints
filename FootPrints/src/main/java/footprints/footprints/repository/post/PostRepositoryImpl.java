@@ -28,7 +28,7 @@ public class PostRepositoryImpl implements PostRepository{
     private EntityManager em;
 
     @Override
-    public void save_d(PostDTO postDTO){
+    public long save_d(PostDTO postDTO){
         Member member = memberRepository.findByNick(postDTO.getNick());
         Post post = Post.builder()
                 .post_name(postDTO.getPost_name())
@@ -51,6 +51,7 @@ public class PostRepositoryImpl implements PostRepository{
             log.info("id 없음");
             log.info("-------------------------------------------");
             em.persist(post);
+            return post.getPost_id();
 //            roomInfoRepository.save_d(member.getNick(), post.getPost_id());
         }
         else{
@@ -58,8 +59,10 @@ public class PostRepositoryImpl implements PostRepository{
             log.info("id 있음");
             log.info("-------------------------------------------");
             em.merge(post);
+            return post.getPost_id();
         }
     }
+
     @Override
     public void save(Post post){
         if(post.getPost_id() == null){
@@ -100,8 +103,8 @@ public class PostRepositoryImpl implements PostRepository{
     }
 
     @Override
-    public Post findDetail(Long post_num) {
-        return em.find(Post.class, post_num);
+    public Post findDetail(Long post_id) {
+        return em.find(Post.class, post_id);
     }
 
     @Override

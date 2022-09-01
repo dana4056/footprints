@@ -48,17 +48,25 @@ public class PostController {
         }
     }
 
-    // 배달 게시물 작성, 게시물 작성시 room_info -> row 추가
+    // 배달 게시물 작성
     @PostMapping(value = "/delivery/post")
-    public ResponseEntity<String> post(@RequestBody PostDTO postDTO){
-        postService.join(postDTO);
-//        post 추가 시 room_info 테이블에 row 추가
-//        Post post = postRepository.findDetail(postDTO.getPost_id());
-//        RoomInfoDTO roomInfoDTO = new RoomInfoDTO(post.getMember(), post);
-//        roomInfoService.join1(roomInfoDTO);
+    public ResponseEntity<Long> post(@RequestBody PostDTO postDTO){
+        long post_id = postService.join(postDTO);
+        return new ResponseEntity<>(post_id, HttpStatus.OK);
+    }
+
+
+    //게시물 작성시 room_info -> row 추가
+    @PostMapping(value = "/delivery/post/room-info")
+    public ResponseEntity<String> makeRoomInfo(@RequestParam Long post_id){
+        //        post 추가 시 room_info 테이블에 row 추가
+        Post post = postRepository.findDetail(post_id);
+        RoomInfoDTO roomInfoDTO = new RoomInfoDTO(post.getMember(), post);
+        roomInfoService.join1(roomInfoDTO);
 
         return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
     }
+
     // 글 수정하기
     @PatchMapping(value = "/delivery/post")
     public ResponseEntity<String> deliveryAmendPost(@RequestBody PostDTO postDTO){
@@ -67,7 +75,7 @@ public class PostController {
     }
 
     //게시물 삭제
-    @DeleteMapping(value = "“/delivery/post”")
+    @DeleteMapping(value = "/delivery/post")
     public ResponseEntity<String> deletePost1 (@RequestParam Long post_id){
         postService.remove(post_id);
         return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
