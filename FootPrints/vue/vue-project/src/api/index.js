@@ -140,7 +140,9 @@ function getDeliveryList(area) {
 function getSortDeliveryList(sortDTO) {
     return axios.get(`${config.baseUrl}/delivery/post/sort`, {
         params: {
-            sortDTO: sortDTO,
+            category: sortDTO.category,
+            sort_criteria: sortDTO.sort_criteria,
+            area: sortDTO.area
         },
         headers: {
             'Content-Type': 'text/plain',

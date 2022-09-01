@@ -2,7 +2,6 @@ package footprints.footprints.controller.post;
 
 import footprints.footprints.domain.post.Post;
 import footprints.footprints.domain.post.PostDTO;
-import footprints.footprints.domain.post.SortDTO;
 import footprints.footprints.domain.roomInfo.RoomInfoDTO;
 import footprints.footprints.repository.post.PostRepository;
 import footprints.footprints.service.post.PostServiceImpl;
@@ -37,9 +36,9 @@ public class PostController {
 
     // 카테고리에서 선택한 종류에 대한 리스트뷰 뿌려주기
     @GetMapping(value = "/delivery/post/sort")
-    public ResponseEntity<List<Post>> listOfCategory(@RequestParam SortDTO sortDTO) {
+    public ResponseEntity<List<Post>> listOfCategory(@RequestParam String category, @RequestParam String sort_criteria, @RequestParam String area) {
         log.info("카테고리별 sorting 진입");
-        List<Post> categoryList = postService.getSortingList(sortDTO.getCategory(), sortDTO.getSort_criteria(), sortDTO.getArea());
+        List<Post> categoryList = postService.getSortingList(category, sort_criteria, area);
         if(categoryList == null){
             log.info("카테고리 리스트 널 값 반환");
             return new ResponseEntity<>((List<Post>) null, HttpStatus.OK);
@@ -53,15 +52,13 @@ public class PostController {
     @PostMapping(value = "/delivery/post")
     public ResponseEntity<String> post(@RequestBody PostDTO postDTO){
         postService.join(postDTO);
-
-        //post 추가 시 room_info 테이블에 row 추가
-        Post post = postRepository.findDetail(postDTO.getPost_id());
-        RoomInfoDTO roomInfoDTO = new RoomInfoDTO(post.getMember(), post);
-        roomInfoService.join1(roomInfoDTO);
+//        post 추가 시 room_info 테이블에 row 추가
+//        Post post = postRepository.findDetail(postDTO.getPost_id());
+//        RoomInfoDTO roomInfoDTO = new RoomInfoDTO(post.getMember(), post);
+//        roomInfoService.join1(roomInfoDTO);
 
         return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
     }
-
     // 글 수정하기
     @PatchMapping(value = "/delivery/post")
     public ResponseEntity<String> deliveryAmendPost(@RequestBody PostDTO postDTO){

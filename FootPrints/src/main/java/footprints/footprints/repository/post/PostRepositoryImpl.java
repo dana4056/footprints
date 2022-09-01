@@ -22,7 +22,6 @@ import java.util.List;
 @Transactional
 @RequiredArgsConstructor
 public class PostRepositoryImpl implements PostRepository{
-//    private final RoomInfoRepository roomInfoRepository;
     private final MemberRepository memberRepository;
 
     @PersistenceContext
@@ -31,9 +30,21 @@ public class PostRepositoryImpl implements PostRepository{
     @Override
     public void save_d(PostDTO postDTO){
         Member member = memberRepository.findByNick(postDTO.getNick());
-        Post post = new Post(postDTO.getPost_id(), postDTO.getPost_name(), postDTO.getPost_content(), postDTO.getCategory(),
-                postDTO.getTake_loc(), postDTO.getParticipant_num(), postDTO.getMax_person_num(), postDTO.getValid_time(),
-                postDTO.getView_num(), member, postDTO.getPost_area());
+        Post post = Post.builder()
+                .post_name(postDTO.getPost_name())
+                .post_content(postDTO.getPost_content())
+                .category(postDTO.getCategory())
+                .take_loc(postDTO.getTake_loc())
+                .participant_num(postDTO.getParticipant_num())
+                .max_person_num(postDTO.getParticipant_num())
+                .valid_time(postDTO.getValid_time())
+                .view_num(postDTO.getView_num())
+                .member(member)
+                .post_area(postDTO.getPost_area())
+                .x(postDTO.getX())
+                .y(postDTO.getY())
+                .build();
+
         log.info("PostRepositoryImpl-post: {}",post);
         if(post.getPost_id() == null){
             log.info("-------------------------------------------");

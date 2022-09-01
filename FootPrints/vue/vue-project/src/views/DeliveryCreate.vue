@@ -143,12 +143,12 @@ export default {
             post_content: this.post_content,     // 글 내용
             category: this.category,             // 음식 카테고리
             take_loc: this.take_loc,             // 음식 나눌 장소
+            post_area : this.post_area,
             participant_num: 1,                  // 현재 참가 인원
             max_person_num: this.max_person_num, // 모집 인원
             valid_time: this.valid_time,         // 게시물 유효 시간
             view_num: this.view_num ,            // 조회수
             nick:this.$store.state.member.nick,
-            area_name : this.area_name,
             x: this.longtitude,
             y: this.latitude,
         }
