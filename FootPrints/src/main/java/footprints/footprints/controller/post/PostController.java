@@ -3,7 +3,6 @@ package footprints.footprints.controller.post;
 import footprints.footprints.domain.member.Member;
 import footprints.footprints.domain.post.Post;
 import footprints.footprints.domain.post.PostDTO;
-import footprints.footprints.domain.roomInfo.RoomInfoDTO;
 import footprints.footprints.repository.post.PostRepository;
 import footprints.footprints.service.post.PostServiceImpl;
 import footprints.footprints.service.roomInfo.RoomInfoService;
@@ -28,9 +27,6 @@ public class PostController {
     // 리스트뷰
     @GetMapping(value = "/delivery/post")
     public ResponseEntity<List<Post>> deliveryListView(@RequestParam String area){
-//        if(area.equals("")){
-//            return new ResponseEntity<List<Post>>((List<Post>) null, HttpStatus.UNAUTHORIZED); // 이게 안 먹어 지금
-//        }
         List<Post> postList = postService.getPostList(area);
         return new ResponseEntity<>(postList, HttpStatus.OK);
     }
@@ -71,7 +67,7 @@ public class PostController {
 
     //게시물 삭제
     @DeleteMapping(value = "/delivery/post")
-    public ResponseEntity<String> deletePost1 (@RequestParam Long post_id){
+    public ResponseEntity<String> deletePost(@RequestParam Long post_id){
         postService.remove(post_id);
         return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
     }
