@@ -6,17 +6,13 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-
-import javax.persistence.EntityListeners;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter @Setter
 
 public class PostDTO {
-
-    private Long post_id;
+    private long post_id;
     private String post_name;     // 글 제목
     private String post_content;  // 글 내용
     private String category;      // 음식 카테고리
@@ -26,9 +22,11 @@ public class PostDTO {
     private int max_person_num;       // 모집 인원
     private String valid_time;       // 게시물 유효 시간
     private int view_num;         // 조회수
-    //private Member member;        // 게시한 회원
-    // ------- member entity 참조할건데 임시로 --------------
     private String nick;
+    private long x;
+    private long y;
+
+
     private Member member;  //0725추가
 
     public PostDTO(Post post){
@@ -42,6 +40,8 @@ public class PostDTO {
         this.valid_time = post.getValid_time();
         this.view_num = post.getView_num();
         this.member = post.getMember();  //0725추가
+        this.x = post.getX();
+        this.y = post.getY();
     }
 
 

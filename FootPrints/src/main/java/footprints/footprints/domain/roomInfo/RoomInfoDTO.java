@@ -15,8 +15,8 @@ import javax.persistence.EntityListeners;
 @Getter @Setter
 
 public class RoomInfoDTO {
-    private Member member;
 
+    private Member member;
     private Post post;
 
     public RoomInfoDTO(RoomInfo roomInfo){

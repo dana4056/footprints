@@ -21,8 +21,9 @@ public class PostServiceImpl implements PostService{
     private final PostRepository postRepository;
 
     @Override
-    public void join(PostDTO postDTO){
-        postRepository.save_d(postDTO);
+    public long join(PostDTO postDTO){
+        long post_id = postRepository.save_d(postDTO);
+        return post_id;
     }
 
     @Override

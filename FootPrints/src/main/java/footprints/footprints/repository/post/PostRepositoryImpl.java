@@ -22,24 +22,36 @@ import java.util.List;
 @Transactional
 @RequiredArgsConstructor
 public class PostRepositoryImpl implements PostRepository{
-//    private final RoomInfoRepository roomInfoRepository;
     private final MemberRepository memberRepository;
 
     @PersistenceContext
     private EntityManager em;
 
     @Override
-    public void save_d(PostDTO postDTO){
+    public long save_d(PostDTO postDTO){
         Member member = memberRepository.findByNick(postDTO.getNick());
-        Post post = new Post(postDTO.getPost_id(), postDTO.getPost_name(), postDTO.getPost_content(), postDTO.getCategory(),
-                postDTO.getTake_loc(), postDTO.getParticipant_num(), postDTO.getMax_person_num(), postDTO.getValid_time(),
-                postDTO.getView_num(), member, postDTO.getPost_area());
+        Post post = Post.builder()
+                .post_name(postDTO.getPost_name())
+                .post_content(postDTO.getPost_content())
+                .category(postDTO.getCategory())
+                .take_loc(postDTO.getTake_loc())
+                .participant_num(postDTO.getParticipant_num())
+                .max_person_num(postDTO.getMax_person_num())
+                .valid_time(postDTO.getValid_time())
+                .view_num(postDTO.getView_num())
+                .member(member)
+                .post_area(postDTO.getPost_area())
+                .x(postDTO.getX())
+                .y(postDTO.getY())
+                .build();
+
         log.info("PostRepositoryImpl-post: {}",post);
         if(post.getPost_id() == null){
             log.info("-------------------------------------------");
             log.info("id 없음");
             log.info("-------------------------------------------");
             em.persist(post);
+            return post.getPost_id();
 //            roomInfoRepository.save_d(member.getNick(), post.getPost_id());
         }
         else{
@@ -47,8 +59,10 @@ public class PostRepositoryImpl implements PostRepository{
             log.info("id 있음");
             log.info("-------------------------------------------");
             em.merge(post);
+            return post.getPost_id();
         }
     }
+
     @Override
     public void save(Post post){
         if(post.getPost_id() == null){
@@ -89,8 +103,8 @@ public class PostRepositoryImpl implements PostRepository{
     }
 
     @Override
-    public Post findDetail(Long post_num) {
-        return em.find(Post.class, post_num);
+    public Post findDetail(Long post_id) {
+        return em.find(Post.class, post_id);
     }
 
     @Override

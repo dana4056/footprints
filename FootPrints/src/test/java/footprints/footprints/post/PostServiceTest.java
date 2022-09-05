@@ -7,6 +7,7 @@
 //import footprints.footprints.repository.post.PostRepository;
 //import footprints.footprints.service.member.MemberService;
 //import footprints.footprints.service.post.PostService;
+//import org.junit.Test;
 //import org.junit.jupiter.api.Test;
 //
 //import org.springframework.beans.factory.annotation.Autowired;

@@ -22,7 +22,7 @@
 
 <script>
 import { mapGetters } from 'vuex';
-// import { computed } from 'vue'
+
 export default {
 	data() {
 		return {
@@ -33,7 +33,6 @@ export default {
 			chkBtnVisible: false,
 			getIDVisible: false,
       canNotFindID: false,
-      // represent_nick: this.GET_FIND_MEMBER_NICK,
 		}
 	},
 	computed:{
@@ -41,44 +40,18 @@ export default {
       'GET_FIND_MEMBER_NICK'
     ]),
   },
-  // represent() {
-  //   this.represent_nick = computed(() => this.GET_FIND_MEMBER_NICK )
-  //   console.log("4");
-  //   this.getBtnVisible = false;
-  //       // 비동기처리 때문에 제대로 못 가져와서 그냥 찍어버리는 현상 발생 후처리 필요
-  //       // API가 왔다갔다 하기 전까지 대기 해야함
-  //   if (this.represent_nick == "CANNOT_FIND_ID"){
-  //     this.getIDVisible = false;
-  //     this.canNotFindID = true;
-  //   }
-  //   else{
-  //     this.canNotFindID = false;
-  //     this.getIDVisible = true;
-  //   }
-  //   this.chkBtnVisible = true;
-  //   this.inputtext = false;
-  //   this.inputemail = false;
-  // },
 	methods: {
-    // ...mapGetters([
-    //   'GET_FIND_MEMBER_NICK'
-    // ]),
     findID() {
-      // console.log("1");
       this.$store.dispatch('FIND_NICK', this.email);
       setTimeout(() => { 
-        // console.log("3");
         this.represent() 
         }, 100);    
-      // this.represent();
     },
     represent(){
-      // console.log("4");
       this.getBtnVisible = false;
       if (this.GET_FIND_MEMBER_NICK == "CANNOT_FIND_ID"){
         this.getIDVisible = false;
         this.canNotFindID = true;
-        // this.represent_nick = this.GET_FIND_MEMBER_NICK;
       }
       else{
         this.canNotFindID = false;
@@ -98,6 +71,7 @@ export default {
 }
 #wrap{
   width: 330px;
+  height: 650px;
   margin: 0 auto;
   padding: 239px 0;
 }
