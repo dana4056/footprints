@@ -26,6 +26,13 @@ public class ChatController {
 
     private final ChatService chatService;
 
+    @GetMapping("/chat")
+    public String chatGET(){
+        log.info("@ChatController, chat GET()");
+
+        return "chat";
+    }
+
     @PostMapping(value = "/chat/get-PostIdlist") // 사용자가 속한 한 post_id를 리스트(Integer) 형태로 가져온다.
     public ResponseEntity<List<Long>> getPostIdList(@RequestBody String nick){
 
