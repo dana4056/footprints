@@ -1,5 +1,6 @@
 package footprints.footprints.domain.member;
 import footprints.footprints.domain.member.DTO.MemberDTO;
+import footprints.footprints.domain.post.Post;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

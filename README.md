@@ -1,3 +1,9 @@
+@ElementCollection  
+FetchType.Lazy로 변경 필요  
+cascade.all -> 무언가로 변경 필요  
+다대일 매핑 반대편은 일대다 매핑 무조건?  
+
+
 ## Member 영역 
 ⭐ **개발 및 수정**
 - [x]  회원가입 성공 로그 찍는게 회원가입 시점 이전에 이루어짐  
