@@ -1,9 +1,10 @@
 <template>
-  <div :class="{fixedWrapper:isShowmap, scrollWrapper:!isShowmap}">
-    <!-- 나눔 장소 보기 모달 -->
-    <show-map ref="showMap" v-on:change="change()"></show-map>
+  <div class="scrollWrapper" :class="{fixedWrapper:isShowmap, scrollWrapper:!isShowmap}">
 
     <tool-bar></tool-bar>
+    
+    <!-- 나눔 장소 보기 모달 -->
+    <show-map ref="showMap" v-on:change="change()"></show-map>
     <div id="wrap">
       <div id="headBox">
         <h2>{{ fetched.post_name }}</h2>
@@ -113,29 +114,31 @@ export default {
       }
     }
   },
-  mounted(){
+  // updated(){
+  //   let post = this.$store.getters.GET_DELIVERY_POST;
+  //   let lat = post.latitude;
+  //   let long = post.longtitude;
 
-    let kakao = window.kakao;
-    var mapContainer = document.getElementById('map'), // 지도를 표시할 div
-    mapOption = {
-        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-        level: 3 // 지도의 확대 레벨
-    };
-    console.log(mapContainer);
+  //   let kakao = window.kakao;
+  //   var mapContainer = document.getElementById('map'), // 지도를 표시할 div
+  //   mapOption = {
+  //       center: new kakao.maps.LatLng(lat, long), // 지도의 중심좌표
+  //       level: 3 // 지도의 확대 레벨
+  //   };
 
-    var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
-    // 마커가 표시될 위치입니다
-    var markerPosition  = new kakao.maps.LatLng(33.450701, 126.570667);
+  //   var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+  //   // 마커가 표시될 위치입니다
+  //   var markerPosition  = new kakao.maps.LatLng(lat, long);
 
-    // 마커를 생성합니다
-    var marker = new kakao.maps.Marker({
-        position: markerPosition
-    });
+  //   // 마커를 생성합니다
+  //   var marker = new kakao.maps.Marker({
+  //       position: markerPosition
+  //   });
 
-    // 마커가 지도 위에 표시되도록 설정합니다
-    marker.setMap(map);
+  //   // 마커가 지도 위에 표시되도록 설정합니다
+  //   marker.setMap(map);
 
-  },
+  // },
   methods:{
     change(){
         console.log("change");
@@ -222,6 +225,7 @@ export default {
     min-height: 100%;
     position: relative;
 }
+
 #wrap {
   width: 650px;
   height: 570px;

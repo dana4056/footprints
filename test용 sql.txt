@@ -1,6 +1,7 @@
 -- 회원가입 - 악마선진, 악마다은
 
 -- 글 작성 편하게 사용자 이름쪽만 건드리면 test 가능
+-- 주의: created_date는 DB에 영국시간(-9시간) 저장되어있어야함
 INSERT INTO `test_db`.`post` (`post_id`, `category`, `created_date`,`max_person_num`, `participant_num`, `post_content`, `post_name`, `take_loc`, `valid_time`, `view_num`, `member_nick`, `post_area` ,`x`, `y`)
 VALUES (1, 'CHI', '2022-07-27 02:30:46', 5, 1, '중국음식 배달시간4 내용', '중국음식 배달시간4', '북악1', '2022-09-23T11:38', 0, '악마선진', '서울 성북구 정릉동', 37.61507352547857,127.01321786964758 );
 INSERT INTO `test_db`.`post` (`post_id`, `category`, `created_date`,`max_person_num`, `participant_num`, `post_content`, `post_name`, `take_loc`, `valid_time`, `view_num`, `member_nick`, `post_area` ,`x`, `y`)

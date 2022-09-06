@@ -68,7 +68,6 @@ export const store = new Vuex.Store({
         //     return state.deliveryPost_presentArea;
         // },
         GET_DELIVERY_POST(state){
-            console.log("디테일\n",state.deliveryPost)
             return state.deliveryPost;
         },
         GET_PWCHANGE_DONE(state){
@@ -129,7 +128,7 @@ export const store = new Vuex.Store({
                 const Cdate = dayjs(value.createdDate);
                 const Vdate = dayjs(value.valid_time);
 
-                state.deliveryPostList[idx].createdDate = Cdate.subtract(9,'h');
+                state.deliveryPostList[idx].createdDate = Cdate;
                 state.deliveryPostList[idx].valid_time = Vdate;
                 idx += 1;
             }
@@ -139,7 +138,7 @@ export const store = new Vuex.Store({
             const Vdate = dayjs(post.valid_time);
 
             state.deliveryPost = post;
-            state.deliveryPost.createdDate = Cdate.subtract(9,'h');
+            state.deliveryPost.createdDate = Cdate;
             state.deliveryPost.valid_time = Vdate;
         },
         SET_FIND_POSTID(state, list) {

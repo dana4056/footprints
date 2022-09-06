@@ -41,8 +41,8 @@ public class PostRepositoryImpl implements PostRepository{
                 .view_num(postDTO.getView_num())
                 .member(member)
                 .post_area(postDTO.getPost_area())
-                .x(postDTO.getX())
-                .y(postDTO.getY())
+                .lat(postDTO.getLat())
+                .lon(postDTO.getLon())
                 .build();
 
         log.info("PostRepositoryImpl-post: {}",post);
