@@ -1,5 +1,5 @@
 <!-- 해당 컴포넌트 사용시 부모 컴포넌트에서 해야할 것 
-    1. 최상위 태그에 class="{.fixedWrapper:isShowmap, .scrollWrapper:!isShowmap}"
+    1. :class="{fixedWrapper:isShowmap, scrollWrapper:!isShowmap}"
     2. 컴포넌트 태그에 ref="showMap" v-on:change="change()" 속성 추가
     3. 해당 컴포넌트 실행시키는 버튼 추가
         <button v-on:click="this.$refs.showMap.showMap(), change()">지도보기</button>
@@ -22,8 +22,8 @@ export default {
       return{
         openMap: false,
         take_loc: this.$store.getters.GET_DELIVERY_POST.take_loc,      // 음식 나눌 장소
-        latitude: this.$store.getters.GET_DELIVERY_POST.y,
-        longtitude: this.$store.getters.GET_DELIVERY_POST.x
+        latitude: this.$store.getters.GET_DELIVERY_POST.x,
+        longtitude: this.$store.getters.GET_DELIVERY_POST.y
       }
     },
     mounted(){
@@ -32,7 +32,8 @@ export default {
         var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
         mapOption = { 
             center: new kakao.maps.LatLng($vm.latitude, $vm.longtitude), // 지도의 중심좌표
-            level: 3 // 지도의 확대 레벨
+            level: 3, // 지도의 확대 레벨
+            mapTypeId : kakao.maps.MapTypeId.ROADMAP // 지도종류
         };
         console.log(mapOption);
         console.log($vm.latitude, $vm.longtitude);

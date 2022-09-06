@@ -37,12 +37,12 @@ public class Post {
     @JoinColumn(name="MEMBER_NICK")
 //    @JsonIgnore
     private Member member;
-    private long x;
-    private long y;
+    private double x;
+    private double y;
 
     @Builder
     public Post(String post_name, String post_content, String category, String take_loc, String post_area,
-                int participant_num, int max_person_num, String valid_time, int view_num, Member member, long x, long y){
+                int participant_num, int max_person_num, String valid_time, int view_num, Member member, double x, double y){
         this.post_name = post_name;
         this.post_content = post_content;
         this.category = category;

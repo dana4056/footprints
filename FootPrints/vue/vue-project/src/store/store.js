@@ -127,10 +127,11 @@ export const store = new Vuex.Store({
             let idx = 0;
             for(let value of list){
                 const Cdate = dayjs(value.createdDate);
-                const Vdate = dayjs(value.valid_time+":00");
+                const Vdate = dayjs(value.valid_time);
 
-                state.deliveryPostList[idx].createdDate = Cdate;
-                state.deliveryPostList[idx++].valid_time = Vdate;
+                state.deliveryPostList[idx].createdDate = Cdate.subtract(9,'h');
+                state.deliveryPostList[idx].valid_time = Vdate;
+                idx += 1;
             }
         },
         SET_DELIVERY_POST(state, post){

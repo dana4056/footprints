@@ -1,10 +1,11 @@
 <template>
-  <div class="wrap">
+  <div class="wrap" :class="{fixedWrapper:isShowmap, scrollWrapper:!isShowmap}">
 
       <tool-bar></tool-bar>
+      <show-map ref="showMap" v-on:change="change()"></show-map>
+      <button type="button" id="seePlace" v-on:click="this.$refs.showMap.showMap(), change()">나눔 장소 보기</button>
       <div id="content">
-        
-    
+        HI
       </div>
       <up-button id="up_button"></up-button>
       <!-- footer 지역에 닿으면 사라지는 이슈 -->
@@ -16,7 +17,7 @@
 import ToolBar from '../components/ToolBar.vue'
 import FooterArea from '../components/FooterArea.vue'
 import UpButton from '../components/UpButton.vue'
-
+import ShowMap from '../components/ShowMap.vue'
 // import NoticeArea from '../components/NoticeArea.vue'
 
 export default {
@@ -24,12 +25,38 @@ export default {
         ToolBar,
         FooterArea,
         UpButton,
+        ShowMap,
         // NoticeArea,
+    },
+    data() {
+      return {
+        isShowmap : false,
+      }
+    },
+    methods:{
+      change(){
+          console.log("change");
+          this.isShowmap =  this.$refs.showMap.openMap;
+      },
     }
 }
 </script>
 
 <style scoped>
+
+
+.fixedWrapper{
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.scrollWrapper{
+    min-height: 100%;
+    position: relative;
+}
+
 .wrap{
     min-height: 100%;
     position: relative;

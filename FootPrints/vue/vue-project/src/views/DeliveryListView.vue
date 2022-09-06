@@ -144,18 +144,23 @@ export default {
   },
   methods:{
     caltime(created){
+      // 콘솔창에 시간 객체 찍을 때 표시되는 속성명과 dayjs객체 속성명 다름
+      // ex) 시간(hour) -> 콘솔에는 H로 dayjs에는 h로 표시  dayjs로 다뤄야함
       const now = dayjs();
-      if(created.isSame(now,"day")){
-          const ago_H = now.diff(created,"h");
-          const ago_M = now.diff(created,"m");
-          if(ago_H == 0){
-            return String(ago_M)+"분 ";
-          }
+      const diffH = now.diff(created,"hour", true);
+
+      if(diffH<24){
+        const ago = now.diff(created, "minute");
+        const ago_H = parseInt(ago / 60);
+        const ago_M = ago - (ago_H * 60);
+        if(ago_H === 0){
+          return String(ago_M)+"분 ";
+        }else{
           return String(ago_H)+"시간 "+String(ago_M)+"분 ";
-         }
-      else{
-          const ago_D = now.diff(created,"d");
-          return String(ago_D)+"일 ";
+        }
+      }else{
+        const ago_D = now.diff(created, "day");
+        return String(ago_D)+"일 ";
       }
     },
     NoneCategory(){
