@@ -30,6 +30,7 @@ public class PostDTO {
     private String area_name;  //0812추가
     private long x;
     private long y;
+    private int likes;
 
     public PostDTO(Post post){
         this.post_name = post.getPost_name();
@@ -45,6 +46,7 @@ public class PostDTO {
         this.area_name = post.getArea_name();
         this.x = post.getX();
         this.y = post.getY();
+        this.likes = post.getLikes();
     }
 
     public Post toEntity() {
@@ -60,6 +62,7 @@ public class PostDTO {
                 .nick(nick)
                 .x(x)
                 .y(y)
+                .likes(likes)
                 .build();
     }
 }

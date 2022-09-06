@@ -35,16 +35,16 @@ public class Post {
     private String nick;
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name="MEMBER_NICK")
-//    @JsonIgnore
     private Member member;
-    private String area_name;
+    private String area_name; // 해당 post 게시물 지역
     private long x;
     private long y;
+    private int likes; // 좋아요 개수
 
     @Builder
     public Post(String post_name, String post_content, String category, String take_loc,
                 int participant_num, int max_person_num, String valid_time, int view_num, String nick, Member member,
-                String area_name, long x, long y){
+                String area_name, long x, long y, int likes){
         this.post_name = post_name;
         this.post_content = post_content;
         this.category = category;
@@ -58,11 +58,12 @@ public class Post {
         this.area_name = area_name;
         this.x = x;
         this.y = y;
+        this.likes = likes;
     }
 
     @Builder
     public Post(Long post_id, String post_name, String post_content, String category, String take_loc,
-                int participant_num, int max_person_num, String valid_time, int view_num, Member member, String post_area){
+                int participant_num, int max_person_num, String valid_time, int view_num, Member member, String area_name, int likes){
         this.post_id = post_id;
         this.post_name = post_name;
         this.post_content = post_content;
@@ -73,7 +74,8 @@ public class Post {
         this.valid_time = valid_time;
         this.view_num = view_num;
         this.member = member;
-        this.post_area = post_area;
+        this.area_name = area_name;
+        this.likes = likes;
     }
 
     public void Update(PostDTO postDTO){
@@ -89,6 +91,10 @@ public class Post {
 
     public void Plus_view(){
         this.view_num += 1;
+    }
+
+    public void Plus_likes() {
+        this.likes += 1;
     }
 }
 

@@ -7,6 +7,7 @@ import footprints.footprints.domain.post.SortDTO;
 import footprints.footprints.domain.roomInfo.RoomInfo;
 import footprints.footprints.domain.roomInfo.RoomInfoDTO;
 import footprints.footprints.repository.post.PostRepository;
+import footprints.footprints.service.member.MemberService;
 import footprints.footprints.service.post.PostServiceImpl;
 import footprints.footprints.service.roomInfo.RoomInfoService;
 import lombok.RequiredArgsConstructor;
@@ -28,6 +29,7 @@ public class PostController {
     private final PostRepository postRepository;
 
     private final RoomInfoService roomInfoService;
+    private final MemberService memberService;
 
     // 배달 게시물 작성, 게시물 작성시 room_info에 row 추가
     @PostMapping(value = "/delivery/post/create")
@@ -96,13 +98,33 @@ public class PostController {
         return new ResponseEntity<Post>(post, HttpStatus.OK);
     }
 
-
-
-
     @PostMapping(value = "/post/delete")
     public ResponseEntity<String> deletePost(@RequestBody Long post_id) {
         postService.delete(post_id);
         return new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
     }
+
+    // 좋아요 클릭 시
+    @GetMapping(value = "/post/likes")
+    public ResponseEntity<String> postLikes(@PathVariable String nick, Long post_id){
+        // member에 해당 게시물 post_id 추가
+        memberService.like_postUpdate(nick, post_id);
+
+        // 해당 post에 좋아요 개수 up하기
+        Post post = postService.getPost(post_id);
+        postService.plusLikes(post_id);
+
+        return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
+    }
+
+//    // 리스트뷰
+//    @PostMapping(value = "/delivery/post")
+//    public ResponseEntity<List<Post>> deliveryListView(@RequestBody String area, Authentication authentication){
+//        if(area.equals("")){
+//            return new ResponseEntity<List<Post>>((List<Post>) null, HttpStatus.UNAUTHORIZED); // 이게 안 먹어 지금
+//        }
+//        List<Post> postList = postService.getPostList(area);
+//        return new ResponseEntity<List<Post>>(postList, HttpStatus.OK);
+//    }
 }
 

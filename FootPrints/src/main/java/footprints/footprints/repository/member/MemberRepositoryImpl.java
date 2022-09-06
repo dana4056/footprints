@@ -58,4 +58,11 @@ public class MemberRepositoryImpl implements MemberRepository {
         em.remove(findByEmail(memberDTO.getEmail()));
         log.info("--------deleteSuccess-----------");
     }
+
+    @Override
+    public void update_likes(String nick, Long post_id) {
+        Member member = findByNick(nick);
+        List<Long> like_posts = member.getLike_posts();
+        like_posts.add(post_id);
+    }
 }

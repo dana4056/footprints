@@ -15,5 +15,5 @@ public interface MemberService {
     String findID(String email);
     String findPwd(String email);
     void changeDBPwd(ReqChangePwDTO changePwDTO);
-
+    void like_postUpdate(String nick, Long post_id);
 }
