@@ -108,6 +108,7 @@ export default {
             $vm.latitude = result[0].x;
             $vm.longtitude = result[0].y;
             console.log(result[0].address_name);
+            // this.data.area_name = result[0].address_name; 이게 먹어야함
         }
       }
       geocoder.coord2RegionCode(latlng.getLng(), latlng.getLat(), callback);
@@ -143,12 +144,13 @@ export default {
             post_content: this.post_content,     // 글 내용
             category: this.category,             // 음식 카테고리
             take_loc: this.take_loc,             // 음식 나눌 장소
+            // post_area : this.post_area,
+            post_area : this.$store.state.member.area,
             participant_num: 1,                  // 현재 참가 인원
             max_person_num: this.max_person_num, // 모집 인원
             valid_time: this.valid_time,         // 게시물 유효 시간
             view_num: this.view_num ,            // 조회수
             nick:this.$store.state.member.nick,
-            area_name : this.area_name,
             x: this.longtitude,
             y: this.latitude,
         }
@@ -160,7 +162,7 @@ export default {
           title: '글이 등록되었습니다.',
           confirmButtonText: '배달 모집 목록 보러가기',
         }).then(() => {
-          this.$router.replace("/delivery/posta");
+          this.$router.replace("/delivery/post");
         })
 			}
       else {

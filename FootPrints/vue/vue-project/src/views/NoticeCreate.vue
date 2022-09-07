@@ -2,22 +2,30 @@
   <div>
     <tool-bar></tool-bar>
     <div id="wrap">
-      <input v-model="notice_title" id="notice_title" placeholder="제목을 입력하세요.">
-      <hr>
-      <textarea v-model="notice_content" id="notice_content" type="text" placeholder="공지사항 내용 적기"></textarea>
-      <button type="submit" v-on:click.prevent="authorization">등록</button>
+      <div class="inputArea">
+        <div class="header">
+          <input v-model="notice_title" id="title" placeholder="제목을 입력하세요.">
+        </div>
+        <div class="content">
+          <textarea v-model="notice_content" id="notice_content" type="text" placeholder="공지사항 내용 적기"></textarea>
+        </div>
+      </div>
+      <button type="submit" v-on:click.prevent="authorization">등록하기</button>
     </div>
+    <footer-area id="footer"></footer-area>
   </div>
 </template>
 
 <script>
 import ToolBar from '../components/ToolBar.vue'
+import FooterArea from '../components/FooterArea.vue'
 import Swal from 'sweetalert2';
 import dayjs from "dayjs";
 
 export default {
   components:{
       ToolBar,
+      FooterArea,
   },
   data() {
     return {
@@ -43,13 +51,13 @@ export default {
           title: this.notice_title,           // 글 제목
           // author: this.$store.state.member.nick,
           author: "임시로 넣어봤다네",
-          post_time: dayjs(),
+          post_time: dayjs().format("YYYY-MM-DD HH:mm:ss"),
           content: this.notice_content,     // 글 내용
           view_num: 0,
         }
         console.log("NOTICEDTO\n",noticeDTO);
-        this.$store.dispatch('POST_NOTICE', this.noticeDTO)
-        // 동기처리가 필요없어 어차피 페이지 넘어가는 사이에 다 처리되고 나니까 즉시 보이는게 문제가 생기는게 아니니까
+        this.$store.dispatch('POST_NOTICE', this.noticeDTO);
+
 				Swal.fire({
           icon: 'success',
           title: '공지사항이 등록되었습니다.',
@@ -71,26 +79,55 @@ export default {
 </script>
 
 <style scoped>
-#notice_title{
-  font-weight: bold;
-  font-size: 25px;
-  color: #555;
-  border: none;
-  outline: none;
-  margin-top: 5px;
-  padding-left: 5px;
-}
-#notice_content{
+  #wrap {
+    width: 700px;
+    margin: 50px auto;
+  }
+  .inputArea {
+    height: 600px;
+    border: 2px solid rgba(0, 0, 0, 0.558);
+    border-radius: 40px;
+  }
+  .header {
+    height: 100px;
+    border-bottom: 2px solid rgba(0, 0, 0, 0.558);
+  }
+  #title {
+    font-family: 'Noto Sans KR', sans-serif;
+    box-sizing: border-box; 
+    width: 95%;
+    margin-top: 20px;
+    padding: 15px 2px;
+    font-size: 25px;
+    border: none;
+    outline: none;
+    font-weight: bold;
+    text-align: left;
+  }
+  .content {
+    text-align: left;
+    height: 460px;
+  }
+  textarea {
+    font-family: 'Noto Sans KR', sans-serif;
+    box-sizing: border-box; 
+    height: 100%;
+    width: 100%;
+    padding: 20px 22px;
+    font-size: 16px;
+    border:none;
+    outline: none;
+    resize: none;
+  }
+  button {
+  font-family: 'Noto Sans KR', sans-serif;
+  width: 150px;
+  height: 50px;
+  margin-top: 20px;
+  background-color:#a4caac;
   font-size: 15px;
-  height: 400px;
-  width: 300px;
-  padding: 5px;
   border: none;
-  outline: none;
+  border-radius: 13px;
+  cursor: pointer;
 }
-#wrap {
-  background-color: #f2f2f2;
-  height: 800px;
-  padding: 80px 0;
-}
-</style>
+  </style>

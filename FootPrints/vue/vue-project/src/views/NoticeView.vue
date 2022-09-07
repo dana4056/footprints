@@ -3,25 +3,34 @@
     <tool-bar></tool-bar>
     <!-- 애초에 add-btn은 권한이 있는 사람만 볼 수 있는건지 아니면 글 추가 하면 권한 없다고 하게 할지 -->
     <div class="add-btn">
-        <router-link to="/notice/post/create" class="link">
+        <router-link to="/notice/new-notice" class="link">
           <i class="fa-solid fa-circle-plus fa-3x"></i>
         </router-link>
     </div>
-    <div v-for="notice in this.$store.state.noticeList" class="listbox" v-bind:key="notice">
-        <div class="notice-content">
-          <div class="notice-head">
-            <div class="res-name"><router-link v-bind:to="`/notice/${notice.id}`">{{ notice.title }}</router-link></div>
-          </div>
-          <router-link v-bind:to="`/notice/${notice.id}`"><p>{{ notice.content }}</p></router-link>
-          <div class="notice-foot">
-            <div class="ago">
-              <!-- 날짜만 뜨게 수정 -->
-              <small>{{notice.post_time}}</small> 
-              <small>{{notice.view_num}} 조회</small>
-            </div>
-          </div>
+    <div class="wrap">
+      <h1>공지사항</h1>
+      <div class="notice-content">
+        <div class="listbox" id="header">
+          <h4 class="num">번호</h4>
+          <h4 class="title">제목</h4>
+          <h4 class="date">날짜</h4>
+          <h4 class="view">조회수</h4>
+        </div>
+        <div v-for="(notice, index) in this.$store.state.noticeList" v-bind:key="notice">
+          <router-link v-bind:to="`/notice/${notice.id}`" class="listbox" v-if="(page - 1) * 10 <= index && index < page * 10">
+            <p class="num">{{ notice.id }}</p>
+            <p class="title" id="title">{{ notice.title }}</p>
+            <p class="date" id="date">{{notice.post_time.split(' ')[0]}}</p> 
+            <p class="view" id="view">{{notice.view_num}}</p>
+          </router-link>
         </div>
       </div>
+      <div class="pageSelect" v-bind:style="{width: (range * 30) + 'px'}">
+        <div v-for ="index in range" v-bind:key="index" v-on:click="movePage" :class="index == page ? 'checked' : 'none'">
+            {{index}}
+        </div>
+      </div>
+    </div>
     <footer-area id="footer"></footer-area>
   </div>
 </template>
@@ -31,35 +40,106 @@ import ToolBar from '../components/ToolBar.vue'
 import FooterArea from '../components/FooterArea.vue'
 
 export default {
+  data() {
+    return {
+      page: 1,
+      range: 1,
+    }
+  },
   components:{
     ToolBar,
     FooterArea,
   },
   created(){
     this.$store.dispatch('FETCH_NOTICE_LIST')
+    this.range = parseInt(this.$store.state.noticeList.length/10) + 1
   },
+  methods: {
+    movePage(event) {
+      this.page = event.target.textContent;
+    }
+  }
 }
 </script>
 
 <style scoped>
-.notice-content{
-  -webkit-box-flex:1;
-  padding-right: 15px;
+.wrap{
+  margin: 0 auto;
+  width: 900px;
+  height: 835px;
 }
-.notice-content p{
+.notice-content {
+  height: 670px;
+}
+.notice-content .listbox {
+  float: left;
+}
+h1 {
+  font-family: 'Noto Sans KR', sans-serif;
+  margin: 0 0;
+  width: 100%;
   text-align: left;
-  font-size: 13px;
-  line-height: 20px;
-  color: #666;
+  padding-bottom: 30px;
+  border-bottom: 2px solid black;
 }
-.notice-head{
-  line-height: 20px;
+#header:hover {
+  pointer-events: none;
+  background-color: white;
 }
-.notice-content, .notice-head, .notice-foot{
-  display: -webkit-box;
+.listbox {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.205);
+}
+.listbox *{
+  float: left;
+  height: 42px;
+  margin: 16px 0 0 0 ;
+}
+.listbox:hover {
+  background-color: #ddd;
+  cursor: pointer;
+}
+.num {
+  width: 100px;
+}
+.title {
+  width: 500px;
+}
+#title {
+  box-sizing: border-box; 
+  padding-left: 50px;
+  text-align: left;
+}
+.date {
+  width: 150px;
+}
+.view {
+  width: 150px;
+}
+#date, #view {
+  font-size: 15px;
+  color: rgb(122, 122, 122);
 }
 .add-btn{
   -webkit-box-flex:1;
   text-align: right;
+}
+a {
+  color: black;
+  text-decoration: none;
+}
+.pageSelect {
+  height: 30px;
+  margin: 0 auto;
+}
+.pageSelect > *{
+  margin: 0 0;
+  width: 30px;
+  float: left;
+  font-size: 17px;
+  cursor: pointer;
+}
+.checked {
+  font-weight: bold;
+  text-decoration: underline;
 }
 </style>

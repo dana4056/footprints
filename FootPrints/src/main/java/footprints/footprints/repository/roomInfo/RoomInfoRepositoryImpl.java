@@ -22,15 +22,11 @@ public class RoomInfoRepositoryImpl implements RoomInfoRepository{
 
 
     private final MemberRepository memberRepository;
-
     private final PostRepository postRepository;
-
 
     @PersistenceContext
     private EntityManager em;
 
-
-    @Override
     public void save_d(String nick, Long post_id) {
         Member member = memberRepository.findByNick(nick);
         Post post = postRepository.findByPostId(post_id);
@@ -40,7 +36,6 @@ public class RoomInfoRepositoryImpl implements RoomInfoRepository{
         em.persist(roomInfo);
     }
 
-    @Override
     public void delete_d(String nick, Long post_id) {
         Member member = memberRepository.findByNick(nick);
         Post post = postRepository.findByPostId(post_id);
@@ -48,8 +43,6 @@ public class RoomInfoRepositoryImpl implements RoomInfoRepository{
         em.remove(roomInfo);
     }
 
-
-    @Override
     public void delete_all(Long post_id) {
         Query query = em.createQuery("delete from RoomInfo r where r.post.post_id = :post_id");
         query.setParameter("post_id", post_id).executeUpdate();

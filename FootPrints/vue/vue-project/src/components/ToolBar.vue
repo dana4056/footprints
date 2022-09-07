@@ -12,7 +12,7 @@
         <router-link to="/notice/post" class="menutext">공지사항</router-link>
         <router-link v-bind:to="`/chat/${this.$store.state.member.nick}`" class="chatlogo"><img src="../assets/chat.png"></router-link>
         <router-link to="/delivery/post" class="item"><button>배달 같이하기</button></router-link>
-        <router-link  v-bind:to="`/myPage/${this.$store.state.member.nick}`" id="u_name">{{this.$store.state.member.nick}}</router-link>
+        <router-link  v-bind:to="`/users/${this.$store.state.member.nick}`" id="u_name">{{this.$store.state.member.nick}}</router-link>
         님 |
         <span id="logout" v-on:click="logout">로그아웃</span>
     </div>

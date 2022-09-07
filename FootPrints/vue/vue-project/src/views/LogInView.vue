@@ -17,8 +17,8 @@
       </form>
 
       <div class="Div">
-        <router-link to="/findID" class="link">아이디 찾기</router-link>|
-        <router-link to="/findPW" class="link">비밀번호 찾기</router-link>| 
+        <router-link to="/find-id" class="link">아이디 찾기</router-link>|
+        <router-link to="/find-password" class="link">비밀번호 찾기</router-link>| 
         <router-link to="/signup" class="link">회원가입</router-link> 
       </div>
       <hr>
@@ -100,8 +100,9 @@ export default {
 }
 #wrap { 
     width: 330px;
+    height: 650px;
     margin: 0 auto;
-    padding: 143px 0;
+    padding: 200px 0;
 }
 .logo {
    display: flex;

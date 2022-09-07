@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface PostRepository {
 
-    void save_d(PostDTO postDTO);
+    long save_d(PostDTO postDTO);
 
     void save(Post post);
 
