@@ -237,8 +237,8 @@ export default {
 
 <style scoped>
 .container {
-  margin: 0 auto;
   width: 800px;
+  margin: 0 auto;
   padding-bottom: 200px;
 }
 .header {
@@ -247,23 +247,23 @@ export default {
   text-align: left;
 }
 .imageField {
-  position : relative;
   margin-bottom: 70px;
+  position : relative;
 }
 .profileImage {
-  margin: 0px auto;
   width: 150px;
   height: 150px;
+  margin: 0px auto;
   border-radius: 50%;
 }
 .btn1 {
+  height: 40px;
+  color: rgba(0, 0, 0, 0.688);
+  font-size: 13px;
   position: absolute;
   top: 100px;
   left : 250px;
   width: 50px;
-  height: 40px;
-  font-size: 13px;
-  color: rgba(0, 0, 0, 0.688);
 }
 .setImage {
   margin-bottom: 70px;
@@ -277,27 +277,27 @@ export default {
   margin: 40px auto;
 }
 label {
-  text-align: left;
-  display: block;
+  margin: 0 0 12px;
+  color: #292929;
   font-size: 15px;
   font-weight: bold;
-  color: #292929;
-  margin: 0 0 12px;
+  text-align: left;
+  display: block;
 }
 input, select {
-  font-family: 'Noto Sans KR', sans-serif;
-  outline: none;
+  box-sizing: border-box;
   width: 100%;
   height: 40px;
+  margin: 0 0 7px 0;
+  padding: 8px 15px 9px;
   background: #FAFAFA;
   border: 1px solid #BDBDBD;
-  box-sizing: border-box;
   border-radius: 8px;
-  padding: 8px 15px 9px;
-  margin: 0 0 7px 0;
+  font-family: 'Noto Sans KR', sans-serif;
+  outline: none;
 }
 #directInputBox{
-  position:relative;
+  position: relative;
 }
 #directInputBox i{
   position: absolute;
@@ -306,9 +306,9 @@ input, select {
   color:#BDBDBD;
 }
 input:focus {
-  outline: none;
-  border-color: #999999;
   background: #F3F3F3;
+  border-color: #999999;
+  outline: none;
 }
 input:hover {
   background: #F3F3F3;
@@ -319,33 +319,33 @@ input::placeholder {
 }
 .errorType input, .errorType select{
   background: #fff6f6;
-  outline: none;
   border-color: #eb7373;
+  outline: none;
 }
 .errorType span {
-  text-align: left;
-  font-size: 12px;
   color: #eb7373;
+  font-size: 12px;
+  text-align: left;
 }
 .correctType input, .correctType select{
   background: #e8f0fe;
-  outline: none;
   border-color: #6ea7f2;
+  outline: none;
 }
 .correctType span {
-  text-align: left;
-  font-size: 12px;
   color: #6ea7f2;
+  font-size: 12px;
+  text-align: left;
 }
 button {
-  font-family: 'Noto Sans KR', sans-serif;
+  box-sizing: border-box;
   width: 450px;
   height: 40px;
   background: #ffffff;
-  color: #7aab85;
   border: 2px solid #7aab85;
-  box-sizing: border-box;
   border-radius: 13px;
+  color: #7aab85;
+  font-family: 'Noto Sans KR', sans-serif;
 }
 .btn1 {
   padding: 0 0;
@@ -354,8 +354,8 @@ button {
   padding: 8px 15px 9px;
 }
 .btn1:hover {
-  color: rgba(0, 0, 0, 0.715);
   background: #c5e6cd;
+  color: rgba(0, 0, 0, 0.715);
 }
 .btn2:hover {
   background: #c5e6cd54;

@@ -146,16 +146,16 @@ export default {
     caltime(created){
       const now = dayjs();
       if(created.isSame(now,"day")){
-          const ago_H = now.diff(created,"h");
-          const ago_M = now.diff(created,"m");
-          if(ago_H == 0){
-            return String(ago_M)+"분 ";
-          }
-          return String(ago_H)+"시간 "+String(ago_M)+"분 ";
-         }
-      else{
-          const ago_D = now.diff(created,"d");
-          return String(ago_D)+"일 ";
+        const ago_H = now.diff(created,"h");
+        const ago_M = now.diff(created,"m");
+        if (ago_H == 0) {
+          return String(ago_M)+"분 ";
+        }
+        return String(ago_H)+"시간 "+String(ago_M)+"분 ";
+      }
+      else {
+        const ago_D = now.diff(created,"d");
+        return String(ago_D)+"일 ";
       }
     },
     NoneCategory(){
@@ -168,7 +168,6 @@ export default {
         area : this.area,
       }
       this.$store.dispatch('FETCH_DELIVERY_LIST_SORT', sortDTO);
-      console.log(sortDTO.category, sortDTO.sort_criteria, sortDTO.area);
       setTimeout(() => { 
           this.$store.getters.GET_DELIVERIES;
         }, 200);   
@@ -197,8 +196,6 @@ export default {
           const eupmyeondong = data.bname;
           
           this.area = sido+" "+sigoongu+" "+eupmyeondong;
-          // this.$store.dispatch('FETCH_DELIVERY_LIST_SORT_AREA', this.area);
-          console.log(this.area);
           this.$store.state.deliveryPost_presentArea = this.area;
           this.$store.dispatch('FETCH_DELIVERY_LIST', this.$store.state.deliveryPost_presentArea);
           
@@ -216,50 +213,48 @@ export default {
 
 <style scoped>
 #content{
-  margin: 0 auto;
   width: 700px;
+  margin: 0 auto;
   padding: 50px 0 0 0;
 }
 #area{
   margin-bottom: 50px;
 }
 #footer{
-  height: 300px;
   width: 100%;
+  height: 300px;
 }
 #up_button{
-    position: fixed;
-    bottom: 70px;
-    right: 200px;
-    z-index: 1000;
+  position: fixed;
+  bottom: 70px;
+  right: 200px;
+  z-index: 1000;
 }
 #sort-box{
-  display: -webkit-box;
   margin: 10px 12px 10px 23px;
+  display: -webkit-box;
 }
-
 #sort-box button{
-  font-size: 10px;
+  box-sizing: border-box;
   margin: 0px 5px;
   padding: 5px 8px;
   background-color: #767676;
   border: 1px solid #767676;
-  color: white;
-  box-sizing: border-box;
   border-radius: 20px;
+  color: white;
+  font-size: 10px;
 }
 .add-btn{
   -webkit-box-flex:1;
   text-align: right;
 }
 .fa-solid{
-  font-size: 25px;
   color: #767676;
+  font-size: 25px;
 }
 .listbox, .listbox-head, .listbox-foot{
   display: -webkit-box;
 }
-
 .listbox{
   padding: 20px 0;
   border-bottom: 1px solid #eeeeef;
@@ -273,12 +268,11 @@ export default {
   -webkit-box-flex:1;
   padding-right: 15px;
 }
-
 .listbox-content p{
-  text-align: left;
-  font-size: 13px;
-  line-height: 20px;
   color: #666;
+  font-size: 13px;
+  text-align: left;
+  line-height: 20px;
 }
 a {
   text-decoration: none;
@@ -287,32 +281,30 @@ a {
   line-height: 20px;
 }
 .res-name a{
-  font-weight: bold;
   color: #000;
+  font-weight: bold;
   text-decoration: none;
 }
 .category{
-  font-size: xx-small;
+  height: 19px;
   margin: 0px 7px;
   padding: 0 7px;
-  height: 19px;
   border-radius: 3px;
   color: #ffffff;
+  font-size: xx-small;
   vertical-align:middle;
 }
 .sortThing {
   width:45%;
-  
 }
 label {
-  text-align: left;
-  display: block;
+  margin: 0 0 12px;
+  color: #292929;
   font-size: 15px;
   font-weight: bold;
-  color: #292929;
-  margin: 0 0 12px;
+  text-align: left;
+  display: block;
 }
-
 
 /* ----- 카테고리 태그 색상 지정 -------*/
 .KOR{
@@ -351,61 +343,56 @@ label {
   line-height: 30px;
 }
 .detail-info img{
-  vertical-align:middle;
   width: 20px;
+  vertical-align:middle;
 }
-
 button img{
   margin: 0;
 }
 .cnt{
+  padding-left: 5px;
   font-family: 'Roboto';
   line-height: 20px;
-  padding-left: 5px;
 }
 .area-btn{
-  margin: 0px 15px;
-  height: 30px;
-  padding: 0px 14px 0px 10px;
   box-sizing: border-box;
-  border-radius: 27px;
-  border: 1px solid #afafaf;
+  height: 30px;
+  margin: 0px 15px;
+  padding: 0px 14px 0px 10px;
   background-color: white;
+  border: 1px solid #afafaf;
+  border-radius: 27px;
   color: #5d5d5d;
 }
 .time{
   -webkit-box-flex:1;
+  color:#ff6b33;
   text-align: right;
   line-height: 20px;
-  color:#ff6b33;
 }
-
 .ago{
   -webkit-box-flex:1;
+  color: #959595;
   text-align: right;
   line-height: 30px;
-  color: #959595;
 }
 .time small, .ago small{
-  vertical-align:middle;
   font-size: 11px;
+  vertical-align:middle;
 }
-
 button {
-  font-family: 'Noto Sans KR', sans-serif;
+  box-sizing: border-box;
   width: 100%;
   height: 40px;
   background: #ffffff;
-  color: #7aab85;
   border: 1px solid #7aab85;
-  box-sizing: border-box;
   border-radius: 13px;
+  color: #7aab85;
+  font-family: 'Noto Sans KR', sans-serif;
 }
-
 .btn1, .btn2 {
   padding: 8px 15px 9px;
 }
-
 .invalid {
   background-color: rgb(192, 192, 192);
   pointer-events: none;

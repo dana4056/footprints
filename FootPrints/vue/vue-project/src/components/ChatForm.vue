@@ -65,38 +65,32 @@ data() {
 }
 </script>
 
-
 <style scoped>
 .form {
-  display: flex;
-  justify-content: space-between;
   padding: 1.3rem;
   background: #ffffff;
   border-radius: 0px 0px 24px 0px;
   box-shadow: 0px -5px 30px rgba(0, 0, 0, 0.05);
+  display: flex;
+  justify-content: space-between;
 }
-
 .form__input {
-  border: none;
-  padding: 0.5rem;
-  font-size: 16px;
   width: calc(100% - 60px);
+  padding: 0.5rem;
+  border: none;
+  font-size: 16px;
 }
-
 .form__input:focus {
   outline: none;
 }
-
 .form__submit {
   display: flex;
   align-items: center;
   cursor: pointer;
 }
-
 svg {
   transition: 0.3s;
 }
-
 svg:hover {
   fill: #999999;
 }

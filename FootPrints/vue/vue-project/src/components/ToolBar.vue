@@ -41,32 +41,30 @@ header{
     border-bottom: 1px #ececec solid;
 }
 .header{
-    /* background-color: #f7f7f7; */
     width: 100%;
     max-width: 1024px;
     margin: 0 auto;
-
     padding: 15px 45px;
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-between;
 }
 .menutext{
-    text-decoration: none;
-    color: black;
     margin: 0 15px;
+    color: black;
+    text-decoration: none;
 }
 .chatlogo {
     display: inline-block;
     vertical-align: middle;
 }
 .logo {
-    display: flex;
     margin: 0px 10px;
     color: black;
     text-decoration: none;
-    align-items: center;
     font-weight: bold;
+    display: flex;
+    align-items: center;
 }
 .logo img{
     margin: 3px 10px;
@@ -77,28 +75,27 @@ header{
     text-decoration: none;
 }
 .item button{
-    margin: 0px 15px;
+    box-sizing: border-box;
     width: 106px;
     height: 32px;
+    margin: 0px 15px;
     background-color: #7aab85;
     border: 1px solid #7aab85;
-    color: white;
-    box-sizing: border-box;
     border-radius: 10px;
+    color: white;
 }
 .header .router-link-exact-active button{
-    border: 1px solid #afafaf;
     background-color: white;
+    border: 1px solid #afafaf;
     color: #5d5d5d;
 }
 #u_name{
     color: black;
-    text-decoration: none;
     font-weight: bold;
+    text-decoration: none;
     cursor: pointer;
 }
 #logout{
    cursor: pointer;
 }
-
 </style>

@@ -116,7 +116,7 @@ function getAttendPost(nick) {
         }
     });
 }
-
+  
 function patchUserInfo(memberDTO) {
     return axios.patch(`${config.baseUrl}/users`, memberDTO);
 }
@@ -223,7 +223,7 @@ function getNickList(post_id) {
             'Content-Type': 'application/json'
         }
     });
-}
+  }
 
 function getChatList(post_id) {
     return axios.get(`${config.baseUrl}/chat`, {
@@ -234,16 +234,16 @@ function getChatList(post_id) {
             'Content-Type': 'application/json'
         }
     });
-}
-
-function postChatData(chatData) {
+  }
+  
+  function postChatData(chatData) {
     console.log(chatData);
     return axios.post(`${config.baseUrl}/chat`, chatData, {
         headers: {
             'X-AUTH-TOKEN': localStorage.getItem('jwt')
         }
     });
-}
+  }
 
 function deleteChatData(post_id) {
     return axios.delete(`${config.baseUrl}/chat`, {
@@ -254,7 +254,7 @@ function deleteChatData(post_id) {
             'Content-Type': 'application/json'
         }
     });
-}
+  }
 
 ////////////////////////// ROOMINFO //////////////////////////
 
@@ -273,7 +273,7 @@ function patchRoomInfo(roomInfo) {
             'Content-Type': 'application/json'
         }
     });
-}
+  }
 
 function deleteRoomInfo(post_id) {
     return axios.delete(`${config.baseUrl}/roomInfo`, {
@@ -282,7 +282,7 @@ function deleteRoomInfo(post_id) {
         },
         headers: {
             'Content-Type': 'application/json'
-        }
+  }
     });
 }
 
@@ -300,7 +300,7 @@ export{
     getFindPwd,
     getCheckNick,
     getCheckEmail,
-
+    
     //Notice
     getNoticeList,
     postNotice,

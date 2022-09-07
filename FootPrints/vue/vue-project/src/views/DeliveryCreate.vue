@@ -76,28 +76,28 @@ export default {
 
     // 지도 창 생성
     let kakao = window.kakao;
-    var container = this.$refs.map;
-    var options = { 
+    let container = this.$refs.map;
+    let options = { 
       center: new kakao.maps.LatLng(37.56676113296615, 126.97865227682179),
       level: 10
     };
     const mapInstance = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
 
-    var geocoder = new kakao.maps.services.Geocoder();
+    let geocoder = new kakao.maps.services.Geocoder();
 
     // 마커 생성
-    var marker = new kakao.maps.Marker({ 
+    let marker = new kakao.maps.Marker({ 
       position: mapInstance.getCenter(),
     }); 
     marker.setMap(mapInstance);
 
     // 줌인 줌아웃
-    var zoomControl = new kakao.maps.ZoomControl();
+    let zoomControl = new kakao.maps.ZoomControl();
     mapInstance.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
 
     // 클릭 이벤트 등록
     kakao.maps.event.addListener(mapInstance, 'click', function(mouseEvent) {        
-      var latlng = mouseEvent.latLng; 
+      let latlng = mouseEvent.latLng; 
 
       marker.setPosition(latlng);
 

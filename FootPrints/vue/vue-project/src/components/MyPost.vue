@@ -39,11 +39,15 @@ data(){
       'KOR': '한식',
       'CHI': '중식',
       'JAP': '일식',
-      'ETC': '기타'
+      'PIZ': '피자',
+      'FRI': '치킨',
+      'BUN': '분식',
+      'FAS': '패스트푸드',
+      'JOK': '족발/보쌈',
+      'DES': '디저트',
+      'ETC': '기타',
     },
   } 
-},
-methods: {
 }
 }
 </script>
@@ -51,8 +55,7 @@ methods: {
 <style scoped>
 #content{
   width:600px;
-  padding: 5px 0px;  
-  padding-bottom: 200px;
+  padding: 5px 0px 200px 0px;  
 }
 .add-btn{
   -webkit-box-flex:1;
@@ -66,9 +69,9 @@ methods: {
   border-bottom: 1px solid #eeeeef;
 }
 .listbox-img{
-  background-color: rgb(242, 242, 242);
   width: 100px;
   margin: 0 30px;
+  background-color: rgb(242, 242, 242);
   border-radius: 10px;
 }
 .listbox-content{
@@ -76,10 +79,10 @@ methods: {
   padding-right: 15px;
 }
 .listbox-content p{
-  text-align: left;
-  font-size: 13px;
-  line-height: 20px;
   color: #666;
+  font-size: 13px;
+  text-align: left;
+  line-height: 20px;
 }
 a {
   text-decoration: none;
@@ -88,30 +91,32 @@ a {
   line-height: 20px;
 }
 .res-name a{
-  font-weight: bold;
   color: #000;
+  font-weight: bold;
   text-decoration: none;
 }
 .category{
-  font-size: xx-small;
+  height: 19px;
   margin: 0px 7px;
   padding: 0 7px;
-  height: 19px;
   border-radius: 3px;
   color: #ffffff;
+  font-size: xx-small;
   vertical-align:middle;
 }
 .sortThing {
   width:45%;
 }
 label {
-  text-align: left;
-  display: block;
+  margin: 0 0 12px;
+  color: #292929;
   font-size: 15px;
   font-weight: bold;
-  color: #292929;
-  margin: 0 0 12px;
+  text-align: left;
+  display: block;
 }
+
+/* ----- 카테고리 태그 색상 지정 -------*/
 .KOR{
   background-color: #6157cf;
 }
@@ -121,68 +126,88 @@ label {
 .JAP{
   background-color: #ff0400;
 }
+.PIZ{
+  background-color: #7cc66bbd;
+}
+.FRI{
+  background-color: #ffde5b;
+}
+.BUN{
+  background-color: #e55e5e;
+}
+.FAS{
+  background-color: #ffaa00;
+}
+.JOK{
+  background-color: #c28156;
+}
+.DES{
+  background-color: #ff67949f;
+}
 .ETC{
   background-color: #8c8c8c;
 }
+/* ---------------------------------- */
+
 .detail-info{
   line-height: 30px;
 }
 .detail-info img{
-  vertical-align:middle;
   width: 20px;
+  vertical-align:middle;
 }
 button img{
   margin: 0;
 }
 .cnt{
+  padding-left: 5px;
   font-family: 'Roboto';
   line-height: 20px;
-  padding-left: 5px;
 }
 .area-btn{
-  margin: 0px 15px;
-  height: 30px;
-  padding: 0px 14px 0px 10px;
   box-sizing: border-box;
-  border-radius: 27px;
-  border: 1px solid #afafaf;
+  height: 30px;
+  margin: 0px 15px;
+  padding: 0px 14px 0px 10px;
   background-color: white;
+  border: 1px solid #afafaf;
+  border-radius: 27px;
   color: #5d5d5d;
 }
 .time{
   -webkit-box-flex:1;
+  color:#ff6b33;
   text-align: right;
   line-height: 20px;
-  color:#ff6b33;
 }
 .ago{
   -webkit-box-flex:1;
+  color: #959595;
   text-align: right;
   line-height: 30px;
-  color: #959595;
 }
 .time small, .ago small{
-  vertical-align:middle;
   font-size: 11px;
+  vertical-align:middle;
 }
 button {
-  font-family: 'Noto Sans KR', sans-serif;
+  box-sizing: border-box;
   width: 100%;
   height: 40px;
   background: #ffffff;
-  color: #7aab85;
   border: 1px solid #7aab85;
-  box-sizing: border-box;
   border-radius: 13px;
+  color: #7aab85;
+  font-family: 'Noto Sans KR', sans-serif;
 }
 #nothing {
-  margin-top: 80px;
+  box-sizing: border-box;
   width: 700px;
   height: 300px;
-  background-color:#97c9a23f;
-  border-radius: 50px;
-  border: 3px dashed #cbcbcb;
+  margin-top: 80px;
   padding: 90px 0;
-  box-sizing: border-box;
+  background-color:#97c9a23f;
+  border: 3px dashed #cbcbcb;
+  border-radius: 50px;
 }
 </style>

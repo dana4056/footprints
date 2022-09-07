@@ -63,11 +63,6 @@ export default {
   components:{
         ToolBar,
   },
-  // created:{
-  //   fetched(){
-  //     return this.$store.getters.GET_DELIVERY_POST;
-  //   },
-  // },
   mounted() {
     let $vm = this;
     // 날짜 입력 최소값 지정(현시간)
@@ -75,32 +70,31 @@ export default {
 
     // 지도 창 생성
     let kakao = window.kakao;
-    var container = this.$refs.map;
-    var options = { 
+    let container = this.$refs.map;
+    let options = { 
       center: new kakao.maps.LatLng(37.56676113296615, 126.97865227682179),
       level: 10
     };
-    const mapInstance = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
+    let mapInstance = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
 
-    var geocoder = new kakao.maps.services.Geocoder();
+    let geocoder = new kakao.maps.services.Geocoder();
 
     // 마커 생성
-    var marker = new kakao.maps.Marker({ 
+    let marker = new kakao.maps.Marker({ 
       position: mapInstance.getCenter(),
     }); 
     marker.setMap(mapInstance);
 
     // 줌인 줌아웃
-    var zoomControl = new kakao.maps.ZoomControl();
+    let zoomControl = new kakao.maps.ZoomControl();
     mapInstance.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
 
     // 클릭 이벤트 등록
     kakao.maps.event.addListener(mapInstance, 'click', function(mouseEvent) {        
-      var latlng = mouseEvent.latLng; 
+      let latlng = mouseEvent.latLng; 
 
       marker.setPosition(latlng);
 
-      // 지원 - 79번째 줄에서 geocoder 선언해줬고, 97번째줄 부터 103번째 줄까지가 주소 가져오는 코드입니다!
       let callback = function(result, status) {
         if (status === kakao.maps.services.Status.OK) {
             console.log(result[0].address_name);
@@ -164,10 +158,7 @@ export default {
       }
     },
 		submitData() {
-      // console.log("submit data" + this.valid_time);
-      if (this.post_name != "" && this.post_content != "" && 
-          this.category != "카테고리" && this.take_loc != "" &&
-          this.valid_time != ""){
+      if (this.post_name != "" && this.post_content != "" &&  this.category != "카테고리" && this.take_loc != "" && this.valid_time != "") {
         return true;
       }
       else {
@@ -187,72 +178,72 @@ export default {
 
 <style scoped>
 #wrap {
-  background-color: #f2f2f2;
   height: 800px;
   padding: 80px 0;
+  background-color: #f2f2f2;
 }
 #wrap2 {
-    width: 800px;
-    height: 570px;
-    padding: 40px 50px 30px;
-    margin: 0px auto;
-    border-radius: 30px;
-    background-color: white;
-    text-align: left;
-    font-size: 15px;
+  width: 800px;
+  height: 570px;
+  margin: 0px auto;
+  padding: 40px 50px 30px;
+  background-color: white;
+  border-radius: 30px;
+  font-size: 15px;
+  text-align: left;
 }
-p{
+p {
   margin-top: 0px;
   margin-left: 3px;
 }
 select, #postTTL > input, #place > input{
-    outline: none;
-    width: 80%;
-    height: 35px;
-    background: #F8F8F8;
-    border: 1px solid #BDBDBD;
-    box-sizing: border-box;
-    border-radius: 30px;
-    padding: 8px 15px 9px;
-    margin-bottom: 15px;
+  box-sizing: border-box;
+  width: 80%;
+  height: 35px;
+  margin-bottom: 15px;
+  padding: 8px 15px 9px;
+  background: #F8F8F8;
+  border: 1px solid #BDBDBD;
+  border-radius: 30px;
+  outline: none;
 }
 #postTTL > input {
   padding-left: 20px;
 }
 #post_name{
-  font-weight: bold;
-  font-size: 25px;
-  color: #555;
-  border: none;
-  outline: none;
   margin-top: 5px;
   padding-left: 5px;
+  border: none;
+  color: #555;
+  font-size: 25px;
+  font-weight: bold;
+  outline: none;
 }
 hr{
   margin: 25px 0;
 }
 #post_content{
-  font-size: 15px;
-  height: 400px;
   width: 300px;
+  height: 400px;
   padding: 5px;
   border: none;
+  font-size: 15px;
   outline: none;
 }
 button {
-  float: right;
   width: 80px;
   height: 35px;
+  margin-top: 20px;
+  background-color: #ddd;
   border: none;
   border-radius: 10px;
-  background-color: #ddd;
-  margin-top: 20px;
+  float: right;
   cursor: pointer;
 }
 .kmap{
-  margin-top: 20px;
   width: 400px;
   height: 220px;
+  margin-top: 20px;
 }
 #place > input {
   margin: 15px 60px 0;

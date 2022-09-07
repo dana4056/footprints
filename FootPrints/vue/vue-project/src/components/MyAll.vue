@@ -66,23 +66,23 @@ export default {
 
 <style scoped>
 .container {
-  margin-top: 50px;
-  height: 270px;
   width: 700px;
+  height: 270px;
+  margin-top: 50px;
 }
 .header {
   width: 100%;
-  padding: 0 0;
   height: 60px;
+  padding: 0 0;
 }
 .header > * {
   float: left;
 }
 .category {
   width: 200px;
-  text-align: left;
   margin: 0 0;
   font-size: 27px;
+  text-align: left;
 }
 .seeAll {
   margin-left: 368px;
@@ -98,9 +98,9 @@ export default {
   float: left;
 }
 .title {
+  width: 140px;
   font-size: 15px;
   vertical-align: bottom;
-  width: 140px;
 }
 .image {
   width: 135px;
