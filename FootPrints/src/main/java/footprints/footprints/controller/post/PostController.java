@@ -61,11 +61,17 @@ public class PostController {
         log.info("백 진입1");
         long post_id = postService.join(postDTO);
 
-        Post post = postRepository.findDetail(post_id);
-        Member member = post.getMember();
-        roomInfoService.join(member.getNick(), post.getPost_id());
+        if(post_id != 0) {
+            Post post = postRepository.findDetail(post_id);
+            Member member = post.getMember();
+            roomInfoService.join(member.getNick(), post.getPost_id());
 
-        return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
+            return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
+        }
+        else {
+            return new ResponseEntity<>("FAIL", HttpStatus.BAD_REQUEST);
+        }
+
     }
 
     // 글 수정하기

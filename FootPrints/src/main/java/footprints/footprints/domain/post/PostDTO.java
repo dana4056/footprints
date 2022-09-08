@@ -23,6 +23,7 @@ public class PostDTO {
     private String valid_time;       // 게시물 유효 시간
     private int view_num;         // 조회수
     private String nick;
+    private String area_name; // 해당 post 게시물 지역
     private long x;
     private long y;
         private int likes;
@@ -41,7 +42,7 @@ public class PostDTO {
         this.valid_time = post.getValid_time();
         this.view_num = post.getView_num();
         this.member = post.getMember();  //0725추가
-        this.area_name   = post.getArea_name();
+        this.area_name = post.getArea_name();
         this.x = post.getX();
         this.y = post.getY();
         this.likes = post.getLikes();

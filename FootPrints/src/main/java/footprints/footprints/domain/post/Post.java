@@ -43,7 +43,7 @@ public class Post {
     private int likes; // 좋아요 개수
 
     @Builder
-    public Post(String post_name, String post_content, String category, String take_loc,
+    public Post(String post_name, String post_content, String category, String take_loc, String post_area,
                 int participant_num, int max_person_num, String valid_time, int view_num, String nick, Member member,
                 String area_name, long x, long y, int likes){
         this.post_name = post_name;
