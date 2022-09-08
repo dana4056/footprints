@@ -32,7 +32,7 @@ public class Post {
     @CreatedDate
     private LocalDateTime createdDate;  //게시물 등록 시간
     private int view_num;         // 조회수
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.PERSIST) //fetch = FetchType.LAZY,
     @JoinColumn(name="MEMBER_NICK")
 //    @JsonIgnore
     private Member member;

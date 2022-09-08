@@ -27,7 +27,7 @@ public class Member implements UserDetails {
     private String email;
     private String pw;
     private String area;
-    @ElementCollection(fetch = FetchType.EAGER)
+    @ElementCollection(fetch = FetchType.EAGER)  // 이거 해결해야함
     private List<String> roles;
 
     public void InfoUpdate(MemberDTO memberDTO){

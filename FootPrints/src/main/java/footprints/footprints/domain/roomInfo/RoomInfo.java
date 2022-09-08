@@ -21,11 +21,11 @@ public class RoomInfo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long room_id;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.PERSIST) //fetch = FetchType.LAZY,
     @JoinColumn(name="NICK")
     private Member member;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.PERSIST) //fetch = FetchType.LAZY,
     @JoinColumn(name="POST_ID")
     private Post post;
 

@@ -30,7 +30,6 @@ public class RoomInfoRepositoryImpl implements RoomInfoRepository{
     public void save_d(String nick, Long post_id) {
         Member member = memberRepository.findByNick(nick);
         Post post = postRepository.findByPostId(post_id);
-
         RoomInfo roomInfo = new RoomInfo(member, post);
 
         em.persist(roomInfo);
