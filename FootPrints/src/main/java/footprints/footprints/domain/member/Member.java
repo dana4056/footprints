@@ -33,6 +33,10 @@ public class Member implements UserDetails {
 
 
 
+
+
+
+
     public void InfoUpdate(MemberDTO memberDTO){
         this.nick = memberDTO.getNick();
         this.email = memberDTO.getEmail();

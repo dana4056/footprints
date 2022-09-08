@@ -13,4 +13,6 @@ public interface MyPageRepository {
     List<Post> getAttendPost(String nick);
 
     void changeInfo(Member member);
+
+    List<Post> getLikePost(String nick);
 }

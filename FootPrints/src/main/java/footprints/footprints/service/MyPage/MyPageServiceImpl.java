@@ -43,6 +43,12 @@ public class MyPageServiceImpl implements MyPageService {
         myPageRepository.changeInfo(member);
     }
 
+    @Override
+    public List<Post> getLikePost(String nick) {
+        List<Post> likePost = myPageRepository.getLikePost(nick);
+        return likePost;
+    }
+
 //    @Override
 //    public void changeDBPwd(MemberDTO memberDTO) {
 //        String email = memberDTO.getEmail();

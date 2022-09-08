@@ -12,4 +12,6 @@ public interface MyPageService {
     List<Post> getAttendPost(String nick);
 
     void changeInfo(MemberDTO memberDTO);
+
+    List<Post> getLikePost(String nick);
 }

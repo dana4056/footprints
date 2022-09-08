@@ -121,15 +121,5 @@ public class PostController {
 
         return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
     }
-
-//    // 리스트뷰
-//    @PostMapping(value = "/delivery/post")
-//    public ResponseEntity<List<Post>> deliveryListView(@RequestBody String area, Authentication authentication){
-//        if(area.equals("")){
-//            return new ResponseEntity<List<Post>>((List<Post>) null, HttpStatus.UNAUTHORIZED); // 이게 안 먹어 지금
-//        }
-//        List<Post> postList = postService.getPostList(area);
-//        return new ResponseEntity<List<Post>>(postList, HttpStatus.OK);
-//    }
 }
 
