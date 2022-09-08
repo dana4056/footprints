@@ -6,8 +6,21 @@ import createPersistedState from "vuex-persistedstate";
 export const store = new Vuex.Store({
     plugins: [createPersistedState()],
     state:{
-        noticeList:[],
-        notice:{},
+        noticeList:[
+            // {id: "1", author: '운영자', content: "내용1", post_time: "2022-07-25 13:05:32", title: "제목1", view_num: 3},
+            // {id: "2", author: '운영자', content: "내용2", post_time: "2022-08-02 17:04:13", title: "제목2", view_num: 0},
+            // {id: "3", author: '운영자', content: "내용3", post_time: "2022-08-15", title: "제목3", view_num: 2},
+            // {id: "4", author: '운영자', content: "내용4", post_time: "2022-08-30", title: "제목4", view_num: 3},
+            // {id: "5", author: '운영자', content: "내용1", post_time: "2022-07-25", title: "제목1", view_num: 3},
+            // {id: "6", author: '운영자', content: "내용2", post_time: "2022-08-02", title: "제목2", view_num: 0},
+            // {id: "7", author: '운영자', content: "내용3", post_time: "2022-08-15", title: "제목3", view_num: 2},
+            // {id: "8", author: '운영자', content: "내용4", post_time: "2022-08-30", title: "제목4", view_num: 3},
+            // {id: "9", author: '운영자', content: "내용1", post_time: "2022-07-25", title: "제목1", view_num: 3},
+            // {id: "10", author: '운영자', content: "내용2", post_time: "2022-08-02", title: "제목2", view_num: 0},
+            // {id: "11", author: '운영자', content: "내용3", post_time: "2022-08-15", title: "제목3", view_num: 2},
+            // {id: "12", author: '운영자', content: "내용4", post_time: "2022-08-30", title: "제목4", view_num: 3},
+        ],
+        notice:{id: "", author: '', post_time: "", title: "", view_num: "", content: ""},
         isDuplicateNick:false,
         isDuplicateEmail:false,
         find_nick: 'CANNOT_FIND_ID',

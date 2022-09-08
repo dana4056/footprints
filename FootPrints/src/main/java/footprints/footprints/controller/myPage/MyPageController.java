@@ -8,10 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -22,26 +19,23 @@ public class MyPageController {
 
     private final MyPageService myPageService;
 
-    @PostMapping(value = "/myPage/main-myPost") // 마이페이지 메인페이지 접속시
-    public ResponseEntity<List<Post>> getMyPostList(@RequestBody String nick){
+    @GetMapping(value = "/users/{nick}/my-post") // 마이페이지 메인페이지 접속시
+    public ResponseEntity<List<Post>> getMyPostList(@PathVariable String nick){
         log.info("--------------------- getMyPostList {}", nick);
         List<Post> myPost = myPageService.getMyPost(nick);
-
-        return new ResponseEntity<List<Post>>(myPost, HttpStatus.OK);
+        return new ResponseEntity<>(myPost, HttpStatus.OK);
     }
 
-    @PostMapping(value = "/myPage/main-attendPost") // 마이페이지 메인페이지 접속시
-    public ResponseEntity<List<Post>> getAttendPostList(@RequestBody String nick){
+    @GetMapping(value = "/users/{nick}/attend-post") // 마이페이지 메인페이지 접속시
+    public ResponseEntity<List<Post>> getAttendPostList(@PathVariable String nick){
         List<Post> attendPost = myPageService.getAttendPost(nick);
-
-        return new ResponseEntity<List<Post>>(attendPost, HttpStatus.OK);
+        return new ResponseEntity<>(attendPost, HttpStatus.OK);
     }
 
-    @PostMapping(value = "/myPage/changeMyInfo") // 마이페이지 메인페이지 접속시
+    @PatchMapping(value = "/users") // 마이페이지 메인페이지 접속시
     public ResponseEntity<String> changeMyInfo(@RequestBody MemberDTO memberDTO){
         myPageService.changeInfo(memberDTO);
-
-        return new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+        return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
     }
 }
 

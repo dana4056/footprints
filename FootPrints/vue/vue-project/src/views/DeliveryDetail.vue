@@ -99,12 +99,11 @@ export default {
       isShowmap : false,
       take_loc: "",      // 음식 나눌 장소
       latitude: 0,
-      longtitude: 0
+      longtitude: 0,
     }
   },
   created(){
     this.post_id = this.$route.params.id;
-    console.log(this.post_id);
     this.$store.dispatch('FETCH_DELIVERY_DETAIL', this.post_id);
 
     for(var i = 0; i < this.$store.state.postIdList.length; i++){
@@ -154,11 +153,11 @@ export default {
       }
     },
     caltime(created){
-
       const now = dayjs();
       console.log("now",now);
       console.log("created",created);
       console.log("created.isSame(now,`d`)", created.isSame(now,"d"));
+      
       if(created.isSame(now,"d")){
           const ago_H = now.diff(created,"h");
           const ago_M = now.diff(created,"m");
@@ -173,7 +172,8 @@ export default {
       }
     },
     amendPost() {
-      this.$router.replace("/delivery/post/amend/" + this.post_id);
+      // 수정했는데 안 되면 바꿔야함
+      this.$router.replace("/delivery/post/" + this.post_id + "/amend"); 
     },
     deletePost() {
       this.$store.dispatch('DELETE_DELIVERY_POST', this.post_id);
@@ -183,7 +183,7 @@ export default {
         title: '글 삭제 완료!',
         confirmButtonText: '배달 모집 목록 보러가기',
       }).then(() => {
-        this.$router.replace("/delivery/posta");
+        this.$router.replace("/delivery/post");
       })
     },
     joinPost() {
@@ -198,7 +198,7 @@ export default {
         title: '참여 완료!',
         confirmButtonText: '배달 모집 목록 보러가기',
       }).then(() => {
-        this.$router.replace("/delivery/posta");
+        this.$router.replace("/delivery/post");
       })
     },
     moveChat() {

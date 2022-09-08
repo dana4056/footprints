@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface PostService {
 
-    void join(PostDTO postDTO);
+    long join(PostDTO postDTO);
 
     void update(PostDTO postDTO);
 
