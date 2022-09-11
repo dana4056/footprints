@@ -6,37 +6,28 @@ import createPersistedState from "vuex-persistedstate";
 export const store = new Vuex.Store({
     plugins: [createPersistedState()],
     state:{
-        noticeList:[
-            // {id: "1", author: '운영자', content: "내용1", post_time: "2022-07-25 13:05:32", title: "제목1", view_num: 3},
-            // {id: "2", author: '운영자', content: "내용2", post_time: "2022-08-02 17:04:13", title: "제목2", view_num: 0},
-            // {id: "3", author: '운영자', content: "내용3", post_time: "2022-08-15", title: "제목3", view_num: 2},
-            // {id: "4", author: '운영자', content: "내용4", post_time: "2022-08-30", title: "제목4", view_num: 3},
-            // {id: "5", author: '운영자', content: "내용1", post_time: "2022-07-25", title: "제목1", view_num: 3},
-            // {id: "6", author: '운영자', content: "내용2", post_time: "2022-08-02", title: "제목2", view_num: 0},
-            // {id: "7", author: '운영자', content: "내용3", post_time: "2022-08-15", title: "제목3", view_num: 2},
-            // {id: "8", author: '운영자', content: "내용4", post_time: "2022-08-30", title: "제목4", view_num: 3},
-            // {id: "9", author: '운영자', content: "내용1", post_time: "2022-07-25", title: "제목1", view_num: 3},
-            // {id: "10", author: '운영자', content: "내용2", post_time: "2022-08-02", title: "제목2", view_num: 0},
-            // {id: "11", author: '운영자', content: "내용3", post_time: "2022-08-15", title: "제목3", view_num: 2},
-            // {id: "12", author: '운영자', content: "내용4", post_time: "2022-08-30", title: "제목4", view_num: 3},
-        ],
-        notice:{id: "", author: '', post_time: "", title: "", view_num: "", content: ""},
+        // 공지사항 관련
+        noticeList:[],
+        notice:{id: "", author: '', post_time: "", title: "", view_num: "", content: ""},  
+        // 회원가입, 로그인, pw찾기 관련
         isDuplicateNick:false,
         isDuplicateEmail:false,
         find_nick: 'CANNOT_FIND_ID',
         find_email: 'CANNOT_FIND_ID',
         pwchange_done: 'FAILED',
         memberChange_done: 'FAILED',
-        member:{
+        member:{      // 로그인 계정
             nick: "", 
             email: "",
             pw: "",
             area: ""
         },
+        authority:"",  // 로그인 계정의 권한
         sidoList:{},
         sigoonguList:{},
         eupmyeondongList:{},
         sessionId:"",
+        // 배달 게시물 관련
         deliveryPostList:[],
         deliveryPost_presentArea: "로그인 시 지역 설정 됨",
         deliveryPost:{},
@@ -97,6 +88,9 @@ export const store = new Vuex.Store({
         SET_MEMBER(state, loginMember){
             state.member.nick = loginMember.nick;
             state.member.area = loginMember.area;
+        },
+        SET_AUTHORITY(state, auth){
+            state.authority = auth;
         },
         SET_SIDO_LIST(state, List){
             state.sidoList = List;

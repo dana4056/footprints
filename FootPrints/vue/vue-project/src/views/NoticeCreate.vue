@@ -19,7 +19,6 @@
 <script>
 import ToolBar from '../components/ToolBar.vue'
 import FooterArea from '../components/FooterArea.vue'
-import Swal from 'sweetalert2';
 import dayjs from "dayjs";
 
 export default {
@@ -36,9 +35,7 @@ export default {
   methods: {
     authorization(){
       if (this.submitData()){
-        // this.$store.dispatch('FETCH_USER')//말고 권한을 가져오는 api 하나 생성
         setTimeout(() => { 
-          // if(권한이 관리자 권한이라면)
             this.register();
         }, 100);   
       }
@@ -49,22 +46,13 @@ export default {
     register() {
         const noticeDTO = {
           title: this.notice_title,           // 글 제목
-          // author: this.$store.state.member.nick,
-          author: "임시로 넣어봤다네",
+          author: "관리자",
           post_time: dayjs().format("YYYY-MM-DD HH:mm:ss"),
           content: this.notice_content,     // 글 내용
           view_num: 0,
         }
         console.log("NOTICEDTO\n",noticeDTO);
-        this.$store.dispatch('POST_NOTICE', this.noticeDTO);
-
-				Swal.fire({
-          icon: 'success',
-          title: '공지사항이 등록되었습니다.',
-          confirmButtonText: '공지사항으로 가기',
-        }).then(() => {
-          this.$router.replace("/notice/post");
-        })
+        this.$store.dispatch('POST_NOTICE', noticeDTO);
 			},
       submitData(){
         if(this.notice_title != "" && this.notice_content != ""){

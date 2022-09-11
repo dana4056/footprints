@@ -1,6 +1,7 @@
 <template>
-  <div id="wrap">
+  <div id="wrap" :class="{fixedWrapper:isShowmap, scrollWrapper:!isShowmap}">
     <tool-bar></tool-bar>
+    <show-map ref="showMap" v-on:change="change()"></show-map>
     <div id="content">
       <div id="area">현재 설정된 지역은 {{this.$store.state.deliveryPost_presentArea}} 입니다.</div>
       <div id="sort-box">
@@ -58,7 +59,7 @@
             <div class="listbox-foot">
               <div class="detail-info">
                 <small>{{delivery.area_name}}</small>
-                <button class="area-btn"><img src="../assets/placeholder.png">{{ delivery.take_loc }}</button>
+                <button class="area-btn" v-on:click="this.$refs.showMap.showMap(), change(delivery)"><img src="../assets/placeholder.png">{{ delivery.take_loc }}</button>
                 <img src="../assets/people.png" alt="">
                 <small class="cnt">{{ delivery.participant_num }}/{{ delivery.max_person_num }}</small>
               </div>
@@ -108,6 +109,7 @@
 import ToolBar from '../components/ToolBar.vue'
 import FooterArea from '../components/FooterArea.vue'
 import UpButton from '../components/UpButton.vue'
+import ShowMap from '../components/ShowMap.vue'
 import dayjs from 'dayjs'
 
 export default {
@@ -115,6 +117,7 @@ export default {
     ToolBar,
     FooterArea,
     UpButton,
+    ShowMap,
   },
   data(){
     return {
@@ -134,6 +137,7 @@ export default {
       sort_criteria: "",
       area: this.$store.state.deliveryPost_presentArea,
       now: "",
+      isShowmap : false,
     }
   },
   beforeCreate(){
@@ -143,6 +147,11 @@ export default {
     this.now = dayjs();
   },
   methods:{
+    change(post){
+      this.isShowmap =  this.$refs.showMap.openMap;
+      this.$store.commit('SET_DELIVERY_POST', post);
+      
+    },
     caltime(created){
       // 콘솔창에 시간 객체 찍을 때 표시되는 속성명과 dayjs객체 속성명 다름
       // ex) 시간(hour) -> 콘솔에는 H로 dayjs에는 h로 표시  dayjs로 다뤄야함

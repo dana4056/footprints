@@ -101,16 +101,15 @@ export default {
 
       marker.setPosition(latlng);
 
+      $vm.latitude = latlng.getLat();   // 클릭 장소 위도
+      $vm.longtitude = latlng.getLng(); // 클릭 장소 경도
+      // console.log( $vm.latitude+" "+$vm.longtitude );
+
       // 지원 - 79번째 줄에서 geocoder 선언해줬고, 97번째줄 부터 103번째 줄까지가 주소 가져오는 코드입니다!
       let callback = function(result, status) {
         if (status === kakao.maps.services.Status.OK) {
             console.log(result);
             $vm.area_name = result[0].address_name;
-            $vm.latitude = result[0].y;
-            $vm.longtitude = result[0].x;
-            console.log( $vm.latitude+" "+$vm.longtitude );
-            console.log(result[0].address_name);
-            // this.data.area_name = result[0].address_name; 이게 먹어야함
         }
       }
       geocoder.coord2RegionCode(latlng.getLng(), latlng.getLat(), callback);

@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,7 +30,9 @@ public class NoticeController {
     }
 
     // 공지사항 등록
-    @PostMapping("/notice/create")
+//    @PreAuthorize("isAuthenticated() and (( #user.name == principal.name ) or hasRole('ROLE_ADMIN'))")
+    @PreAuthorize("hasRole('ROLE_USER')")
+    @PostMapping(value ="/notice")
     public ResponseEntity<String> CreateNotice(@RequestBody NoticeDTO noticeDTO){
         log.info("notice/create whit {}", noticeDTO);
         noticeService.join(noticeDTO);

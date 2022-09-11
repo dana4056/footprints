@@ -141,7 +141,7 @@ export default {
   // },
   methods:{
     change(){
-        console.log("change");
+        // console.log("change");
         this.isShowmap =  this.$refs.showMap.openMap;
     },
     calDay(){

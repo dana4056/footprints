@@ -15,6 +15,14 @@ function fetchToken() {
     });
 }
 
+function fetchAutority(){
+    return axios.get(`${config.baseUrl}/authority`, {
+        headers: {
+            'X-AUTH-TOKEN': localStorage.getItem('jwt')
+        }
+    });
+}
+
 ////////////////////////// MEMBER //////////////////////////
 
 function postSignup(member) {
@@ -92,7 +100,13 @@ function getNoticeList() {
 }
 
 function postNotice(noticeDTO) {
-    return axios.post(`${config.baseUrl}/notice`, noticeDTO);
+    console.log("않이 noticeDTO는"+typeof(noticeDTO));
+    return axios.post(`${config.baseUrl}/notice`, noticeDTO,{
+        headers: {
+          'Content-Type': 'application/json',
+          'X-AUTH-TOKEN': localStorage.getItem('jwt')
+        }
+      });
 }
 
 function getNoticeDetail(notice_id) {
@@ -296,6 +310,7 @@ function deleteRoomInfo(post_id) {
 export{
     //Token
     fetchToken,
+    fetchAutority,
 
     //Member
     postSignup,

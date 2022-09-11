@@ -9,7 +9,7 @@
     <div  :class="{visibleBox:openMap, invisibleBox:!openMap}">
       <div class="white-bg">
         <h4>나눔 장소 확인</h4>
-        <div id="map"></div>
+        <div id="map" ref="map"></div>
         <p>{{this.take_lok}}</p>
         <button v-on:click="closeMap" class="close">닫기</button>
       </div>
@@ -22,14 +22,15 @@ export default {
       return{
         openMap: false,
         take_loc: this.$store.getters.GET_DELIVERY_POST.take_loc,      // 음식 나눌 장소
-        latitude: this.$store.getters.GET_DELIVERY_POST.x,
-        longtitude: this.$store.getters.GET_DELIVERY_POST.y
+        latitude: this.$store.getters.GET_DELIVERY_POST.lat,
+        longtitude: this.$store.getters.GET_DELIVERY_POST.lon
       }
     },
     mounted(){
         let $vm = this;
         let kakao = window.kakao;
-        var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+        // var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+        var mapContainer = this.$refs.map,
         mapOption = { 
             center: new kakao.maps.LatLng($vm.latitude, $vm.longtitude), // 지도의 중심좌표
             level: 3, // 지도의 확대 레벨

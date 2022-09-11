@@ -1,7 +1,22 @@
--- 회원가입 - 악마선진, 악마다은
+-- 일반 유저 회원가입 
+INSERT INTO `test_db`.`member` (`nick`, `area`, `email`,`pw`)
+VALUES ('악마선진', '서울 성북구 정릉동', 'n@naver.com', 'ekdms98727^^');
+INSERT INTO `test_db`.`member_roles` (`member_nick`, `roles`)
+VALUES ('악마선진', 'ROLE_USER');
+INSERT INTO `test_db`.`member` (`nick`, `area`, `email`,`pw`)
+VALUES ('악마다은', '서울 구로구 개봉동', 'n1@naver.com', 'ekdms98727^^');
+INSERT INTO `test_db`.`member_roles` (`member_nick`, `roles`)
+VALUES ('악마다은', 'ROLE_USER');
+
+-- 관리자계정 회원가입 
+INSERT INTO `test_db`.`member` (`nick`, `area`, `email`,`pw`)
+VALUES ('admin_sk', '서울 구로구 개봉동', 'dana4056@naver.com', 'admin_skuniv');
+INSERT INTO `test_db`.`member_roles` (`member_nick`, `roles`)
+VALUES ('admin_sk', 'ROLE_ADMIN');
+
 
 -- 글 작성 편하게 사용자 이름쪽만 건드리면 test 가능
--- 주의: created_date는 DB에 영국시간(-9시간) 저장되어있어야함
+-- *주의: created_date는 DB에 영국시간(-9시간) 저장되어있어야함
 INSERT INTO `test_db`.`post` (`post_id`, `category`, `created_date`,`max_person_num`, `participant_num`, `post_content`, `post_name`, `take_loc`, `valid_time`, `view_num`, `member_nick`, `post_area` ,`x`, `y`)
 VALUES (1, 'CHI', '2022-07-27 02:30:46', 5, 1, '중국음식 배달시간4 내용', '중국음식 배달시간4', '북악1', '2022-09-23T11:38', 0, '악마선진', '서울 성북구 정릉동', 37.61507352547857,127.01321786964758 );
 INSERT INTO `test_db`.`post` (`post_id`, `category`, `created_date`,`max_person_num`, `participant_num`, `post_content`, `post_name`, `take_loc`, `valid_time`, `view_num`, `member_nick`, `post_area` ,`x`, `y`)
