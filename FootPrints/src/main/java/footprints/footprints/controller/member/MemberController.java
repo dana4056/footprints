@@ -29,7 +29,7 @@ public class MemberController {
     @GetMapping(value = "/token")
     public ResponseEntity<ResLoginedMemberDTO> fetchMember(Authentication authentication){
         Member principal = (Member)authentication.getPrincipal();
-        ResLoginedMemberDTO loginMember = new ResLoginedMemberDTO(principal.getNick(), principal.getArea());
+        ResLoginedMemberDTO loginMember = new ResLoginedMemberDTO(principal.getNick(), principal.getEmail(), principal.getArea());
         log.info("-----[MemberController fetchMember] return {}",loginMember.getNick());
         return new ResponseEntity<>(loginMember, HttpStatus.OK);
     }
@@ -61,9 +61,10 @@ public class MemberController {
 
     // 지역 찾기
     @GetMapping(value="/member/login")
-    public ResponseEntity<String> findArea(@RequestParam String nick){
-        String userArea = memberService.findArea(nick);
-        return new ResponseEntity<>(userArea, HttpStatus.OK);
+    public ResponseEntity<ResLoginedMemberDTO> findArea(@RequestParam String nick){
+        Member member = memberRepository.findByNick(nick);
+        ResLoginedMemberDTO resLoginedMemberDTO = new ResLoginedMemberDTO(member.getNick(), member.getEmail(), member.getArea());
+        return new ResponseEntity<>(resLoginedMemberDTO, HttpStatus.OK);
     }
 
     // 로그인

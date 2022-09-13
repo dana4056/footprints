@@ -93,9 +93,9 @@ export default{
             console.log("지역 얻기 성공", response.data);
             const member = {
               nick: loginMember.nick,
-              email: "",
+              email: response.data.email,
               pw: "",
-              area: response.data
+              area: response.data.area
             }
             commit('SET_MEMBER', member);
             commit('SET_DELIVERY_AREA', member.area);
