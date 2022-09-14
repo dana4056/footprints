@@ -292,8 +292,6 @@ function deleteRoomInfo(post_id) {
         }
     });
 }
-
-
 export{
     //Token
     fetchToken,
@@ -339,5 +337,5 @@ export{
     //RoomInfo
     postRoomInfo,
     patchRoomInfo,
-    deleteRoomInfo
+    deleteRoomInfo,
 }

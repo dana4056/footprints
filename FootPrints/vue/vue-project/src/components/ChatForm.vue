@@ -61,7 +61,7 @@ data() {
         this.msg = "";
       }
     },
-  },
+  }
 }
 </script>
 

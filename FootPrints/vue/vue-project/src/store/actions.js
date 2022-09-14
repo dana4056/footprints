@@ -471,5 +471,4 @@ export default{
         console.log('API:EXIT_DELIVERY_POST\n참여 취소 실패', error);
       })
   },
-
 }

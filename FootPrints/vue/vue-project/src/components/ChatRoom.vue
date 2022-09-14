@@ -13,6 +13,11 @@
 </template>
 
 <script>
+// import Stomp from 'webstomp-client';
+// import SockJS from 'sockjs-client';
+
+// var stompClient = null;
+
 export default {
   data() {
     return {
@@ -39,9 +44,21 @@ export default {
       this.chekcedArr[this.$store.state.roomIndex] = true;
 
       let post_id = this.$store.state.postIdList[this.$store.state.roomIndex];
+      // this.connect();
       this.$store.dispatch('FIND_USER', post_id);
       this.$store.dispatch('FIND_CHAT_LOGS', post_id);
-    }
+    },
+    // connect() {
+    // var socket = new SockJS('/http://localhost:8080/chat');
+    // stompClient = Stomp.over(socket);
+    // stompClient.connect({}, function (frame) {
+    //     console.log('Connected: ' + frame);
+    //     stompClient.subscribe('/http://localhost:8080/chat', function (greeting) {
+    //         showGreeting(JSON.parse(greeting.body).content);
+    //         // this.$store.state.chatLogs에 추가되도록
+    //     });
+    //   });
+    // },
   }
 }
 </script>

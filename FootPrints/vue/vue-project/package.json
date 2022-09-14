@@ -11,13 +11,15 @@
     "axios": "^0.26.1",
     "core-js": "^3.8.3",
     "dayjs": "^1.11.3",
+    "sockjs-client": "^1.6.1",
     "sweetalert2": "^11.4.17",
     "vue": "^3.2.13",
     "vue-cookies": "^1.8.1",
     "vue-dayjs": "^1.0.2",
     "vue-router": "^4.0.13",
     "vuex": "^4.0.2",
-    "vuex-persistedstate": "^4.1.0"
+    "vuex-persistedstate": "^4.1.0",
+    "webstomp-client": "^1.2.6"
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",
