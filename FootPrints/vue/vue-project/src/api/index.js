@@ -100,7 +100,6 @@ function getNoticeList() {
 }
 
 function postNotice(noticeDTO) {
-    console.log("않이 noticeDTO는"+typeof(noticeDTO));
     return axios.post(`${config.baseUrl}/notice`, noticeDTO,{
         headers: {
           'Content-Type': 'application/json',
@@ -110,7 +109,11 @@ function postNotice(noticeDTO) {
 }
 
 function getNoticeDetail(notice_id) {
-    return axios.get(`${config.baseUrl}/notice/${notice_id}`);
+    return axios.get(`${config.baseUrl}/notice/${notice_id}`,{
+        params: {
+            isFrontReq: 1
+        }
+      });
 }
 
 ////////////////////////// USERS //////////////////////////
@@ -138,10 +141,10 @@ function patchUserInfo(memberDTO) {
 ////////////////////////// DELIVERY //////////////////////////
 
 function getDeliveryList(area) {
-    console.log("function fetchDeliveryList 실행")
     return axios.get(`${config.baseUrl}/delivery/post`, {
         params: {
             area: area,
+            isFrontReq:1
         },
         headers: {
             'Content-Type': 'text/plain',
@@ -202,19 +205,19 @@ function deleteDeliveryPost(post_id) {
 
 function getDeliveryPostDetail(post_id) {
     return axios.get(`${config.baseUrl}/delivery/post/${post_id}`, {
-        headers: {
-            'X-AUTH-TOKEN': localStorage.getItem('jwt')
+        params: {
+            isFrontReq : 1
         }
     });
 }
 
-function getDeliveryPostEdit(post_id) {
-    return axios.get(`${config.baseUrl}/delivery/post/${post_id}/edit`, {
-        headers: {
-            'X-AUTH-TOKEN': localStorage.getItem('jwt')
-        }
-    });
-}
+// function getDeliveryPostEdit(post_id) {
+//     return axios.get(`${config.baseUrl}/delivery/post/${post_id}/edit`, {
+//         headers: {
+//             'X-AUTH-TOKEN': localStorage.getItem('jwt')
+//         },
+//     });
+// }
 
 ////////////////////////// CHAT //////////////////////////
 
@@ -340,7 +343,7 @@ export{
     patchDeliveryPost,
     deleteDeliveryPost,
     getDeliveryPostDetail,
-    getDeliveryPostEdit,
+    // getDeliveryPostEdit,
 
     //Chat
     getPostIdList,

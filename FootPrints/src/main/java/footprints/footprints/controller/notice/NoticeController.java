@@ -41,12 +41,13 @@ public class NoticeController {
 
     // 상세페이지
     @GetMapping(value = "/notice/{notice_id}")
-    public ResponseEntity<Notice> NoticeDetailPage(@PathVariable("notice_id") Long notice_id){
-        Notice notice = noticeService.getNotice(notice_id);
-        notice.Plus_view();
-//        noticeRepository.save(notice);  merge error 가 있음
-        return new ResponseEntity<>(notice, HttpStatus.OK);
+    public ResponseEntity<Notice> NoticeDetailPage(@PathVariable("notice_id") Long notice_id, @RequestParam int isFrontReq){
+        if(isFrontReq == 1){
+            Notice notice = noticeService.getNotice(notice_id);
+            noticeService.plusView(notice);
+            return new ResponseEntity<>(notice, HttpStatus.OK);
+        }else{
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
     }
-
-
 }

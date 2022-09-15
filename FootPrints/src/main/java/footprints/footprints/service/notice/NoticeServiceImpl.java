@@ -31,6 +31,12 @@ public class NoticeServiceImpl implements NoticeService{
     }
 
     @Override
+    public void plusView(Notice notice) {
+        notice.Plus_view();
+        noticeRepository.save(notice);
+    }
+
+    @Override
     public void join(NoticeDTO noticeDTO) {
         noticeRepository.save_d(noticeDTO);
     }

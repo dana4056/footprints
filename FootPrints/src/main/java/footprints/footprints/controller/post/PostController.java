@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,13 +28,16 @@ public class PostController {
 
     // 리스트뷰
     @GetMapping(value = "/delivery/post")
-    public ResponseEntity<List<Post>> deliveryListView(@RequestParam String area){
-//        if(area.equals("")){
-//            return new ResponseEntity<List<Post>>((List<Post>) null, HttpStatus.UNAUTHORIZED); // 이게 안 먹어 지금
-//        }
-        List<Post> postList = postService.getPostList(area);
-        return new ResponseEntity<>(postList, HttpStatus.OK);
+    public ResponseEntity<List<Post>> deliveryListView(@RequestParam String area, @RequestParam int isFrontReq){
+        if(isFrontReq == 1){
+            List<Post> postList = postService.getPostList(area);
+            return new ResponseEntity<>(postList, HttpStatus.OK);
+        }else{
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
     }
+
+
 
     // 카테고리에서 선택한 종류에 대한 리스트뷰 뿌려주기
     @GetMapping(value = "/delivery/post/sort")
@@ -78,17 +82,23 @@ public class PostController {
 
     // 상세페이지
     @GetMapping(value = "/delivery/post/{post_id}")
-    public ResponseEntity<Post> deliveryDetailPage(@PathVariable Long post_id){
+    public ResponseEntity<Post> deliveryDetailPage(@PathVariable Long post_id, @RequestParam int isFrontReq){
+
         Post post = postService.getPost(post_id);
         postService.plusView(post); //조회수 증가
-        return new ResponseEntity<>(post, HttpStatus.OK);
+
+        if(isFrontReq == 1){
+            return new ResponseEntity<>(post, HttpStatus.OK);
+        }else{
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
     }
 
-    // 글 수정 상세페이지
-    @GetMapping(value = "/delivery/post/{post_id}/edit")
-    public ResponseEntity<Post> deliveryAmendDetailPage(@PathVariable Long post_id){
-        Post post = postService.getPost(post_id);
-        return new ResponseEntity<>(post, HttpStatus.OK);
-    }
+//    // 글 수정 상세페이지
+//    @GetMapping(value = "/delivery/post/{post_id}/edit")
+//    public ResponseEntity<Post> deliveryAmendDetailPage(@PathVariable Long post_id){
+//        Post post = postService.getPost(post_id);
+//        return new ResponseEntity<>(post, HttpStatus.OK);
+//    }
 }
 
