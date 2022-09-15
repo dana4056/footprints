@@ -28,6 +28,13 @@ const routes = [
     //path: url에 대한 정보
     //component: 해당 url 주소로 갔을 때 표시될 컴포넌트(페이지라고 생각)
     {   path: '/', redirect:'/home'},
+    {   path: '/index', redirect: (to, from, next) => {
+        console.log('to',to);
+        console.log('from',from);
+        console.log('next',next);
+        return 'home'
+      }
+    },
     {   path: '/home', component: HomePage  },
     {   path: '/login', component: LogInView  },
     {   path: '/signup', component: SignUpView  },
