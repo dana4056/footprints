@@ -19,8 +19,6 @@ import java.util.stream.Collectors;
 public class Member implements UserDetails {
 
 
-//    @GeneratedValue
-//    private Long id;
     @Id
     private String nick;    //id -> nick 으로 pk 변경
     private String email;
