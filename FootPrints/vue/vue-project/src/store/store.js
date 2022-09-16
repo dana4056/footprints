@@ -97,7 +97,9 @@ export const store = new Vuex.Store({
         },
         SET_MEMBER(state, loginMember){
             state.member.nick = loginMember.nick;
+            state.member.email = loginMember.email;
             state.member.area = loginMember.area;
+            console.log(state.member);
         },
         SET_SIDO_LIST(state, List){
             state.sidoList = List;

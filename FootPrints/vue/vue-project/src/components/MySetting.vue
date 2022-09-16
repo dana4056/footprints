@@ -13,7 +13,7 @@
     </div>
 
     <div class="inputDiv" v-bind:class="{errorType:!isValidNick() | this.isDupliNick, correctType:this.isUniqNick}">
-      <label>닉네임 - create시 비밀번호 빼고 모두 자동 입력 상태</label>
+      <label>닉네임</label>
       <input id='nickname' v-model="Nick" v-on:focus="ignoreInputN" v-on:focusout="checkNick()" type="text" placeholder="별명 (2~8자)" autoComplete="off" readonly required>
         <span class="errorType" v-if="!isValidNick()">닉네임은 2~8글자이어야 합니다.</span>
         <span class="errorType" v-if="this.isDupliNick">이미 사용 중인 닉네임입니다.</span>

@@ -8,7 +8,8 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-public class ResLoginedMemberDTO {  //MemberController fetchMember 리턴값
+public class ResLoginedMemberDTO {
     private String nick;
+    private String email;
     private String area;
 }
