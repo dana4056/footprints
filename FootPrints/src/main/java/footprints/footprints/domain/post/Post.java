@@ -1,7 +1,6 @@
 package footprints.footprints.domain.post;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import footprints.footprints.domain.member.Member;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
@@ -36,12 +35,12 @@ public class Post {
     @JoinColumn(name="MEMBER_NICK")
 //    @JsonIgnore
     private Member member;
-    private long x;
-    private long y;
+    private double lat; //위도
+    private double lon; //경도
 
     @Builder
     public Post(String post_name, String post_content, String category, String take_loc, String post_area,
-                int participant_num, int max_person_num, String valid_time, int view_num, Member member, long x, long y){
+                int participant_num, int max_person_num, String valid_time, int view_num, Member member, double lat, double lon){
         this.post_name = post_name;
         this.post_content = post_content;
         this.category = category;
@@ -52,8 +51,8 @@ public class Post {
         this.valid_time = valid_time;
         this.view_num = view_num;
         this.member = member;
-        this.x = x;
-        this.y=  y;
+        this.lat = lat;
+        this.lon=  lon;
     }
 
     public void Update(PostDTO postDTO){

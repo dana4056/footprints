@@ -1,16 +1,21 @@
 <template>
   <div>
     <tool-bar></tool-bar>
-    <!-- 애초에 add-btn은 권한이 있는 사람만 볼 수 있는건지 아니면 글 추가 하면 권한 없다고 하게 할지 -->
-    <div class="add-btn">
-        <router-link to="/notice/new-notice" class="link">
-          <i class="fa-solid fa-circle-plus fa-3x"></i>
-        </router-link>
-    </div>
+
     <div class="wrap">
-      <h1>공지사항</h1>
+      <div id="header">
+        <h1>공지사항</h1>
+        <!--------------- 관리자 계정만 볼 수 있음 ----------------->
+        <div class="add-btn" v-if="authority==='ROLE_ADMIN'?true:false">
+            <router-link to="/notice/new-notice" class="link">
+              <i class="fa-solid fa-circle-plus fa-2x"></i>
+            </router-link>
+        </div>
+        <!-------------------------------------------------------->
+      </div>
+
       <div class="notice-content">
-        <div class="listbox" id="header">
+        <div class="listbox" id="table-header">
           <h4 class="num">번호</h4>
           <h4 class="title">제목</h4>
           <h4 class="date">날짜</h4>
@@ -40,19 +45,20 @@ import ToolBar from '../components/ToolBar.vue'
 import FooterArea from '../components/FooterArea.vue'
 
 export default {
-  data() {
-    return {
-      page: 1,
-      range: 1,
-    }
-  },
   components:{
     ToolBar,
     FooterArea,
   },
+  data() {
+    return {
+      page: 1,
+      range: 1,
+      authority:this.$store.state.authority,
+    }
+  },
   created(){
-    this.$store.dispatch('FETCH_NOTICE_LIST')
-    this.range = parseInt(this.$store.state.noticeList.length/10) + 1
+    this.$store.dispatch('FETCH_NOTICE_LIST');
+    this.range = parseInt(this.$store.state.noticeList.length/10) + 1;
   },
   methods: {
     movePage(event) {
@@ -68,6 +74,12 @@ export default {
   height: 835px;
   margin: 0 auto;
 }
+#header{
+  display: flex;
+  padding: 30px 0;
+  border-bottom: 2px solid black;
+  align-items: center;
+}
 .notice-content {
   height: 670px;
 }
@@ -77,12 +89,11 @@ export default {
 h1 {
   width: 100%;
   margin: 0 0;
-  padding-bottom: 30px;
-  border-bottom: 2px solid black;
+  display: inline;
   font-family: 'Noto Sans KR', sans-serif;
   text-align: left;
 }
-#header:hover {
+#table-header:hover {
   background-color: white;
   pointer-events: none;
 }
@@ -120,6 +131,7 @@ h1 {
   font-size: 15px;
 }
 .add-btn{
+  display: inline;
   -webkit-box-flex:1;
   text-align: right;
 }

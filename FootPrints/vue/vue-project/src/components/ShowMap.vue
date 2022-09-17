@@ -1,5 +1,5 @@
 <!-- 해당 컴포넌트 사용시 부모 컴포넌트에서 해야할 것 
-    1. 최상위 태그에 class="{.fixedWrapper:isShowmap, .scrollWrapper:!isShowmap}"
+    1. :class="{fixedWrapper:isShowmap, scrollWrapper:!isShowmap}"
     2. 컴포넌트 태그에 ref="showMap" v-on:change="change()" 속성 추가
     3. 해당 컴포넌트 실행시키는 버튼 추가
         <button v-on:click="this.$refs.showMap.showMap(), change()">지도보기</button>
@@ -9,7 +9,7 @@
     <div  :class="{visibleBox:openMap, invisibleBox:!openMap}">
       <div class="white-bg">
         <h4>나눔 장소 확인</h4>
-        <div id="map"></div>
+        <div id="map" ref="map"></div>
         <p>{{this.take_lok}}</p>
         <button v-on:click="closeMap" class="close">닫기</button>
       </div>
@@ -22,24 +22,26 @@ export default {
       return{
         openMap: false,
         take_loc: this.$store.getters.GET_DELIVERY_POST.take_loc,      // 음식 나눌 장소
-        latitude: this.$store.getters.GET_DELIVERY_POST.y,
-        longtitude: this.$store.getters.GET_DELIVERY_POST.x
+        latitude: this.$store.getters.GET_DELIVERY_POST.lat,
+        longtitude: this.$store.getters.GET_DELIVERY_POST.lon
       }
     },
     mounted(){
         let $vm = this;
         let kakao = window.kakao;
-        let mapContainer = document.getElementById('map'),
+        // let mapContainer = document.getElementById('map'),
+        let mapContainer = this.$refs.map,
         mapOption = { 
-            center: new kakao.maps.LatLng($vm.latitude, $vm.longtitude), 
-            level: 3 // 지도의 확대 레벨
+            center: new kakao.maps.LatLng($vm.latitude, $vm.longtitude),
+            level: 3, // 지도의 확대 레벨
+            mapTypeId : kakao.maps.MapTypeId.ROADMAP
         };
         console.log(mapOption);
         console.log($vm.latitude, $vm.longtitude);
 
         let map = new kakao.maps.Map(mapContainer, mapOption);
 
-        let markerPosition  = new kakao.maps.LatLng($vm.latitude, $vm.longtitude); 
+        let markerPosition  = new kakao.maps.LatLng($vm.latitude, $vm.longtitude);
 
         let marker = new kakao.maps.Marker({
             position: markerPosition

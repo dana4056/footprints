@@ -23,8 +23,8 @@ public class PostDTO {
     private String valid_time;       // 게시물 유효 시간
     private int view_num;         // 조회수
     private String nick;
-    private long x;
-    private long y;
+    private double lat;
+    private double lon;
 
 
     private Member member;  //0725추가
@@ -40,8 +40,8 @@ public class PostDTO {
         this.valid_time = post.getValid_time();
         this.view_num = post.getView_num();
         this.member = post.getMember();  //0725추가
-        this.x = post.getX();
-        this.y = post.getY();
+        this.lat = post.getLat();
+        this.lon = post.getLon();
     }
 
 

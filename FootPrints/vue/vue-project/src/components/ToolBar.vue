@@ -28,6 +28,7 @@ export default {
             localStorage.removeItem('vuex');
             this.$router.replace("/home");
             this.$store.state.member = {nick: "",  email: "", pw: "", area: ""}
+            this.$store.state.authority = "";
         }
     }
 }

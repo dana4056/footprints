@@ -101,14 +101,15 @@ export default {
 
       marker.setPosition(latlng);
 
+      $vm.latitude = latlng.getLat();   // 클릭 장소 위도
+      $vm.longtitude = latlng.getLng(); // 클릭 장소 경도
+      // console.log( $vm.latitude+" "+$vm.longtitude );
+
       // 지원 - 79번째 줄에서 geocoder 선언해줬고, 97번째줄 부터 103번째 줄까지가 주소 가져오는 코드입니다!
       let callback = function(result, status) {
         if (status === kakao.maps.services.Status.OK) {
+            console.log(result);
             $vm.area_name = result[0].address_name;
-            $vm.latitude = result[0].x;
-            $vm.longtitude = result[0].y;
-            console.log(result[0].address_name);
-            // this.data.area_name = result[0].address_name; 이게 먹어야함
         }
       }
       geocoder.coord2RegionCode(latlng.getLng(), latlng.getLat(), callback);
@@ -126,8 +127,8 @@ export default {
       valid_time: "",       // 게시물 유효 시간
       view_num:0,           // 조회수
       area_name: "",        // 행정지역명(선택 장소)
-      latitude: 0,          // 선택지역 정보
-      longtitude: 0,        // 선택지역 정보
+      latitude: 0,          // 선택지역 정보 y(위도)
+      longtitude: 0,        // 선택지역 정보 x(경도)
       // ------- member entity 참조할건데 임시로 --------------
       user_name: "",     // 작성자 이름
       
@@ -151,8 +152,8 @@ export default {
             valid_time: this.valid_time,         // 게시물 유효 시간
             view_num: this.view_num ,            // 조회수
             nick:this.$store.state.member.nick,
-            x: this.longtitude,
-            y: this.latitude,
+            lat: this.latitude,
+            lon: this.longtitude,
         }
         console.log("POST\n",post);
         this.$store.dispatch('POST_DELIVERY_POST', post)

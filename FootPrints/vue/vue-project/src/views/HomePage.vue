@@ -15,15 +15,12 @@ import ToolBar from '../components/ToolBar.vue'
 import FooterArea from '../components/FooterArea.vue'
 import UpButton from '../components/UpButton.vue'
 
-// import NoticeArea from '../components/NoticeArea.vue'
-
 export default {
     components:{
         ToolBar,
         FooterArea,
         UpButton,
-        // NoticeArea,
-    }
+    },
 }
 </script>
 

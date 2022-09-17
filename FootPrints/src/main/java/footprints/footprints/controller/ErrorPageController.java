@@ -17,10 +17,11 @@ public class ErrorPageController implements ErrorController {
 
         @GetMapping(ERROR_PATH)
         public String redirectRoot(){
+            log.info("에러페이지->리다이렉트");
             return "index.html";
         }
 
-        public String getErrorPath(){
-            return null;
-        }
+//        public String getErrorPath(){
+//            return null;
+//        }
 }

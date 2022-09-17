@@ -16,6 +16,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Controller
 @RequiredArgsConstructor
 @Slf4j
@@ -25,13 +27,22 @@ public class MemberController {
     private final MemberRepository memberRepository;
     private final JwtTokenProvider jwtTokenProvider;
 
-    //토큰에서 멤버 정보 추출해서 반환
+    //토큰에서 멤버 정보(nick, area) 추출해서 반환
     @GetMapping(value = "/token")
     public ResponseEntity<ResLoginedMemberDTO> fetchMember(Authentication authentication){
         Member principal = (Member)authentication.getPrincipal();
         ResLoginedMemberDTO loginMember = new ResLoginedMemberDTO(principal.getNick(), principal.getEmail(), principal.getArea());
         log.info("-----[MemberController fetchMember] return {}",loginMember.getNick());
         return new ResponseEntity<>(loginMember, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/authority")
+    public ResponseEntity<String> fetchAuthority(Authentication authentication){
+        Member principal = (Member)authentication.getPrincipal();
+        List<String> roles = principal.getRoles();
+
+        log.info("-----[MemberController fetchAuthority] return {}",roles.get(0));
+        return new ResponseEntity<>(roles.get(0), HttpStatus.OK);
     }
 
     // 회원가입

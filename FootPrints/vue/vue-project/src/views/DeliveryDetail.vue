@@ -1,9 +1,10 @@
 <template>
-  <div :class="{fixedWrapper:isShowmap, scrollWrapper:!isShowmap}">
-    <!-- 나눔 장소 보기 모달 -->
-    <show-map ref="showMap" v-on:change="change()"></show-map>
+  <div class="scrollWrapper" :class="{fixedWrapper:isShowmap, scrollWrapper:!isShowmap}">
 
     <tool-bar></tool-bar>
+
+    <!-- 나눔 장소 보기 모달 -->
+    <show-map ref="showMap" v-on:change="change()"></show-map>
     <div id="wrap">
       <div id="headBox">
         <h2>{{ fetched.post_name }}</h2>
@@ -112,26 +113,9 @@ export default {
       }
     }
   },
-  mounted(){
-    let kakao = window.kakao;
-    let mapContainer = document.getElementById('map'),
-    mapOption = {
-        center: new kakao.maps.LatLng(33.450701, 126.570667),
-        level: 3 // 지도의 확대 레벨
-    };
-    let map = new kakao.maps.Map(mapContainer, mapOption);
-
-    let markerPosition  = new kakao.maps.LatLng(33.450701, 126.570667);
-
-    let marker = new kakao.maps.Marker({
-        position: markerPosition
-    });
-
-    marker.setMap(map);
-  },
   methods:{
     change(){
-      this.isShowmap = this.$refs.showMap.openMap;
+        this.isShowmap =  this.$refs.showMap.openMap;
     },
     calDay(){
       const created = this.fetched.createdDate;
@@ -146,25 +130,27 @@ export default {
       }
     },
     caltime(created){
+      // 콘솔창에 시간 객체 찍을 때 표시되는 속성명과 dayjs객체 속성명 다름
+      // ex) 시간(hour) -> 콘솔에는 H로 dayjs에는 h로 표시  dayjs로 다뤄야함
       const now = dayjs();
-      console.log("now",now);
-      console.log("created",created);
-      console.log("created.isSame(now,`d`)", created.isSame(now,"d"));
-      
-      if(created.isSame(now,"d")){
-          const ago_H = now.diff(created,"h");
-          const ago_M = now.diff(created,"m");
-          if(ago_H == 0){
-            return String(ago_M)+"분 ";
-          }
+      const diffH = now.diff(created,"hour", true);
+
+      if(diffH<24){
+        const ago = now.diff(created, "minute");
+        const ago_H = parseInt(ago / 60);
+        const ago_M = ago - (ago_H * 60);
+        if(ago_H === 0){
+          return String(ago_M)+"분 ";
+        }else{
           return String(ago_H)+"시간 "+String(ago_M)+"분 ";
-         }
-      else{
-          const ago_D = now.diff(created,"d");
-          return String(ago_D)+"일 ";
+        }
+      }else{
+        const ago_D = now.diff(created, "day");
+        return String(ago_D)+"일 ";
       }
     },
     amendPost() {
+      // 수정했는데 안 되면 바꿔야함
       this.$router.replace("/delivery/post/" + this.post_id + "/amend"); 
     },
     deletePost() {
@@ -353,7 +339,7 @@ export default {
 #footer{
   width: 100%;
   height: 300px;
-  position: absolute;  
+  position: absolute;
   left: 0;
 }
 #toDelivery{

@@ -12,5 +12,7 @@ public interface NoticeService {
 
     Notice getNotice(Long id); // 상세 페이지
 
+    void plusView(Notice notice);
+
     void join(NoticeDTO noticeDTO);
 }

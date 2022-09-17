@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,7 +30,9 @@ public class NoticeController {
     }
 
     // 공지사항 등록
-    @PostMapping("/notice/create")
+//    @PreAuthorize("isAuthenticated() and (( #user.name == principal.name ) or hasRole('ROLE_ADMIN'))")
+    @PreAuthorize("hasRole('ROLE_USER')")
+    @PostMapping(value ="/notice")
     public ResponseEntity<String> CreateNotice(@RequestBody NoticeDTO noticeDTO){
         log.info("notice/create whit {}", noticeDTO);
         noticeService.join(noticeDTO);
@@ -38,12 +41,13 @@ public class NoticeController {
 
     // 상세페이지
     @GetMapping(value = "/notice/{notice_id}")
-    public ResponseEntity<Notice> NoticeDetailPage(@PathVariable("notice_id") Long notice_id){
-        Notice notice = noticeService.getNotice(notice_id);
-        notice.Plus_view();
-//        noticeRepository.save(notice);  merge error 가 있음
-        return new ResponseEntity<>(notice, HttpStatus.OK);
+    public ResponseEntity<Notice> NoticeDetailPage(@PathVariable("notice_id") Long notice_id, @RequestParam int isFrontReq){
+        if(isFrontReq == 1){
+            Notice notice = noticeService.getNotice(notice_id);
+            noticeService.plusView(notice);
+            return new ResponseEntity<>(notice, HttpStatus.OK);
+        }else{
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
     }
-
-
 }

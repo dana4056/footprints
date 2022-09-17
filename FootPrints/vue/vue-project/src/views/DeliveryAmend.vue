@@ -63,6 +63,56 @@ export default {
   components:{
         ToolBar,
   },
+  data() {
+    return {
+      post_id: this.$store.state.deliveryPost.post_id,
+      post_name: this.$store.state.deliveryPost.post_name,     // 글 제목
+      post_content: this.$store.state.deliveryPost.post_content,  // 글 내용
+      category: this.$store.state.deliveryPost.category,      // 음식 카테고리
+      take_loc: this.$store.state.deliveryPost.take_loc,      // 음식 나눌 장소
+      participant_num: this.$store.state.deliveryPost.participant_num,  // 현재 참가 인원
+      max_person_num: this.$store.state.deliveryPost.max_person_num,   // 모집 인원
+      valid_time: this.$store.state.deliveryPost.valid_time,       // 게시물 유효 시간
+      view_num: this.$store.state.deliveryPost.view_num,         // 조회수
+      user_name: this.$store.state.deliveryPost.member.nick,     // 작성자 이름
+      area_name: this.$store.state.deliveryPost.member.area,     // 행정지역명
+
+      minDate: "",
+      latitude: this.$store.state.deliveryPost.lat,
+      longtitude: this.$store.state.deliveryPost.lon,
+      inputVisible: true,
+    }
+  },
+  beforeCreate(){
+    this.$store.dispatch('FETCH_USER');
+    //URL로 접근할 수 있으니 다시 상세정보 가져오기
+    let post_id = this.$route.params.post_id;
+    this.$store.dispatch('FETCH_DELIVERY_DETAIL', post_id);
+    setTimeout(() => {
+      let post = this.$store.state.deliveryPost
+      this.post_id = post.post_id;
+      this.post_name = post.post_name;     // 글 제목
+      this.post_content = post.post_content;  // 글 내용
+      this.category = post.category;      // 음식 카테고리
+      this.take_loc = post.take_loc;      // 음식 나눌 장소
+      this.participant_num = post.participant_num;  // 현재 참가 인원
+      this.max_person_num = post.max_person_num;   // 모집 인원
+      this.valid_time = post.valid_time;       // 게시물 유효 시간
+      this.view_num = post.view_num;         // 조회수
+      this.user_name = post.member.nick;     // 작성자 이름
+      this.area_name = post.member.area;     // 행정지역명
+      this.latitude = post.lat;
+      this.ongtitude = post.lon;
+
+      console.log("fetch nick: ",this.$store.state.member.nick);
+      console.log("this.user_name: ",post.member.nick);
+      if(this.$store.state.member.nick !== post.member.nick){
+        alert("게시물을 수정할 수 있는 권한이 없습니다.");
+        this.$router.replace(`/delivery/post/${this.post_id}`);
+      }
+    }, 800);
+
+  },
   mounted() {
     let $vm = this;
     // 날짜 입력 최소값 지정(현시간)
@@ -71,16 +121,16 @@ export default {
     // 지도 창 생성
     let kakao = window.kakao;
     let container = this.$refs.map;
-    let options = { 
-      center: new kakao.maps.LatLng(37.56676113296615, 126.97865227682179),
-      level: 10
+    let options = {
+      center: new kakao.maps.LatLng(this.latitude, this.longtitude),
+      level: 3
     };
     let mapInstance = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
 
     let geocoder = new kakao.maps.services.Geocoder();
 
     // 마커 생성
-    let marker = new kakao.maps.Marker({ 
+    let marker = new kakao.maps.Marker({
       position: mapInstance.getCenter(),
     }); 
     marker.setMap(mapInstance);
@@ -91,7 +141,7 @@ export default {
 
     // 클릭 이벤트 등록
     kakao.maps.event.addListener(mapInstance, 'click', function(mouseEvent) {        
-      let latlng = mouseEvent.latLng; 
+      let latlng = mouseEvent.latLng;
 
       marker.setPosition(latlng);
 
@@ -104,31 +154,10 @@ export default {
       $vm.inputVisible = true;
     });
   },
-  data() {
-    return {
-      post_id: this.$store.state.deliveryPost.post_id,
-      post_name: this.$store.state.deliveryPost.post_name,     // 글 제목
-      post_content: this.$store.state.deliveryPost.post_content,  // 글 내용
-      category: this.$store.state.deliveryPost.category,      // 음식 카테고리
-      take_loc: this.$store.state.deliveryPost.take_loc,      // 음식 나눌 장소
-      participant_num: this.$store.state.deliveryPost.participant_num,  // 현재 참가 인원
-      max_person_num: this.$store.state.deliveryPost.max_person_num,   // 모집 인원
-      valid_time: this.$store.state.deliveryPost.valid_time,       // 게시물 유효 시간
-      view_num: this.$store.state.deliveryPost.view_num,         // 조회수
-      // ------- member entity 참조할건데 임시로 --------------
-      user_name: this.$store.state.deliveryPost.user_name,     // 작성자 이름
-      area_name: this.$store.state.deliveryPost.area_name,     // 행정지역명
-      
-      minDate: "",
-      latitude: 0,
-      longtitude: 0,
-      inputVisible: false,
-    }
-  },
   methods: {
     register() {
       if (this.submitData()){
-        this.$store.dispatch('FETCH_USER') //의도가 뭐지
+        // this.$store.dispatch('FETCH_USER') //의도가 뭐지
           const post = {
             post_id: this.post_id,
             post_name: this.post_name,           // 글 제목
@@ -139,8 +168,8 @@ export default {
             max_person_num: this.max_person_num, // 모집 인원
             valid_time: this.valid_time,         // 게시물 유효 시간
             view_num: this.view_num ,            // 조회수
-            nick:this.$store.state.member.nick,
-            area : this.area_name
+            nick: this.user_name,
+            area :this.area_name
         }
         console.log("AMEND_DELIVERY_POST\n",post); 
         this.$store.dispatch('AMEND_DELIVERY_POST', post);
@@ -150,7 +179,7 @@ export default {
           title: '글이 수정되었습니다.',
           confirmButtonText: '배달 모집 목록 보러가기',
         }).then(() => {
-          this.$router.replace("/delivery/post");
+          this.$router.replace(`/delivery/post/${this.post_id}`);
         })
 			}
       else {

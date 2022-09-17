@@ -50,8 +50,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) // 토큰 기반 인증이므로 세션 역시 사용하지 않습니다.
         .and()
         .authorizeRequests() // 요청에 대한 사용권한 체크
-            .antMatchers("/admin/**").hasRole("ADMIN")
-            .antMatchers("/token/**", "/delivery/post/**").hasRole("USER")
+            .antMatchers("/token/**").hasRole("USER")
+//            .antMatchers("/delivery/post/**").hasRole("USER")
+            .antMatchers("/delivery/post/new-post").hasRole("USER")
+//            .antMatchers("/delivery/post/{post_id}/amend").hasRole("USER")
+            .antMatchers("/user/**").hasRole("USER")
+            .antMatchers("/chat/**").hasRole("USER")
+            .antMatchers("/notice/new-notice").hasRole("ADMIN")
 //            .antMatchers("/post/**").hasRole("USER")
             .anyRequest().permitAll() // 그외 나머지 요청은 누구나 접근 가능
         .and()
@@ -63,8 +68,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             @Override
             public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
                 response.setStatus(HttpStatus.FORBIDDEN.value());
-                response.sendRedirect("/index");
-
+//                response.sendRedirect("/error");
             }
         });
     }
