@@ -99,19 +99,19 @@ export default {
   background-color: #f8f8f8;
 }
 #wrap { 
-    width: 330px;
-    height: 650px;
-    margin: 0 auto;
-    padding: 200px 0;
+  width: 330px;
+  height: 650px;
+  margin: 0 auto;
+  padding: 200px 0;
 }
 .logo {
-   display: flex;
-	justify-content: center;
-   margin: 15px 0px;
-   color: black;
-   text-decoration: none;
-   align-items: center;
-   font-weight: bold;
+  margin: 15px 0px;
+  color: black;
+  font-weight: bold;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .logo img{
     margin: 3px 8px 3px 0px;
@@ -120,94 +120,87 @@ img{
   widows: 25px;
 }
 .Div{
-    margin: 0;
-    padding: 8px 15px 9px;
-    justify-content: space-between;
+  margin: 0;
+  padding: 8px 15px 9px;
+  justify-content: space-between;
 }
 .errorType input{
   background: #fff6f6;
-  outline: none;
   border-color:#eb7373;
+  outline: none;
 }
 input{
-    font-family: Noto Sans KR,sans-serif;
-    outline: none;
-    width: 100%;
-    height: 50px;
-    background: #FaFaFa;
-    border: 1px solid #BDBDBD;
-    box-sizing: border-box;
-    padding: 8px 15px 9px;
-}
-
-input:focus {
+  box-sizing: border-box;
+  width: 100%;
+  height: 50px;
+  padding: 8px 15px 9px;
+  background: #FaFaFa;
+  border: 1px solid #BDBDBD;
+  font-family: Noto Sans KR,sans-serif;
   outline: none;
-  border-color: #999999;
-  background: #F3F3F3;
 }
-
+input:focus {
+  background: #F3F3F3;
+  border-color: #999999;
+  outline: none;
+}
 input:hover {
   background: #F3F3F3;
 }
-
 input::placeholder {
   color: #BDBDBD;
   font-weight: 100;
 }
-
 #Nick{
-    border-bottom: 1px;
-    border-radius: 10px 10px 0px 0px;
+  border-bottom: 1px;
+  border-radius: 10px 10px 0px 0px;
 }
 #Pw{
-    border-radius: 0px 0px 10px 10px;
+  border-radius: 0px 0px 10px 10px;
 }
 button{
-    font-family: Noto Sans KR,sans-serif;
-    width: 100%;
-    height: 40px;
-    color: #ffffff;
-    font-weight: bold;
-    background: #7aab85;
-    border: 1px solid #7aab85;
-    box-sizing: border-box;
-    border-radius: 13px;
-    cursor: pointer;
-    margin: 15px 0 5px 0;
-    padding: 8px 15px 9px;    
+  box-sizing: border-box;
+  width: 100%;
+  height: 40px;
+  margin: 15px 0 5px 0;
+  padding: 8px 15px 9px;
+  background: #7aab85;
+  border: 1px solid #7aab85;
+  border-radius: 13px;
+  color: #ffffff;
+  font-family: Noto Sans KR,sans-serif;
+  font-weight: bold;
+  cursor: pointer;
 }
-
 button:hover {
   background: #669270;
 }
-
-
 .link{
-    font-family: Noto Sans KR,sans-serif;
-    font-size: 12px;
-    margin: 0px 10px;
-    color: black;
-    text-decoration: none;
+  margin: 0px 10px;
+  color: black;
+  font-family: Noto Sans KR,sans-serif;
+  font-size: 12px;
+  text-decoration: none;
 }
 hr{
-    margin: 25px 0;
-    background-color: #cdcdcd;
-    height: 1px;
-    border: none;
+  height: 1px;
+  margin: 25px 0;
+  background-color: #cdcdcd;
+  border: none;
 }
 .SnsBox p{
-   font-family: Noto Sans KR,sans-serif;
-   font-size: 13px;
-   color: #606060;
+  color: #606060;
+  font-family: Noto Sans KR,sans-serif;
+  font-size: 13px;
 }
 .SnsBox ul{
-    padding: 0;
-    list-style: none;
+  padding: 0;
+  list-style: none;
 }
 .SnsBox li{
-    display: inline;
+  display: inline;
 }
 .SnsBox .brandLogo{
-    border-radius: 7px;
+  border-radius: 7px;
 }
 </style>

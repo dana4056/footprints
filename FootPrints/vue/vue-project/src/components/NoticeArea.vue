@@ -34,10 +34,10 @@ export default {
   padding-right: 15px;
 }
 .notice-content p{
-  text-align: left;
-  font-size: 13px;
-  line-height: 20px;
   color: #666;
+  font-size: 13px;
+  text-align: left;
+  line-height: 20px;
 }
 .notice-head{
   line-height: 20px;

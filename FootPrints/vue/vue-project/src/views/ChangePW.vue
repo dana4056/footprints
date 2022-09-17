@@ -66,7 +66,7 @@ export default {
         this.changePwMemberDTO.email = localStorage.getItem('email');
         this.$store.dispatch('CHANGE_PWD', this.changePwMemberDTO);
         setTimeout(() => { 
-        this.represent() ;
+          this.represent();
         }, 200); 	
 			}
       else 
@@ -78,10 +78,11 @@ export default {
         this.$router.replace("/login");
       }
       else{
-        //비밀번호 변경 안됐으니 이렇게이렇게 하라고 다시 해야함
+        alert("비밀번호 변경에 실패하였습니다.\n다시 시도해주세요.");
+        this.$router.replace("/change-password");
       }
     },
-		submitData() {	// 이 함수 코드를 구현해야 합니다!!
+		submitData() {
       if (!this.isDiffrentPw && this.isValidPw)
         return true;
       else 
@@ -101,78 +102,75 @@ export default {
   padding: 211px 0;
 }
 .logo {
-   display: flex;
+  display: flex;
+  margin: 10px 0px;
 	justify-content: center;
-   margin: 10px 0px;
-   color: black;
-   text-decoration: none;
-   align-items: center;
-   font-weight: bold;
+  align-items: center;
+  color: black;
+  font-weight: bold;
+  text-decoration: none;
 }
 .logo img{
-    margin: 3px 8px 3px 0px;
+  margin: 3px 8px 3px 0px;
 }
 .Div{
   padding-bottom: 15px;
 }
 label{
-  text-align: left;
   display: block;
-  font-size: 13px;
-  color: #292929;
   margin-bottom: 7px;
+  color: #292929;
+  font-size: 13px;
+  text-align: left;
 }
 input{
-    font-family: Noto Sans KR,sans-serif;
-    outline: none;
-    width: 100%;
-    height: 50px;
-    background: #FaFaFa;
-    border: 1px solid #BDBDBD;
-    box-sizing: border-box;
-    padding: 8px 15px 9px;
-    border-radius: 10px;
+  box-sizing: border-box;
+  width: 100%;
+  height: 50px;
+  padding: 8px 15px 9px;
+  background: #FaFaFa;
+  border-radius: 10px;
+  border: 1px solid #BDBDBD;
+  font-family: Noto Sans KR,sans-serif;
+  outline: none;
 }
 input:focus {
-  outline: none;
-  border-color: #999999;
   background: #F3F3F3;
+  border-color: #999999;
+  outline: none;
 }
-
 input:hover {
   background: #F3F3F3;
 }
-
 input::placeholder {
   color: #BDBDBD;
   font-weight: 100;
 }
 button{
-    font-family: Noto Sans KR,sans-serif;
-    width: 100%;
-    height: 40px;
-    color: #ffffff;
-    font-weight: bold;
-    background: #7aab85;
-    border: 1px solid #7aab85;
-    box-sizing: border-box;
-    border-radius: 13px;
-    cursor: pointer;
-    margin: 6px 0;
-    padding: 8px 15px 9px;    
+  font-family: Noto Sans KR,sans-serif;
+  box-sizing: border-box;
+  width: 100%;
+  height: 40px;
+  margin: 6px 0;
+  padding: 8px 15px 9px;
+  background: #7aab85;
+  border: 1px solid #7aab85;
+  border-radius: 13px;
+  color: #ffffff;
+  font-weight: bold;
+  cursor: pointer;  
 }
-
 button:hover {
   background: #669270;
 }
 .errorType input{
   background: #fff6f6;
-  outline: none;
   border-color:#eb7373;
+  outline: none;
 }
 .errorType span{
-  text-align: left;
-  font-size: 12px;
   color: #eb7373;
+  font-size: 12px;
+  text-align: left;
 }
 </style>

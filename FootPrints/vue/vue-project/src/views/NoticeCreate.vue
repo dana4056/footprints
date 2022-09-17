@@ -79,55 +79,55 @@ export default {
 </script>
 
 <style scoped>
-  #wrap {
-    width: 700px;
-    margin: 50px auto;
-  }
-  .inputArea {
-    height: 600px;
-    border: 2px solid rgba(0, 0, 0, 0.558);
-    border-radius: 40px;
-  }
-  .header {
-    height: 100px;
-    border-bottom: 2px solid rgba(0, 0, 0, 0.558);
-  }
-  #title {
-    font-family: 'Noto Sans KR', sans-serif;
-    box-sizing: border-box; 
-    width: 95%;
-    margin-top: 20px;
-    padding: 15px 2px;
-    font-size: 25px;
-    border: none;
-    outline: none;
-    font-weight: bold;
-    text-align: left;
-  }
-  .content {
-    text-align: left;
-    height: 460px;
-  }
-  textarea {
-    font-family: 'Noto Sans KR', sans-serif;
-    box-sizing: border-box; 
-    height: 100%;
-    width: 100%;
-    padding: 20px 22px;
-    font-size: 16px;
-    border:none;
-    outline: none;
-    resize: none;
-  }
-  button {
+#wrap {
+  width: 700px;
+  margin: 50px auto;
+}
+.inputArea {
+  height: 600px;
+  border: 2px solid rgba(0, 0, 0, 0.558);
+  border-radius: 40px;
+}
+.header {
+  height: 100px;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.558);
+}
+#title {
+  box-sizing: border-box; 
+  width: 95%;
+  margin-top: 20px;
+  padding: 15px 2px;
+  border: none;
   font-family: 'Noto Sans KR', sans-serif;
+  font-size: 25px;
+  font-weight: bold;
+  text-align: left;
+  outline: none;
+}
+.content {
+  height: 460px;
+  text-align: left;
+}
+textarea {
+  box-sizing: border-box; 
+  height: 100%;
+  width: 100%;
+  padding: 20px 22px;
+  border:none;
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 16px;
+  outline: none;
+  resize: none;
+}
+button {
   width: 150px;
   height: 50px;
   margin-top: 20px;
   background-color:#a4caac;
-  font-size: 15px;
   border: none;
   border-radius: 13px;
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 15px;
   cursor: pointer;
 }
-  </style>
+</style>

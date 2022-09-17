@@ -34,32 +34,31 @@ export default {
 
 <style scoped>
 #wrap {
-  border-radius: 0px 24px 0px 0px;
-  background: #ffffff;
-  box-shadow: 0px 3px 10px 0px rgba(0, 0, 0, 0.05);
-  padding: 0px 1.8rem 20px 1.8rem;
-  text-align: left;
   height: 91px;
+  padding: 0px 1.8rem 20px 1.8rem;
+  background: #ffffff;
+  border-radius: 0px 24px 0px 0px;
+  text-align: left;
+  box-shadow: 0px 3px 10px 0px rgba(0, 0, 0, 0.05);
 }
 #title {
   font-size: 20px;
   font-weight: 700;
 }
 #userList {
-  font-size: 14px;
-  margin: 0 0;
+  margin: 0 20px 0 0;
   padding: 0 0;
+  font-size: 14px;
   float: left;
-  margin-right: 20px;
 }
 button {
-  font-size: 14px;
-  font-weight: bold;
-  float:right;
+  padding: 7px;
   border: none;
   border-radius: 15%;
   background-color: rgba(255, 103, 103, 0.526);
-  padding: 7px;
+  font-size: 14px;
+  font-weight: bold;
+  float:right;
   cursor: pointer;
 }
 </style>

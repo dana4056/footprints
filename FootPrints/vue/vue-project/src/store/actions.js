@@ -21,7 +21,7 @@ export default{
   ////////////////////////// TOKEN //////////////////////////
 
   FETCH_USER({commit}){
-    fetchToken()
+    return fetchToken()
       .then(response =>{
         console.log("API:FETCH_USER\n멤버 가져오기 성공",response.data);
         const member = {
@@ -51,7 +51,7 @@ export default{
 
   // 회원가입
   POST_MEMBER(context, member) {
-    postSignup(member)
+    return postSignup(member)
       .then(response => {
         if (response.data == "SUCCESS") {
           console.log('API:POST_MEMBER\n회원가입 성공', response.data);
@@ -82,15 +82,15 @@ export default{
 
   // 로그인
   POST_LOGIN({ commit }, loginMember) {
-    postLogin(loginMember)
+    return postLogin(loginMember)
       .then(response => {
         console.log('API:POST_LOGIN\n로그인 성공', response);
 
         localStorage.setItem('jwt', response.data); // 로컬 스토리지에 저장
 
-        getUserArea(loginMember.nick)
+        return getUserArea(loginMember.nick)
           .then(response => {
-            console.log("지역 얻기 성공", response.data);
+            console.log("지역 얻기 성공 !", response.data);
             const member = {
               nick: loginMember.nick,
               email: response.data.email,
@@ -105,9 +105,6 @@ export default{
           .catch(error => {
             console.log("지역 읽기 실패", error);
           })
-
-        router.replace("/home");
-        store.dispatch('FIND_POST_ID', loginMember.nick);
       })
       .catch(error => {
         const code = error.response.status;
@@ -147,7 +144,7 @@ export default{
 
   // 닉네임 중복체크
   POST_NICK({ commit }, nick) {
-    getCheckNick(nick)
+    return getCheckNick(nick)
       .then(response => {
         console.log('API:POST_NICK\n사용가능 닉네임', response);
         commit('SET_DUPLI_NICK', false);
@@ -160,7 +157,7 @@ export default{
 
   // 이메일 중복체크
   POST_EMAIL({ commit }, email) {
-    getCheckEmail(email)
+    return getCheckEmail(email)
       .then(response => {
         console.log('API:POST_EMAIL\n사용가능 이메일', response);
         commit('SET_DUPLI_EMAIL', false)
@@ -177,7 +174,7 @@ export default{
   // axios.get 내부에 new Promise가 들어있으므로 then, catch가 사용 가능한 것.
   // 프로미스이므로 async/await 방식으로 변경 가능.
   FETCH_NOTICE_LIST({ commit }) {
-    getNoticeList()
+    return getNoticeList()
       .then(response => {
         console.log("API:FETCH_NOTICE_LIST\n공지사항 정보 받아오기 성공", response.data);
         commit('SET_NOTICELIST', response.data);
@@ -189,7 +186,7 @@ export default{
 
   // 공지사항 작성
   POST_NOTICE(content, noticeDTO) {
-    postNotice(noticeDTO)
+    return postNotice(noticeDTO)
       .then(response => {
         console.log("API:POST_NOTICE\n공지사항 등록 성공", response);
       })
@@ -200,7 +197,7 @@ export default{
 
   // 공지사항 상세
   FETCH_NOTICE_DETAIL({ commit }, notice_id) {
-    getNoticeDetail(notice_id)
+    return getNoticeDetail(notice_id)
       .then(response => {
         console.log("API:FETCH_NOTICE_DETAIL\n공지사항 상세정보 받아오기 성공", response.data);
         commit('SET_NOTICE', response.data);
@@ -252,7 +249,7 @@ export default{
 
   // 리스트뷰 페이지 데이터 로드
   FETCH_DELIVERY_LIST({ commit }, area) {
-    getDeliveryList(area)
+    return getDeliveryList(area)
       .then(response => {
         console.log("API:FETCH_DELIVERY_LIST\n배달 리스트 뷰 페이지 정보 받아오기 성공", response.data);
         commit('SET_DELIVERIES', response.data);
@@ -263,12 +260,9 @@ export default{
       })
       .catch(error => {
         const code = error.response.status;
-        // 일단 405로 바꿔놨는데 POST메소드 아니고 GET 쓰도록 PATHVARIABLE로 지역만 쓰는 식으로 가야할듯
         if (code == 405) {
           alert("권한 없음 로그인 후 이용하세요");
-          //history.back(); 
           router.replace("/home");
-          // location.href = "http://localhost:8080/home"
         }
         else {
           console.log("API:FETCH_DELIVERY_LIST\n배달 리스트 뷰 페이지 정보 받아오기 실패", error);
@@ -277,7 +271,7 @@ export default{
   },
   // 카테고리별 리스트뷰 페이지 데이터 로드
   FETCH_DELIVERY_LIST_SORT({ commit }, sortDTO) {
-    getSortDeliveryList(sortDTO)
+    return getSortDeliveryList(sortDTO)
       .then(response => {
         console.log("API:FETCH_DELIVERY_LIST_CATEGORY\n정렬(카테고리) 배달 리스트 뷰 페이지 정보 받아오기 성공\n", response.data);
         commit('SET_DELIVERIES', response.data);
@@ -286,9 +280,7 @@ export default{
         const code = error.response.status;
         if (code == 403) {
           alert("FETCH_DELIVERY_LIST_CATEGORY 로그인 후 이용하세요");
-          //history.back();
           router.replace("/home");
-          // location.href = "http://localhost:8080/home"
         }
         else {
           console.log("API:FETCH_DELIVERY_LIST_CATEGORY\n카테고리별 배달 리스트 뷰 페이지 정보 받아오기 실패\n", error);
@@ -297,7 +289,7 @@ export default{
   },
   // 게시물 작성
   POST_DELIVERY_POST(content, post) {
-    postDeliveryPost(post)
+    return postDeliveryPost(post)
       .then(response => {
         console.log("API:POST_DELIVERY_POST\n게시물 등록 성공", response);
         console.log(response.data);
@@ -317,7 +309,7 @@ export default{
 
   // 글 수정
   AMEND_DELIVERY_POST(content, post) {
-    patchDeliveryPost(post)
+    return patchDeliveryPost(post)
       .then(response => {
         console.log("API:AMEND_DELIVERY_POST\n게시물 수정 성공", response);
       })
@@ -335,15 +327,15 @@ export default{
 
   // 글 삭제: 채팅 로그 삭제 -> 방 정보 삭제 -> 글 삭제 순으로 이루어져야할 것 같아서 아래와 같이 작성
   DELETE_DELIVERY_POST(content, post_id) {
-    deleteChatData(post_id)
+    return deleteChatData(post_id)
       .then(response => {
         console.log('API:DELETE_DELIVERY_POST\n채팅 로그 삭제 성공', response);
 
-        deleteRoomInfo(post_id)
+        return deleteRoomInfo(post_id)
           .then(response => {
             console.log('API:DELETE_DELIVERY_POST\n방 정보 삭제 성공', response);
 
-            deleteDeliveryPost(post_id)
+            return deleteDeliveryPost(post_id)
               .then(response => {
                 console.log('API:DELETE_DELIVERY_POST\n글 삭제 성공', response);
                 store.dispatch('FIND_POST_ID', store.state.member.nick);
@@ -363,7 +355,7 @@ export default{
 
   // 상세 페이지 데이터 로드
   FETCH_DELIVERY_DETAIL({ commit }, post_id) {
-    getDeliveryPostDetail(post_id)
+    return getDeliveryPostDetail(post_id)
       .then(response => {
         console.log("API:FETCH_DELIVERY_DETAIL\n상세페이지 정보 받아오기 성공", response.data);
         commit('SET_DELIVERY_POST', response.data);
@@ -384,7 +376,7 @@ export default{
   ////////////////////////// CHAT //////////////////////////
 
   FIND_POST_ID({ commit }, nick) {
-    getPostIdList(nick)
+    return getPostIdList(nick)
       .then(response => {
         console.log("API:SET_FIND_POSTID 사용자의 POST_ID 리스트 받아오기 성공", response.data);
         commit('SET_FIND_POSTID', response.data);
@@ -403,7 +395,7 @@ export default{
   },
 
   FIND_ROOM({ commit }, list) {
-    getPostInfoList(list)
+    return getPostInfoList(list)
       .then(response => {
         console.log("API:SET_FIND_ROOM 사용자의 Room 리스트 받아오기 성공", response.data);
         commit('SET_FIND_ROOM', response.data);
@@ -414,7 +406,7 @@ export default{
   },
 
   FIND_USER({ commit }, post_id) {
-    getNickList(post_id)
+    return getNickList(post_id)
       .then(response => {
         console.log("API:SET_FIND_USER 채팅방에 속한 사용자 nick 리스트 받아오기 성공", response.data);
         commit('SET_FIND_USER', response.data);
@@ -425,7 +417,7 @@ export default{
   },
 
   FIND_CHAT_LOGS({ commit }, post_id) {
-    getChatList(post_id)
+    return getChatList(post_id)
       .then(response => {
         console.log("API:SET_FIND_CHAT_LOGS 채팅방 chatlogs 리스트 받아오기 성공", response.data);
         commit('SET_FIND_CHAT_LOGS', response.data);
@@ -436,7 +428,7 @@ export default{
   },
 
   POST_CHAT_DATA(c, chatData) {
-    postChatData(chatData)
+    return postChatData(chatData)
       .then(response => {
         console.log("채팅 보내기 성공", response.data);
         store.dispatch('FIND_CHAT_LOGS', chatData.post_id)
@@ -450,7 +442,7 @@ export default{
 
   // 참여하기
   JOIN_DELIVERY_POST(content, roomInfo) {
-    postRoomInfo(roomInfo)
+    return postRoomInfo(roomInfo)
       .then(response => {
         console.log('API:JOIN_DELIVERY_POST\n배달 참여 성공', response);
         store.dispatch("FIND_POST_ID", store.state.member.nick);
@@ -462,7 +454,7 @@ export default{
 
   // 참여 취소하기
   EXIT_DELIVERY_POST(content, roomInfo) {
-    patchRoomInfo(roomInfo)
+    return patchRoomInfo(roomInfo)
       .then(response => {
         console.log('API:EXIT_DELIVERY_POST\n참여 취소 성공', response);
         store.dispatch("FIND_POST_ID", store.state.member.nick);

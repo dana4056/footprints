@@ -64,9 +64,9 @@ export default {
 
 <style scoped>
 .wrap{
-  margin: 0 auto;
   width: 900px;
   height: 835px;
+  margin: 0 auto;
 }
 .notice-content {
   height: 670px;
@@ -75,24 +75,24 @@ export default {
   float: left;
 }
 h1 {
-  font-family: 'Noto Sans KR', sans-serif;
-  margin: 0 0;
   width: 100%;
-  text-align: left;
+  margin: 0 0;
   padding-bottom: 30px;
   border-bottom: 2px solid black;
+  font-family: 'Noto Sans KR', sans-serif;
+  text-align: left;
 }
 #header:hover {
-  pointer-events: none;
   background-color: white;
+  pointer-events: none;
 }
 .listbox {
   border-bottom: 1px solid rgba(0, 0, 0, 0.205);
 }
 .listbox *{
-  float: left;
   height: 42px;
-  margin: 16px 0 0 0 ;
+  margin: 16px 0 0 0;
+  float: left;
 }
 .listbox:hover {
   background-color: #ddd;
@@ -116,8 +116,8 @@ h1 {
   width: 150px;
 }
 #date, #view {
-  font-size: 15px;
   color: rgb(122, 122, 122);
+  font-size: 15px;
 }
 .add-btn{
   -webkit-box-flex:1;
@@ -132,10 +132,10 @@ a {
   margin: 0 auto;
 }
 .pageSelect > *{
-  margin: 0 0;
   width: 30px;
-  float: left;
+  margin: 0 0;
   font-size: 17px;
+  float: left;
   cursor: pointer;
 }
 .checked {

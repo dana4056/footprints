@@ -81,29 +81,29 @@ export default {
   padding: 15px;
 }
 .nick{
-  font-weight: 700;
   color:#4a44cd;
+  font-weight: 700;
 }
 button{
-  margin: 0px 5px;
+  box-sizing: border-box;
   width: 100px;
   height: 32px;
-  box-sizing: border-box;
+  margin: 0px 5px;
+  border-radius: 10px;
   color: white;
   font-family: 'Noto Sans KR', sans-serif;
-  border-radius: 10px;
 }
 .logo {
-   display: flex;
+  margin: 15px 0px;
+  color: black;
+  font-weight: bold;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
 	justify-content: center;
-   margin: 15px 0px;
-   color: black;
-   text-decoration: none;
-   align-items: center;
-   font-weight: bold;
 }
 .logo img{
-    margin: 3px 8px 3px 0px;
+  margin: 3px 8px 3px 0px;
 }
 .Div{
   margin: 0;
@@ -111,52 +111,49 @@ button{
   justify-content: space-between;
 }
 label{
-  text-align: left;
-  display: block;
+  margin-bottom: 12px;
   font-size: 13px;
   color: #292929;
-  margin-bottom: 12px;
+  display: block;
+  text-align: left;
 }
 input{
-    font-family: Noto Sans KR,sans-serif;
-    outline: none;
-    width: 100%;
-    height: 50px;
-    background: #FaFaFa;
-    border: 1px solid #BDBDBD;
-    box-sizing: border-box;
-    padding: 8px 15px 9px;
-    border-radius: 10px;
+  box-sizing: border-box;
+  width: 100%;
+  height: 50px;
+  padding: 8px 15px 9px;
+  background: #FaFaFa;
+  border: 1px solid #BDBDBD;
+  border-radius: 10px;
+  font-family: Noto Sans KR,sans-serif;
+  outline: none;
 }
 input:focus {
-  outline: none;
-  border-color: #999999;
   background: #F3F3F3;
+  border-color: #999999;
+  outline: none;
 }
-
 input:hover {
   background: #F3F3F3;
 }
-
 input::placeholder {
   color: #BDBDBD;
   font-weight: 100;
 }
 button{
-    font-family: Noto Sans KR,sans-serif;
-    width: 100%;
-    height: 40px;
-    color: #ffffff;
-    font-weight: bold;
-    background: #7aab85;
-    border: 1px solid #7aab85;
-    box-sizing: border-box;
-    border-radius: 13px;
-    cursor: pointer;
-    margin: 15px 0;
-    padding: 8px 15px 9px;    
+  box-sizing: border-box;
+  width: 100%;
+  height: 40px;
+  margin: 15px 0;
+  padding: 8px 15px 9px;
+  background: #7aab85;
+  border: 1px solid #7aab85;
+  border-radius: 13px;
+  color: #ffffff;
+  font-weight: bold;
+  font-family: Noto Sans KR,sans-serif;
+  cursor: pointer;
 }
-
 button:hover {
   background: #669270;
 }
@@ -170,7 +167,6 @@ button:hover {
   color: #4a44cd;
   font-weight: bold;
 }
-
 #btnBox button{
   width: 45%;
   margin: 15px 5px;

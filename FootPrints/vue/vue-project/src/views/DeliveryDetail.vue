@@ -106,39 +106,32 @@ export default {
     this.post_id = this.$route.params.id;
     this.$store.dispatch('FETCH_DELIVERY_DETAIL', this.post_id);
 
-    for(var i = 0; i < this.$store.state.postIdList.length; i++){
+    for(let i = 0; i < this.$store.state.postIdList.length; i++){
       if(this.$store.state.roomList[i].post_id == this.post_id) {
         this.isJoin = true;
       }
     }
   },
   mounted(){
-
     let kakao = window.kakao;
-    var mapContainer = document.getElementById('map'), // 지도를 표시할 div
+    let mapContainer = document.getElementById('map'),
     mapOption = {
-        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+        center: new kakao.maps.LatLng(33.450701, 126.570667),
         level: 3 // 지도의 확대 레벨
     };
-    console.log(mapContainer);
+    let map = new kakao.maps.Map(mapContainer, mapOption);
 
-    var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
-    // 마커가 표시될 위치입니다
-    var markerPosition  = new kakao.maps.LatLng(33.450701, 126.570667);
+    let markerPosition  = new kakao.maps.LatLng(33.450701, 126.570667);
 
-    // 마커를 생성합니다
-    var marker = new kakao.maps.Marker({
+    let marker = new kakao.maps.Marker({
         position: markerPosition
     });
 
-    // 마커가 지도 위에 표시되도록 설정합니다
     marker.setMap(map);
-
   },
   methods:{
     change(){
-        console.log("change");
-        this.isShowmap =  this.$refs.showMap.openMap;
+      this.isShowmap = this.$refs.showMap.openMap;
     },
     calDay(){
       const created = this.fetched.createdDate;
@@ -172,7 +165,6 @@ export default {
       }
     },
     amendPost() {
-      // 수정했는데 안 되면 바꿔야함
       this.$router.replace("/delivery/post/" + this.post_id + "/amend"); 
     },
     deletePost() {
@@ -210,29 +202,28 @@ export default {
 
 <style scoped>
 .fixedWrapper{
-  position: fixed;
   width: 100%;
   height: 100%;
+  position: fixed;
   overflow: hidden;
 }
-
 .scrollWrapper{
-    min-height: 100%;
-    position: relative;
+  min-height: 100%;
+  position: relative;
 }
 #wrap {
   width: 650px;
   height: 570px;
-  padding: 20px 30px 30px;
   margin: 80px auto;
+  padding: 20px 30px 30px;
   border-radius: 30px;
-  text-align: left;
   font-size: 15px;
+  text-align: left;
 }
 #headBox, #userBox, #footBox {
+  width: 100%;
   height: 40px;
   margin-bottom: 30px;
-  width: 100%;
 }
 #headBox > * {
   float: left;
@@ -247,36 +238,31 @@ export default {
   margin: 0;
 }
 #categoryBox{
-  line-height: 40px;
   margin-left: 15px;
+  line-height: 40px;
 }
 #categoryBox *{
   vertical-align: middle;
 }
-
 #userBox{
   display: -webkit-box;
 }
-
 #userBoxEl{
-  -webkit-box-flex:1;
   margin-left: 5px;
+  -webkit-box-flex:1;
 }
-
 #userBoxEl *{
   display: block;
 }
-
 #userBoxEl span{
   font-weight: bold;
 }
 #contentBox {
-  position:relative;
   height: 400px;
-  border-bottom: rgb(223, 222, 222) solid 1px;
   margin-bottom: 30px;
+  border-bottom: rgb(223, 222, 222) solid 1px;
+  position:relative;
 }
-
 #footBox img{
   width:25px;
   margin-right: 10px;
@@ -288,22 +274,21 @@ export default {
 #parti > *{
   vertical-align: middle;
 }
-
 #footBox button{
-  float: right;
   height: 40px;
-  border-radius: 20px;
-  font-weight: bold;
-  cursor: pointer;
   margin: 0 5px;
   padding: 0 18px;
+  border-radius: 20px;
+  font-weight: bold;
+  float: right;
+  cursor: pointer;
 }
 .category{
-  font-size: xx-small;
   margin: 0px 7px;
   padding: 3px 7px;
   border-radius: 3px;
   color: #ffffff;
+  font-size: xx-small;
   vertical-align:middle;
 }
 
@@ -339,43 +324,43 @@ export default {
   background-color: #8c8c8c;
 }
 /* ---------------------------------- */
+
 #views {
-  float: right;
   color: #777;
+  float: right;
 }
 #remTime {
   font-size: 3px;
 }
 #orderTime {
+  bottom: 0px;
   color: rgba(255, 23, 23, 0.635);
-  position:absolute;
-  bottom:0px;
-  right:30px;
+  position: absolute;
+  right: 30px;
 }
 #seePlace {
-  border: 1px solid #aaa;
   background-color: #fff;
+  border: 1px solid #aaa;
 }
 #join, #chat, #amend, #delete {
   border: none;
-  background-color: #ccc;
 }
 #block {
-  pointer-events: none;
-  border: none;
   background-color: rgba(255, 127, 127, 0.826);
+  border: none;
+  pointer-events: none;
 }
 #footer{
-    height: 300px;
-    position: absolute;  
-    width: 100%;
-    left: 0;
+  width: 100%;
+  height: 300px;
+  position: absolute;  
+  left: 0;
 }
 #toDelivery{
-    height: 100px;
-    position: fixed;
-    bottom: 0;
-    right: 200px;
+  height: 100px;
+  bottom: 0;
+  position: fixed;
+  right: 200px;
 }
 
 </style>

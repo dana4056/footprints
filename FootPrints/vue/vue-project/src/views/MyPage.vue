@@ -115,15 +115,15 @@ export default {
 <style scoped>
 .wrap {
   height: 50px;
-  background-color: rgb(243, 243, 243);
   padding-left: 750px;
   padding-top: 200px;
+  background-color: rgb(243, 243, 243);
 }
 .wrap > p {
   width: 120px;
   margin: 0 60px 0 0;
-  float: left;
   font-size: 18px;
+  float: left;
   cursor: pointer;
 }
 #isClicked {
@@ -132,8 +132,8 @@ export default {
 }
 .wrap2 {
   width: 100%;
-  background-color: rgb(255, 255, 255);
   height: 800px;
+  background-color: rgb(255, 255, 255);
 }
 .wrap2 > div{
   float: left;
@@ -141,26 +141,25 @@ export default {
 .profile {
   width: 750px;
   height: 100%; 
-  /* background-color: aqua; */
 }
 #profileBox {
-  margin: 50px 100px 0px 350px;
   width: 270px;
   height: 380px;
+  margin: 50px 100px 0px 350px;
   background-color: rgb(255, 255, 255);
   border-radius: 40px;
   box-shadow: 1px 1px 2px 6px #98d0a443;
 }
 #profileImage {
-  margin-top: 30px;
   width: 100px;
   height: 100px;
+  margin-top: 30px;
   border-radius: 50%;
 }
 #profileNick {
+  margin: 10px 0 20px 0;
   font-size: 21px;
   font-weight: bold;
-  margin: 10px 0 20px 0
 }
 #profileArea {
   text-align: center;
@@ -174,33 +173,32 @@ export default {
   opacity: 0.7;
 }
 #areaName {
-  font-size: 16px;
   margin: 2px 0 0 0;
   color: rgb(166, 166, 166);
+  font-size: 16px;
 }
 .router{
-  padding: 0 40px 0 50px;
-  margin-top: 30px;
   width: 160px;
   height: 120px;
-  /* background-color: aqua; */
+  margin-top: 30px;
+  padding: 0 40px 0 50px;
   text-align: center;
   display: inline-block;
 }
 .router > * {
-  float: left;
   color: black;
-  text-decoration: none;
-  font-weight: bold;
   font-size: 17px;
+  font-weight: bold;
+  text-decoration: none;
+  float: left;
 }
 #like {
   margin: 0 0;
 }
 #likeImage{
-  margin-top: 5px;
   width: 35px;
   height: 34px;
+  margin-top: 5px;
 }
 #chat {
   margin: 0 0 0 58px;

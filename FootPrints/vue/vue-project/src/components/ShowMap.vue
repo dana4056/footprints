@@ -29,23 +29,22 @@ export default {
     mounted(){
         let $vm = this;
         let kakao = window.kakao;
-        var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+        let mapContainer = document.getElementById('map'),
         mapOption = { 
-            center: new kakao.maps.LatLng($vm.latitude, $vm.longtitude), // 지도의 중심좌표
+            center: new kakao.maps.LatLng($vm.latitude, $vm.longtitude), 
             level: 3 // 지도의 확대 레벨
         };
         console.log(mapOption);
         console.log($vm.latitude, $vm.longtitude);
 
-        var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
-        // 마커가 표시될 위치입니다 
-        var markerPosition  = new kakao.maps.LatLng($vm.latitude, $vm.longtitude); 
+        let map = new kakao.maps.Map(mapContainer, mapOption);
 
-        // 마커를 생성합니다
-        var marker = new kakao.maps.Marker({
+        let markerPosition  = new kakao.maps.LatLng($vm.latitude, $vm.longtitude); 
+
+        let marker = new kakao.maps.Marker({
             position: markerPosition
         });
-        // 마커가 지도 위에 표시되도록 설정합니다
+
         marker.setMap(map); 
     },
     methods:{
@@ -61,30 +60,29 @@ export default {
 
 <style>
 .wrapper{
-  position: fixed;
   width: 100%;
   height: 100%;
+  position: fixed;
   overflow: hidden;
 }
 #map{
-    width: 95%;
-    height: 400px;
-    margin: 0 auto;
-    border-radius: 20px;
+  width: 95%;
+  height: 400px;
+  margin: 0 auto;
+  border-radius: 20px;
 }
-
 .visibleBox{
-  visibility: visible;
-  z-index: 1050;
   width:100%;
   height:100%;
   background: rgba(0,0,0,0.6);
+  visibility: visible;
   position: fixed;
+  z-index: 1050;
 }
 .invisibleBox{
-  visibility: hidden;
   width:100%;
   height:100%;
+  visibility: hidden;
   position: fixed;
 }
 .invisibleBox h4{
@@ -93,29 +91,26 @@ export default {
 .visibleBox h4{
   margin: 12px auto;
 }
-
 .white-bg{
-    width: 50%;
-    margin: 170px auto;
-    background: white;
-    border-radius: 62px;
-    padding: 15px 0;
+  width: 50%;
+  margin: 170px auto;
+  padding: 15px 0;
+  background: white;
+  border-radius: 62px;
 }
-
 .close{
-  cursor:pointer;
-  border:none;
-  background:#ccc;
-  color:white;
-  font-weight: bold;
-  border-radius: 10px;
   padding: 5px 15px;
-}
-
-.close:hover{
+  background:#ccc;
+  border:none;
+  border-radius: 10px;
   color:white;
   font-weight: bold;
+  cursor:pointer;
+}
+.close:hover{
   transform: scale(1.1);
   transition: all 0.5s;
+  color:white;
+  font-weight: bold;
 }
 </style>

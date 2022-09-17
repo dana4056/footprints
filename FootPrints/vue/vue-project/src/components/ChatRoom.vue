@@ -65,23 +65,23 @@ export default {
 
 <style scoped>
 ul {
-  padding: 0 0;
+  height: 770px;
   margin: 0 0 ;
+  padding: 0 0;
   overflow: scroll;
   scroll-behavior: smooth;
-  height: 770px;
 }
 ul::-webkit-scrollbar {
   display: none;
 }
 .room_info {
+  height: 130px;
   border-bottom: 1px solid rgb(235, 235, 235);
   cursor: pointer;
-  height: 130px;
 }
 .room_info > * {
-  float: left;
   margin-left: 50px;
+  float: left;
 }
 img {
   width: 60px;
@@ -90,8 +90,8 @@ img {
 }
 h3 {
   width:200px;
-  text-align: left;
   margin-top: 30px;
+  text-align: left;
 }
 p {
   margin-top: 0px;

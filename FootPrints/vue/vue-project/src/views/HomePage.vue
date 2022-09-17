@@ -1,10 +1,8 @@
 <template>
   <div class="wrap">
-
       <tool-bar></tool-bar>
       <div id="content">
         
-    
       </div>
       <up-button id="up_button"></up-button>
       <!-- footer 지역에 닿으면 사라지는 이슈 -->
@@ -31,35 +29,35 @@ export default {
 
 <style scoped>
 .wrap{
-    min-height: 100%;
-    position: relative;
+  min-height: 100%;
+  position: relative;
 }
 #content{
-    height: 1000px;
-    padding-bottom: 300px;
+  height: 1000px;
+  padding-bottom: 300px;
 }
 #footer{
-    height: 300px;
-    position: absolute;  
-    width: 100%;
-    left: 0;
+  width: 100%;
+  height: 300px;
+  position: absolute;  
+  left: 0;
 }
 #up_button{
-    position: fixed;
-    bottom: 70px;
-    right: 200px;
-    z-index: 1000;
+  position: fixed;
+  bottom: 70px;
+  right: 200px;
+  z-index: 1000;
 }
 #delivery{
-  float:left;
   width:50%;
   height:50%;
+  float:left;
 }
 #room{
-  clear:right;
-  float:right;
   width:50%;
   height:50%;
+  clear:right;
+  float:right;
 }
 #notice{
   float:left;
@@ -67,10 +65,9 @@ export default {
   height:50%;
 }
 #event{
-  clear:right;
-  float:right;
   width:50%;
   height:50%;
+  clear:right;
+  float:right;
 }
-
 </style>

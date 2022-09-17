@@ -85,8 +85,6 @@
 </template>
 
 <script>
-// import axios from 'axios';
-
 export default {
   data() {
     return {
@@ -226,60 +224,50 @@ export default {
 
 <style scoped>
 body {
-  text-align: center;
   font-family: 'Noto Sans KR', sans-serif;
+  text-align: center;
 }
-
 .header {
   width: 100%;
   max-width: 1024px;
   margin: 0 auto;
-
   padding: 15px 45px;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
-
 .logo {
-  display: flex;
   margin: 0px 10px;
   color: black;
-  text-decoration: none;
-  align-items: center;
   font-weight: bold;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
 }
-
 .logo img {
   margin: 3px 10px;
 }
-
 h3 {
   display: block;
 }
-
 #wrap {
   width: 360px;
   margin: 0 auto;
   padding: 50px 0 100px 0;
 }
-
 .SnsBox ul {
   padding: 0;
   list-style: none;
 }
-
 .SnsBox li {
   display: inline;
 }
-
 .SnsBox .brandLogo {
   border-radius: 7px;
 }
-
 .SnsBox .tinytext {
-  font-weight: lighter;
   font-size: 12px;
+  font-weight: lighter;
 }
 
 /* 일반 회원가입 form */
@@ -287,109 +275,95 @@ h3 {
   padding: 50px 0 0 0;
   border-top: 1px solid rgb(226, 226, 226);
 }
-
 .inputDiv {
   margin: 0 0 30px;
 }
-
 label {
-  text-align: left;
-  display: block;
+  margin: 0 0 12px;
+  color: #292929;
   font-size: 15px;
   font-weight: bold;
-  color: #292929;
-  margin: 0 0 12px;
+  text-align: left;
+  display: block;
 }
-
 input, select {
-  font-family: 'Noto Sans KR', sans-serif;
-  outline: none;
+  box-sizing: border-box;
   width: 100%;
   height: 40px;
+  margin: 0 0 7px 0;
+  padding: 8px 15px 9px;
   background: #FAFAFA;
   border: 1px solid #BDBDBD;
-  box-sizing: border-box;
   border-radius: 8px;
-  padding: 8px 15px 9px;
-  margin: 0 0 7px 0;
+  font-family: 'Noto Sans KR', sans-serif;
+  outline: none;
 }
 #directInputBox{
     position:relative;
 }
-
 #directInputBox i{
     position: absolute;
     left: 139px;
     bottom: 2px;
     color:#BDBDBD;
 }
-
 input:focus {
-  outline: none;
-  border-color: #999999;
   background: #F3F3F3;
+  border-color: #999999;
+  outline: none;
 }
-
 input:hover {
   background: #F3F3F3;
 }
-
 input::placeholder {
   color: #BDBDBD;
   font-weight: 100;
 }
-
 .errorType input, .errorType select{
   background: #fff6f6;
-  outline: none;
   border-color: #eb7373;
+  outline: none;
 }
-
 .errorType span {
-  text-align: left;
-  font-size: 12px;
   color: #eb7373;
+  font-size: 12px;
+  text-align: left;
 }
 .correctType input, .correctType select{
   background: #e8f0fe;
-  outline: none;
   border-color: #6ea7f2;
+  outline: none;
 }
 .correctType span {
-  text-align: left;
-  font-size: 12px;
   color: #6ea7f2;
+  font-size: 12px;
+  text-align: left;
 }
 button {
-  font-family: 'Noto Sans KR', sans-serif;
+  box-sizing: border-box;
   width: 100%;
   height: 40px;
   background: #ffffff;
-  color: #7aab85;
   border: 1px solid #7aab85;
-  box-sizing: border-box;
   border-radius: 13px;
+  color: #7aab85;
+  font-family: 'Noto Sans KR', sans-serif;
 }
-
 .btn1, .btn2 {
   padding: 8px 15px 9px;
 }
-
 .btn1 {
   margin: 0 0 7px 5px;
 }
-
 .btn1:hover, .btn2:hover {
   background: #c5e6cd54;
 }
-
 .submitBtn {
   background: #7aab85;
   border: 1px solid #7aab85;
   color: #ffffff;
   font-weight: bold;
 }
-
 .submitBtn:hover {
   background: #669270;
 }
@@ -403,31 +377,29 @@ button {
 .emailItem3 {
   width:45%;
 }
-
 .search{
   margin: 0 0 30px;
-  border-radius: 10px;
   background-color: #dfebe2;
+  border-radius: 10px;
 }
 .search p{
-  color: white;
-  font-weight: bold;
-  font-size: 14px;
   padding: 10px;
-  border-radius: 10px 10px 0 0;
   background-color: #669270;
+  border-radius: 10px 10px 0 0;
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
 }
 .search select{
   margin: 0 0 10px;
 }
-
 .search .sido{
-  float: left;
   width: 48%;
+  float: left;
 }
 .search .sigoon{
-  float: right;
   width: 48%;
+  float: right;
 }
 .select-box{
   padding: 10px 10px 20px 10px;

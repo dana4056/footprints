@@ -24,7 +24,7 @@ import ToolBar from '../components/ToolBar.vue'
 import FooterArea from '../components/FooterArea.vue'
 
 export default {
-components:{
+  components:{
     ToolBar,
     FooterArea,
   },
@@ -33,29 +33,28 @@ components:{
       content: ""
     }
   },
-created(){
-  const notice_id = this.$route.params.id;
-  this.$store.dispatch('FETCH_NOTICE_DETAIL', notice_id);
-  setTimeout(() => { 
-    return this.$store.state.notice;
-  }, 100); 	
-},
-
+  created(){
+    const notice_id = this.$route.params.id;
+    this.$store.dispatch('FETCH_NOTICE_DETAIL', notice_id);
+    setTimeout(() => { 
+      return this.$store.state.notice;
+    }, 100); 	
+  },
 }
 </script>
 
 <style scoped>
 #wrap {
-  margin: 50px auto;
   width: 700px;
   height: 600px;
+  margin: 50px auto;
   border: 2px solid rgba(0, 0, 0, 0.558);
   border-radius: 40px;
 }
 img {
-  margin: 32px 0 0 25px;
-  height: 40px;
   width: 40px;
+  height: 40px;
+  margin: 32px 0 0 25px;
 }
 .header {
   height: 100px;
@@ -65,9 +64,9 @@ img {
   float: left;
 }
 #title {
-  font-family: 'Noto Sans KR', sans-serif;
   width: 450px;
   margin: 33px 0 0 20px;
+  font-family: 'Noto Sans KR', sans-serif;
   text-align: left;
 }
 .info {
@@ -76,13 +75,13 @@ img {
 #view, #date {
   width: 100%;
   margin: 22px 0 0 0 ;
-  font-size: 14px;
   color: #666;
+  font-size: 14px;
 }
 .content {
+  height: 460px;
   padding: 5px 20px;
   text-align: left;
-  height: 460px;
   overflow: auto;
 }
 </style>

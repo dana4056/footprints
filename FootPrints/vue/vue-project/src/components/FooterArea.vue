@@ -23,17 +23,16 @@ export default {
 <style scoped>
 
 .footer{
-    /* height: 200px; */
-    background-color: #f8f8f8;
-    display: flex;
-    justify-content: space-around;
-    color: #d0d0d0;
-    
+  /* height: 200px; */
+  background-color: #f8f8f8;
+  color: #d0d0d0;
+  display: flex;
+  justify-content: space-around;
 }
 .textBox{
-  padding: 10px;
   margin: 30px auto;
-  font-size:small;
+  padding: 10px;
+  font-size: small;
 }
 #intro{
   text-align: left;
@@ -45,7 +44,6 @@ export default {
 .logo{
   height:25px;
 }
-
 .logo > img{
   width:25px;
   margin: 0 5px 0 0;

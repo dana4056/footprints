@@ -19,10 +19,9 @@ export default {
 </script>
 
 <style scoped>
-
 #wrap{
-  display: flex;
   height: 100vh;
+  display: flex;
   flex-direction: column;
   justify-content: center;
 }
@@ -35,17 +34,17 @@ img{
   width: 100px;
 }
 .nick{
-  font-weight: 700;
   color:#4a44cd;
+  font-weight: 700;
 }
 button{
-  margin: 0px 5px;
+  box-sizing: border-box;
   width: 100px;
   height: 32px;
-  box-sizing: border-box;
+  margin: 0px 5px;
+  border-radius: 10px;
   color: white;
   font-family: 'Noto Sans KR', sans-serif;
-  border-radius: 10px;
 }
 #login{
   background-color: #7aab85;
@@ -55,5 +54,4 @@ button{
   background-color: #797979;
   border: 1px solid #797979;
 }
-
 </style>
