@@ -12,7 +12,7 @@
 //
 //    @Override
 //    public void registerStompEndpoints(StompEndpointRegistry registry) {
-//        registry.addEndpoint("/chat")
+//        registry.addEndpoint("/socket-open")
 ////                .setAllowedOrigins("http://localhost:8080")
 //                .withSockJS();
 //    }
