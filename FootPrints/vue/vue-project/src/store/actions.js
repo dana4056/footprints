@@ -121,14 +121,13 @@ export default{
             commit('SET_MEMBER', member);
             commit('SET_DELIVERY_AREA', member.area);
             router.replace("/home");
+            store.dispatch("FETCH_AUTHORITY");
             store.dispatch('FIND_POST_ID', loginMember.nick);
           })
           .catch(error => {
+            router.replace("/home");
             console.log("지역 읽기 실패", error);
           })
-        router.replace("/home");
-        store.dispatch("FETCH_AUTHORITY");
-        store.dispatch('FIND_POST_ID', loginMember.nick);
       })
       .catch(error => {
         const code = error.response.status;
