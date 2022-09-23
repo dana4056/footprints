@@ -24,4 +24,6 @@ public interface PostRepository {
     void delete_all(Long post_id);
 
     void plus_participant(Long post_id);
+
+    void minus_participant(Long post_id);
 }

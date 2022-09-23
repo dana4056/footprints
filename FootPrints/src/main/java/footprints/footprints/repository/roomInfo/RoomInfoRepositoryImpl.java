@@ -41,6 +41,9 @@ public class RoomInfoRepositoryImpl implements RoomInfoRepository{
         Member member = memberRepository.findByNick(nick);
         Post post = postRepository.findByPostId(post_id);
         RoomInfo roomInfo = new RoomInfo(member, post);
+
+        postRepository.minus_participant(post_id);
+
         em.remove(roomInfo);
     }
 

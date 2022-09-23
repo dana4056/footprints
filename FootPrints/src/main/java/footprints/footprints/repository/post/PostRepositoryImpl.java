@@ -195,4 +195,10 @@ public class PostRepositoryImpl implements PostRepository{
         Query query = em.createQuery("update Post p set p.participant_num = p.participant_num + 1 where p.post_id = :post_id");
         query.setParameter("post_id", post_id).executeUpdate();
     }
+
+    @Override
+    public void minus_participant(Long post_id) {
+        Query query = em.createQuery("update Post p set p.participant_num = p.participant_num - 1 where p.post_id = :post_id");
+        query.setParameter("post_id", post_id).executeUpdate();
+    }
 }
