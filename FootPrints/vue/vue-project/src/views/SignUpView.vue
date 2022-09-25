@@ -19,8 +19,7 @@
       <!-- 일반 회원가입 form -->
       <div id="inputData">
         <form>
-          <div class="inputDiv" v-bind:class="{errorType:!isValidNick() | this.isDupliNick, 
-                                                   correctType:this.isUniqNick}">
+          <div class="inputDiv" v-bind:class="{errorType:!isValidNick() | this.isDupliNick, correctType:this.isUniqNick}">
             <label>닉네임</label>
             <input id='nickname' v-model="Nick" v-on:focus="ignoreInputN" v-on:focusout="checkNick()" 
                    type="text" placeholder="별명 (2~8자)" autoComplete="off" required>
@@ -180,10 +179,9 @@ export default {
       }
     },
     isValidNick() {   // 닉네임 형식 판단
-      const nick = this.Nick.trim();
-      console.log(nick.length);
-      if (nick != "") {
-        if (nick.length >= 2 && nick.length <= 8 && !nick.isEmpty()) {
+      if (this.Nick !== "") {
+        const nick = this.Nick.trim();
+        if (nick.length >= 2 && nick.length <= 8) {
           return true;
         } else {
           this.isUniqNick = false;
