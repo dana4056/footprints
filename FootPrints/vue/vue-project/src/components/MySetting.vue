@@ -23,7 +23,7 @@
     <div class="inputDiv" v-bind:class="{errorType:this.isDupliEmail, correctType:this.isUniqEmail}">
       <label>이메일</label>
       <div class="emailGroup">
-        <span> <input class="emailItem1" v-model="Email1" v-on:focus="ignoreInputE" type="text" autoComplete="off" placeholder="아이디" required> </span>
+        <span> <input class="emailItem1" v-model="Email1" v-on:focus="ignoreInputE" type="text" autoComplete="off" placeholder="아이디" required v-on:focusout="checkEmail"> </span>
         <span><span class="emailItem2">@</span></span>
         <span>
           <select v-if="isSelectBox" v-on:change="directInput" class="emailItem3" name="domain" id='userId2' v-model="Email2" v-on:focus="ignoreInputE" v-on:focusout="checkEmail">
@@ -147,7 +147,7 @@ export default {
         setTimeout(() => { 
           this.isDupliEmail =  this.$store.state.isDuplicateEmail;
           this.isUniqEmail = !this.$store.state.isDuplicateEmail;
-        }, 100);    
+        }, 100); 
       }
     },
     isDiferrentPw() {      // 비밀번호 & 비밀번호 확인란 일치 여부
