@@ -10,7 +10,7 @@
           <p id="date">조회수 {{ this.$store.state.notice.view_num }}</p>
         </div>
       </div>
-      <div class="content">
+      <div class="content"> 
         <p v-for="content in this.$store.state.notice.content.split('\n')" v-bind:key="content">{{content}}</p>
       </div>
     </div>

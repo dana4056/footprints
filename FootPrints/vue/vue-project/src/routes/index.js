@@ -19,6 +19,7 @@ import MyPage from '../views/MyPage'
 import NoticeDetail from '../views/NoticeDetail.vue'
 import NoticeList from '../views/NoticeView.vue'
 import NoticeCreate from '../views/NoticeCreate.vue'
+import NoticeAmend from '../views/NoticeAmend.vue'
 
 import ChatView from '../views/ChatView'
 
@@ -44,6 +45,7 @@ const routes = [
     {   path: '/notice/:id', component: NoticeDetail },
     {   path: '/notice/post', component: NoticeList },
     {   path: '/notice/new-notice', component: NoticeCreate },
+    {   path: '/notice/:id/amend', component: NoticeAmend },
     {   path: '/chat/:nick', component: ChatView  },
 ]
 

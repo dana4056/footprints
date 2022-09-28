@@ -108,6 +108,27 @@ function postNotice(noticeDTO) {
       });
 }
 
+function patchNotice(noticeDTO){
+    return axios.patch(`${config.baseUrl}/notice`, noticeDTO, {
+        headers: {
+            'Content-Type': 'application/json',
+            'X-AUTH-TOKEN': localStorage.getItem('jwt')
+        }
+    })
+}
+
+function deleteNotice(id) {
+    return axios.delete(`${config.baseUrl}/notice`, {
+        params: {
+            id: id,
+        },
+        headers: {
+            'Content-Type': 'application/json',
+            'X-AUTH-TOKEN': localStorage.getItem('jwt')
+        }
+    });
+}
+
 function getNoticeDetail(notice_id) {
     return axios.get(`${config.baseUrl}/notice/${notice_id}`,{
         params: {
@@ -175,14 +196,6 @@ function postDeliveryPost(post) {
         }
     });
 }
-
-// function postMakeRoomInfo(post_id){
-//     return axios.post(`${config.baseUrl}/delivery/post/aa`, post_id,{
-//         headers: {
-//             'X-AUTH-TOKEN': localStorage.getItem('jwt')
-//         }
-//     })
-// }
 
 function patchDeliveryPost(post) {
     return axios.patch(`${config.baseUrl}/delivery/post`, post, {
@@ -327,6 +340,8 @@ export{
     //Notice
     getNoticeList,
     postNotice,
+    patchNotice,
+    deleteNotice,
     getNoticeDetail,
 
     //Users

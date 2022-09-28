@@ -3,7 +3,7 @@ import { fetchToken, fetchAutority } from "../api/index.js";
 //Member
 import { postSignup, patchChangePwd, getUserArea, postLogin, getFindId, getFindPwd, getCheckNick, getCheckEmail, } from "../api/index.js";
 //Notice
-import { getNoticeList, postNotice, getNoticeDetail } from "../api/index.js";
+import { getNoticeList, postNotice, patchNotice, deleteNotice, getNoticeDetail } from "../api/index.js";
 //Users
 import { getMyPost, getAttendPost, patchUserInfo } from "../api/index.js";
 //Delivery
@@ -222,6 +222,41 @@ export default{
       })
       .catch(error => {
         console.log("API:POST_NOTICE\n공지사항 등록 실패", error);
+      })
+  },
+
+  // 공지사항 수정 
+  AMEND_NOTICE(content, noticeDTO){
+    return patchNotice(noticeDTO)
+      .then(response => {
+        console.log("API:AMEND_NOTICE\n공지사항 수정 성공", response);
+        Swal.fire({
+          icon: 'success',
+          title: '공지사항이 수정되었습니다.',
+          confirmButtonText: '공지사항으로 가기',
+        }).then(() => {
+          this.$router.replace("/notice/post");
+        })
+      })
+      .catch(error => {
+        console.log("API:POST_NOTICE\n공지사항 수정 실패", error);
+      })
+  },
+
+  DELETE_NOTICE(content, id) {
+    return deleteNotice(id)
+      .then(response => {
+        console.log('API:DELETE_NOTICE\n공지사항 삭제 성공', response);
+        Swal.fire({
+          icon: 'success',
+          title: '공지사항이 삭제되었습니다.',
+          confirmButtonText: '공지사항으로 가기',
+        }).then(() => {
+          this.$router.replace("/notice/post");
+        })
+      })
+      .catch(error => {
+        console.log('API:DELETE_NOTICE\n공지사항 삭제 실패', error);
       })
   },
 
