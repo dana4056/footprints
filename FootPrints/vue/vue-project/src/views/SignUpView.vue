@@ -19,8 +19,7 @@
       <!-- 일반 회원가입 form -->
       <div id="inputData">
         <form>
-          <div class="inputDiv" v-bind:class="{errorType:!isValidNick() | this.isDupliNick, 
-                                                   correctType:this.isUniqNick}">
+          <div class="inputDiv" v-bind:class="{errorType:!isValidNick() | this.isDupliNick, correctType:this.isUniqNick}">
             <label>닉네임</label>
             <input id='nickname' v-model="Nick" v-on:focus="ignoreInputN" v-on:focusout="checkNick()" 
                    type="text" placeholder="별명 (2~8자)" autoComplete="off" required>
@@ -57,7 +56,7 @@
             <span class="correctType" v-if="this.isUniqEmail">사용 가능한 이메일입니다. </span>
           </div>
 
-          <div class="inputDiv" v-bind:class="{errorType:isDiferrentPw()|!isValidPw()}">
+          <div class="inputDiv" v-bind:class="{errorType:!isValidPw()}">
             <label>비밀번호</label>
             <input id='password1' autoComplete="off" v-on:focusout="isValidPw"
                    v-model="Pw1" type="password" placeholder="비밀번호 (영어, 숫자, 특수문자 포함 8~20자)" required>
@@ -66,8 +65,7 @@
 
           <div class="inputDiv" v-bind:class="{errorType:isDiferrentPw()}">
             <label>비밀번호 확인</label>
-            <input id='password2' autoComplete="off"
-                   v-model="Pw2" type="password" placeholder="비밀번호 재입력" required>
+            <input id='password2' autoComplete="off" v-model="Pw2" type="password" placeholder="비밀번호 재입력" required>
             <span class="errorType" v-if="isDiferrentPw()">비밀번호가 일치하지 않습니다.</span>
           </div>
 
@@ -116,7 +114,7 @@ export default {
       this.isUniqEmail = false;
       this.isDupliEmail = false;
     },
-    checkNick() { 
+    checkNick() {
       if (this.Nick != "") {
         this.$store.dispatch('POST_NICK', this.Nick);
         setTimeout(() => { 
@@ -181,8 +179,9 @@ export default {
       }
     },
     isValidNick() {   // 닉네임 형식 판단
-      if (this.Nick != "") {
-        if (this.Nick.length >= 2 && this.Nick.length <= 8) {
+      if (this.Nick !== "") {
+        const nick = this.Nick.trim();
+        if (nick.length >= 2 && nick.length <= 8) {
           return true;
         } else {
           this.isUniqNick = false;
