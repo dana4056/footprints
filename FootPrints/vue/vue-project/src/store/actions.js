@@ -122,7 +122,7 @@ export default{
             commit('SET_DELIVERY_AREA', member.area);
             router.replace("/home");
             store.dispatch("FETCH_AUTHORITY");
-            store.dispatch('FIND_POST_ID', loginMember.nick);
+            // store.dispatch('FIND_POST_ID', loginMember.nick); 왜?
           })
           .catch(error => {
             router.replace("/home");

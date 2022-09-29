@@ -73,6 +73,8 @@
 import ToolBar from '../components/ToolBar.vue'
 import { router } from '../routes/index.js';
 import Swal from 'sweetalert2';
+// import Stomp from 'webstomp-client'
+// import SockJS from 'sockjs-client'
 
 export default {
   data() {
@@ -83,6 +85,7 @@ export default {
       my_nick: "",
       msg: "",
       post_id: 0,
+      recvList : [],
     }
   },
   components: {
@@ -120,6 +123,20 @@ export default {
     }, 0);
   },
   methods: {
+    // connect(){
+    //  const serverURL = "/socket-open"
+    //  let socket = new SockJS(serverURL);  // 소켓 열 주소
+    //  console.log("소켓 열기 : serverURL");
+    //  this.stompClient = Stomp.over(socket);
+    //  this.stompClient.connect({}, function (frame) {
+    //     console.log('Connected: ' + frame);
+    //     this.stompClient.subscribe('/sub/send', res => {
+    //       console.log('구독으로 받은 메시지 입니다.', res.body);
+    //       this.recvList.push(JSON.parse(res.body))
+    //       console.log(this.recvList);
+    //     })
+    //  });
+    // },
     clickRoom(li) {
       this.chekcedArr[this.$store.state.roomIndex] = false;
       this.$store.state.roomIndex = li.currentTarget.id;
@@ -170,6 +187,9 @@ export default {
         };
         this.$store.dispatch('POST_CHAT_DATA', chatData);
 
+        // if (this.stompClient && this.stompClient.connected) {
+        //     this.stompClient.send("/receive", JSON.stringify(this.chatData), {});
+        // }
         this.$store.dispatch('FIND_CHAT_LOGS', post_id);
 
         this.msg = "";

@@ -21,8 +21,8 @@ public class ChatController {
 
     private final ChatService chatService;
 
-//    @MessageMapping
-//    @SendTo
+//    @MessageMapping("/receive")
+//    @SendTo("/sub/send")
 //    public String sendMessage(ChatDataDTO chatDataDTO){
 //        String message = chatDataDTO.getMessage();
 //        return message;
