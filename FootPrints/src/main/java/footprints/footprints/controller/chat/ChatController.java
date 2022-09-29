@@ -7,8 +7,13 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.HtmlUtils;
+
+
 
 import java.util.List;
 
@@ -19,19 +24,12 @@ public class ChatController {
 
     private final ChatService chatService;
 
-    @GetMapping("/chat")
-    public String chatGET(){
-        log.info("@ChatController, chat GET()");
-
-        return "chat";
-    }
-
-    @PostMapping(value = "/chat/get-PostIdlist") // 사용자가 속한 한 post_id를 리스트(Integer) 형태로 가져온다.
-    public ResponseEntity<List<Long>> getPostIdList(@RequestBody String nick){
-
-//        Member principal = (Member) authentication.getPrincipal();
-//
-//        String nick = principal.getNick();
+//    @MessageMapping("/hello")
+//    @SendTo("/topic/greetings")
+//    public Greeting greeting(HelloMessage message) throws Exception {
+//        Thread.sleep(500); // simulated delay
+//        return new Greeting("Hello, " + HtmlUtils.htmlEscape(message.getName()) + "!");
+//    }
 
     @GetMapping(value = "/chat/post-id-list") // 사용자가 속한 한 post_id를 리스트(Integer) 형태로 가져온다.
     public ResponseEntity<List<Long>> getPostIdList(@RequestParam String nick){
