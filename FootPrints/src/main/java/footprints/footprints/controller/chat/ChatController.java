@@ -49,9 +49,9 @@ public class ChatController {
     }
 
     @GetMapping(value = "/chat") // 채팅 기록 (from_name, time, message)를 리스트(String) 형태로 가져온다.
-    public ResponseEntity<List<ChatDataDTO>> getChatList(@RequestParam Long post_id){
+    public ResponseEntity<List<ChatDataDTO>> getChatList(@RequestParam String post_id){
         log.info("-------------------getChatList--{}",post_id);
-        List<ChatDataDTO> chatList = chatService.getChatList(post_id);
+        List<ChatDataDTO> chatList = chatService.getChatList(Long.parseLong(post_id));
         return new ResponseEntity<>(chatList, HttpStatus.OK);
     }
 

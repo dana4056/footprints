@@ -241,14 +241,20 @@ function getPostIdList(nick) {
             nick: nick,
         },
         headers: {
-            'Content-Type': 'text/plain'
+            'Content-Type': 'text/plain',
+            'X-AUTH-TOKEN': localStorage.getItem('jwt')
         }
     });
 }
 
 function getPostInfoList(list) {
     console.log("postIDList: " + list);
-    return axios.post(`${config.baseUrl}/chat/get-PostInfoList`, list);
+    return axios.post(`${config.baseUrl}/chat/get-PostInfoList`, list, {
+        headers: {
+            // 'Content-Type': 'text/plain',
+            'X-AUTH-TOKEN': localStorage.getItem('jwt')
+        }
+    });
 }
 
 function getNickList(post_id) {
@@ -257,7 +263,8 @@ function getNickList(post_id) {
             post_id: post_id,
         },
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'X-AUTH-TOKEN': localStorage.getItem('jwt')
         }
     });
   }
@@ -268,7 +275,8 @@ function getChatList(post_id) {
             post_id: post_id,
         },
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'X-AUTH-TOKEN': localStorage.getItem('jwt')
         }
     });
   }
@@ -307,6 +315,7 @@ function patchRoomInfo(roomInfo) {
             post_id: roomInfo.post_id,
         },
         headers: {
+            'X-AUTH-TOKEN': localStorage.getItem('jwt'),
             'Content-Type': 'application/json'
         }
     });
