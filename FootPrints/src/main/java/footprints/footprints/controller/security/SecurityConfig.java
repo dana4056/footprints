@@ -68,7 +68,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             @Override
             public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
                 response.setStatus(HttpStatus.FORBIDDEN.value());
-//                response.sendRedirect("/error");
+                response.sendRedirect("/forbidden");
             }
         });
     }

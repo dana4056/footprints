@@ -22,7 +22,15 @@ export default{
   ////////////////////////// TOKEN //////////////////////////
 
   FETCH_USER({commit}){
-    return fetchToken()
+    console.log("토큰");
+    console.log(localStorage.getItem('jwt'));
+    if(localStorage.getItem('jwt') == null){
+      console.log("API:FETCH_USER\n멤버 가져오기 실패(토큰없음)");
+      alert("로그인 후 이용하세요");
+      router.replace("/home");
+      return;
+    }else{
+      return fetchToken()
       .then(response =>{
         console.log("API:FETCH_USER\n멤버 가져오기 성공",response.data);
         const member = {
@@ -42,9 +50,9 @@ export default{
         }
         else{
           console.log("API:FETCH_USER\n멤버 가져오기 실패(??)",error);
-          console.log("페이지 최초 방문할 때 가끔 500오류 발생?");
         }
       })
+    }
   },
 
   FETCH_AUTHORITY({commit}){
@@ -128,20 +136,42 @@ export default{
             router.replace("/home");
             console.log("지역 읽기 실패", error);
           })
-      })
-      .catch(error => {
-        const code = error.response.status;
-        if (code == 400) {
-          console.log("API:POST_LOGIN\n로그인 실패 - 존재하지 않는 닉네임", error);
-          alert("API:POST_LOGIN\n로그인 실패 - 존재하지 않는 닉네임입니다.");
-        }
-        else if (code == 404) {
-          console.log("API:POST_LOGIN\n로그인 실패 - 비밀번호 불일치", error);
-          alert("비밀번호가 일치하지 않습니다.");
-        }
-        else { console.log("API:POST_LOGIN\n로그인 실패", error) }
-      })
+        })
+        .catch(error => {
+          const code = error.response.status;
+          if (code == 400) {
+            console.log("API:POST_LOGIN\n로그인 실패 - 존재하지 않는 닉네임", error);
+            alert("API:POST_LOGIN\n로그인 실패 - 존재하지 않는 닉네임입니다.");
+          }
+          else if (code == 404) {
+            console.log("API:POST_LOGIN\n로그인 실패 - 비밀번호 불일치", error);
+            alert("비밀번호가 일치하지 않습니다.");
+          }
+          else { console.log("API:POST_LOGIN\n로그인 실패", error) }
+        })
   },
+
+  // FETCH_AREA({ commit }, nick) {
+  //   return getUserArea(nick)
+  //   .then(response => {
+  //     console.log("지역 얻기 성공 !", response.data);
+  //     const member = {
+  //       nick: nick,
+  //       email: response.data.email,
+  //       pw: "",
+  //       area: response.data.area
+  //     }
+  //     commit('SET_MEMBER', member);
+  //     commit('SET_DELIVERY_AREA', member.area);
+  //     router.replace("/home");
+  //     store.dispatch("FETCH_AUTHORITY");
+  //     store.dispatch('FIND_POST_ID', nick);
+  //   })
+  //   .catch(error => {
+  //     router.replace("/home");
+  //     console.log("지역 읽기 실패", error);
+  //   })
+  // },
 
   // 아이디 찾기
   FIND_NICK({ commit }, email) {

@@ -69,6 +69,9 @@ export default {
   components:{
         ToolBar,
   },
+  created(){
+    this.$store.dispatch('FETCH_USER');
+  },
   mounted() {
     let $vm = this;
     // 날짜 입력 최소값 지정(현시간)
@@ -139,7 +142,7 @@ export default {
   methods: {
     register() {
       if (this.submitData()){
-        this.$store.dispatch('FETCH_USER') //의도가 뭐지 -> 작성자 정보 포함해야하니까
+        // this.$store.dispatch('FETCH_USER') //의도가 뭐지 -> 작성자 정보 포함해야하니까
           const post = {
             post_name: this.post_name,           // 글 제목
             post_content: this.post_content,     // 글 내용

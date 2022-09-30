@@ -1,9 +1,18 @@
 import Vuex from 'vuex'
+import persistedStore from './persistedStore'
 import actions from './actions'
 import dayjs from 'dayjs'
 import createPersistedState from "vuex-persistedstate";
 
 export const store = new Vuex.Store({
+     // 접근시 this.$store.state.persistedStore.키값
+    modules: {
+        persistedStore : persistedStore
+    },
+    // plugins: [    createPersistedState({
+    //     paths: ['persistedStore'],
+    //   })
+    // ],
     plugins: [createPersistedState()],
     state:{
         // 공지사항 관련
@@ -29,7 +38,7 @@ export const store = new Vuex.Store({
         sessionId:"",
         // 배달 게시물 관련
         deliveryPostList:[],
-        deliveryPost_presentArea: "로그인 시 지역 설정 됨",
+        // deliveryPost_presentArea: "로그인 시 지역 설정 됨",
         deliveryPost:{},
         postIdList: [0],
         roomList: [{post_id: 0, post_name: " "}],
@@ -113,7 +122,7 @@ export const store = new Vuex.Store({
             state.pwchange_done = string;
         },
         SET_DELIVERY_AREA(state, area){
-            state.deliveryPost_presentArea = area;
+            state.persistedStore.deliveryPost_presentArea = area;
         },
         SET_DELIVERIES(state, list){
             state.deliveryPostList = list;
