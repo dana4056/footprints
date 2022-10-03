@@ -70,8 +70,10 @@ export default {
       function init() {
         loadCoords();
       }
-      if(store.state.)
-      init();
+      console.log("user:",store.state.member.nick);
+      if(store.state.member.nick == ""){
+        init(); 
+      }
     },
     // methods: {
     //   setPresentArea(area) {

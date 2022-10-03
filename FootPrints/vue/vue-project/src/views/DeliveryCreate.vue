@@ -62,7 +62,6 @@
 
 <script>
 import ToolBar from '../components/ToolBar.vue'
-import Swal from 'sweetalert2';
 import dayjs from 'dayjs'
 
 export default {
@@ -160,14 +159,6 @@ export default {
         }
         console.log("POST\n",post);
         this.$store.dispatch('POST_DELIVERY_POST', post)
-
-				Swal.fire({
-          icon: 'success',
-          title: '글이 등록되었습니다.',
-          confirmButtonText: '배달 모집 목록 보러가기',
-        }).then(() => {
-          this.$router.replace("/delivery/post");
-        })
 			}
       else {
         alert("입력이 올바른지 확인해주세요.")

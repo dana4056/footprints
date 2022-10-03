@@ -44,8 +44,8 @@ VALUES (11, 'KOR', '2022-09-01 20:37:46', 5, 1, '타지역 한국음식 배달�
 
 -- 공지사항 등록 
 INSERT INTO `test_db`.`notice` (`id`, `author`, `content`,`post_time`, `title`, `view_num`)
-VALUES (1, '관리자', '공지사항1', '2022-08-13T11:35', '공지사항 내용1', 1);
+VALUES (1, '관리자', '공지사항1', '2022.08.13', '공지사항 내용1', 1);
 INSERT INTO `test_db`.`notice` (`id`, `author`, `content`,`post_time`, `title`, `view_num`)
-VALUES (2, '관리자', '공지사항2', '2022-08-13T11:36', '공지사항 내용1', 2);
+VALUES (2, '관리자', '공지사항2', '2022.08.13', '공지사항 내용1', 2);
 INSERT INTO `test_db`.`notice` (`id`, `author`, `content`,`post_time`, `title`, `view_num`)
-VALUES (3, '관리자', '공지사항3', '2022-08-13T11:37', '공지사항 내용1', 3);
+VALUES (3, '관리자', '공지사항3', '2022.08.13', '공지사항 내용1', 3);

@@ -47,7 +47,7 @@ export default {
         const noticeDTO = {
           title: this.notice_title,           // 글 제목
           author: "관리자",
-          post_time: dayjs().format("YYYY-MM-DD HH:mm:ss"),
+          post_time: dayjs().format("YYYY.MM.DD"),
           content: this.notice_content,     // 글 내용
           view_num: 0,
         }

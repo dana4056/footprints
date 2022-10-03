@@ -3,8 +3,10 @@
     <tool-bar></tool-bar>
     <div id="wrap">
       <div class="header">
-        <img src="../assets/notice.png">
+        <!-- <img src="../assets/notice.png"> -->
+        <span class="badge">공지</span>
         <h2 id="title">{{ this.$store.state.notice.title }}</h2>
+
         <div class="info">
           <p id="view">{{ this.$store.state.notice.post_time }}</p>
           <p id="date">조회수 {{ this.$store.state.notice.view_num }}</p>
@@ -13,6 +15,7 @@
       <div class="content">
         <p v-for="content in this.$store.state.notice.content.split('\n')" v-bind:key="content">{{content}}</p>
       </div>
+      <router-link to="/notice/post"><button class="btn">목록으로</button></router-link>
     </div>
     <footer-area id="footer"></footer-area>
   </div>
@@ -48,17 +51,18 @@ export default {
   width: 700px;
   height: 600px;
   margin: 50px auto;
-  border: 2px solid rgba(0, 0, 0, 0.558);
-  border-radius: 40px;
+  position: relative;
+  /* border: 2px solid rgba(0, 0, 0, 0.558);
+  border-radius: 40px; */
 }
-img {
+/* img {
   width: 40px;
   height: 40px;
   margin: 32px 0 0 25px;
-}
+} */
 .header {
   height: 100px;
-  border-bottom: 2px solid rgba(0, 0, 0, 0.558);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.558);
 }
 .header > * {
   float: left;
@@ -83,5 +87,26 @@ img {
   padding: 5px 20px;
   text-align: left;
   overflow: auto;
+}
+
+.badge{
+  background: #db5959;
+  font-size: 12px;
+  color: #fff;
+  width: 50px;
+  height: 22px;
+  line-height: 22px;
+  border-radius: 3px;
+  margin: 42px 0 0 25px;
+}
+.btn{
+  position: absolute;
+  right: 15px;
+  width: 89px;
+  height: 32px;
+  background-color: #afafaf;
+  border: 1px solid #afafaf;
+  border-radius: 10px;
+  color: #fff;
 }
 </style>

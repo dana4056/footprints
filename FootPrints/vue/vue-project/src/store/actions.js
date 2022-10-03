@@ -247,7 +247,7 @@ export default{
           title: '공지사항이 등록되었습니다.',
           confirmButtonText: '공지사항으로 가기',
         }).then(() => {
-          this.$router.replace("/notice/post");
+          router.replace("/notice/post");
         })
       })
       .catch(error => {
@@ -354,6 +354,14 @@ export default{
         console.log("API:POST_DELIVERY_POST\n게시물 등록 성공", response);
         console.log(response.data);
         store.dispatch("FIND_POST_ID", store.state.member.nick);
+
+        Swal.fire({
+          icon: 'success',
+          title: '글이 등록되었습니다.',
+          confirmButtonText: '배달 모집 목록 보러가기',
+        }).then(() => {
+          router.replace("/delivery/post");
+        });
       })
       .catch(error => {
         const code = error.response.status;
