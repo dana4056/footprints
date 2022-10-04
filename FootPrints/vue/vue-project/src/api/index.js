@@ -133,6 +133,10 @@ function getNoticeDetail(notice_id) {
     return axios.get(`${config.baseUrl}/notice/${notice_id}`,{
         params: {
             isFrontReq: 1
+        },
+        headers: {
+            'Content-Type': 'application/json',
+            'X-AUTH-TOKEN': localStorage.getItem('jwt')
         }
       });
 }

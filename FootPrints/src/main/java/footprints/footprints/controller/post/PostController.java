@@ -86,7 +86,8 @@ public class PostController {
 
         if(isFrontReq == 1){
             return new ResponseEntity<>(post, HttpStatus.OK);
-        }else{
+        }
+        else{
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
     }

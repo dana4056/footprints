@@ -13,6 +13,16 @@
       <div class="content"> 
         <p v-for="content in this.$store.state.notice.content.split('\n')" v-bind:key="content">{{content}}</p>
       </div>
+
+      <!-- 관리자만 수정 삭제 보이도록 -->
+      <div v-if="fetched.nick == this.admin_id">
+        <button type="button" id="delete" v-on:click="deleteNotice">삭제</button>
+        <button type="button" id="amend" v-on:click="amendNotice">수정</button>
+      </div>
+      <div v-else>
+        <div>관리자 이외에는 수정, 삭제 권한이 없습니다.</div>
+      </div>
+
     </div>
     <footer-area id="footer"></footer-area>
   </div>
@@ -22,6 +32,7 @@
 
 import ToolBar from '../components/ToolBar.vue'
 import FooterArea from '../components/FooterArea.vue'
+import Swal from 'sweetalert2';
 
 export default {
   components:{
@@ -30,16 +41,39 @@ export default {
   },
   data() {
     return {
-      content: ""
+      notice_id: 0,
+      content: "",
+      admin_id : "admin",
     }
   },
+  computed:{
+    fetched(){
+      return this.$store.getters.GET_MEMBER;
+    },
+  },
   created(){
-    const notice_id = this.$route.params.id;
-    this.$store.dispatch('FETCH_NOTICE_DETAIL', notice_id);
+    this.notice_id = this.$route.params.id;
+    this.$store.dispatch('FETCH_NOTICE_DETAIL', this.notice_id);
     setTimeout(() => { 
       return this.$store.state.notice;
     }, 100); 	
   },
+  methods: {
+    amendNotice() {
+      this.$router.replace("/notice/" + this.notice_id + "/amend"); 
+    },
+    deleteNotice() {
+      this.$store.dispatch('DELETE_NOTICE', this.notice_id);
+
+      Swal.fire({
+        icon: 'success',
+        title: '공지사항 삭제 완료!',
+        confirmButtonText: '공지사항 목록 보러가기',
+      }).then(() => {
+        this.$router.replace("/notice/post");
+      })
+    },
+  }
 }
 </script>
 
@@ -83,5 +117,19 @@ img {
   padding: 5px 20px;
   text-align: left;
   overflow: auto;
+}
+
+#join, #chat, #amend, #delete {
+  border: none;
+}
+
+.button{
+  height: 40px;
+  margin: 0 5px;
+  padding: 0 18px;
+  border-radius: 20px;
+  font-weight: bold;
+  float: right;
+  cursor: pointer;
 }
 </style>

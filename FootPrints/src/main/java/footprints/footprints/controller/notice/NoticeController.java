@@ -60,12 +60,15 @@ public class NoticeController {
 
     // 상세페이지
     @GetMapping(value = "/notice/{notice_id}")
-    public ResponseEntity<Notice> NoticeDetailPage(@PathVariable("notice_id") Long notice_id, @RequestParam int isFrontReq){
+    public ResponseEntity<Notice> NoticeDetailPage(@PathVariable Long notice_id, @RequestParam int isFrontReq){
+
+        Notice notice = noticeService.getNotice(notice_id);
+        noticeService.plusView(notice);
+
         if(isFrontReq == 1){
-            Notice notice = noticeService.getNotice(notice_id);
-            noticeService.plusView(notice);
             return new ResponseEntity<>(notice, HttpStatus.OK);
-        }else{
+        }
+        else{
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
     }

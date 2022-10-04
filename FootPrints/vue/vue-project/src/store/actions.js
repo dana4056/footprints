@@ -230,13 +230,6 @@ export default{
     return patchNotice(noticeDTO)
       .then(response => {
         console.log("API:AMEND_NOTICE\n공지사항 수정 성공", response);
-        Swal.fire({
-          icon: 'success',
-          title: '공지사항이 수정되었습니다.',
-          confirmButtonText: '공지사항으로 가기',
-        }).then(() => {
-          this.$router.replace("/notice/post");
-        })
       })
       .catch(error => {
         console.log("API:POST_NOTICE\n공지사항 수정 실패", error);
@@ -247,13 +240,6 @@ export default{
     return deleteNotice(id)
       .then(response => {
         console.log('API:DELETE_NOTICE\n공지사항 삭제 성공', response);
-        Swal.fire({
-          icon: 'success',
-          title: '공지사항이 삭제되었습니다.',
-          confirmButtonText: '공지사항으로 가기',
-        }).then(() => {
-          this.$router.replace("/notice/post");
-        })
       })
       .catch(error => {
         console.log('API:DELETE_NOTICE\n공지사항 삭제 실패', error);

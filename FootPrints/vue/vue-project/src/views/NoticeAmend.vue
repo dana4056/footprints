@@ -10,7 +10,7 @@
           <textarea v-model="notice_content" id="notice_content" type="text" placeholder="공지사항 내용 적기"></textarea>
         </div>
       </div>
-      <button type="submit" v-on:click.prevent="authorization">등록하기</button>
+      <button type="submit" v-on:click.prevent="authorization">수정하기</button>
     </div>
     <footer-area id="footer"></footer-area>
   </div>
@@ -19,6 +19,7 @@
 <script>
 import ToolBar from '../components/ToolBar.vue'
 import FooterArea from '../components/FooterArea.vue'
+import Swal from 'sweetalert2';
 // import dayjs from "dayjs";
 
 export default {
@@ -51,7 +52,7 @@ export default {
       this.view_num = notice.view_num;
 
       console.log("fetch nick: ",this.$store.state.notice.author);
-      if(this.$store.state.notice.author !== "관리자"){ // 관리자라 가정
+      if(this.$store.state.notice.author !== "admin"){ // 관리자라 가정
         alert("게시물을 수정할 수 있는 권한이 없습니다.");
         this.$router.replace(`/notice/${this.notice_id}`);
       }
@@ -79,6 +80,13 @@ export default {
         }
         console.log("NOTICEDTO\n",noticeDTO);
         this.$store.dispatch('AMEND_NOTICE', noticeDTO);
+        Swal.fire({
+          icon: 'success',
+          title: '공지사항이 수정되었습니다.',
+          confirmButtonText: '공지사항 목록 보러가기',
+        }).then(() => {
+          this.$router.replace(`/notice/post`);
+        })
 			},
       submitData(){
         if(this.notice_title != "" && this.notice_content != ""){
