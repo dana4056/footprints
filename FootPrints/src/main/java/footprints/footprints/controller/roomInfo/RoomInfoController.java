@@ -26,7 +26,7 @@ public class RoomInfoController {
     public ResponseEntity<String> joinRoom(@RequestBody JoinDTO joinDTO){
         String nick = joinDTO.getNick();
         Long post_id = joinDTO.getPost_id();
-        roomInfoService.join(nick, post_id);
+        roomInfoService.join_add(nick, post_id);
         return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
     }
 

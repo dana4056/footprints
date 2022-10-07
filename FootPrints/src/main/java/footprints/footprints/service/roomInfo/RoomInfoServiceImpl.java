@@ -21,6 +21,10 @@ public class RoomInfoServiceImpl implements RoomInfoService {
         roomInfoRepository.save_d(nick, post_id);
     }
 
+    public void join_add(String nick, Long post_id){
+        roomInfoRepository.save_u(nick, post_id);
+    }
+
     public void exit(String nick, Long post_id){
         log.info("exit {} {}", nick, post_id);
         roomInfoRepository.delete_d(nick, post_id);

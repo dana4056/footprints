@@ -32,6 +32,14 @@ public class RoomInfoRepositoryImpl implements RoomInfoRepository{
         Post post = postRepository.findByPostId(post_id);
         RoomInfo roomInfo = new RoomInfo(member, post);
 
+        em.persist(roomInfo);
+    }
+
+    public void save_u(String nick, Long post_id) {
+        Member member = memberRepository.findByNick(nick);
+        Post post = postRepository.findByPostId(post_id);
+        RoomInfo roomInfo = new RoomInfo(member, post);
+
         postRepository.plus_participant(post_id);
 
         em.persist(roomInfo);

@@ -7,6 +7,8 @@ public interface RoomInfoService {
 
     void join(String nick, Long post_id);
 
+    void join_add(String nick, Long post_id);
+
     void exit(String nick, Long post_id);
 
     void delete(Long post_id);
