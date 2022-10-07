@@ -149,11 +149,11 @@ export default {
           this.recvList.push(JSON.parse(res.body))
           console.log(this.recvList);
         });
-        },
-        error => {
-          console.log("소켓 연결 실패", error);
-          this.connected = false;
-        });
+      },
+      error => {
+        console.log("소켓 연결 실패", error);
+        this.connected = false;
+      });
     },
     clickRoom(li) {
       this.chekcedArr[this.$store.state.roomIndex] = false;
