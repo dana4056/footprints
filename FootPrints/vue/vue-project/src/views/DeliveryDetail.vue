@@ -10,7 +10,7 @@
         <h2>{{ fetched.post_name }}</h2>
         
         <div id="categoryBox">
-          <img v-bind:src="require(`../assets/${fetched.category}.png`)">
+          <img v-bind:src="require(`../assets/category/${fetched.category}.png`)">
           <span class="category" v-bind:class="fetched.category">{{this.categories[fetched.category]}}</span>
         </div>
         <p id="views">조회 {{fetched.view_num}}</p>
