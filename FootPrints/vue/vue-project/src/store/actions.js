@@ -443,6 +443,7 @@ export default{
     return postRoomInfo(roomInfo)
       .then(response => {
         console.log('API:JOIN_DELIVERY_POST\n배달 참여 성공', response);
+        store.dispatch('FIND_POST_ID', store.state.member.nick);
       })
       .catch(error => {
         console.log('API:JOIN_DELIVERY_POST\n배달 참여 실패', error);
@@ -454,6 +455,7 @@ export default{
     return patchRoomInfo(roomInfo)
       .then(response => {
         console.log('API:EXIT_DELIVERY_POST\n참여 취소 성공', response);
+        store.dispatch('FIND_POST_ID', store.state.member.nick);
       })
       .catch(error => {
         console.log('API:EXIT_DELIVERY_POST\n참여 취소 실패', error);

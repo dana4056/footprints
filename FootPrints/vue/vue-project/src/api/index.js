@@ -256,11 +256,11 @@ function deleteChatData(post_id) {
 
 
 function postRoomInfo(roomInfo) {
-    return axios.post(`${config.baseUrl}/roomInfo`, roomInfo);
+    return axios.post(`${config.baseUrl}/room-info`, roomInfo);
 }
 
 function patchRoomInfo(roomInfo) {
-    return axios.patch(`${config.baseUrl}/roomInfo`, {
+    return axios.patch(`${config.baseUrl}/room-info`, {
         params: {
             nick : roomInfo.nick,
             post_id: roomInfo.post_id,
@@ -272,13 +272,13 @@ function patchRoomInfo(roomInfo) {
   }
 
 function deleteRoomInfo(post_id) {
-    return axios.delete(`${config.baseUrl}/roomInfo`, {
+    return axios.delete(`${config.baseUrl}/room-info`, {
         params: {
             post_id: post_id,
         },
         headers: {
             'Content-Type': 'application/json'
-  }
+        }
     });
 }
 
