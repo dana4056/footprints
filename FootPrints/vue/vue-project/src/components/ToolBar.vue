@@ -25,7 +25,6 @@ export default {
     methods: {
         logout(){
             localStorage.removeItem('jwt');
-            localStorage.removeItem('vuex');
             this.$router.replace("/home");
             this.$store.state.member = {nick: "",  email: "", pw: "", area: ""}
             this.$store.state.authority = "";

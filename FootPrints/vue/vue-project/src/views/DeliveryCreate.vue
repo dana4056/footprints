@@ -62,12 +62,14 @@
 
 <script>
 import ToolBar from '../components/ToolBar.vue'
-import Swal from 'sweetalert2';
 import dayjs from 'dayjs'
 
 export default {
   components:{
         ToolBar,
+  },
+  created(){
+    this.$store.dispatch('FETCH_USER');
   },
   mounted() {
     let $vm = this;
@@ -139,7 +141,7 @@ export default {
   methods: {
     register() {
       if (this.submitData()){
-        this.$store.dispatch('FETCH_USER') //의도가 뭐지 -> 작성자 정보 포함해야하니까
+        // this.$store.dispatch('FETCH_USER') //의도가 뭐지 -> 작성자 정보 포함해야하니까
           const post = {
             post_name: this.post_name,           // 글 제목
             post_content: this.post_content,     // 글 내용
@@ -157,14 +159,6 @@ export default {
         }
         console.log("POST\n",post);
         this.$store.dispatch('POST_DELIVERY_POST', post)
-
-				Swal.fire({
-          icon: 'success',
-          title: '글이 등록되었습니다.',
-          confirmButtonText: '배달 모집 목록 보러가기',
-        }).then(() => {
-          this.$router.replace("/delivery/post");
-        })
 			}
       else {
         alert("입력이 올바른지 확인해주세요.")

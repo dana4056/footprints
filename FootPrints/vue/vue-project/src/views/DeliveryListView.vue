@@ -3,10 +3,10 @@
     <tool-bar></tool-bar>
     <show-map ref="showMap" v-on:change="change()"></show-map>
     <div id="content">
-      <div id="area">현재 설정된 지역은 {{this.$store.state.deliveryPost_presentArea}} 입니다.</div>
+      <div id="area">현재 설정된 지역은 <b>{{this.$store.state.persistedStore.deliveryPost_presentArea}}</b> 입니다.</div>
       <div id="sort-box">
         <label>음식 카테고리</label>
-          <div>
+          <div class="selectBox">
             <select class="sortThing" v-model="category" v-on:focus="NoneCategory" v-on:focusout="SelectCategory">
               <option value="" selected="selected" disabled hidden>----- 선택 -----</option>
               <!-- 여기서 값들 스트링으로 안 넣고 data.categories로 넣을 수 있을거같은데 -->
@@ -24,7 +24,7 @@
           </div>
 
         <label>정렬 기준</label>
-          <div>
+          <div class="selectBox">
             <select class="sortThing" v-model="sort_criteria" v-on:focus="BeforeSort" v-on:focusout="SelectSortCriteria">
               <option value="" selected="selected" disabled hidden>----- 선택 -----</option>
               <option value="default">글 작성 시간 순</option>
@@ -48,12 +48,13 @@
       <!------------------------------------ 유효한 게시물 리스트 요소 ---------------------------------------->
       <div v-for="delivery in this.$store.state.deliveryPostList" v-bind:key="delivery">
         <div v-if="delivery.valid_time.diff(this.now) >= 0" class="valid listbox">
-          <img class="listbox-img" :src="require('../assets/' + delivery.category + '.png')" alt="">
+          <img class="listbox-img" :src="require('../assets/category/' + delivery.category + '.png')" alt="">
           <div class="listbox-content">
             <div class="listbox-head">
               <div class="res-name"><router-link v-bind:to="`/delivery/post/${delivery.post_id}`">{{ delivery.post_name }}</router-link></div>
               <div class="category" v-bind:class="delivery.category">{{this.categories[delivery.category]}}</div>
-              <div class="time"><small>마감기한 : {{  delivery.valid_time.format("M/D  HH:mm")}}</small></div>
+              <!-- <div class="time"><small>마감기한 : {{  delivery.valid_time.format("M/D  HH:mm")}}</small></div> -->
+              <div class="time"><small>{{ caltime(delivery.valid_time)}}남음</small></div>
             </div>
             <router-link v-bind:to="`/delivery/post/${delivery.post_id}`"><p>{{ delivery.post_content }}</p></router-link>
             <div class="listbox-foot">
@@ -74,7 +75,7 @@
       <!------------------------------------ 무효한 게시물 리스트 요소 ----------------------------------------->
       <div v-for="delivery in this.$store.state.deliveryPostList" v-bind:key="delivery">
         <div v-if="delivery.valid_time.diff(this.now) < 0" class="invalid listbox">
-          <img class="listbox-img" :src="require('../assets/' + delivery.category + '.png')" alt="">
+          <img class="listbox-img" :src="require('../assets/category/' + delivery.category + '.png')" alt="">
           <div class="listbox-content">
             <div class="listbox-head">
               <div class="res-name"><router-link v-bind:to="`/delivery/post/${delivery.post_id}`">{{ delivery.post_name }}</router-link></div>
@@ -135,13 +136,20 @@ export default {
       },
       category: "",
       sort_criteria: "",
-      area: this.$store.state.deliveryPost_presentArea,
+      area: this.$store.state.persistedStore.deliveryPost_presentArea,
       now: "",
       isShowmap : false,
     }
   },
   beforeCreate(){
-    this.$store.dispatch('FETCH_DELIVERY_LIST', this.$store.state.deliveryPost_presentArea);
+    // if(localStorage.getItem('jwt') == null){
+    //   //지금 새로고침하면 store날라가는거 때문에 store.js에 plugins 설정해줬는데
+    //   //그러면 로그아웃을해도 vuex가 남아있는 현상 때문에 주석처리하고
+    //   //페이지마다 토큰으로 로그인 유저 정보 가져오려는 작업 중이었음
+    //   //근데 그러면 꽤나 복잡해져서 로그아웃 혹은 로그인 안했ㄴ을 때
+    //   //store 비우는 작업을 하는게 좋을 듯
+    // }
+    this.$store.dispatch('FETCH_DELIVERY_LIST', this.$store.state.persistedStore.deliveryPost_presentArea);
   },
   created() {
     this.now = dayjs();
@@ -150,16 +158,26 @@ export default {
     change(post){
       this.isShowmap =  this.$refs.showMap.openMap;
       this.$store.commit('SET_DELIVERY_POST', post);
-
     },
-    caltime(created){
+    caltime(time){
       // 콘솔창에 시간 객체 찍을 때 표시되는 속성명과 dayjs객체 속성명 다름
       // ex) 시간(hour) -> 콘솔에는 H로 dayjs에는 h로 표시  dayjs로 다뤄야함
       const now = dayjs();
-      const diffH = now.diff(created,"hour", true);
+        // if(diffH < 0){
+      //   const beforeTime = now;
+      //   const afterTime = time;
+      // }else{
+      //   const beforeTime = time;
+      //   const afterTime = now;
+      // }
+
+      const beforeTime = (now < time) ? now : time;
+      const afterTime = (now < time) ? time : now;
+
+      const diffH = afterTime.diff(beforeTime,"hour", true);
 
       if(diffH<24){
-        const ago = now.diff(created, "minute");
+        const ago = afterTime.diff(beforeTime, "minute");
         const ago_H = parseInt(ago / 60);
         const ago_M = ago - (ago_H * 60);
         if(ago_H === 0){
@@ -168,7 +186,7 @@ export default {
           return String(ago_H)+"시간 "+String(ago_M)+"분 ";
         }
       }else{
-        const ago_D = now.diff(created, "day");
+        const ago_D = afterTime.diff(beforeTime, "day");
         return String(ago_D)+"일 ";
       }
     },
@@ -210,8 +228,8 @@ export default {
           const eupmyeondong = data.bname;
           
           this.area = sido+" "+sigoongu+" "+eupmyeondong;
-          this.$store.state.deliveryPost_presentArea = this.area;
-          this.$store.dispatch('FETCH_DELIVERY_LIST', this.$store.state.deliveryPost_presentArea);
+          this.$store.state.persistedStore.deliveryPost_presentArea = this.area;
+          this.$store.dispatch('FETCH_DELIVERY_LIST', this.$store.state.persistedStore.deliveryPost_presentArea);
           
           setTimeout(() => { 
             this.NoneCategory();
@@ -227,7 +245,7 @@ export default {
 
 <style scoped>
 #content{
-  width: 700px;
+  width: 800px;
   margin: 0 auto;
   padding: 50px 0 0 0;
 }
@@ -250,16 +268,18 @@ export default {
 }
 #sort-box button{
   box-sizing: border-box;
-  margin: 0px 5px;
-  padding: 5px 8px;
+  padding: 5px 3px;
   background-color: #767676;
   border: 1px solid #767676;
   border-radius: 20px;
-  color: white;
+  color: #fff;
+  height: 30px;
+  width: 60px;
   font-size: 10px;
 }
 .add-btn{
   -webkit-box-flex:1;
+  margin: auto 0;
   text-align: right;
 }
 .fa-solid{
@@ -308,11 +328,18 @@ a {
   font-size: xx-small;
   vertical-align:middle;
 }
+.selectBox{
+  margin: auto 15px auto 5px;
+}
 .sortThing {
-  width:45%;
+  border-radius: 20px;
+  padding-left: 20px;
+  color: black;
+  width: 135px;
+  height: 30px;
 }
 label {
-  margin: 0 0 12px;
+  margin: auto 0;
   color: #292929;
   font-size: 15px;
   font-weight: bold;
@@ -408,9 +435,9 @@ button {
   padding: 8px 15px 9px;
 }
 .invalid {
-  background-color: rgb(192, 192, 192);
+  background-color: #f7f7f7;
   pointer-events: none;
-  opacity: 0.7;
+  opacity: 0.2;
 }
 #invalid {
   color: red;

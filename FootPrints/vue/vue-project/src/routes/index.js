@@ -22,6 +22,7 @@ import NoticeCreate from '../views/NoticeCreate.vue'
 import NoticeAmend from '../views/NoticeAmend.vue'
 
 import ChatView from '../views/ChatView'
+import ForbiddenError from '../views/ForbiddenError'
 
 // import createPersistedState from "vuex-persistedstate";
 
@@ -47,6 +48,7 @@ const routes = [
     {   path: '/notice/new-notice', component: NoticeCreate },
     {   path: '/notice/:id/amend', component: NoticeAmend },
     {   path: '/chat/:nick', component: ChatView  },
+    {   path: '/forbidden', component: ForbiddenError}
 ]
 
 export const router = new createRouter({

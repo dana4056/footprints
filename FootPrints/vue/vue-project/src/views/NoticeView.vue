@@ -18,7 +18,7 @@
         <div class="listbox" id="table-header">
           <h4 class="num">번호</h4>
           <h4 class="title">제목</h4>
-          <h4 class="date">날짜</h4>
+          <h4 class="date">등록일</h4>
           <h4 class="view">조회수</h4>
         </div>
         <div v-for="(notice, index) in this.$store.state.noticeList" v-bind:key="notice">
