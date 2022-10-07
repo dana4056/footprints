@@ -1,5 +1,5 @@
 //Token
-import { fetchToken, fetchAutority } from "../api/index.js";
+import { fetchToken } from "../api/index.js";
 //Member
 import { postSignup, patchChangePwd, getUserArea, postLogin, getFindId, getFindPwd, getCheckNick, getCheckEmail, } from "../api/index.js";
 //Notice
@@ -15,7 +15,6 @@ import { postRoomInfo, patchRoomInfo, deleteRoomInfo } from "../api/index.js";
 
 import { router } from '../routes/index.js';
 import { store } from "./store.js";
-import Swal from 'sweetalert2';
 
 export default{ 
 
@@ -47,26 +46,6 @@ export default{
       })
   },
 
-  FETCH_AUTHORITY({commit}){
-    fetchAutority()
-      .then(response =>{
-        console.log("API:FETCH_AUTHORITY\n권한 가져오기 성공",response.data);
-        commit('SET_AUTHORITY', response.data);
-      })
-      .catch(error => {
-        const code = error.response.status;
-        console.log("API:FETCH_AUTHORITY\n권한 가져오기 실패",error);
-        if(code == 403){
-          // console.log("API:FETCH_AUTHORITY\n권한 가져오기 실패(로그인 필요)",error);
-          // alert("FETCH_USER 로그인 후 이용하세요");
-          // router.replace("/home");
-        }
-        else{
-          // console.log("API:FETCH_AUTHORITY\n권한 가져오기 실패(??)",error);
-          // console.log("페이지 최초 방문할 때 가끔 500오류 발생?");
-        }
-      });
-  },
 
   ////////////////////////// MEMBER //////////////////////////
 
@@ -121,11 +100,9 @@ export default{
             commit('SET_MEMBER', member);
             commit('SET_DELIVERY_AREA', member.area);
             router.replace("/home");
-            store.dispatch("FETCH_AUTHORITY");
             store.dispatch('FIND_POST_ID', loginMember.nick);
           })
           .catch(error => {
-            router.replace("/home");
             console.log("지역 읽기 실패", error);
           })
       })
@@ -212,13 +189,6 @@ export default{
     return postNotice(noticeDTO)
       .then(response => {
         console.log("API:POST_NOTICE\n공지사항 등록 성공", response);
-        Swal.fire({
-          icon: 'success',
-          title: '공지사항이 등록되었습니다.',
-          confirmButtonText: '공지사항으로 가기',
-        }).then(() => {
-          this.$router.replace("/notice/post");
-        })
       })
       .catch(error => {
         console.log("API:POST_NOTICE\n공지사항 등록 실패", error);
@@ -322,8 +292,6 @@ export default{
     return postDeliveryPost(post)
       .then(response => {
         console.log("API:POST_DELIVERY_POST\n게시물 등록 성공", response);
-        console.log(response.data);
-        store.dispatch("FIND_POST_ID", store.state.member.nick);
       })
       .catch(error => {
         const code = error.response.status;
@@ -475,7 +443,7 @@ export default{
     return postRoomInfo(roomInfo)
       .then(response => {
         console.log('API:JOIN_DELIVERY_POST\n배달 참여 성공', response);
-        store.dispatch("FIND_POST_ID", store.state.member.nick);
+        store.dispatch('FIND_POST_ID', store.state.member.nick);
       })
       .catch(error => {
         console.log('API:JOIN_DELIVERY_POST\n배달 참여 실패', error);
@@ -487,10 +455,11 @@ export default{
     return patchRoomInfo(roomInfo)
       .then(response => {
         console.log('API:EXIT_DELIVERY_POST\n참여 취소 성공', response);
-        store.dispatch("FIND_POST_ID", store.state.member.nick);
+        store.dispatch('FIND_POST_ID', store.state.member.nick);
       })
       .catch(error => {
         console.log('API:EXIT_DELIVERY_POST\n참여 취소 실패', error);
       })
   },
+
 }

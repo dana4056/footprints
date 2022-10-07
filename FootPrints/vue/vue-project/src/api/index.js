@@ -306,7 +306,7 @@ function deleteRoomInfo(post_id) {
         },
         headers: {
             'Content-Type': 'application/json'
-  }
+        }
     });
 }
 export{
