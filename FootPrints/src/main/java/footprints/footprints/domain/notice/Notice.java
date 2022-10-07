@@ -1,6 +1,7 @@
 package footprints.footprints.domain.notice;
 
 import footprints.footprints.domain.member.Member;
+import footprints.footprints.domain.post.PostDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -26,10 +27,6 @@ public class Notice {
     private String content;
     private int view_num;
 
-    public void Plus_view(){
-        this.view_num += 1;
-    }
-
     @Builder
     public Notice(String title, String author, String post_time, String content, int view_num){
         this.title = title;
@@ -38,4 +35,17 @@ public class Notice {
         this.content = content;
         this.view_num = view_num;
     }
+
+    public void Update(NoticeDTO_cID noticeDTO_cID){
+        this.title = noticeDTO_cID.getTitle();
+        this.author = noticeDTO_cID.getAuthor();
+        this.post_time = noticeDTO_cID.getPost_time();
+        this.content = noticeDTO_cID.getContent();
+        this.view_num = noticeDTO_cID.getView_num();
+    }
+
+    public void Plus_view(){
+        this.view_num += 1;
+    }
 }
+

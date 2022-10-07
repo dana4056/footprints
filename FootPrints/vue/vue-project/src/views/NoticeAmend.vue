@@ -10,7 +10,7 @@
           <textarea v-model="notice_content" id="notice_content" type="text" placeholder="공지사항 내용 적기"></textarea>
         </div>
       </div>
-      <button type="submit" v-on:click.prevent="authorization">등록하기</button>
+      <button type="submit" v-on:click.prevent="authorization">수정하기</button>
     </div>
     <footer-area id="footer"></footer-area>
   </div>
@@ -19,7 +19,8 @@
 <script>
 import ToolBar from '../components/ToolBar.vue'
 import FooterArea from '../components/FooterArea.vue'
-import dayjs from "dayjs";
+import Swal from 'sweetalert2';
+// import dayjs from "dayjs";
 
 export default {
   components:{
@@ -28,9 +29,34 @@ export default {
   },
   data() {
     return {
-      notice_title: "",     // 글 제목
-      notice_content: "",  // 글 내용
+      id: this.$store.state.notice.id,
+      notice_title: this.$store.state.notice.title,
+      author: this.$store.state.notice.author,
+      post_time: this.$store.state.notice.post_time,
+      notice_content: this.$store.state.notice.content,
+      view_num: this.$store.state.notice.view_num,
     }
+  },
+  beforeCreate() {
+    this.$store.dispatch('FETCH_USER');
+    const notice_id = this.$route.params.id;
+    this.$store.dispatch('FETCH_NOTICE_DETAIL', notice_id);
+
+    setTimeout(() => {
+      let notice = this.$store.state.notice;
+      this.id = notice.id;
+      this.notice_title = notice.title;     // 글 제목
+      this.author = notice.author;  // 글 내용
+      this.post_time = notice.post_time;      // 음식 카테고리
+      this.notice_content = notice.content;      // 음식 나눌 장소
+      this.view_num = notice.view_num;
+
+      console.log("fetch nick: ",this.$store.state.notice.author);
+      if(this.$store.state.notice.author !== "admin"){ // 관리자라 가정
+        alert("게시물을 수정할 수 있는 권한이 없습니다.");
+        this.$router.replace(`/notice/${this.notice_id}`);
+      }
+    }, 800);
   },
   methods: {
     authorization(){
@@ -45,15 +71,22 @@ export default {
     },
     register() {
         const noticeDTO = {
+          id : this.id,
           title: this.notice_title,           // 글 제목
-          author: "관리자",
-          post_time: dayjs().format("YYYY-MM-DD HH:mm:ss"),
+          author: this.author,
+          post_time: this.post_time,
           content: this.notice_content,     // 글 내용
-          view_num: 0,
+          view_num: this.view_num,
         }
         console.log("NOTICEDTO\n",noticeDTO);
-        this.$store.dispatch('POST_NOTICE', noticeDTO);
-        this.$router.replace(`/notice/post`);
+        this.$store.dispatch('AMEND_NOTICE', noticeDTO);
+        Swal.fire({
+          icon: 'success',
+          title: '공지사항이 수정되었습니다.',
+          confirmButtonText: '공지사항 목록 보러가기',
+        }).then(() => {
+          this.$router.replace(`/notice/post`);
+        })
 			},
       submitData(){
         if(this.notice_title != "" && this.notice_content != ""){

@@ -17,11 +17,8 @@ import javax.persistence.ManyToOne;
 public class ChatDataDTO {
 
     private String from_name;
-
     private String time;
-
     private String message;
-
     private Long post_id;
 
     public ChatDataDTO(ChatData chatData) {
@@ -29,6 +26,4 @@ public class ChatDataDTO {
         this.time = chatData.getTime();
         this.message = chatData.getMessage();
     }
-
-
 }

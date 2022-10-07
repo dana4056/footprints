@@ -69,4 +69,14 @@ public class NoticeRepositoryImpl implements NoticeRepository{
     public Notice findDetail(Long id) {
         return em.find(Notice.class, id);
     }
+
+    @Override
+    public void delete(Notice notice){
+        if(notice.getId() == null){
+            log.info("존재하지 않는 post");
+        }
+        else{
+            em.remove(notice);
+        }
+    }
 }

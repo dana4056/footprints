@@ -3,7 +3,7 @@ import { fetchToken } from "../api/index.js";
 //Member
 import { postSignup, patchChangePwd, getUserArea, postLogin, getFindId, getFindPwd, getCheckNick, getCheckEmail, } from "../api/index.js";
 //Notice
-import { getNoticeList, postNotice, getNoticeDetail } from "../api/index.js";
+import { getNoticeList, postNotice, patchNotice, deleteNotice, getNoticeDetail } from "../api/index.js";
 //Users
 import { getMyPost, getAttendPost, patchUserInfo } from "../api/index.js";
 //Delivery
@@ -15,6 +15,7 @@ import { postRoomInfo, patchRoomInfo, deleteRoomInfo } from "../api/index.js";
 
 import { router } from '../routes/index.js';
 import { store } from "./store.js";
+import Swal from 'sweetalert2';
 
 export default{ 
 
@@ -100,9 +101,11 @@ export default{
             commit('SET_MEMBER', member);
             commit('SET_DELIVERY_AREA', member.area);
             router.replace("/home");
+            store.dispatch("FETCH_AUTHORITY");
             store.dispatch('FIND_POST_ID', loginMember.nick);
           })
           .catch(error => {
+            router.replace("/home");
             console.log("지역 읽기 실패", error);
           })
       })
@@ -189,9 +192,37 @@ export default{
     return postNotice(noticeDTO)
       .then(response => {
         console.log("API:POST_NOTICE\n공지사항 등록 성공", response);
+        Swal.fire({
+          icon: 'success',
+          title: '공지사항이 등록되었습니다.',
+          confirmButtonText: '공지사항으로 가기',
+        }).then(() => {
+          this.$router.replace("/notice/post");
+        })
       })
       .catch(error => {
         console.log("API:POST_NOTICE\n공지사항 등록 실패", error);
+      })
+  },
+
+  // 공지사항 수정
+  AMEND_NOTICE(content, noticeDTO){
+    return patchNotice(noticeDTO)
+      .then(response => {
+        console.log("API:AMEND_NOTICE\n공지사항 수정 성공", response);
+      })
+      .catch(error => {
+        console.log("API:POST_NOTICE\n공지사항 수정 실패", error);
+      })
+  },
+
+  DELETE_NOTICE(content, id) {
+    return deleteNotice(id)
+      .then(response => {
+        console.log('API:DELETE_NOTICE\n공지사항 삭제 성공', response);
+      })
+      .catch(error => {
+        console.log('API:DELETE_NOTICE\n공지사항 삭제 실패', error);
       })
   },
 
@@ -292,6 +323,8 @@ export default{
     return postDeliveryPost(post)
       .then(response => {
         console.log("API:POST_DELIVERY_POST\n게시물 등록 성공", response);
+        console.log(response.data);
+        store.dispatch("FIND_POST_ID", store.state.member.nick);
       })
       .catch(error => {
         const code = error.response.status;
@@ -443,7 +476,7 @@ export default{
     return postRoomInfo(roomInfo)
       .then(response => {
         console.log('API:JOIN_DELIVERY_POST\n배달 참여 성공', response);
-        store.dispatch('FIND_POST_ID', store.state.member.nick);
+        store.dispatch("FIND_POST_ID", store.state.member.nick);
       })
       .catch(error => {
         console.log('API:JOIN_DELIVERY_POST\n배달 참여 실패', error);
@@ -455,11 +488,10 @@ export default{
     return patchRoomInfo(roomInfo)
       .then(response => {
         console.log('API:EXIT_DELIVERY_POST\n참여 취소 성공', response);
-        store.dispatch('FIND_POST_ID', store.state.member.nick);
+        store.dispatch("FIND_POST_ID", store.state.member.nick);
       })
       .catch(error => {
         console.log('API:EXIT_DELIVERY_POST\n참여 취소 실패', error);
       })
   },
-
 }

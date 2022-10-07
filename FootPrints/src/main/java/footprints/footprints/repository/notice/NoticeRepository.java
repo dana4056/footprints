@@ -14,4 +14,6 @@ public interface NoticeRepository {
     List<Notice> findAll();
 
     Notice findDetail(Long id);
+
+    void delete(Notice notice);
 }
