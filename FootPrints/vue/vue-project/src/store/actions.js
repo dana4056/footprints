@@ -1,9 +1,9 @@
 //Token
-import { fetchToken, fetchAutority } from "../api/index.js";
+import { fetchToken } from "../api/index.js";
 //Member
 import { postSignup, patchChangePwd, getUserArea, postLogin, getFindId, getFindPwd, getCheckNick, getCheckEmail, } from "../api/index.js";
 //Notice
-import { getNoticeList, postNotice, getNoticeDetail } from "../api/index.js";
+import { getNoticeList, postNotice, patchNotice, deleteNotice, getNoticeDetail } from "../api/index.js";
 //Users
 import { getMyPost, getAttendPost, patchUserInfo } from "../api/index.js";
 //Delivery
@@ -47,26 +47,6 @@ export default{
       })
   },
 
-  FETCH_AUTHORITY({commit}){
-    fetchAutority()
-      .then(response =>{
-        console.log("API:FETCH_AUTHORITY\n권한 가져오기 성공",response.data);
-        commit('SET_AUTHORITY', response.data);
-      })
-      .catch(error => {
-        const code = error.response.status;
-        console.log("API:FETCH_AUTHORITY\n권한 가져오기 실패",error);
-        if(code == 403){
-          // console.log("API:FETCH_AUTHORITY\n권한 가져오기 실패(로그인 필요)",error);
-          // alert("FETCH_USER 로그인 후 이용하세요");
-          // router.replace("/home");
-        }
-        else{
-          // console.log("API:FETCH_AUTHORITY\n권한 가져오기 실패(??)",error);
-          // console.log("페이지 최초 방문할 때 가끔 500오류 발생?");
-        }
-      });
-  },
 
   ////////////////////////// MEMBER //////////////////////////
 
@@ -222,6 +202,27 @@ export default{
       })
       .catch(error => {
         console.log("API:POST_NOTICE\n공지사항 등록 실패", error);
+      })
+  },
+
+  // 공지사항 수정
+  AMEND_NOTICE(content, noticeDTO){
+    return patchNotice(noticeDTO)
+      .then(response => {
+        console.log("API:AMEND_NOTICE\n공지사항 수정 성공", response);
+      })
+      .catch(error => {
+        console.log("API:POST_NOTICE\n공지사항 수정 실패", error);
+      })
+  },
+
+  DELETE_NOTICE(content, id) {
+    return deleteNotice(id)
+      .then(response => {
+        console.log('API:DELETE_NOTICE\n공지사항 삭제 성공', response);
+      })
+      .catch(error => {
+        console.log('API:DELETE_NOTICE\n공지사항 삭제 실패', error);
       })
   },
 

@@ -2,6 +2,7 @@ package footprints.footprints.controller.notice;
 
 import footprints.footprints.domain.notice.Notice;
 import footprints.footprints.domain.notice.NoticeDTO;
+import footprints.footprints.domain.notice.NoticeDTO_cID;
 import footprints.footprints.service.notice.NoticeServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -34,19 +35,40 @@ public class NoticeController {
     @PreAuthorize("hasRole('ROLE_USER')")
     @PostMapping(value ="/notice")
     public ResponseEntity<String> CreateNotice(@RequestBody NoticeDTO noticeDTO){
-        log.info("notice/create whit {}", noticeDTO);
+        log.info("notice/create with {}", noticeDTO);
         noticeService.join(noticeDTO);
         return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
     }
 
+    // 공지사항 수정
+    @PreAuthorize("hasRole('ROLE_USER')")
+    @PatchMapping(value ="/notice")
+    public ResponseEntity<String> AmendNotice(@RequestBody NoticeDTO_cID noticeDTO_cID){
+        log.info("notice/update with {}", noticeDTO_cID);
+        noticeService.update(noticeDTO_cID);
+        return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
+    }
+
+    //게시물 삭제
+    @PreAuthorize("hasRole('ROLE_USER')")
+    @DeleteMapping(value = "/notice")
+    public ResponseEntity<String> deleteNotice(@RequestParam Long id){
+        noticeService.remove(id);
+        return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
+    }
+
+
     // 상세페이지
     @GetMapping(value = "/notice/{notice_id}")
-    public ResponseEntity<Notice> NoticeDetailPage(@PathVariable("notice_id") Long notice_id, @RequestParam int isFrontReq){
+    public ResponseEntity<Notice> NoticeDetailPage(@PathVariable Long notice_id, @RequestParam int isFrontReq){
+
+        Notice notice = noticeService.getNotice(notice_id);
+        noticeService.plusView(notice);
+
         if(isFrontReq == 1){
-            Notice notice = noticeService.getNotice(notice_id);
-            noticeService.plusView(notice);
             return new ResponseEntity<>(notice, HttpStatus.OK);
-        }else{
+        }
+        else{
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
     }

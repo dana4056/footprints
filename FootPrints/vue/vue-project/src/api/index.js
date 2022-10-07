@@ -108,10 +108,35 @@ function postNotice(noticeDTO) {
       });
 }
 
+function patchNotice(noticeDTO){
+    return axios.patch(`${config.baseUrl}/notice`, noticeDTO, {
+        headers: {
+            'Content-Type': 'application/json',
+            'X-AUTH-TOKEN': localStorage.getItem('jwt')
+        }
+    })
+}
+
+function deleteNotice(id) {
+    return axios.delete(`${config.baseUrl}/notice`, {
+        params: {
+            id: id,
+        },
+        headers: {
+            'Content-Type': 'application/json',
+            'X-AUTH-TOKEN': localStorage.getItem('jwt')
+        }
+    });
+}
+
 function getNoticeDetail(notice_id) {
     return axios.get(`${config.baseUrl}/notice/${notice_id}`,{
         params: {
             isFrontReq: 1
+        },
+        headers: {
+            'Content-Type': 'application/json',
+            'X-AUTH-TOKEN': localStorage.getItem('jwt')
         }
       });
 }
@@ -176,14 +201,6 @@ function postDeliveryPost(post) {
     });
 }
 
-// function postMakeRoomInfo(post_id){
-//     return axios.post(`${config.baseUrl}/delivery/post/aa`, post_id,{
-//         headers: {
-//             'X-AUTH-TOKEN': localStorage.getItem('jwt')
-//         }
-//     })
-// }
-
 function patchDeliveryPost(post) {
     return axios.patch(`${config.baseUrl}/delivery/post`, post, {
         headers: {
@@ -228,14 +245,20 @@ function getPostIdList(nick) {
             nick: nick,
         },
         headers: {
-            'Content-Type': 'text/plain'
+            'Content-Type': 'text/plain',
+            'X-AUTH-TOKEN': localStorage.getItem('jwt')
         }
     });
 }
 
 function getPostInfoList(list) {
     console.log("postIDList: " + list);
-    return axios.post(`${config.baseUrl}/chat/get-PostInfoList`, list);
+    return axios.post(`${config.baseUrl}/chat/get-PostInfoList`, list, {
+        headers: {
+            // 'Content-Type': 'text/plain',
+            'X-AUTH-TOKEN': localStorage.getItem('jwt')
+        }
+    });
 }
 
 function getNickList(post_id) {
@@ -244,7 +267,8 @@ function getNickList(post_id) {
             post_id: post_id,
         },
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'X-AUTH-TOKEN': localStorage.getItem('jwt')
         }
     });
   }
@@ -255,7 +279,8 @@ function getChatList(post_id) {
             post_id: post_id,
         },
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'X-AUTH-TOKEN': localStorage.getItem('jwt')
         }
     });
   }
@@ -294,6 +319,7 @@ function patchRoomInfo(roomInfo) {
             post_id: roomInfo.post_id,
         },
         headers: {
+            'X-AUTH-TOKEN': localStorage.getItem('jwt'),
             'Content-Type': 'application/json'
         }
     });
@@ -306,7 +332,7 @@ function deleteRoomInfo(post_id) {
         },
         headers: {
             'Content-Type': 'application/json'
-  }
+        }
     });
 }
 export{
@@ -327,6 +353,8 @@ export{
     //Notice
     getNoticeList,
     postNotice,
+    patchNotice,
+    deleteNotice,
     getNoticeDetail,
 
     //Users

@@ -21,7 +21,6 @@ import java.util.*;
 @RequiredArgsConstructor
 public class ChatRepositoryImpl implements ChatRepository {
 
-    private final MemberRepository memberRepository;
     private final PostRepositoryImpl postRepository;
 
     @PersistenceContext
@@ -33,7 +32,7 @@ public class ChatRepositoryImpl implements ChatRepository {
                 "where r.member.nick = :nick", Long.class).setParameter("nick", nick);
 
         List<Long> resultList = integerTypedQuery.getResultList();
-//        log.info("---------------------{}", resultList.get(0));
+        log.info("---------------------{}", resultList.get(0));
         if (resultList.size() == 0) return null;
 
         else return resultList;

@@ -8,7 +8,7 @@ export const store = new Vuex.Store({
     state:{
         // 공지사항 관련
         noticeList:[],
-        notice:{id: "", author: '', post_time: "", title: "", view_num: "", content: ""},  
+        notice:{id: "", title: '', author: "", post_time: "", content: "", view_num: ""},  
         // 회원가입, 로그인, pw찾기 관련
         isDuplicateNick:false,
         isDuplicateEmail:false,

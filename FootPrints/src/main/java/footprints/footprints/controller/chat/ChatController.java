@@ -21,12 +21,12 @@ public class ChatController {
 
     private final ChatService chatService;
 
-//    @MessageMapping
-//    @SendTo
-//    public String sendMessage(ChatDataDTO chatDataDTO){
-//        String message = chatDataDTO.getMessage();
-//        return message;
-//    }
+    @MessageMapping("/receive")
+    @SendTo("/sub/send")
+    public String sendMessage(ChatDataDTO chatDataDTO){
+        String message = chatDataDTO.getMessage();
+        return message;
+    }
 
     @GetMapping(value = "/chat/post-id-list") // 사용자가 속한 한 post_id를 리스트(Integer) 형태로 가져온다.
     public ResponseEntity<List<Long>> getPostIdList(@RequestParam String nick){
@@ -49,9 +49,9 @@ public class ChatController {
     }
 
     @GetMapping(value = "/chat") // 채팅 기록 (from_name, time, message)를 리스트(String) 형태로 가져온다.
-    public ResponseEntity<List<ChatDataDTO>> getChatList(@RequestParam Long post_id){
+    public ResponseEntity<List<ChatDataDTO>> getChatList(@RequestParam String post_id){
         log.info("-------------------getChatList--{}",post_id);
-        List<ChatDataDTO> chatList = chatService.getChatList(post_id);
+        List<ChatDataDTO> chatList = chatService.getChatList(Long.parseLong(post_id));
         return new ResponseEntity<>(chatList, HttpStatus.OK);
     }
 

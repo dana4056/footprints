@@ -11,6 +11,12 @@
               <option value="KOR">한식</option>
               <option value="CHI">중식</option>
               <option value="JAP">일식</option>
+              <option value="PIZ">피자</option>
+              <option value="FRI">치킨</option>
+              <option value="BUN">분식</option>
+              <option value="FAS">패스트푸드</option>
+              <option value="JOK">족발/보쌈</option>
+              <option value="DES">디저트</option>
               <option value="ETC">기타</option>
             </select>
           </div>
