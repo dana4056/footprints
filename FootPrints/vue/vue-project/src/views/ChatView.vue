@@ -85,6 +85,7 @@ export default {
       my_nick: "",
       msg: "",
       post_id: 0,
+      stomp:"",
     }
   },
   components: {
@@ -119,7 +120,7 @@ export default {
       const element = document.getElementById("chat__body");
       element.scrollTop = element.scrollHeight;
 
-      const e = document.getElementsByClassName("room__list")
+      const e = document.getElementsByClassName("room_list")
       e.scrollTop = e.scrollHeight;
     }, 0);
   },
@@ -128,7 +129,7 @@ export default {
      let socket = new SockJS("/socket-open");  // WebSocketConfig랑 통일할 주소 , 소켓 열 주소
      console.log("소켓 열기 시도 : serverURL");
      let stomp = Stomp.over(socket);
-
+     this.stomp = stomp;
      //  채팅 방에 들어오는 모든 인원들이 동일한 socket-open 이라는 소켓을 열고
      //  구독을 통해 여러 방에 접근하는 개념으로 구현해야 할듯
 
