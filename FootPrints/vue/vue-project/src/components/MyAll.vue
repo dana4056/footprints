@@ -8,7 +8,7 @@
       </div>
       <div v-for="(myDelivery, index) in this.$store.state.myDPostList" v-bind:key="myDelivery">
         <router-link class="list" v-if="index < 4" v-bind:to="`/delivery/post/${myDelivery.post_id}`">
-          <img class="image" :src="require('../assets/' + myDelivery.category + '.png')">
+          <img class="image" :src="require('../assets/category/' + myDelivery.category + '.png')">
           <p class="title">{{myDelivery.post_name}}</p>
         </router-link>
       </div>
@@ -28,7 +28,7 @@
       </div>
       <div v-for="(myPartici, index) in this.$store.state.myParticiList" v-bind:key="myPartici">
         <router-link class="list" v-if="index < 4" v-bind:to="`/delivery/post/${myPartici.post_id}`">
-          <img class="image" :src="require('../assets/' + myPartici.category + '.png')">
+          <img class="image" :src="require('../assets/category/' + myPartici.category + '.png')">
           <p class="title">{{myPartici.post_name}}</p>
         </router-link>
       </div>

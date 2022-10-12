@@ -2,7 +2,7 @@
   <div display="flex">
     <div id="content" v-if="this.$store.state.myParticiList.length != 0">
       <div v-for="myPartici in this.$store.state.myParticiList" class="listbox" v-bind:key="myPartici">
-        <img class="listbox-img" :src="require('../assets/' + myPartici.category + '.png')">
+        <img class="listbox-img" :src="require('../assets/category/' + myPartici.category + '.png')">
         <div class="listbox-content">
           <div class="listbox-head">
             <div class="res-name"><router-link v-bind:to="`/delivery/post/${myPartici.post_id}`">{{ myPartici.post_name }}</router-link></div>

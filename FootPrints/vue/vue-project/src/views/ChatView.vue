@@ -10,7 +10,7 @@
         <div class="chatRoom">
           <ul v-if="this.$store.state.postIdList[0] != 0">
             <li v-for="(room, index) in this.$store.state.roomList" :key=room v-bind:id="[`${index}`]" v-on:mousedown.left="clickRoom" class="room_info" v-bind:class="{ 'on': chekcedArr[index] }">
-            <img :src="require('../assets/' + room.category + '.png')" id="roomImg">
+            <img :src="require('../assets/category/' + room.category + '.png')" id="roomImg">
             <h3>{{ room.post_name }}</h3>
             <!-- 마지막 메세지 구현 필요 -->
             </li>
@@ -86,6 +86,8 @@ export default {
       msg: "",
       post_id: 0,
       recvList : [],
+      connected : false,
+      stompClient: "",
     }
   },
   components: {
@@ -97,9 +99,9 @@ export default {
       router.replace("/home");
     }
     else if(this.$store.state.postIdList[0] != 0) {
-      let post_id = this.$store.state.postIdList[this.$store.state.roomIndex];
-      this.$store.dispatch('FIND_USER', post_id);
-      this.$store.dispatch('FIND_CHAT_LOGS', post_id);
+      this.post_id = this.$store.state.postIdList[this.$store.state.roomIndex];
+      this.$store.dispatch('FIND_USER', this.post_id);
+      this.$store.dispatch('FIND_CHAT_LOGS', this.post_id);
 
       this.connect(); // 일단 채팅방 입장하면 소켓 여는 개념
 
@@ -144,6 +146,7 @@ export default {
         this.connected = true;
         console.log("소켓 연결 성공",  frame);
         
+        // 메시지 받는 부분임
         this.stompClient.subscribe(`/sub/send/${this.post_id}`, res => {
           console.log('구독으로 받은 메시지 입니다.', res.body);
           this.recvList.push(JSON.parse(res.body))
@@ -206,6 +209,7 @@ export default {
         this.$store.dispatch('POST_CHAT_DATA', chatData);
 
         // 소켓 관련 전송 부분
+        // 메시지 보내는 부분
         if (this.stompClient && this.stompClient.connected) {
             this.stompClient.send(`/receive/${this.post_id}`, this.chatData, {});
         }
