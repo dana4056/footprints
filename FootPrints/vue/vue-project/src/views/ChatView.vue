@@ -142,6 +142,8 @@ export default {
           stomp.subscribe(`/sub/send`, res => {
             console.log('구독으로 받은 메시지 입니다.', res.body);
             alert("메시지 받기 성공");
+            const post_id = this.$store.state.postIdList[this.$store.state.roomIndex];
+            this.$store.dispatch('FIND_CHAT_LOGS', post_id);
           });
         },
         error => {
