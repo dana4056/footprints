@@ -176,8 +176,8 @@ export default {
           post_id: post_id
         };
         this.$store.dispatch('POST_CHAT_DATA', chatData);
-          // 소켓 관련 전송 부분
-          // 메시지 보내는 부분
+        
+          // 소켓 관련 메세지 전송 부분
         stomp.send(`/receive`, JSON.stringify(chatData), {});
 
         this.$store.dispatch('FIND_CHAT_LOGS', post_id);
