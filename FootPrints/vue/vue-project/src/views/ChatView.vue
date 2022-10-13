@@ -76,7 +76,7 @@ import Swal from 'sweetalert2';
 import Stomp from 'webstomp-client'
 import SockJS from 'sockjs-client'
 
-let stomp = null;
+// let stomp = null;
 let isSocketConnected = false;
 
 export default {
@@ -131,9 +131,9 @@ export default {
   },
   methods: {
     connect(){
-     let socket = new SockJS("/socket-open");  // WebSocketConfig랑 통일할 주소 , 소켓 열 주소
+     let socket = new SockJS("/socket-open/chat");  // WebSocketConfig랑 통일할 주소 , 소켓 열 주소
      console.log("소켓 열기 시도", socket);
-     stomp = Stomp.over(socket);
+     var stomp = Stomp.over(socket);
      //  채팅 방에 들어오는 모든 인원들이 동일한 socket-open 이라는 소켓을 열고
      //  구독을 통해 여러 방에 접근하는 개념으로 구현해야 할듯
 
@@ -182,7 +182,7 @@ export default {
         this.$store.dispatch('POST_CHAT_DATA', chatData);
           // 소켓 관련 전송 부분
           // 메시지 보내는 부분
-        stomp.send(`/receive`, chatData, {});
+        // stomp.send(`/receive`, chatData, {});
 
         this.$store.dispatch('FIND_CHAT_LOGS', post_id);
 
