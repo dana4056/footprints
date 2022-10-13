@@ -76,8 +76,7 @@ import Swal from 'sweetalert2';
 import Stomp from 'webstomp-client'
 import SockJS from 'sockjs-client'
 
-// let stomp = null;
-let isSocketConnected = false;
+var stomp = null;
 
 export default {
   data() {
@@ -88,13 +87,14 @@ export default {
       my_nick: "",
       msg: "",
       post_id: 0,
+      isSocketConnected : false,
     }
   },
   components: {
     ToolBar,
   },
   created() {
-    isSocketConnected = false;
+    this.isSocketConnected = false;
     this.my_nick = this.$store.state.member.nick;
     if(localStorage.getItem('jwt') == null) {
       router.replace("/home");
@@ -104,7 +104,7 @@ export default {
       this.$store.dispatch('FIND_USER', this.post_id);
       this.$store.dispatch('FIND_CHAT_LOGS', this.post_id);
       
-      if(isSocketConnected == false){
+      if(this.isSocketConnected == false){
         this.connect(); // 일단 채팅방 입장하면 소켓 여는 개념
       }
 
@@ -131,29 +131,23 @@ export default {
   },
   methods: {
     connect(){
+     this.isSocketConnected = true;
      let socket = new SockJS("/socket-open/chat");  // WebSocketConfig랑 통일할 주소 , 소켓 열 주소
      console.log("소켓 열기 시도", socket);
-     var stomp = Stomp.over(socket);
-     //  채팅 방에 들어오는 모든 인원들이 동일한 socket-open 이라는 소켓을 열고
-     //  구독을 통해 여러 방에 접근하는 개념으로 구현해야 할듯
-
-     //  메시지를 보내는 부분에서 room_id를 달아서 보내면
-     //  subscribe에서 send 하는 부분에서 room_id를 붙어서 읽어오면 해결 될라나
-
-     // connection이 맺어지면 실행되는 코드
-     stomp.connect({}, function () {
-        console.log("소켓 연결 성공");
-        isSocketConnected = true;
-        // 메시지 받는 부분임
-        stomp.subscribe(`/sub/send`, res => {
-          console.log('구독으로 받은 메시지 입니다.', res.body);
-          alert("메시지 받기 성공");
+     setTimeout(() => {
+      stomp = Stomp.over(socket);
+      stomp.connect({}, function () {
+          console.log("소켓 연결 성공");
+          // 메시지 받는 부분임
+          stomp.subscribe(`/sub/send`, res => {
+            console.log('구독으로 받은 메시지 입니다.', res.body);
+            alert("메시지 받기 성공");
+          });
+        },
+        error => {
+          console.log("소켓 연결 실패", error);
         });
-      },
-      error => {
-        console.log("소켓 연결 실패", error);
-        isSocketConnected = false;
-      });
+      }, 100)
     },
     submitMessage() {
       if (this.msg) {
@@ -182,7 +176,7 @@ export default {
         this.$store.dispatch('POST_CHAT_DATA', chatData);
           // 소켓 관련 전송 부분
           // 메시지 보내는 부분
-        // stomp.send(`/receive`, chatData, {});
+        stomp.send(`/receive`, JSON.stringify(chatData), {});
 
         this.$store.dispatch('FIND_CHAT_LOGS', post_id);
 
