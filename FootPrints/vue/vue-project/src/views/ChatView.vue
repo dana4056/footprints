@@ -76,6 +76,9 @@ import Swal from 'sweetalert2';
 import Stomp from 'webstomp-client'
 import SockJS from 'sockjs-client'
 
+let stomp = null;
+let isSocketConnected = false;
+
 export default {
   data() {
     return {
@@ -85,13 +88,13 @@ export default {
       my_nick: "",
       msg: "",
       post_id: 0,
-      stomp:"",
     }
   },
   components: {
     ToolBar,
   },
   created() {
+    isSocketConnected = false;
     this.my_nick = this.$store.state.member.nick;
     if(localStorage.getItem('jwt') == null) {
       router.replace("/home");
@@ -100,8 +103,10 @@ export default {
       this.post_id = this.$store.state.postIdList[this.$store.state.roomIndex];
       this.$store.dispatch('FIND_USER', this.post_id);
       this.$store.dispatch('FIND_CHAT_LOGS', this.post_id);
-
-      this.connect(); // 일단 채팅방 입장하면 소켓 여는 개념
+      
+      if(isSocketConnected == false){
+        this.connect(); // 일단 채팅방 입장하면 소켓 여는 개념
+      }
 
       this.$store.state.roomIndex = 0;
       this.dataNum = this.$store.state.postIdList.length;
@@ -127,9 +132,8 @@ export default {
   methods: {
     connect(){
      let socket = new SockJS("/socket-open");  // WebSocketConfig랑 통일할 주소 , 소켓 열 주소
-     console.log("소켓 열기 시도 : serverURL");
-     let stomp = Stomp.over(socket);
-     this.stomp = stomp;
+     console.log("소켓 열기 시도", socket);
+     stomp = Stomp.over(socket);
      //  채팅 방에 들어오는 모든 인원들이 동일한 socket-open 이라는 소켓을 열고
      //  구독을 통해 여러 방에 접근하는 개념으로 구현해야 할듯
 
@@ -139,15 +143,16 @@ export default {
      // connection이 맺어지면 실행되는 코드
      stomp.connect({}, function () {
         console.log("소켓 연결 성공");
-        
+        isSocketConnected = true;
         // 메시지 받는 부분임
         stomp.subscribe(`/sub/send`, res => {
-          console.log('구독으로 받은 메시지 입니다.', res.body.message);
+          console.log('구독으로 받은 메시지 입니다.', res.body);
           alert("메시지 받기 성공");
         });
       },
       error => {
         console.log("소켓 연결 실패", error);
+        isSocketConnected = false;
       });
     },
     submitMessage() {
@@ -177,7 +182,7 @@ export default {
         this.$store.dispatch('POST_CHAT_DATA', chatData);
           // 소켓 관련 전송 부분
           // 메시지 보내는 부분
-        this.stomp.send(`/receive`, this.chatData, {});
+        stomp.send(`/receive`, chatData, {});
 
         this.$store.dispatch('FIND_CHAT_LOGS', post_id);
 
