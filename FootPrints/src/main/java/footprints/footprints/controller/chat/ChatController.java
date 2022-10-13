@@ -24,8 +24,7 @@ public class ChatController {
     @MessageMapping("/receive")
     @SendTo("/sub/send")
     public String sendMessage(ChatDataDTO chatDataDTO){
-        String message = chatDataDTO.getMessage();
-        return message;
+        return chatDataDTO.getMessage();
     }
 
     @GetMapping(value = "/chat/post-id-list") // 사용자가 속한 한 post_id를 리스트(Integer) 형태로 가져온다.
