@@ -176,7 +176,7 @@ export default {
           post_id: post_id
         };
         this.$store.dispatch('POST_CHAT_DATA', chatData);
-
+        
         const changeLastChat = {
           post_id: post_id,
           message: this.msg

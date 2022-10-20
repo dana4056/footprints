@@ -172,7 +172,7 @@ export const store = new Vuex.Store({
             var list = state.roomList;
             let idx = 0;
             for (let value of list) {
-                if( changeLastChat.post_id == value[idx].post_id){
+                if( changeLastChat.post_id == value.post_id){
                     state.roomList[idx].last_message = changeLastChat.message;
                     break;
                 }
