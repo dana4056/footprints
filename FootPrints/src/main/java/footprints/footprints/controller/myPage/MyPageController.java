@@ -23,13 +23,25 @@ public class MyPageController {
     public ResponseEntity<List<Post>> getMyPostList(@PathVariable String nick){
         log.info("--------------------- getMyPostList {}", nick);
         List<Post> myPost = myPageService.getMyPost(nick);
-        return new ResponseEntity<>(myPost, HttpStatus.OK);
+
+        if(myPost.size() == 0){
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
+        else{
+            return new ResponseEntity<>(myPost, HttpStatus.OK);
+        }
     }
 
     @GetMapping(value = "/users/{nick}/attend-post") // 마이페이지 메인페이지 접속시
     public ResponseEntity<List<Post>> getAttendPostList(@PathVariable String nick){
         List<Post> attendPost = myPageService.getAttendPost(nick);
-        return new ResponseEntity<>(attendPost, HttpStatus.OK);
+
+        if(attendPost.size() == 0){
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
+        else{
+            return new ResponseEntity<>(attendPost, HttpStatus.OK);
+        }
     }
 
     @PatchMapping(value = "/users") // 마이페이지 메인페이지 접속시

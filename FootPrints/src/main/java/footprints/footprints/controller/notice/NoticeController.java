@@ -26,7 +26,6 @@ public class NoticeController {
     public ResponseEntity<List<Notice>> NoticeListView(){
         log.info("=============/notice 진입");
         List<Notice> noticeList = noticeService.getNoticeList();
-        log.info("{}", noticeList);
         return new ResponseEntity<>(noticeList, HttpStatus.OK);
     }
 
