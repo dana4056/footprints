@@ -255,7 +255,7 @@ function getPostInfoList(list) {
     console.log("postIDList: " + list);
     return axios.post(`${config.baseUrl}/chat/get-PostInfoList`, list, {
         headers: {
-            // 'Content-Type': 'text/plain',
+            'Content-Type': 'application/json',
             'X-AUTH-TOKEN': localStorage.getItem('jwt')
         }
     });

@@ -13,8 +13,9 @@
             <img :src="require('../assets/category/' + room.category + '.png')" id="roomImg">
             <h3>{{ room.post_name }}</h3>
             <!-- 마지막 메세지 구현 필요 -->
-            <!-- 첫번째는 먹는데 이후부터 안 먹어서 store에 담는 개념으로 코드 수정 시도중 -->
+            <!-- rommList 안에 필요한 데이터를 넣어놓고 roomList 갱신 시 Last_Message갱신 되도록 , 또 당사자가 채팅 보낼 때 LastMessage 갱신 되도록 구현 중 -->
             <!-- <div> {{ this.$store.state.chatLogs[this.$store.state.chatLogs.length - 1].message }}</div> -->
+            <h5>{{ room.last_message }}</h5>
             </li>
           </ul>
         </div>
@@ -25,7 +26,7 @@
           <div v-if="this.$store.state.postIdList[0] != 0">
             <p id="title">{{ this.$store.state.roomList[this.$store.state.roomIndex].post_name }}</p>
             <p id="userList" v-for="user in this.$store.state.userList" v-bind:key="user"> {{ user }}</p>
-            <button v-if="this.$store.state.roomList[this.$store.state.roomIndex].member.nick != this.$store.state.member.nick" v-on:click="exitPost">나가기</button>
+            <button v-if="this.$store.state.roomList[this.$store.state.roomIndex].nick != this.$store.state.member.nick" v-on:click="exitPost">나가기</button>
           </div>
         </div>
 
@@ -175,6 +176,12 @@ export default {
           post_id: post_id
         };
         this.$store.dispatch('POST_CHAT_DATA', chatData);
+
+        const changeLastChat = {
+          post_id: post_id,
+          message: this.msg
+        }
+        this.$store.dispatch('CHANGE_LAST_CHAT', changeLastChat);
         
           // 소켓 관련 메세지 전송 부분
         stompClient.send(`/receive`, JSON.stringify(chatData), {});

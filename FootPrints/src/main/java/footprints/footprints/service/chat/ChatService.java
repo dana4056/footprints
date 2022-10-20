@@ -18,4 +18,6 @@ public interface ChatService {
     void save(ChatDataDTO chatDataDTO);
 
     void delete(Long post_id);
+
+    String getLastChat(Long postId);
 }
