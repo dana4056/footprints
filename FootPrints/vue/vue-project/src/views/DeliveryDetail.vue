@@ -26,7 +26,7 @@
 
       <div id="contentBox">
         <p>{{fetched.post_content}}</p>
-        <p id="orderTime">{{calDay()}}, {{fetched.valid_time.get("hour")}}시 {{fetched.valid_time.get("minute")}}분에 주문할거에요!</p>
+        <p id="orderTime">{{calDay()}}, {{fetched.valid_time.get("hour")}}시 {{fetched.valid_time.get("minute")}}분에 주문해요!</p>
       </div>
 
       <div id="footBox">

@@ -110,8 +110,8 @@ export default {
   border-radius: 15px;
 }
 .empty {
-  background-color: rgb(250, 250, 250);
-  border: 3px dashed rgba(0, 0, 0, 0.247);
+  background-color: #fdfdfd;
+  border: 1px dashed rgba(0,0,0,.247);
 }
 a {
   color: black;

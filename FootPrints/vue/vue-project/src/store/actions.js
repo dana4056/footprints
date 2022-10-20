@@ -450,8 +450,6 @@ export default{
         console.log("API:FETCH_DELIVERY_DETAIL\n상세페이지 정보 받아오기 성공", response.data);
         commit('SET_DELIVERY_POST', response.data);
         commit('SET_ISLOADING', false);
-        
-        console.log("디테일 패치 끝  isLoading: "+ store.getters.GET_ISLOADING);
       })
       .catch(error => {
         const code = error.response.status;

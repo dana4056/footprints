@@ -12,7 +12,3 @@ app.mount('#app')
 
 //쿠키의 만료일은 1일이다. (글로벌 세팅)
 app.$cookies.config("1d");
-
-
-
-

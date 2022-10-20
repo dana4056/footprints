@@ -174,7 +174,6 @@ export const store = new Vuex.Store({
         },
         SET_ISLOADING(state, flag){
             state.isLoading = flag;
-            console.log("isloading 세팅완료");
         }
     },
     

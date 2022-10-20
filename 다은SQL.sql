@@ -18,28 +18,22 @@ VALUES ('admin', 'ROLE_ADMIN');
 -- 글 작성 편하게 사용자 이름쪽만 건드리면 test 가능
 -- *주의: created_date는 DB에 영국시간(-9시간) 저장되어있어야함
 INSERT INTO `test_db`.`post` (`post_id`, `category`, `created_date`,`max_person_num`, `participant_num`, `post_content`, `post_name`, `take_loc`, `valid_time`, `view_num`, `member_nick`, `post_area` ,`lat`, `lon`)
-VALUES (1, 'CHI', '2022-09-01 02:30:46', 5, 1, '중국음식 배달시간4 내용', '중국음식 배달시간4', '북악1', '2022-11-23T11:38', 0, '김선진', '서울 성북구 정릉동', 37.61507352547857,127.01321786964758 );
+VALUES (1, 'CHI', '2022-10-15 02:30:46', 5, 1, '내용', '타인/타지역1', '서경대 북악관', '2022-11-23T11:38', 0, '김선진', '서울 성북구 정릉동', 37.616,127.0119 );
 INSERT INTO `test_db`.`post` (`post_id`, `category`, `created_date`,`max_person_num`, `participant_num`, `post_content`, `post_name`, `take_loc`, `valid_time`, `view_num`, `member_nick`, `post_area` ,`lat`, `lon`)
-VALUES (2, 'KOR', '2022-09-02 02:31:46', 5, 1, '한국음식 배달시간3 내용', '한국음식 배달시간3', '북악2', '2022-11-27T11:35', 0, '김선진', '서울 성북구 정릉동', 37.61507352547857,127.01321786964758);
+VALUES (2, 'KOR', '2022-10-15 02:31:46', 5, 1, '내용', '타인/타지역2', '서경대 교문', '2022-10-17T11:35', 0, '김선진', '서울 성북구 정릉동', 37.6136,127.0127);
 INSERT INTO `test_db`.`post` (`post_id`, `category`, `created_date`,`max_person_num`, `participant_num`, `post_content`, `post_name`, `take_loc`, `valid_time`, `view_num`, `member_nick`, `post_area`,`lat`, `lon`)
-VALUES (3, 'JAP', '2022-09-03 02:32:46', 5, 1, '일본음식 배달시간2 내용', '일본음식 배달시간2', '북악3', '2022-11-25T11:38', 0, '김선진', '서울 성북구 정릉동', 37.61507352547857,127.01321786964758);
+VALUES (3, 'JAP', '2022-10-15 02:32:46', 5, 1, '내용', '타인/타지역3', '서경대 앞 큰 세븐', '2022-11-25T11:38', 0, '김선진', '서울 성북구 정릉동', 37.6117,127.0131);
 INSERT INTO `test_db`.`post` (`post_id`, `category`, `created_date`,`max_person_num`, `participant_num`, `post_content`, `post_name`, `take_loc`, `valid_time`, `view_num`, `member_nick`, `post_area`,`lat`, `lon`)
-VALUES (4, 'KOR', '2022-07-27 02:33:46', 5, 1, '한국음식 배달시간1 내용', '한국음식 배달시간1', '북악4', '2022-09-23T11:35', 0, '김선진', '서울 성북구 정릉동', 37.61507352547857,127.01321786964758);
-INSERT INTO `test_db`.`post` (`post_id`, `category`, `created_date`,`max_person_num`, `participant_num`, `post_content`, `post_name`, `take_loc`, `valid_time`, `view_num`, `member_nick`, `post_area`,`lat`, `lon`)
-VALUES (5, 'KOR', '2022-07-27 02:33:46', 5, 1, '타인이 쓴 글 내용1', '타인이 쓴 글', '북악관', '2022-11-03T11:35', 0, '정다은', '서울 성북구 정릉동', 37.61507352547857,127.01321786964758);
-INSERT INTO `test_db`.`post` (`post_id`, `category`, `created_date`,`max_person_num`, `participant_num`, `post_content`, `post_name`, `take_loc`, `valid_time`, `view_num`, `member_nick`, `post_area`,`lat`, `lon`)
-VALUES (6, 'KOR', '2022-09-01 02:33:46', 5, 1, '타지역 한국음식 배달시간4 내용', '타지역 한국음식 배달시간4', '개봉1', '2022-11-30T11:35', 0, '정다은', '서울 구로구 개봉동', 37.49442709339608,126.85856370439684 );
-INSERT INTO `test_db`.`post` (`post_id`, `category`, `created_date`,`max_person_num`, `participant_num`, `post_content`, `post_name`, `take_loc`, `valid_time`, `view_num`, `member_nick`, `post_area`,`lat`, `lon`)
-VALUES (7, 'CHI', '2022-09-02 02:33:46', 5, 1, '타지역 중국음식 배달시간2 내용', '타지역 중국음식 배달시간2', '개봉2', '2022-11-30T11:35', 0, '정다은', '서울 구로구 개봉동', 37.49442709339608,126.85856370439684);
-INSERT INTO `test_db`.`post` (`post_id`, `category`, `created_date`,`max_person_num`, `participant_num`, `post_content`, `post_name`, `take_loc`, `valid_time`, `view_num`, `member_nick`, `post_area`,`lat`, `lon`)
-VALUES (8, 'JAP', '2022-09-03 02:33:46', 5, 1, '타지역 일본음식 배달시간3 내용', '타지역 일본음식 배달시간3', '개봉3', '2022-11-30T11:35', 0, '정다은', '서울 구로구 개봉동', 37.49442709339608,126.85856370439684);
-INSERT INTO `test_db`.`post` (`post_id`, `category`, `created_date`,`max_person_num`, `participant_num`, `post_content`, `post_name`, `take_loc`, `valid_time`, `view_num`, `member_nick`, `post_area`,`lat`, `lon`)
-VALUES (9, 'KOR', '2022-09-14 18:33:46', 5, 1, '타지역 한국음식 배달시간1 내용', '타지역 한국음식 배달시간1', '개봉4', '2022-09-30T11:35', 0, '정다은', '서울 구로구 개봉동', 37.49442709339608,126.85856370439684);
+VALUES (4, 'KOR', '2022-10-15 02:33:46', 5, 1, '내용', '타인/타지역4', '서경대 스콘스퀘어', '2022-09-23T11:35', 0, '김선진', '서울 성북구 정릉동', 37.6149,127.0134);
 
 INSERT INTO `test_db`.`post` (`post_id`, `category`, `created_date`,`max_person_num`, `participant_num`, `post_content`, `post_name`, `take_loc`, `valid_time`, `view_num`, `member_nick`, `post_area`,`lat`, `lon`)
-VALUES (10, 'KOR', '2022-09-01 20:20:46', 5, 1, '타지역 한국음식 배달시간1 내용', '타지역 한국음식 배달시간1', '개봉4', '2022-10-15T11:35', 0, '정다은', '서울 구로구 개봉동', 37.49442709339608,126.85856370439684);
+VALUES (5, 'KOR', '2022-10-15 02:33:46', 5, 1, '내용', '본인/본인지역1', '개봉역 1번출구', '2022-11-03T11:35', 0, '정다은', '서울 성북구 정릉동', 37.4944,126.8587);
 INSERT INTO `test_db`.`post` (`post_id`, `category`, `created_date`,`max_person_num`, `participant_num`, `post_content`, `post_name`, `take_loc`, `valid_time`, `view_num`, `member_nick`, `post_area`,`lat`, `lon`)
-VALUES (11, 'KOR', '2022-09-01 20:37:46', 5, 1, '타지역 한국음식 배달시간1 내용', '타지역 한국음식 배달시간1', '개봉4', '2022-10-15T11:35', 0, '정다은', '서울 구로구 개봉동', 37.49442709339608,126.85856370439684);
+VALUES (6, 'KOR', '2022-10-15 02:33:46', 5, 1, '내용', '본인/본인지역2', '개웅중 교문 앞', '2022-11-30T11:35', 0, '정다은', '서울 구로구 개봉동', 37.4873,126.8515);
+INSERT INTO `test_db`.`post` (`post_id`, `category`, `created_date`,`max_person_num`, `participant_num`, `post_content`, `post_name`, `take_loc`, `valid_time`, `view_num`, `member_nick`, `post_area`,`lat`, `lon`)
+VALUES (7, 'CHI', '2022-10-15 02:33:46', 5, 1, '내용', '본인/본인지역3', '대원주유소 앞', '2022-10-17T11:35', 0, '정다은', '서울 구로구 개봉동', 37.4863,126.8563);
+INSERT INTO `test_db`.`post` (`post_id`, `category`, `created_date`,`max_person_num`, `participant_num`, `post_content`, `post_name`, `take_loc`, `valid_time`, `view_num`, `member_nick`, `post_area`,`lat`, `lon`)
+VALUES (8, 'JAP', '2022-10-15 02:33:46', 5, 1, '내용', '본인/본인지역4', '이디아 개봉중앙점', '2022-10-17T11:35', 0, '정다은', '서울 구로구 개봉동', 37.4864,126.8549);
 
 
 -- 공지사항 등록
