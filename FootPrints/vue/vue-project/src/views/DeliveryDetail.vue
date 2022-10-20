@@ -42,6 +42,7 @@
         <div v-else>
           <div v-if="isJoin">
             <button type="button" id="chat" v-on:click="moveChat">채팅방 이동</button>
+            <button type="button" id="exit" v-on:click="exitPost">나가기</button>
           </div>
           <div v-else>
             <div v-if="fetched.max_person_num > fetched.participant_num">
@@ -152,6 +153,13 @@ export default {
     amendPost() {
       // 수정했는데 안 되면 바꿔야함
       this.$router.replace("/delivery/post/" + this.post_id + "/amend"); 
+    },
+    exitPost() {
+      const roomInfo = {
+        nick: this.$store.state.member.nick,
+        post_id: this.post_id
+      };
+      this.$store.dispatch('EXIT_DELIVERY_POST', roomInfo);
     },
     deletePost() {
       this.$store.dispatch('DELETE_DELIVERY_POST', this.post_id);
@@ -328,7 +336,7 @@ export default {
   background-color: #fff;
   border: 1px solid #aaa;
 }
-#join, #chat, #amend, #delete {
+#join, #chat, #amend, #exit, #delete {
   border: none;
 }
 #block {
