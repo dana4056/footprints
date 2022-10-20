@@ -14,15 +14,12 @@
       <div class="content">
         <p v-for="content in this.$store.state.notice.content.split('\n')" v-bind:key="content">{{content}}</p>
       </div>
-      <router-link to="/notice/post"><button class="btn">목록으로</button></router-link>
       <!-- 관리자만 수정 삭제 보이도록 -->
-      <div v-if="fetched.nick == this.admin_id">
-        <button type="button" id="delete" v-on:click="deleteNotice">삭제</button>
-        <button type="button" id="amend" v-on:click="amendNotice">수정</button>
+      <div id="adminBox" v-if="fetched.nick == this.admin_id">
+        <button class="btn" type="button" id="delete" v-on:click="deleteNotice">삭제</button>
+        <button class="btn" type="button" id="amend" v-on:click="amendNotice">수정</button>
       </div>
-      <div v-else>
-        <div>관리자 이외에는 수정, 삭제 권한이 없습니다.</div>
-      </div>
+      <router-link to="/notice/post"><button class="btn">목록으로</button></router-link>
 
     </div>
     <footer-area id="footer"></footer-area>
@@ -146,6 +143,7 @@ export default {
   margin: 42px 0 0 25px;
 }
 .btn{
+  margin: auto 3px;
   position: absolute;
   right: 15px;
   width: 89px;
@@ -154,5 +152,18 @@ export default {
   border: 1px solid #afafaf;
   border-radius: 10px;
   color: #fff;
+}
+#delete{
+  /* position: absolute; */
+  background-color: #db5959;
+  border: 1px solid #db5959;
+  right: 205px;
+}
+#amend{
+  /* position: absolute; */
+  background-color: #f3f3f3;
+  border: 1px solid #afafaf;
+  color: #afafaf;
+  right: 110px;
 }
 </style>

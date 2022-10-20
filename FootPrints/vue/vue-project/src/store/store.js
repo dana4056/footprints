@@ -37,6 +37,7 @@ export const store = new Vuex.Store({
         eupmyeondongList:{},
         sessionId:"",
         // 배달 게시물 관련
+        isLoading:false,
         deliveryPostList:[],
         // deliveryPost_presentArea: "로그인 시 지역 설정 됨",
         deliveryPost:{},
@@ -79,6 +80,9 @@ export const store = new Vuex.Store({
         GET_MEMBER_CHANGE_DONE(state){
             return state.memberChange_done;
         },
+        GET_ISLOADING(state){
+            return state.isLoading;
+        }
     },
     actions,
     mutations:{
@@ -179,6 +183,9 @@ export const store = new Vuex.Store({
                 idx += 1;
             }
         },
+        SET_ISLOADING(state, flag){
+            state.isLoading = flag;
+        }
     },
     
 });

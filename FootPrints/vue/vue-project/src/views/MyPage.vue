@@ -23,7 +23,7 @@
               <p>좋아요</p>
             </router-link>
             <router-link v-bind:to="`/chat/${this.$store.state.member.nick}`" id="chat">
-              <img id="chatImage" src="../assets/chatting.jpg">
+              <img id="chatImage" src="../assets/chatting.png">
               <p>채팅</p>
             </router-link>
           </div>
@@ -143,12 +143,11 @@ export default {
   height: 100%; 
 }
 #profileBox {
-  width: 270px;
-  height: 380px;
-  margin: 50px 100px 0px 350px;
-  background-color: rgb(255, 255, 255);
-  border-radius: 40px;
-  box-shadow: 1px 1px 2px 6px #98d0a443;
+    width: 270px;
+    height: 380px;
+    margin: 50px 100px 0 350px;
+    border: 1px #d5d5d5 solid;
+    border-radius: 40px;
 }
 #profileImage {
   width: 100px;

@@ -73,11 +73,11 @@
 </template>
 
 <script>
-import ToolBar from '../components/ToolBar.vue'
+import ToolBar from '../components/ToolBar.vue';
 import { router } from '../routes/index.js';
 import Swal from 'sweetalert2';
-import Stomp from 'webstomp-client'
-import SockJS from 'sockjs-client'
+import Stomp from 'webstomp-client';
+import SockJS from 'sockjs-client';
 
 var stompClient = null;
 

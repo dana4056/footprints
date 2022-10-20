@@ -206,8 +206,7 @@ button {
   height: 300px;
   margin-top: 80px;
   padding: 90px 0;
-  background-color:#97c9a23f;
-  border: 3px dashed #cbcbcb;
+  border: 1px dashed #b1b1b1;
   border-radius: 50px;
 }
 </style>

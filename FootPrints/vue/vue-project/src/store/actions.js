@@ -1,5 +1,5 @@
 //Token
-import { fetchToken } from "../api/index.js";
+import { fetchToken , fetchAutority} from "../api/index.js";
 //Member
 import { postSignup, patchChangePwd, getUserArea, postLogin, getFindId, getFindPwd, getCheckNick, getCheckEmail, } from "../api/index.js";
 //Notice
@@ -25,7 +25,7 @@ export default{
     console.log("토큰");
     console.log(localStorage.getItem('jwt'));
     if(localStorage.getItem('jwt') == null){
-      console.log("API:FETCH_USER\n멤버 가져오기 실패(토큰없음)");
+      console.log("API:FETCH_USER\n멤버 가져오기 실패(토큰 없음, 로그인 필요)");
       alert("로그인 후 이용하세요");
       router.replace("/home");
       return;
@@ -45,7 +45,7 @@ export default{
         const code = error.response.status;
         if(code == 403){
           console.log("API:FETCH_USER\n멤버 가져오기 실패(로그인 필요)",error);
-          alert("FETCH_USER 로그인 후 이용하세요");
+          alert("권한없음: 다시 로그인 해주세요.");
           router.replace("/home");
         }
         else{
@@ -55,6 +55,27 @@ export default{
     }
   },
 
+
+  FETCH_AUTHORITY({commit}){
+    fetchAutority()
+      .then(response =>{
+        console.log("API:FETCH_AUTHORITY\n권한 가져오기 성공",response.data);
+        commit('SET_AUTHORITY', response.data);
+      })
+      .catch(error => {
+        const code = error.response.status;
+        console.log("API:FETCH_AUTHORITY\n권한 가져오기 실패",error);
+        if(code == 403){
+          console.log("API:FETCH_AUTHORITY\n권한 가져오기 실패(로그인 필요)",error);
+          // alert("FETCH_USER 로그인 후 이용하세요");
+          // router.replace("/home");
+        }
+        else{
+          console.log("API:FETCH_AUTHORITY\n권한 가져오기 실패(??)",error);
+          // console.log("페이지 최초 방문할 때 가끔 500오류 발생?");
+        }
+      });
+  },
 
   ////////////////////////// MEMBER //////////////////////////
 
@@ -108,13 +129,13 @@ export default{
             }
             commit('SET_MEMBER', member);
             commit('SET_DELIVERY_AREA', member.area);
-            router.replace("/home");
             store.dispatch("FETCH_AUTHORITY");
             store.dispatch('FIND_POST_ID', loginMember.nick);
+            router.replace("/home");
           })
           .catch(error => {
-            router.replace("/home");
             console.log("지역 읽기 실패", error);
+            router.replace("/home");
           })
         })
         .catch(error => {
@@ -429,6 +450,7 @@ export default{
       .then(response => {
         console.log("API:FETCH_DELIVERY_DETAIL\n상세페이지 정보 받아오기 성공", response.data);
         commit('SET_DELIVERY_POST', response.data);
+        commit('SET_ISLOADING', false);
       })
       .catch(error => {
         const code = error.response.status;

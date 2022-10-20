@@ -20,7 +20,7 @@
               <option value="JOK">족발/보쌈</option>
               <option value="DES">디저트</option>
               <option value="ETC">기타</option>
-            </select>  
+            </select>
           </div>
 
         <label>정렬 기준</label>
@@ -59,8 +59,8 @@
             <router-link v-bind:to="`/delivery/post/${delivery.post_id}`"><p>{{ delivery.post_content }}</p></router-link>
             <div class="listbox-foot">
               <div class="detail-info">
-                <small>{{delivery.area_name}}</small>
-                <button class="area-btn" v-on:click="this.$refs.showMap.showMap(), change(delivery)"><img src="../assets/placeholder.png">{{ delivery.take_loc }}</button>
+                <small>{{delivery.post_area}}</small>
+                <button class="area-btn" v-on:click="change(delivery.post_id)"><img src="../assets/placeholder.png">{{ delivery.take_loc }}</button>
                 <img src="../assets/people.png" alt="">
                 <small class="cnt">{{ delivery.participant_num }}/{{ delivery.max_person_num }}</small>
               </div>
@@ -85,7 +85,7 @@
             <p>{{ delivery.post_content }}</p>
             <div class="listbox-foot">
               <div class="detail-info">
-                <small>{{delivery.area_name}}</small>
+                <small>{{delivery.post_area}}</small>
                 <button class="area-btn"><img src="../assets/placeholder.png">{{ delivery.take_loc }}</button>
                 <img src="../assets/people.png" alt="">
                 <small class="cnt">{{ delivery.participant_num }}/{{ delivery.max_person_num }}</small>
@@ -155,21 +155,18 @@ export default {
     this.now = dayjs();
   },
   methods:{
-    change(post){
+    change(post_id){
+      this.$store.commit('SET_ISLOADING', true); // 로딩 시작
       this.isShowmap =  this.$refs.showMap.openMap;
-      this.$store.commit('SET_DELIVERY_POST', post);
+      // console.log("디테일 패치 시작  isLoading: "+this.$store.getters.GET_ISLOADING);
+
+      this.$store.dispatch('FETCH_DELIVERY_DETAIL', post_id);
+
     },
     caltime(time){
       // 콘솔창에 시간 객체 찍을 때 표시되는 속성명과 dayjs객체 속성명 다름
       // ex) 시간(hour) -> 콘솔에는 H로 dayjs에는 h로 표시  dayjs로 다뤄야함
       const now = dayjs();
-        // if(diffH < 0){
-      //   const beforeTime = now;
-      //   const afterTime = time;
-      // }else{
-      //   const beforeTime = time;
-      //   const afterTime = now;
-      // }
 
       const beforeTime = (now < time) ? now : time;
       const afterTime = (now < time) ? time : now;
@@ -200,9 +197,9 @@ export default {
         area : this.area,
       }
       this.$store.dispatch('FETCH_DELIVERY_LIST_SORT', sortDTO);
-      setTimeout(() => { 
+      setTimeout(() => {
           this.$store.getters.GET_DELIVERIES;
-        }, 200);   
+        }, 200);
     },
     BeforeSort(){
       this.sort_criteria = "";
@@ -215,9 +212,9 @@ export default {
       }
       this.$store.dispatch('FETCH_DELIVERY_LIST_SORT', sortDTO);
       console.log(sortDTO.category, sortDTO.sort_criteria, sortDTO.area);
-      setTimeout(() => { 
+      setTimeout(() => {
           this.$store.getters.GET_DELIVERIES;
-        }, 200);   
+        }, 200);
     },
     searchArea() {
       new window.daum.Postcode({
@@ -226,16 +223,16 @@ export default {
           const sido = data.sido;
           const sigoongu = data.sigungu;
           const eupmyeondong = data.bname;
-          
+
           this.area = sido+" "+sigoongu+" "+eupmyeondong;
           this.$store.state.persistedStore.deliveryPost_presentArea = this.area;
           this.$store.dispatch('FETCH_DELIVERY_LIST', this.$store.state.persistedStore.deliveryPost_presentArea);
-          
-          setTimeout(() => { 
+
+          setTimeout(() => {
             this.NoneCategory();
             this.BeforeSort();
             this.$store.getters.GET_DELIVERIES;
-          }, 100);  
+          }, 100);
         }
       }).open();
     }
@@ -381,13 +378,15 @@ label {
 /* ---------------------------------- */
 
 .detail-info{
+  width: 80%;
+  text-align: left;
   line-height: 30px;
 }
 .detail-info img{
   width: 20px;
   vertical-align:middle;
 }
-button img{
+.area-btn img{
   margin: 0;
 }
 .cnt{
@@ -398,12 +397,12 @@ button img{
 .area-btn{
   box-sizing: border-box;
   height: 30px;
-  margin: 0px 15px;
-  padding: 0px 14px 0px 10px;
-  background-color: white;
+  margin: 0px 8px;
+  background-color: #fff;
   border: 1px solid #afafaf;
   border-radius: 27px;
   color: #5d5d5d;
+  cursor: pointer;  
 }
 .time{
   -webkit-box-flex:1;
@@ -421,7 +420,7 @@ button img{
   font-size: 11px;
   vertical-align:middle;
 }
-button {
+/* button {
   box-sizing: border-box;
   width: 100%;
   height: 40px;
@@ -430,8 +429,17 @@ button {
   border-radius: 13px;
   color: #7aab85;
   font-family: 'Noto Sans KR', sans-serif;
-}
+} */
 .btn1, .btn2 {
+  box-sizing: border-box;
+  width: 100%;
+  height: 40px;
+  background: #ffffff;
+  border: 1px solid #7aab85;
+  border-radius: 13px;
+  color: #7aab85;
+  font-family: 'Noto Sans KR', sans-serif;
+
   padding: 8px 15px 9px;
 }
 .invalid {
