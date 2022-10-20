@@ -28,10 +28,17 @@ public class PostController {
     // 리스트뷰
     @GetMapping(value = "/delivery/post")
     public ResponseEntity<List<Post>> deliveryListView(@RequestParam String area, @RequestParam int isFrontReq){
+        List<Post> postList = postService.getPostList(area);
+
         if(isFrontReq == 1){
-            List<Post> postList = postService.getPostList(area);
-            return new ResponseEntity<>(postList, HttpStatus.OK);
-        }else{
+            if(postList.size() == 0){
+                return new ResponseEntity<>(null, HttpStatus.OK);
+            }
+            else{
+                return new ResponseEntity<>(postList, HttpStatus.OK);
+            }
+        }
+        else{
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
     }
@@ -43,7 +50,7 @@ public class PostController {
         List<Post> categoryList = postService.getSortingList(category, sort_criteria, area);
         if(categoryList == null){
             log.info("카테고리 리스트 널 값 반환");
-            return new ResponseEntity<>((List<Post>) null, HttpStatus.OK);
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
         else{
             return new ResponseEntity<>(categoryList, HttpStatus.OK);
@@ -80,7 +87,6 @@ public class PostController {
     // 상세페이지
     @GetMapping(value = "/delivery/post/{post_id}")
     public ResponseEntity<Post> deliveryDetailPage(@PathVariable Long post_id, @RequestParam int isFrontReq){
-
         Post post = postService.getPost(post_id);
         postService.plusView(post); //조회수 증가
 

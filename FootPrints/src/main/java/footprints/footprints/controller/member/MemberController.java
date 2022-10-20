@@ -31,9 +31,14 @@ public class MemberController {
     @GetMapping(value = "/token")
     public ResponseEntity<ResLoginedMemberDTO> fetchMember(Authentication authentication){
         Member principal = (Member)authentication.getPrincipal();
-        ResLoginedMemberDTO loginMember = new ResLoginedMemberDTO(principal.getNick(), principal.getEmail(), principal.getArea());
-        log.info("-----[MemberController fetchMember] return {}",loginMember.getNick());
-        return new ResponseEntity<>(loginMember, HttpStatus.OK);
+        if(principal == null){
+            return new ResponseEntity<>(null, HttpStatus.FORBIDDEN);
+        }
+        else{
+            ResLoginedMemberDTO loginMember = new ResLoginedMemberDTO(principal.getNick(), principal.getEmail(), principal.getArea());
+            log.info("-----[MemberController fetchMember] return {}",loginMember.getNick());
+            return new ResponseEntity<>(loginMember, HttpStatus.OK);
+        }
     }
 
     @GetMapping(value = "/authority")
@@ -67,6 +72,7 @@ public class MemberController {
         log.info("-----[MemberController ChangePW] email:{}", changePwDTO.getEmail());
         memberService.changeDBPwd(changePwDTO);
         log.info("-----[MemberController ChangePW] pw 변경 완료 -> {}", changePwDTO.getPw());
+
         return new ResponseEntity<>("SUCCESS", HttpStatus.OK); //비밀번호 변경 성공
     }
 
@@ -74,8 +80,13 @@ public class MemberController {
     @GetMapping(value="/member/login")
     public ResponseEntity<ResLoginedMemberDTO> findArea(@RequestParam String nick){
         Member member = memberRepository.findByNick(nick);
-        ResLoginedMemberDTO resLoginedMemberDTO = new ResLoginedMemberDTO(member.getNick(), member.getEmail(), member.getArea());
-        return new ResponseEntity<>(resLoginedMemberDTO, HttpStatus.OK);
+        if(member == null){
+            return new ResponseEntity<>(null, HttpStatus.FORBIDDEN);
+        }
+        else{
+            ResLoginedMemberDTO resLoginedMemberDTO = new ResLoginedMemberDTO(member.getNick(), member.getEmail(), member.getArea());
+            return new ResponseEntity<>(resLoginedMemberDTO, HttpStatus.OK);
+        }
     }
 
     // 로그인

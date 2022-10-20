@@ -321,6 +321,7 @@ export default{
       })
       .catch(error => {
         const code = error.response.status;
+        // 권한 없이 들어올 수 있도록 코드 변경 되어 코드 수정 필요
         if (code == 405) {
           alert("권한 없음 로그인 후 이용하세요");
           router.replace("/home");
