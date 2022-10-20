@@ -25,7 +25,7 @@ export default{
     console.log("토큰");
     console.log(localStorage.getItem('jwt'));
     if(localStorage.getItem('jwt') == null){
-      console.log("API:FETCH_USER\n멤버 가져오기 실패(토큰없음)");
+      console.log("API:FETCH_USER\n멤버 가져오기 실패(토큰 없음, 로그인 필요)");
       alert("로그인 후 이용하세요");
       router.replace("/home");
       return;
@@ -45,7 +45,7 @@ export default{
         const code = error.response.status;
         if(code == 403){
           console.log("API:FETCH_USER\n멤버 가져오기 실패(로그인 필요)",error);
-          alert("FETCH_USER 로그인 후 이용하세요");
+          alert("권한없음: 다시 로그인 해주세요.");
           router.replace("/home");
         }
         else{
@@ -449,6 +449,9 @@ export default{
       .then(response => {
         console.log("API:FETCH_DELIVERY_DETAIL\n상세페이지 정보 받아오기 성공", response.data);
         commit('SET_DELIVERY_POST', response.data);
+        commit('SET_ISLOADING', false);
+        
+        console.log("디테일 패치 끝  isLoading: "+ store.getters.GET_ISLOADING);
       })
       .catch(error => {
         const code = error.response.status;

@@ -60,7 +60,7 @@
             <div class="listbox-foot">
               <div class="detail-info">
                 <small>{{delivery.area_name}}</small>
-                <button class="area-btn" v-on:click="this.$refs.showMap.showMap(), change(delivery)"><img src="../assets/placeholder.png">{{ delivery.take_loc }}</button>
+                <button class="area-btn" v-on:click="change(delivery.post_id)"><img src="../assets/placeholder.png">{{ delivery.take_loc }}</button>
                 <img src="../assets/people.png" alt="">
                 <small class="cnt">{{ delivery.participant_num }}/{{ delivery.max_person_num }}</small>
               </div>
@@ -155,9 +155,20 @@ export default {
     this.now = dayjs();
   },
   methods:{
-    change(post){
+    change(post_id){
+      this.$store.commit('SET_ISLOADING', true); // 로딩 시작
       this.isShowmap =  this.$refs.showMap.openMap;
-      this.$store.commit('SET_DELIVERY_POST', post);
+      // this.$store.commit('SET_DELIVERY_POST', post);
+      console.log("디테일 패치 시작  isLoading: "+this.$store.getters.GET_ISLOADING);
+      
+      this.$store.dispatch('FETCH_DELIVERY_DETAIL', post_id);
+
+      // setTimeout(() => { 
+      //   this.$store.dispatch('FETCH_DELIVERY_DETAIL', post_id);
+      //   }, 2000);   
+
+      this.$refs.showMap.showMap();
+
     },
     caltime(time){
       // 콘솔창에 시간 객체 찍을 때 표시되는 속성명과 dayjs객체 속성명 다름

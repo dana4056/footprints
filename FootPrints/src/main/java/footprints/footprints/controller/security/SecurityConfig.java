@@ -50,9 +50,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) // 토큰 기반 인증이므로 세션 역시 사용하지 않습니다.
         .and()
         .authorizeRequests() // 요청에 대한 사용권한 체크
-            .antMatchers("/token/**").hasRole("USER")
-            .antMatchers("/token/**").hasRole("ADMIN")  //관리자도 유저의 권한 가지고 있어야 하므로 필요
-//            .antMatchers("/delivery/post/**").hasRole("USER")
+            .antMatchers("/token/**").hasAnyRole("USER", "ADMIN")
             .antMatchers("/delivery/post/new-post").hasRole("USER")
 //            .antMatchers("/delivery/post/{post_id}/amend").hasRole("USER")
             .antMatchers("/user/**").hasRole("USER")
