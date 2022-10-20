@@ -13,6 +13,8 @@
             <img :src="require('../assets/category/' + room.category + '.png')" id="roomImg">
             <h3>{{ room.post_name }}</h3>
             <!-- 마지막 메세지 구현 필요 -->
+            <!-- 첫번째는 먹는데 이후부터 안 먹어서 store에 담는 개념으로 코드 수정 시도중 -->
+            <!-- <div> {{ this.$store.state.chatLogs[this.$store.state.chatLogs.length - 1].message }}</div> -->
             </li>
           </ul>
         </div>
@@ -76,7 +78,7 @@ import Swal from 'sweetalert2';
 import Stomp from 'webstomp-client'
 import SockJS from 'sockjs-client'
 
-var stomp = null;
+var stompClient = null;
 
 export default {
   data() {
@@ -132,24 +134,21 @@ export default {
   methods: {
     connect(){
      this.isSocketConnected = true;
-     let socket = new SockJS("/socket-open/chat");  // WebSocketConfig랑 통일할 주소 , 소켓 열 주소
-     console.log("소켓 열기 시도", socket);
-     setTimeout(() => {
-      stomp = Stomp.over(socket);
-      stomp.connect({}, function () {
-          console.log("소켓 연결 성공");
-          // 메시지 받는 부분임
-          stomp.subscribe(`/sub/send`, res => {
-            console.log('구독으로 받은 메시지 입니다.', res.body);
-            alert("메시지 받기 성공");
-            const post_id = this.$store.state.postIdList[this.$store.state.roomIndex];
-            this.$store.dispatch('FIND_CHAT_LOGS', post_id);
-          });
-        },
-        error => {
-          console.log("소켓 연결 실패", error);
-        });
-      }, 100)
+     var socket = new SockJS('/socket-open/chat');  // WebSocketConfig랑 통일할 주소 , 소켓 열 주소
+     stompClient = Stomp.over(socket);
+    //  console.log("소켓 열기 시도", socket);
+     stompClient.connect({}, this.onConnected, this.onError);
+    },
+    onConnected(){
+      stompClient.subscribe(`/sub/send`, this.onMessageReceived)
+    },
+    onError(){
+      console.log("소켓 연결 실패");
+    },
+    onMessageReceived(res){
+      console.log('구독으로 받은 메시지', res.body);
+      const post_id = this.$store.state.postIdList[this.$store.state.roomIndex];
+      this.$store.dispatch('FIND_CHAT_LOGS', post_id);
     },
     submitMessage() {
       if (this.msg) {
@@ -178,7 +177,7 @@ export default {
         this.$store.dispatch('POST_CHAT_DATA', chatData);
         
           // 소켓 관련 메세지 전송 부분
-        stomp.send(`/receive`, JSON.stringify(chatData), {});
+        stompClient.send(`/receive`, JSON.stringify(chatData), {});
 
         this.$store.dispatch('FIND_CHAT_LOGS', post_id);
 
