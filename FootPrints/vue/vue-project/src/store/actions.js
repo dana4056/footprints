@@ -538,6 +538,15 @@ export default{
       .then(response => {
         console.log('API:JOIN_DELIVERY_POST\n배달 참여 성공', response);
         store.dispatch("FIND_POST_ID", store.state.member.nick);
+
+        Swal.fire({
+          icon: 'success',
+          title: '참여 완료!',
+          confirmButtonText: '배달 모집 목록 보러가기',
+        }).then(() => {
+          router.replace("/delivery/post");
+        })
+
       })
       .catch(error => {
         console.log('API:JOIN_DELIVERY_POST\n배달 참여 실패', error);

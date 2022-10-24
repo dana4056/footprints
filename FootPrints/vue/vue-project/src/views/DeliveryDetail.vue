@@ -169,15 +169,14 @@ export default {
         nick: this.$store.state.member.nick,
         post_id: this.post_id
       };
-      this.$store.dispatch('JOIN_DELIVERY_POST', roomInfo);
 
-      Swal.fire({
-        icon: 'success',
-        title: '참여 완료!',
-        confirmButtonText: '배달 모집 목록 보러가기',
-      }).then(() => {
+      if(roomInfo.nick != ""){
+        this.$store.dispatch('JOIN_DELIVERY_POST', roomInfo);
+      }else{
+        alert("로그인 후 참여 가능합니다.");
         this.$router.replace("/delivery/post");
-      })
+      }
+
     },
     moveChat() {
       this.$router.replace("/chat/" + this.$store.state.member.nick);
