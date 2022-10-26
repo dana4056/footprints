@@ -42,7 +42,7 @@ export const store = new Vuex.Store({
         // deliveryPost_presentArea: "로그인 시 지역 설정 됨",
         deliveryPost:{},
         postIdList: [0],
-        roomList: [{post_id: 0, post_name: " "}],
+        roomList: [{post_id: 0, post_name: " ", last_message: " ", nick: " ", category: " "}],
         delivery_category: "",
         delivery_category_sort: "",
         delivery_category_area: "",
@@ -171,6 +171,17 @@ export const store = new Vuex.Store({
         },
         SET_MEMBER_CHANGE_DONE(state, string) {
             state.memberChange_done = string;
+        },
+        CHANGE_LAST_CHAT(state, changeLastChat){
+            var list = state.roomList;
+            let idx = 0;
+            for (let value of list) {
+                if( changeLastChat.post_id == value.post_id){
+                    state.roomList[idx].last_message = changeLastChat.message;
+                    break;
+                }
+                idx += 1;
+            }
         },
         SET_ISLOADING(state, flag){
             state.isLoading = flag;

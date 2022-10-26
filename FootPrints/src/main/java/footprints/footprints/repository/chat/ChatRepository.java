@@ -19,4 +19,6 @@ public interface ChatRepository {
     void save(ChatDataDTO chatDataDTO);
 
     void delete_all(Long post_id);
+
+    String getLastChatting(Long post_id);
 }

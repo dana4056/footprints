@@ -41,7 +41,7 @@ public class ChatRepositoryImpl implements ChatRepository {
     public List<Post> getPostInfoList(List<Long> postIdList) {
         log.info("-------------------getPostInfoList--{}",postIdList);
         // 최종 결과를 저장할 변수.
-        List<Post> resultList = new ArrayList<Post>();
+        List<Post> resultList = new ArrayList<>();
 
         // postIdList 변수 안에 포함되어 있는 post 객체를 "in" 을 사용하여 찾는 코드가 오류가 나서
         // 반복문을 돌며 "=" 을 이용해서 객체를 탐색하도록 임시 변경
@@ -103,5 +103,13 @@ public class ChatRepositoryImpl implements ChatRepository {
     public void delete_all(Long post_id) {
         Query query = em.createQuery("delete from ChatData c where c.post.post_id = :post_id");
         query.setParameter("post_id", post_id).executeUpdate();
+    }
+
+    @Override
+    public String getLastChatting(Long post_id) {
+        TypedQuery<String> stringTypedQuery = em.createQuery("select cd.message from ChatData cd " +
+                "where cd.post.post_id = :post_id", String.class).setParameter("post_id", post_id);
+
+        return String.valueOf(stringTypedQuery);
     }
 }

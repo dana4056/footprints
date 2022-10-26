@@ -33,7 +33,7 @@
             </select>
           </div>
 
-        <div>
+        <div id="search-area" >
           <button type="button" class="btn2" v-on:click="searchArea">지역 검색</button>
         </div>
 
@@ -274,8 +274,16 @@ export default {
   width: 60px;
   font-size: 10px;
 }
-.add-btn{
+#search-area{
   -webkit-box-flex:1;
+}
+
+#search-area button{
+  float: right;
+  margin: 0 24px 0 0;
+  width: 30%;
+}
+.add-btn{
   margin: auto 0;
   text-align: right;
 }

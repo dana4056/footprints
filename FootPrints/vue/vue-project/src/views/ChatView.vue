@@ -13,6 +13,9 @@
             <img :src="require('../assets/category/' + room.category + '.png')" id="roomImg">
             <h3>{{ room.post_name }}</h3>
             <!-- 마지막 메세지 구현 필요 -->
+            <!-- rommList 안에 필요한 데이터를 넣어놓고 roomList 갱신 시 Last_Message갱신 되도록 , 또 당사자가 채팅 보낼 때 LastMessage 갱신 되도록 구현 중 -->
+            <!-- <div> {{ this.$store.state.chatLogs[this.$store.state.chatLogs.length - 1].message }}</div> -->
+            <h5>{{ room.last_message }}</h5>
             </li>
           </ul>
         </div>
@@ -23,7 +26,7 @@
           <div v-if="this.$store.state.postIdList[0] != 0">
             <p id="title">{{ this.$store.state.roomList[this.$store.state.roomIndex].post_name }}</p>
             <p id="userList" v-for="user in this.$store.state.userList" v-bind:key="user"> {{ user }}</p>
-            <button v-if="this.$store.state.roomList[this.$store.state.roomIndex].member.nick != this.$store.state.member.nick" v-on:click="exitPost">나가기</button>
+            <button v-if="this.$store.state.roomList[this.$store.state.roomIndex].nick != this.$store.state.member.nick" v-on:click="exitPost">나가기</button>
           </div>
         </div>
 
@@ -76,7 +79,7 @@ import Swal from 'sweetalert2';
 import Stomp from 'webstomp-client';
 import SockJS from 'sockjs-client';
 
-var stomp = null;
+var stompClient = null;
 
 export default {
   data() {
@@ -132,24 +135,21 @@ export default {
   methods: {
     connect(){
      this.isSocketConnected = true;
-     let socket = new SockJS("/socket-open/chat");  // WebSocketConfig랑 통일할 주소 , 소켓 열 주소
-     console.log("소켓 열기 시도", socket);
-     setTimeout(() => {
-      stomp = Stomp.over(socket);
-      stomp.connect({}, function () {
-          console.log("소켓 연결 성공");
-          // 메시지 받는 부분임
-          stomp.subscribe(`/sub/send`, res => {
-            console.log('구독으로 받은 메시지 입니다.', res.body);
-            alert("메시지 받기 성공");
-            const post_id = this.$store.state.postIdList[this.$store.state.roomIndex];
-            this.$store.dispatch('FIND_CHAT_LOGS', post_id);
-          });
-        },
-        error => {
-          console.log("소켓 연결 실패", error);
-        });
-      }, 100)
+     var socket = new SockJS('/socket-open/chat');  // WebSocketConfig랑 통일할 주소 , 소켓 열 주소
+     stompClient = Stomp.over(socket);
+    //  console.log("소켓 열기 시도", socket);
+     stompClient.connect({}, this.onConnected, this.onError);
+    },
+    onConnected(){
+      stompClient.subscribe(`/sub/send`, this.onMessageReceived)
+    },
+    onError(){
+      console.log("소켓 연결 실패");
+    },
+    onMessageReceived(res){
+      console.log('구독으로 받은 메시지', res.body);
+      const post_id = this.$store.state.postIdList[this.$store.state.roomIndex];
+      this.$store.dispatch('FIND_CHAT_LOGS', post_id);
     },
     submitMessage() {
       if (this.msg) {
@@ -177,8 +177,14 @@ export default {
         };
         this.$store.dispatch('POST_CHAT_DATA', chatData);
         
+        const changeLastChat = {
+          post_id: post_id,
+          message: this.msg
+        }
+        this.$store.dispatch('CHANGE_LAST_CHAT', changeLastChat);
+        
           // 소켓 관련 메세지 전송 부분
-        stomp.send(`/receive`, JSON.stringify(chatData), {});
+        stompClient.send(`/receive`, JSON.stringify(chatData), {});
 
         this.$store.dispatch('FIND_CHAT_LOGS', post_id);
 

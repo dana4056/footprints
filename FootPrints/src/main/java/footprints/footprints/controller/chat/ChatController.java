@@ -1,6 +1,7 @@
 package footprints.footprints.controller.chat;
 
 import footprints.footprints.domain.chat.ChatDataDTO;
+import footprints.footprints.domain.chat.RoomListNCompareDTO;
 import footprints.footprints.service.chat.ChatService;
 import footprints.footprints.domain.post.Post;
 import lombok.RequiredArgsConstructor;
@@ -12,6 +13,8 @@ import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.TypedQuery;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -34,10 +37,20 @@ public class ChatController {
     }
 
     @PostMapping(value = "/chat/get-PostInfoList") // 각 방들의 post_name, category post_id를 리스트(String) 형태로 가져온다.
-    public ResponseEntity<List<Post>> getPostInfoList(@RequestBody List<Long> postIdList){
+    public ResponseEntity<List<RoomListNCompareDTO>> getPostInfoList(@RequestBody List<Long> postIdList){
         log.info("-------------------getPostInfoList--{}",postIdList );
-        List<Post> postInfoList = chatService.getPostInfoList(postIdList);
-        return new ResponseEntity<>(postInfoList, HttpStatus.OK);
+
+        List<Post> postList = chatService.getPostInfoList(postIdList);
+
+        List<RoomListNCompareDTO> roomListNCompareDTO = new ArrayList<>();
+        for(int i = 0; i < postIdList.toArray().length; i++) {
+            String lastChatting = chatService.getLastChat(postIdList.get(i));
+            Post cur_post = postList.get(0);
+            RoomListNCompareDTO object = new RoomListNCompareDTO(cur_post.getPost_id(), cur_post.getPost_name(), lastChatting, cur_post.getMember().getNick(), cur_post.getCategory());
+            roomListNCompareDTO.add(object);
+        }
+
+        return new ResponseEntity<>(roomListNCompareDTO, HttpStatus.OK);
     }
 
     @GetMapping(value = "/chat/get-nick-list") // 그 방에 속한 사용자들의 nick -> 리스트(String) 형태로 가져온다.

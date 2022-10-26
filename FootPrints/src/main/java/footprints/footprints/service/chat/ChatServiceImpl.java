@@ -29,7 +29,6 @@ public class ChatServiceImpl implements ChatService {
     @Override
     public List<Post> getPostInfoList(List<Long> postIdList) {
         List<Post> postInfoList = chatRepository.getPostInfoList(postIdList);
-
         return postInfoList;
     }
 
@@ -54,5 +53,11 @@ public class ChatServiceImpl implements ChatService {
 
     public void delete(Long post_id) {
         chatRepository.delete_all(post_id);
+    }
+
+    @Override
+    public String getLastChat(Long post_id) {
+        String lastChat = chatRepository.getLastChatting(post_id);
+        return lastChat;
     }
 }

@@ -342,6 +342,7 @@ export default{
       })
       .catch(error => {
         const code = error.response.status;
+        // 권한 없이 들어올 수 있도록 코드 변경 되어 코드 수정 필요
         if (code == 405) {
           alert("권한 없음 로그인 후 이용하세요");
           router.replace("/home");
@@ -537,6 +538,15 @@ export default{
       .then(response => {
         console.log('API:JOIN_DELIVERY_POST\n배달 참여 성공', response);
         store.dispatch("FIND_POST_ID", store.state.member.nick);
+
+        Swal.fire({
+          icon: 'success',
+          title: '참여 완료!',
+          confirmButtonText: '배달 모집 목록 보러가기',
+        }).then(() => {
+          router.replace("/delivery/post");
+        })
+
       })
       .catch(error => {
         console.log('API:JOIN_DELIVERY_POST\n배달 참여 실패', error);
