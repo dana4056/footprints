@@ -21,8 +21,8 @@ import NoticeList from '../views/NoticeView.vue'
 import NoticeCreate from '../views/NoticeCreate.vue'
 import NoticeAmend from '../views/NoticeAmend.vue'
 
-import ChatView from '../views/ChatView'
-import ForbiddenError from '../views/ForbiddenError'
+import ChatView from '../views/ChatView.vue'
+import ForbiddenError from '../views/ForbiddenError.vue'
 
 // import createPersistedState from "vuex-persistedstate";
 

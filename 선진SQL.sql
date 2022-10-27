@@ -1,6 +1,6 @@
 -- 일반 유저 회원가입 
 INSERT INTO `test_db`.`member` (`nick`, `area`, `email`,`pw`)
-VALUES ('김선진', '서울 성북구 정릉동', 'tjswls8062@skuniv.com', 'Jhk9458062!');
+VALUES ('김선진', '서울 성북구 정릉동', 'tjswls8062@skuniv.ac.kr', 'Jhk9458062!');
 INSERT INTO `test_db`.`member_roles` (`member_nick`, `roles`)
 VALUES ('김선진', 'ROLE_USER');
 INSERT INTO `test_db`.`member` (`nick`, `area`, `email`,`pw`)
@@ -12,7 +12,7 @@ VALUES ('정다은', 'ROLE_USER');
 INSERT INTO `test_db`.`member` (`nick`, `area`, `email`,`pw`)
 VALUES ('admin', '서울 구로구 개봉동', 'dana4056@naver.com', 'Jhk9458062!');
 INSERT INTO `test_db`.`member_roles` (`member_nick`, `roles`)
-VALUES ('admin', 'ROLE_ADMIN');
+VALUES ('admin', 'ROLE_USER');
 
 
 -- 글 작성 편하게 사용자 이름쪽만 건드리면 test 가능
@@ -42,11 +42,10 @@ INSERT INTO `test_db`.`post` (`post_id`, `category`, `created_date`,`max_person_
 VALUES (11, 'KOR', '2022-09-01 20:37:46', 5, 1, '타지역 한국음식 배달시간1 내용', '타지역 한국음식 배달시간1', '개봉4', '2022-10-15T11:35', 0, '정다은', '서울 구로구 개봉동', 37.49442709339608,126.85856370439684);
 
 
--- 공지사항 등록
+-- 공지사항 등록 
 INSERT INTO `test_db`.`notice` (`id`, `author`, `content`,`post_time`, `title`, `view_num`)
 VALUES (1, 'admin', '공지사항1', '2022.08.13', '공지사항 내용1', 1);
 INSERT INTO `test_db`.`notice` (`id`, `author`, `content`,`post_time`, `title`, `view_num`)
 VALUES (2, 'admin', '공지사항2', '2022.09.14', '공지사항 내용2', 2);
 INSERT INTO `test_db`.`notice` (`id`, `author`, `content`,`post_time`, `title`, `view_num`)
 VALUES (3, 'admin', '공지사항3', '2022.10.15', '공지사항 내용3', 3);
-
