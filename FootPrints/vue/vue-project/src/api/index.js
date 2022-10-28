@@ -316,11 +316,7 @@ function postRoomInfo(roomInfo) {
 }
 
 function patchRoomInfo(roomInfo) {
-    return axios.patch(`${config.baseUrl}/room-info`, {
-        params: {
-            nick : roomInfo.nick,
-            post_id: roomInfo.post_id,
-        },
+    return axios.patch(`${config.baseUrl}/room-info`, roomInfo, {
         headers: {
             'X-AUTH-TOKEN': localStorage.getItem('jwt'),
             'Content-Type': 'application/json'
