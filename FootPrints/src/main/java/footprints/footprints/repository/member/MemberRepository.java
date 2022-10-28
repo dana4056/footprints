@@ -10,5 +10,6 @@ public interface MemberRepository {
     Member findByNick(String nick);
 
     void delete(MemberDTO memberDTO);
+    void update_likes(String nick, Long post_id);
 
 }

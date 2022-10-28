@@ -66,7 +66,17 @@ public class PostServiceImpl implements PostService{
         postRepository.save(post);
     }
 
+    @Override
     public void delete(Long post_id) {
         postRepository.delete_all(post_id);
     }
+
+    @Override
+    public void plusLikes(Long post_id) {
+        Post post = postRepository.findByPostId(post_id);
+        post.Plus_likes();
+        postRepository.save(post);
+    }
+
+
 }

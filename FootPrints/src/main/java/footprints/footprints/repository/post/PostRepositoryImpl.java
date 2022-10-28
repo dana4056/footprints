@@ -46,21 +46,24 @@ public class PostRepositoryImpl implements PostRepository{
                 .build();
 
         log.info("PostRepositoryImpl-post: {}",post);
-        if(post.getPost_id() == null){
-            log.info("-------------------------------------------");
-            log.info("id 없음");
-            log.info("-------------------------------------------");
-            em.persist(post);
-            return post.getPost_id();
+        if(member.getArea() == post.getArea_name()) {
+            if(post.getPost_id() == null){
+                log.info("-------------------------------------------");
+                log.info("id 없음");
+                log.info("-------------------------------------------");
+                em.persist(post);
+                return post.getPost_id();
 //            roomInfoRepository.save_d(member.getNick(), post.getPost_id());
+            }
+            else{
+                log.info("-------------------------------------------");
+                log.info("id 있음");
+                log.info("-------------------------------------------");
+                em.merge(post);
+                return post.getPost_id();
+            }
         }
-        else{
-            log.info("-------------------------------------------");
-            log.info("id 있음");
-            log.info("-------------------------------------------");
-            em.merge(post);
-            return post.getPost_id();
-        }
+        else {return 0;}
     }
 
     @Override

@@ -27,6 +27,14 @@ public class Member implements UserDetails {
     private String area;
     @ElementCollection(fetch = FetchType.EAGER)  // 이거 해결해야함
     private List<String> roles;
+    @ElementCollection(fetch = FetchType.LAZY)
+    private List<Long> like_posts;
+
+
+
+
+
+
 
     public void InfoUpdate(MemberDTO memberDTO){
         this.nick = memberDTO.getNick();

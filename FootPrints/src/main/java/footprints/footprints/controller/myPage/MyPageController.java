@@ -37,6 +37,31 @@ public class MyPageController {
         myPageService.changeInfo(memberDTO);
         return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
     }
+
+    @GetMapping(value = "/users/likes-post") // 마이페이지에서 좋아요했던 게시글들 불러오기
+    public ResponseEntity<List<Post>> getLikePosts(@RequestBody String nick){
+
+        List<Post> likePost = myPageService.getLikePost(nick);
+
+        if(likePost != null){
+            return new ResponseEntity<List<Post>>(likePost, HttpStatus.OK);
+        }
+        else{
+            return new ResponseEntity<List<Post>>(likePost, HttpStatus.BAD_REQUEST);
+        }
+
+
+
+    }
+    //    // 리스트뷰
+//    @PostMapping(value = "/delivery/post")
+//    public ResponseEntity<List<Post>> deliveryListView(@RequestBody String area, Authentication authentication){
+//        if(area.equals("")){
+//            return new ResponseEntity<List<Post>>((List<Post>) null, HttpStatus.UNAUTHORIZED); // 이게 안 먹어 지금
+//        }
+//        List<Post> postList = postService.getPostList(area);
+//        return new ResponseEntity<List<Post>>(postList, HttpStatus.OK);
+//    }
 }
 
 

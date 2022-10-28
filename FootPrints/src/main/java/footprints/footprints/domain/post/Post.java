@@ -1,6 +1,7 @@
 package footprints.footprints.domain.post;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import footprints.footprints.domain.member.Member;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;

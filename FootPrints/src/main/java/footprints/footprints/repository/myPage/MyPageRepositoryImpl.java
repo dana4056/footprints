@@ -1,9 +1,7 @@
 package footprints.footprints.repository.myPage;
 
 import footprints.footprints.domain.member.Member;
-import footprints.footprints.domain.member.Member;
 import footprints.footprints.domain.post.Post;
-import footprints.footprints.domain.roomInfo.RoomInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 
@@ -51,6 +49,15 @@ public class MyPageRepositoryImpl implements MyPageRepository {
     @Override
     public void changeInfo(Member member) {
         em.merge(member);
+    }
+
+    @Override
+    public List<Post> getLikePost(String nick) {
+        TypedQuery<Post> result = em.createQuery("select m.like_posts from Member m where m.nick = :nick",
+                Post.class).setParameter("nick", nick);
+
+        List<Post> resultList = result.getResultList();
+        return resultList;
     }
 
 

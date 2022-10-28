@@ -106,4 +106,9 @@ public class MemberServiceImpl implements MemberService{
         MemberDTO changePwMemberDTO = new MemberDTO(member.getNick(), email, changePwDTO.getPw(), member.getArea());
         memberRepository.save(changePwMemberDTO);
     }
+
+    @Override
+    public void like_postUpdate(String nick, Long post_id) {
+        memberRepository.update_likes(nick, post_id);
+    }
 }

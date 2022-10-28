@@ -22,4 +22,6 @@ public interface PostService {
     public void plusView(Post post);
 
     void delete(Long post_id);
+
+    void plusLikes(Long post_id);
 }

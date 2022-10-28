@@ -3,6 +3,7 @@ package footprints.footprints.controller.post;
 import footprints.footprints.domain.member.Member;
 import footprints.footprints.domain.post.Post;
 import footprints.footprints.domain.post.PostDTO;
+import footprints.footprints.domain.roomInfo.RoomInfoDTO;
 import footprints.footprints.repository.post.PostRepository;
 import footprints.footprints.service.post.PostServiceImpl;
 import footprints.footprints.service.roomInfo.RoomInfoService;
