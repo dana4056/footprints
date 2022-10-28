@@ -33,7 +33,9 @@ public class RoomInfoController {
     // 방 정보 수정
     @PatchMapping(value = "/room-info")
     public ResponseEntity<String> exitRoom(@RequestParam String nick, @RequestParam Long post_id) {
+        log.info("exit {} {}", nick, post_id);
         roomInfoService.exit(nick, post_id);
+        log.info("exit {} {}", nick, post_id);
         return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
     }
 

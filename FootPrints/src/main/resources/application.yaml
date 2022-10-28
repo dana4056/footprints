@@ -5,8 +5,9 @@ spring:
     username: root
     #password: 12345678  #혁진
 #    password: 19980727  #다은
-    password: Jhk9458062! #선진
+   # password: Jhk9458062! #선진
 #    password: pass # 지원
+    password: wjddbtjrz12#
 
   jpa:
     database: mysql

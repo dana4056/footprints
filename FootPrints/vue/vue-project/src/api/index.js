@@ -319,8 +319,8 @@ function patchRoomInfo(roomInfo) {
             post_id: roomInfo.post_id,
         },
         headers: {
-            'X-AUTH-TOKEN': localStorage.getItem('jwt'),
-            'Content-Type': 'application/json'
+            // 'X-AUTH-TOKEN': localStorage.getItem('jwt'),
+            // 'Content-Type': 'application/json'
         }
     });
   }
@@ -331,7 +331,7 @@ function deleteRoomInfo(post_id) {
             post_id: post_id,
         },
         headers: {
-            'Content-Type': 'application/json'
+            // 'Content-Type': 'application/json'
         }
     });
 }

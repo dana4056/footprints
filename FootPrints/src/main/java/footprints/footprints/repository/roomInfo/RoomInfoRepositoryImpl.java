@@ -13,6 +13,7 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 
 @Repository
@@ -46,12 +47,10 @@ public class RoomInfoRepositoryImpl implements RoomInfoRepository{
     }
 
     public void delete_d(String nick, Long post_id) {
-        Member member = memberRepository.findByNick(nick);
-        Post post = postRepository.findByPostId(post_id);
-        RoomInfo roomInfo = new RoomInfo(member, post);
+        TypedQuery<RoomInfo> roomInfo = em.createQuery("select r.room_id from RoomInfo r where r.member.nick = :nick", RoomInfo.class)
+                .setParameter("nick", nick);
 
         postRepository.minus_participant(post_id);
-
         em.remove(roomInfo);
     }
 
