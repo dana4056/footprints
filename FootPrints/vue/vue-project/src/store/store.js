@@ -172,7 +172,7 @@ export const store = new Vuex.Store({
         SET_MEMBER_CHANGE_DONE(state, string) {
             state.memberChange_done = string;
         },
-        CHANGE_LAST_CHAT(state, changeLastChat){
+        SET_LAST_CHAT(state, changeLastChat){
             var list = state.roomList;
             let idx = 0;
             for (let value of list) {

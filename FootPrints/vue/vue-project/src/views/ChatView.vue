@@ -10,12 +10,12 @@
         <div class="chatRoom">
           <ul v-if="this.$store.state.postIdList[0] != 0">
             <li v-for="(room, index) in this.$store.state.roomList" :key=room v-bind:id="[`${index}`]" v-on:mousedown.left="clickRoom" class="room_info" v-bind:class="{ 'on': chekcedArr[index] }">
-            <img :src="require('../assets/category/' + room.category + '.png')" id="roomImg">
-            <h3>{{ room.post_name }}</h3>
-            <!-- 마지막 메세지 구현 필요 -->
-            <!-- rommList 안에 필요한 데이터를 넣어놓고 roomList 갱신 시 Last_Message갱신 되도록 , 또 당사자가 채팅 보낼 때 LastMessage 갱신 되도록 구현 중 -->
-            <!-- <div> {{ this.$store.state.chatLogs[this.$store.state.chatLogs.length - 1].message }}</div> -->
-            <h5>{{ room.last_message }}</h5>
+              <img :src="require('../assets/category/' + room.category + '.png')" id="roomImg">
+              <h3>{{ room.post_name }}</h3>
+              <!-- 마지막 메세지 구현 필요 -->
+              <!-- rommList 안에 필요한 데이터를 넣어놓고 roomList 갱신 시 Last_Message갱신 되도록 , 또 당사자가 채팅 보낼 때 LastMessage 갱신 되도록 구현 중 -->
+              <!-- <div> {{ this.$store.state.chatLogs[this.$store.state.chatLogs.length - 1].message }}</div> -->
+              <small>{{ room.last_message }}</small>
             </li>
           </ul>
         </div>
@@ -99,6 +99,9 @@ export default {
   created() {
     this.isSocketConnected = false;
     this.my_nick = this.$store.state.member.nick;
+    this.$store.dispatch('FIND_POST_ID', this.my_nick);
+    // this.$store.dispatch('FIND_POST_ID', this.my_nick);
+
     if(localStorage.getItem('jwt') == null) {
       router.replace("/home");
     }
@@ -181,7 +184,7 @@ export default {
           post_id: post_id,
           message: this.msg
         }
-        this.$store.dispatch('CHANGE_LAST_CHAT', changeLastChat);
+        this.$store.commit('SET_LAST_CHAT', changeLastChat);
         
           // 소켓 관련 메세지 전송 부분
         stompClient.send(`/receive`, JSON.stringify(chatData), {});
@@ -335,9 +338,10 @@ ul::-webkit-scrollbar {
 .chat__body {
   height:650px;
   padding: 2rem;
-  border-right: 1px solid rgb(235, 235, 235);
   overflow: scroll;
   scroll-behavior: smooth;
+  background-color: white;
+  border: 1px solid #78787821;
 }
 .chat__body::-webkit-scrollbar {
   display: none;
@@ -402,9 +406,10 @@ ul::-webkit-scrollbar {
   padding: 1.3rem;
   background: #ffffff;
   border-radius: 0px 0px 24px 0px;
-  box-shadow: 0px -5px 30px rgba(0, 0, 0, 0.05);
+  box-shadow: 0px 5px 20px 0 rgb(0 0 0 / 5%);
   display: flex;
   justify-content: space-between;
+  
 }
 .form__input {
   width: calc(100% - 60px);

@@ -45,7 +45,7 @@ public class ChatController {
         List<RoomListNCompareDTO> roomListNCompareDTO = new ArrayList<>();
         for(int i = 0; i < postIdList.toArray().length; i++) {
             String lastChatting = chatService.getLastChat(postIdList.get(i));
-            Post cur_post = postList.get(0);
+            Post cur_post = postList.get(i);
             RoomListNCompareDTO object = new RoomListNCompareDTO(cur_post.getPost_id(), cur_post.getPost_name(), lastChatting, cur_post.getMember().getNick(), cur_post.getCategory());
             roomListNCompareDTO.add(object);
         }

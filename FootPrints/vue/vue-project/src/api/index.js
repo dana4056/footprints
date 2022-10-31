@@ -252,7 +252,6 @@ function getPostIdList(nick) {
 }
 
 function getPostInfoList(list) {
-    console.log("postIDList: " + list);
     return axios.post(`${config.baseUrl}/chat/get-PostInfoList`, list, {
         headers: {
             'Content-Type': 'application/json',

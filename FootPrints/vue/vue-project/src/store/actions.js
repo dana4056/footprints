@@ -130,7 +130,7 @@ export default{
             commit('SET_MEMBER', member);
             commit('SET_DELIVERY_AREA', member.area);
             store.dispatch("FETCH_AUTHORITY");
-            store.dispatch('FIND_POST_ID', loginMember.nick);
+            // store.dispatch('FIND_POST_ID', loginMember.nick);
             router.replace("/home");
           })
           .catch(error => {
@@ -375,7 +375,6 @@ export default{
     return postDeliveryPost(post)
       .then(response => {
         console.log("API:POST_DELIVERY_POST\n게시물 등록 성공", response);
-        console.log(response.data);
         store.dispatch("FIND_POST_ID", store.state.member.nick);
 
         Swal.fire({
@@ -564,4 +563,5 @@ export default{
         console.log('API:EXIT_DELIVERY_POST\n참여 취소 실패', error);
       })
   },
+
 }
