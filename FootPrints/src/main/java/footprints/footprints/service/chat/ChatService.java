@@ -19,5 +19,7 @@ public interface ChatService {
 
     void delete(Long post_id);
 
+    String getLastMsg(Long post_id);
+
     String getLastChat(Long postId);
 }

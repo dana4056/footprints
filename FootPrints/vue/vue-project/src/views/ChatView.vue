@@ -102,13 +102,14 @@ export default {
     this.$store.dispatch('FIND_POST_ID', this.my_nick);
     // this.$store.dispatch('FIND_POST_ID', this.my_nick);
 
+    let post_id_list = this.$store.state.postIdList;
+
     if(localStorage.getItem('jwt') == null) {
       router.replace("/home");
     }
-    else if(this.$store.state.postIdList[0] != 0) {
+    else if(post_id_list.length != 0) {
+
       this.post_id = this.$store.state.postIdList[this.$store.state.roomIndex];
-      this.$store.dispatch('FIND_USER', this.post_id);
-      this.$store.dispatch('FIND_CHAT_LOGS', this.post_id);
       
       if(this.isSocketConnected == false){
         this.connect(); // 일단 채팅방 입장하면 소켓 여는 개념

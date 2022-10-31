@@ -462,16 +462,16 @@ export default{
           console.log("API:FETCH_DELIVERY_DETAIL\n상세페이지 정보 받아오기 실패", error);
         }
       })
-  },
-
-  ////////////////////////// CHAT //////////////////////////
-
-  FIND_POST_ID({ commit }, nick) {
-    return getPostIdList(nick)
+    },
+    
+    ////////////////////////// CHAT //////////////////////////
+    
+    FIND_POST_ID({ commit }, nick) {
+      return getPostIdList(nick)
       .then(response => {
         console.log("API:SET_FIND_POSTID 사용자의 POST_ID 리스트 받아오기 성공", response.data);
         commit('SET_FIND_POSTID', response.data);
-
+        
         if (Object.keys(response.data).length != 0) {
           store.dispatch('FIND_ROOM', response.data);
         }
@@ -483,10 +483,10 @@ export default{
       .catch(error => {
         console.log("사용자의 POST_ID 리스트 받아오기 실패", error);
       })
-  },
-
-  FIND_ROOM({ commit }, list) {
-    return getPostInfoList(list)
+    },
+    
+    FIND_ROOM({ commit }, list) {
+      return getPostInfoList(list)
       .then(response => {
         console.log("API:SET_FIND_ROOM 사용자의 Room 리스트 받아오기 성공", response.data);
         commit('SET_FIND_ROOM', response.data);
@@ -494,10 +494,10 @@ export default{
       .catch(error => {
         console.log("사용자의 Room 리스트 받아오기 실패", error);
       })
-  },
+    },
 
-  FIND_USER({ commit }, post_id) {
-    return getNickList(post_id)
+    FIND_USER({ commit }, post_id) {
+      return getNickList(post_id)
       .then(response => {
         console.log("API:SET_FIND_USER 채팅방에 속한 사용자 nick 리스트 받아오기 성공", response.data);
         commit('SET_FIND_USER', response.data);
@@ -505,10 +505,10 @@ export default{
       .catch(error => {
         console.log("채팅방에 속한 사용자 nick 리스트 받아오기 실패", error);
       })
-  },
-
-  FIND_CHAT_LOGS({ commit }, post_id) {
-    return getChatList(post_id)
+    },
+    
+    FIND_CHAT_LOGS({ commit }, post_id) {
+      return getChatList(post_id)
       .then(response => {
         console.log("API:SET_FIND_CHAT_LOGS 채팅방 chatlogs 리스트 받아오기 성공", response.data);
         commit('SET_FIND_CHAT_LOGS', response.data);
@@ -516,10 +516,10 @@ export default{
       .catch(error => {
         console.log("채팅방 chatlogs 리스트 받아오기 실패", error);
       })
-  },
-
-  POST_CHAT_DATA(c, chatData) {
-    return postChatData(chatData)
+    },
+    
+    POST_CHAT_DATA(c, chatData) {
+      return postChatData(chatData)
       .then(response => {
         console.log("채팅 보내기 성공", response.data);
         store.dispatch('FIND_CHAT_LOGS', chatData.post_id)
@@ -527,12 +527,12 @@ export default{
       .catch(error => {
         console.log("채팅 보내기 실패", error);
       })
-  },
-
-  ////////////////////////// ROOMINFO //////////////////////////
-
-  // 참여하기
-  JOIN_DELIVERY_POST(content, roomInfo) {
+    },
+    
+    ////////////////////////// ROOMINFO //////////////////////////
+    
+    // 참여하기
+    JOIN_DELIVERY_POST(content, roomInfo) {
     return postRoomInfo(roomInfo)
       .then(response => {
         console.log('API:JOIN_DELIVERY_POST\n배달 참여 성공', response);
@@ -563,5 +563,6 @@ export default{
         console.log('API:EXIT_DELIVERY_POST\n참여 취소 실패', error);
       })
   },
+
 
 }

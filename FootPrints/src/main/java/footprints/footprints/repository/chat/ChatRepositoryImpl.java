@@ -2,6 +2,7 @@ package footprints.footprints.repository.chat;
 
 import footprints.footprints.domain.chat.ChatData;
 import footprints.footprints.domain.chat.ChatDataDTO;
+import footprints.footprints.domain.member.Member;
 import footprints.footprints.domain.post.Post;
 import footprints.footprints.repository.member.MemberRepository;
 import footprints.footprints.repository.post.PostRepositoryImpl;
@@ -104,6 +105,18 @@ public class ChatRepositoryImpl implements ChatRepository {
         Query query = em.createQuery("delete from ChatData c where c.post.post_id = :post_id");
         query.setParameter("post_id", post_id).executeUpdate();
     }
+
+    @Override
+    public String getLastMsg(Long post_id) {
+        TypedQuery<String> stringTypedQuery = em.createQuery("select cd.message from ChatData cd " +
+                "where cd.post.post_id = :post_id "
+                +"order by cd.chat_id desc", String.class).setParameter("post_id", post_id).setMaxResults(1);
+        List<String> resultList = stringTypedQuery.getResultList();
+
+        if (resultList.size() == 0) return "";
+        else return resultList.get(0);
+    }
+
 
     @Override
     public String getLastChatting(Long post_id) {

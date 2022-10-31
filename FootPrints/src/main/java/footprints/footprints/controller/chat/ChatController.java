@@ -36,7 +36,7 @@ public class ChatController {
         return new ResponseEntity<>(chatList, HttpStatus.OK);
     }
 
-    @PostMapping(value = "/chat/get-PostInfoList") // 각 방들의 post_name, category post_id를 리스트(String) 형태로 가져온다.
+    @PostMapping(value = "/chat/get-PostInfoList") // 사용자가 참여된 채팅방들의 post_name, category post_id를 리스트(String) 형태로 가져온다.
     public ResponseEntity<List<RoomListNCompareDTO>> getPostInfoList(@RequestBody List<Long> postIdList){
         log.info("-------------------getPostInfoList--{}",postIdList );
 
@@ -44,7 +44,7 @@ public class ChatController {
 
         List<RoomListNCompareDTO> roomListNCompareDTO = new ArrayList<>();
         for(int i = 0; i < postIdList.toArray().length; i++) {
-            String lastChatting = chatService.getLastChat(postIdList.get(i));
+            String lastChatting = chatService.getLastMsg(postIdList.get(i));
             Post cur_post = postList.get(i);
             RoomListNCompareDTO object = new RoomListNCompareDTO(cur_post.getPost_id(), cur_post.getPost_name(), lastChatting, cur_post.getMember().getNick(), cur_post.getCategory());
             roomListNCompareDTO.add(object);
@@ -55,16 +55,22 @@ public class ChatController {
 
     @GetMapping(value = "/chat/get-nick-list") // 그 방에 속한 사용자들의 nick -> 리스트(String) 형태로 가져온다.
     public ResponseEntity<List<String>> getNickList(@RequestParam Long post_id){
-        log.info("-------------------getNickList--{}",post_id);
+        log.info("-------------------getNickList id:{}",post_id);
         List<String> nickList = chatService.getNickList(post_id);
         return new ResponseEntity<>(nickList, HttpStatus.OK);
     }
 
     @GetMapping(value = "/chat") // 채팅 기록 (from_name, time, message)를 리스트(String) 형태로 가져온다.
     public ResponseEntity<List<ChatDataDTO>> getChatList(@RequestParam String post_id){
-        log.info("-------------------getChatList--{}",post_id);
+        log.info("-------------------getChatList id:{}",post_id);
         List<ChatDataDTO> chatList = chatService.getChatList(Long.parseLong(post_id));
         return new ResponseEntity<>(chatList, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/chat/{post_id}") // 각 채팅방의 마지막 메시지
+    public ResponseEntity<String> getLastMsg(@PathVariable Long post_id){
+        String lastMsg = chatService.getLastMsg(post_id);
+        return new ResponseEntity<>(lastMsg, HttpStatus.OK);
     }
 
     @PostMapping(value = "/chat") // chat_data 테이블에 row 추가한다.

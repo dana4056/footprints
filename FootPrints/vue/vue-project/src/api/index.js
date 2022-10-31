@@ -302,8 +302,8 @@ function deleteChatData(post_id) {
             'Content-Type': 'application/json'
         }
     });
-  }
-
+}
+  
 ////////////////////////// ROOMINFO //////////////////////////
 
 
@@ -378,7 +378,7 @@ export{
     getChatList,
     postChatData,
     deleteChatData,
-
+    
     //RoomInfo
     postRoomInfo,
     patchRoomInfo,

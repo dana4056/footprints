@@ -56,6 +56,11 @@ public class ChatServiceImpl implements ChatService {
     }
 
     @Override
+    public String getLastMsg(Long post_id) {
+        return chatRepository.getLastMsg(post_id);
+    }
+
+    @Override
     public String getLastChat(Long post_id) {
         String lastChat = chatRepository.getLastChatting(post_id);
         return lastChat;
