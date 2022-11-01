@@ -30,14 +30,12 @@
           <div id="peopleNum">
             <p>모집할 인원을 정해주세요.</p>
             <select v-model.number="max_person_num">
-              <option value="0" selected="selected">상관없음</option>
-              <option value="2">2명</option>
+              <option value="2" selected="selected">2명</option>
               <option value="3">3명</option>
               <option value="4">4명</option>
               <option value="5">5명</option>
               <option value="6">6명</option>
               <option value="7">7명</option>
-              <!-- <option value="etc">그 외</option> -->
             </select>
           </div>
 
@@ -111,10 +109,13 @@ export default {
       let callback = function(result, status) {
         if (status === kakao.maps.services.Status.OK) {
             console.log(result);
-            $vm.area_name = result[0].address_name;
+            let depth1 = result[0].address.region_1depth_name;
+            let depth2 = result[0].address.region_2depth_name;
+            let depth3 = result[0].address.region_3depth_name;
+            $vm.area_name = depth1+" "+depth2+" "+depth3;
         }
       }
-      geocoder.coord2RegionCode(latlng.getLng(), latlng.getLat(), callback);
+      geocoder.coord2Address(latlng.getLng(), latlng.getLat(), callback);
       $vm.inputVisible = true;
     });
   },
@@ -148,7 +149,7 @@ export default {
             category: this.category,             // 음식 카테고리
             take_loc: this.take_loc,             // 음식 나눌 장소
             // post_area : this.post_area,
-            post_area : this.$store.state.member.area,
+            post_area : this.area_name,
             participant_num: 1,                  // 현재 참가 인원
             max_person_num: this.max_person_num, // 모집 인원
             valid_time: this.valid_time,         // 게시물 유효 시간

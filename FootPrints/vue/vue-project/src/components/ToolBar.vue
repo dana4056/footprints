@@ -33,12 +33,19 @@ export default {
             // ChatView.isSocketConnected = false;
             // ChatView.stomp.disconnect();
 
+            // 멤버 관련 초기화
             this.$store.state.member = {nick: "",  email: "", pw: "", area: ""}
             this.$store.state.authority = "";
-            // this.$store.state.postIdList= [0];
-            // this.$store.state.roomList = [{post_id: 0, post_name: " "}];
-            // this.$store.state.userList = [" "];
-            // this.$store.state.deliveryPost = {};
+            
+            // 채팅관련 초기화
+            this.$store.state.chatLogs = [];
+            this.$store.state.postIdList = [];
+            this.$store.state.roomIndex = "0";
+            this.$store.state.roomList = [];
+            this.$store.state.userList= [];
+
+            // 게시물 관련 초기화
+            this.$store.state.deliveryPostList = [];
 
             localStorage.clear()
         }
