@@ -241,6 +241,18 @@ export default {
 </script>
 
 <style scoped>
+
+.fixedWrapper{
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+.scrollWrapper{
+    min-height: 100%;
+    position: relative;
+}
+
 #content{
   width: 800px;
   margin: 0 auto;

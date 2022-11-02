@@ -1,3 +1,20 @@
+-- 변수 생성
+-- declare 변수명 타입
+-- DECLARE @name varchar(20)
+
+-- 변수에 값 할당
+-- SET @name = 'Kendrick'
+
+-- 혹은
+-- userid가 sonim1일 때 이름이 Kendrick일 경우  
+-- SELECT @name = P.name FROM tblPerson P WHERE userid = 'sonim1'
+
+
+SET @now = DATE_ADD(NOW(), INTERVAL -9 HOUR); -- 영국시간 기준
+SET @after1day = @now + INTERVAL 1 DAY;		  -- 영국시간 기준
+SET @after1hour = @now + INTERVAL 1 HOUR;		  -- 영국시간 기준
+
+
 -- 일반 유저 회원가입 
 INSERT INTO `test_db`.`member` (`nick`, `area`, `email`,`pw`)
 VALUES ('김선진', '서울 성북구 정릉동', 'tjswls8062@skuniv.com', 'ekdms98727^^');
@@ -33,7 +50,7 @@ VALUES (6, 'KOR', '2022-10-15 02:33:46', 5, 1, '내용', '본인/본인지역2',
 INSERT INTO `test_db`.`post` (`post_id`, `category`, `created_date`,`max_person_num`, `participant_num`, `post_content`, `post_name`, `take_loc`, `valid_time`, `view_num`, `member_nick`, `post_area`,`lat`, `lon`)
 VALUES (7, 'CHI', '2022-10-15 02:33:46', 5, 1, '내용', '본인/본인지역3', '대원주유소 앞', '2022-10-17T11:35', 0, '정다은', '서울 구로구 개봉동', 37.4863,126.8563);
 INSERT INTO `test_db`.`post` (`post_id`, `category`, `created_date`,`max_person_num`, `participant_num`, `post_content`, `post_name`, `take_loc`, `valid_time`, `view_num`, `member_nick`, `post_area`,`lat`, `lon`)
-VALUES (8, 'JAP', '2022-10-15 02:33:46', 5, 1, '내용', '본인/본인지역4', '이디아 개봉중앙점', '2022-10-17T11:35', 0, '정다은', '서울 구로구 개봉동', 37.4864,126.8549);
+VALUES (8, 'JAP', @now, 5, 1, '내용', '본인/본인지역4', '이디아 개봉중앙점',  @after1day + INTERVAL 9 HOUR, 0, '정다은', '서울 구로구 개봉동', 37.4864,126.8549);
 
 
 -- 공지사항 등록
