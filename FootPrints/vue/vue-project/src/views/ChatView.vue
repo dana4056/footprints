@@ -141,6 +141,9 @@ export default {
      stompClient.connect({}, this.onConnected, this.onError);
     },
     onConnected(){
+      // for 문 써서 
+      // stompClient.subscribe(`/sub/send/방 번호`, this.onMessageReceived)
+      // 번호 별로 구독 시키고
       stompClient.subscribe(`/sub/send`, this.onMessageReceived)
     },
     onError(){
@@ -183,7 +186,10 @@ export default {
         }
         this.$store.dispatch('CHANGE_LAST_CHAT', changeLastChat);
         
-          // 소켓 관련 메세지 전송 부분
+        // 파라미터로 방 번호 가져와서
+        // stompClient.send(`/receive/방 번호`, JSON.stringify(chatData), {});
+        // 방 번호에게만 보내주고
+        // 소켓 관련 메세지 전송 부분
         stompClient.send(`/receive`, JSON.stringify(chatData), {});
 
         this.$store.dispatch('FIND_CHAT_LOGS', post_id);

@@ -42,7 +42,6 @@ public class ChatServiceImpl implements ChatService {
     @Override
     public List<ChatDataDTO> getChatList(Long post_id) {
         List<ChatDataDTO> chatList = chatRepository.getChatList(post_id);
-
         return chatList;
     }
 

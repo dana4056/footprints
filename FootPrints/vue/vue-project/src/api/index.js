@@ -303,11 +303,11 @@ function deleteChatData(post_id) {
             post_id: post_id,
         },
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'X-AUTH-TOKEN': localStorage.getItem('jwt')
         }
     });
   }
-
 ////////////////////////// ROOMINFO //////////////////////////
 
 
