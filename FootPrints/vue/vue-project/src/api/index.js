@@ -224,6 +224,9 @@ function getDeliveryPostDetail(post_id) {
     return axios.get(`${config.baseUrl}/delivery/post/${post_id}`, {
         params: {
             isFrontReq : 1
+        },
+        headers: {
+            'X-AUTH-TOKEN': localStorage.getItem('jwt')
         }
     });
 }

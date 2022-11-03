@@ -85,7 +85,7 @@ export default{
       .then(response => {
         commit('SET_PWCHANGE_DONE', response.data);
       })
-      .catch(error => {
+      .catch(function() {
         alert("비밀번호 변경에 실패하였습니다.\n다시 시도해주세요.");
         router.replace("/change-password");
       })
