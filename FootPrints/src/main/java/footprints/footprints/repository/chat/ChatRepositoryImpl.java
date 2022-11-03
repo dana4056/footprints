@@ -33,7 +33,6 @@ public class ChatRepositoryImpl implements ChatRepository {
                 "where r.member.nick = :nick", Long.class).setParameter("nick", nick);
 
         List<Long> resultList = integerTypedQuery.getResultList();
-//        log.info("---------------------{}", resultList.get(0));
         if (resultList.size() == 0) return null;
 
         else return resultList;
@@ -105,7 +104,6 @@ public class ChatRepositoryImpl implements ChatRepository {
         TypedQuery<ChatData> chatDataTypedQuery = em.createQuery("select c from ChatData c where c.post.post_id = :post_id", ChatData.class)
                 .setParameter("post_id", post_id);
         List<ChatData> resultList = chatDataTypedQuery.getResultList();
-
         for (ChatData c : resultList) {
             em.remove(c);
         }

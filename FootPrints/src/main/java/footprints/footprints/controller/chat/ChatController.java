@@ -25,14 +25,13 @@ import java.util.List;
 public class ChatController {
 
     private final ChatService chatService;
-
 //    private final SimpMessagingTemplate template;
 
-    @MessageMapping("/receive")
-    @SendTo("/sub/send")
+    @MessageMapping("/receive/{post_id}")
+    @SendTo("/sub/send/{post_id}")
     public String sendMessage(ChatDataDTO chatDataDTO){
         return chatDataDTO.getMessage();
-//        template.convertAndSend("/sub/send/" + chatDataDTO.getPost_id(), chatDataDTO.getMessage());
+//        template.convertAndSend("/sub/send/" + chatDataDTO.getPost_id(), chatDataDTO);
     }
 
 
