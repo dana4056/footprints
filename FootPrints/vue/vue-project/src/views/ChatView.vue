@@ -142,34 +142,31 @@ export default {
     onConnected(){
       var postIdList = this.$store.state.postIdList;
       for(var i = 0; i < postIdList.length; i++){
-        // 구독도 되는 듯 근데 onMessageReceived 함수가 안 먹음
         stompClient.subscribe(`/sub/send/${postIdList[i]}`, this.onMessageReceived);
       }
-      // for 문 써서 
-      // stompClient.subscribe(`/sub/send/방 번호`, this.onMessageReceived)
-      // 번호 별로 구독 시키고
-      // stompClient.subscribe(`/sub/send`, this.onMessageReceived)
     },
     onError(){
       console.log("소켓 연결 실패");
     },
     onMessageReceived(res){
-      // 이게 안 먹음
       setTimeout(() => {
         console.log('구독으로 받은 메시지', res.body);
         const post_id = this.$store.state.postIdList[this.$store.state.roomIndex];
         this.$store.dispatch('FIND_CHAT_LOGS', post_id);
+        this.liftMessage();
+        // 라스트 메시지 갱신
       }, 100);
-
+    },
+    liftMessage(){
+      setTimeout(() => {
+          const element = document.getElementById("chat__body");
+          element.scrollTop = element.scrollHeight;
+      }, 0);
     },
     submitMessage() {
       if (this.msg) {
-        setTimeout(() => {
-          const element = document.getElementById("chat__body");
-          element.scrollTop = element.scrollHeight;
-        }, 0);
+        this.liftMessage();
         const post_id = this.$store.state.postIdList[this.$store.state.roomIndex];
-
         const date = new Date();
         const year = date.getFullYear();
         const month = ('0' + (date.getMonth() + 1)).slice(-2);
@@ -186,21 +183,16 @@ export default {
           message: this.msg,
           post_id: post_id
         };
+
         this.$store.dispatch('POST_CHAT_DATA', chatData);
         
         const changeLastChat = {
           post_id: post_id,
           message: this.msg
         }
+
         this.$store.dispatch('CHANGE_LAST_CHAT', changeLastChat);
-        
-        // 파라미터로 방 번호 가져와서
-        // stompClient.send(`/receive/방 번호`, JSON.stringify(chatData), {});
-        // 방 번호에게만 보내주고
-        // 소켓 관련 메세지 전송 부분
-        // stompClient.send(`pub/receive/${post_id}`, JSON.stringify(chatData), {});
         stompClient.send(`/receive/${post_id}`, JSON.stringify(chatData), {});
-        // 여기는 되는 듯
         this.$store.dispatch('FIND_CHAT_LOGS', post_id);
 
         this.msg = "";
