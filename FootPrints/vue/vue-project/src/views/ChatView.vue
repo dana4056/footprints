@@ -120,6 +120,7 @@ export default {
       }
     }
   },
+
   mounted() {
     setTimeout(() => {
       const element = document.getElementById("chat__body");
