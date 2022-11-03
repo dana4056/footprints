@@ -34,7 +34,6 @@ function patchChangePwd(changePwMemberDTO) {
 }
 
 function getUserArea(nick) {
-    console.log("function findUserArea 실행")
     return axios.get(`${config.baseUrl}/member/login`, {
         params: {
             nick: nick,
@@ -252,7 +251,6 @@ function getPostIdList(nick) {
 }
 
 function getPostInfoList(list) {
-    console.log("postIDList: " + list);
     return axios.post(`${config.baseUrl}/chat/get-PostInfoList`, list, {
         headers: {
             // 'Content-Type': 'text/plain',
@@ -286,7 +284,6 @@ function getChatList(post_id) {
   }
   
   function postChatData(chatData) {
-    console.log(chatData);
     return axios.post(`${config.baseUrl}/chat`, chatData, {
         headers: {
             'X-AUTH-TOKEN': localStorage.getItem('jwt')

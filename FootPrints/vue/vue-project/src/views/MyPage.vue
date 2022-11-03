@@ -84,7 +84,6 @@ export default {
       }
     },
     goAll() {
-      console.log("전체 뷰 클릭");
       this.clickAll = true;
       this.clickMine = false;
       this.clickParticipation = false;

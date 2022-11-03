@@ -21,24 +21,14 @@
 </template>
 
 <script>
-// import ChatView from '../views/ChatView.vue' 
-
 export default {
     methods: {
         logout(){
             localStorage.removeItem('jwt');
             this.$router.replace("/home");
 
-            // 소켓 연결 해제
-            // ChatView.isSocketConnected = false;
-            // ChatView.stomp.disconnect();
-
             this.$store.state.member = {nick: "",  email: "", pw: "", area: ""}
             this.$store.state.authority = "";
-            // this.$store.state.postIdList= [0];
-            // this.$store.state.roomList = [{post_id: 0, post_name: " "}];
-            // this.$store.state.userList = [" "];
-            // this.$store.state.deliveryPost = {};
 
             localStorage.clear()
         }

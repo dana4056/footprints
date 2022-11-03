@@ -51,7 +51,6 @@ export default {
           content: this.notice_content,     // 글 내용
           view_num: 0,
         }
-        console.log("NOTICEDTO\n",noticeDTO);
         this.$store.dispatch('POST_NOTICE', noticeDTO);
         this.$router.replace(`/notice/post`);
 			},

@@ -214,7 +214,6 @@ export default {
         area : this.area,
       }
       this.$store.dispatch('FETCH_DELIVERY_LIST_SORT', sortDTO);
-      console.log(sortDTO.category, sortDTO.sort_criteria, sortDTO.area);
       setTimeout(() => { 
           this.$store.getters.GET_DELIVERIES;
         }, 200);   
@@ -222,7 +221,6 @@ export default {
     searchArea() {
       new window.daum.Postcode({
         oncomplete: (data) => {
-          console.log("API:카카오맵 주소받기 성공",data);
           const sido = data.sido;
           const sigoongu = data.sigungu;
           const eupmyeondong = data.bname;

@@ -188,7 +188,6 @@ export default {
     searchArea() {
       new window.daum.Postcode({
         oncomplete: (data) => {
-          console.log("API:카카오맵 주소받기 성공",data);
           const sido = data.sido;
           const sigoongu = data.sigungu;
           const eupmyeondong = data.bname;

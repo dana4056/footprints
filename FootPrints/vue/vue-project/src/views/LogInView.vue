@@ -11,7 +11,6 @@
         <div v-bind:class="{errorType:!isValidPassword}">
           <input id="Pw" v-on:focusout="checkPassword" autocomplete="off" maxlength="20" v-model="Pw" type="password" v-on:keyup.enter="checkLogin" placeholder="비밀번호" required>
         </div>
-
           <button type="submit" v-on:click.prevent="checkLogin">로그인</button>
         </div>
       </form>
