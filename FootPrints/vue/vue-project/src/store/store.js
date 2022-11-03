@@ -9,10 +9,6 @@ export const store = new Vuex.Store({
     modules: {
         persistedStore : persistedStore
     },
-    // plugins: [    createPersistedState({
-    //     paths: ['persistedStore'],
-    //   })
-    // ],
     plugins: [createPersistedState()],
     state:{
         // 공지사항 관련
@@ -65,9 +61,6 @@ export const store = new Vuex.Store({
         GET_DELIVERIES(state){
             return state.deliveryPostList;
         },
-        // GET_DELIVERY_PRESENT_AREA(state){
-        //     return state.deliveryPost_presentArea;
-        // },
         GET_DELIVERY_POST(state){
             return state.deliveryPost;
         },
@@ -102,7 +95,6 @@ export const store = new Vuex.Store({
             state.member.nick = loginMember.nick;
             state.member.email = loginMember.email;
             state.member.area = loginMember.area;
-            console.log(state.member);
         },
         SET_AUTHORITY(state, auth){
             state.authority = auth;
@@ -130,8 +122,6 @@ export const store = new Vuex.Store({
         },
         SET_DELIVERIES(state, list){
             state.deliveryPostList = list;
-            // console.log(list[0].area_Name);
-            // state.deliveryPost_presentArea = list[0].area_Name;
             let idx = 0;
             for(let value of list){
                 const Cdate = dayjs(value.createdDate);
@@ -155,7 +145,6 @@ export const store = new Vuex.Store({
         },
         SET_FIND_ROOM(state, list) {
             state.roomList = list;
-            console.log(state.roomList);
         },
         SET_FIND_USER(state, list) {
             state.userList = list;

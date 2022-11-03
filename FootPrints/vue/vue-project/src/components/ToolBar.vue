@@ -21,22 +21,16 @@
 </template>
 
 <script>
-// import ChatView from '../views/ChatView.vue' 
-
 export default {
     methods: {
         logout(){
             localStorage.removeItem('jwt');
             this.$router.replace("/home");
 
-            // 소켓 연결 해제
-            // ChatView.isSocketConnected = false;
-            // ChatView.stomp.disconnect();
-
             // 멤버 관련 초기화
             this.$store.state.member = {nick: "",  email: "", pw: "", area: ""}
             this.$store.state.authority = "";
-            
+
             // 채팅관련 초기화
             this.$store.state.chatLogs = [];
             this.$store.state.postIdList = [];

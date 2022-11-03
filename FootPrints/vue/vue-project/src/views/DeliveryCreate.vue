@@ -103,12 +103,10 @@ export default {
 
       $vm.latitude = latlng.getLat();   // 클릭 장소 위도
       $vm.longtitude = latlng.getLng(); // 클릭 장소 경도
-      // console.log( $vm.latitude+" "+$vm.longtitude );
 
       // 지원 - 79번째 줄에서 geocoder 선언해줬고, 97번째줄 부터 103번째 줄까지가 주소 가져오는 코드입니다!
       let callback = function(result, status) {
         if (status === kakao.maps.services.Status.OK) {
-            console.log(result);
             let depth1 = result[0].address.region_1depth_name;
             let depth2 = result[0].address.region_2depth_name;
             let depth3 = result[0].address.region_3depth_name;
@@ -158,7 +156,6 @@ export default {
             lat: this.latitude,
             lon: this.longtitude,
         }
-        console.log("POST\n",post);
         this.$store.dispatch('POST_DELIVERY_POST', post)
 			}
       else {

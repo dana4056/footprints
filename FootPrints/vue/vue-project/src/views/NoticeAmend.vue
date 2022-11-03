@@ -51,7 +51,6 @@ export default {
       this.notice_content = notice.content;      // 음식 나눌 장소
       this.view_num = notice.view_num;
 
-      console.log("fetch nick: ",this.$store.state.notice.author);
       if(this.$store.state.notice.author !== "admin"){ // 관리자라 가정
         alert("게시물을 수정할 수 있는 권한이 없습니다.");
         this.$router.replace(`/notice/${this.notice_id}`);
@@ -78,7 +77,6 @@ export default {
           content: this.notice_content,     // 글 내용
           view_num: this.view_num,
         }
-        console.log("NOTICEDTO\n",noticeDTO);
         this.$store.dispatch('AMEND_NOTICE', noticeDTO);
         Swal.fire({
           icon: 'success',

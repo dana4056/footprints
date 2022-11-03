@@ -158,10 +158,8 @@ export default {
     change(post_id){
       this.$store.commit('SET_ISLOADING', true); // 로딩 시작
       this.isShowmap =  this.$refs.showMap.openMap;
-      // console.log("디테일 패치 시작  isLoading: "+this.$store.getters.GET_ISLOADING);
 
       this.$store.dispatch('FETCH_DELIVERY_DETAIL', post_id);
-
     },
     caltime(time){
       // 콘솔창에 시간 객체 찍을 때 표시되는 속성명과 dayjs객체 속성명 다름
@@ -211,7 +209,6 @@ export default {
         area : this.area,
       }
       this.$store.dispatch('FETCH_DELIVERY_LIST_SORT', sortDTO);
-      console.log(sortDTO.category, sortDTO.sort_criteria, sortDTO.area);
       setTimeout(() => {
           this.$store.getters.GET_DELIVERIES;
         }, 200);
@@ -219,7 +216,6 @@ export default {
     searchArea() {
       new window.daum.Postcode({
         oncomplete: (data) => {
-          console.log("API:카카오맵 주소받기 성공",data);
           const sido = data.sido;
           const sigoongu = data.sigungu;
           const eupmyeondong = data.bname;
@@ -241,7 +237,6 @@ export default {
 </script>
 
 <style scoped>
-
 .fixedWrapper{
   position: fixed;
   width: 100%;
@@ -289,7 +284,6 @@ export default {
 #search-area{
   -webkit-box-flex:1;
 }
-
 #search-area button{
   float: right;
   margin: 0 24px 0 0;
@@ -422,7 +416,7 @@ label {
   border: 1px solid #afafaf;
   border-radius: 27px;
   color: #5d5d5d;
-  cursor: pointer;  
+  cursor: pointer;
 }
 .time{
   -webkit-box-flex:1;
@@ -440,16 +434,6 @@ label {
   font-size: 11px;
   vertical-align:middle;
 }
-/* button {
-  box-sizing: border-box;
-  width: 100%;
-  height: 40px;
-  background: #ffffff;
-  border: 1px solid #7aab85;
-  border-radius: 13px;
-  color: #7aab85;
-  font-family: 'Noto Sans KR', sans-serif;
-} */
 .btn1, .btn2 {
   box-sizing: border-box;
   width: 100%;
@@ -459,7 +443,6 @@ label {
   border-radius: 13px;
   color: #7aab85;
   font-family: 'Noto Sans KR', sans-serif;
-
   padding: 8px 15px 9px;
 }
 .invalid {
