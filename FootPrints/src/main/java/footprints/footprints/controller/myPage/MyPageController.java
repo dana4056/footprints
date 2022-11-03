@@ -1,7 +1,9 @@
 package footprints.footprints.controller.myPage;
 
 import footprints.footprints.domain.member.DTO.MemberDTO;
+import footprints.footprints.domain.member.Member;
 import footprints.footprints.domain.post.Post;
+import footprints.footprints.repository.member.MemberRepository;
 import footprints.footprints.service.MyPage.MyPageService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,13 +20,14 @@ import java.util.List;
 public class MyPageController {
 
     private final MyPageService myPageService;
+    private final MemberRepository memberRepository;
 
     @GetMapping(value = "/users/{nick}/my-post") // 마이페이지 메인페이지 접속시
     public ResponseEntity<List<Post>> getMyPostList(@PathVariable String nick){
         log.info("--------------------- getMyPostList {}", nick);
         List<Post> myPost = myPageService.getMyPost(nick);
 
-        if(myPost.size() == 0){
+        if(myPost == null){
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
         else{
@@ -36,7 +39,7 @@ public class MyPageController {
     public ResponseEntity<List<Post>> getAttendPostList(@PathVariable String nick){
         List<Post> attendPost = myPageService.getAttendPost(nick);
 
-        if(attendPost.size() == 0){
+        if(attendPost == null){
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
         else{
@@ -44,7 +47,7 @@ public class MyPageController {
         }
     }
 
-    @PatchMapping(value = "/users") // 마이페이지 메인페이지 접속시
+    @PatchMapping(value = "/users")  // 정보 수정
     public ResponseEntity<String> changeMyInfo(@RequestBody MemberDTO memberDTO){
         myPageService.changeInfo(memberDTO);
         return new ResponseEntity<>("SUCCESS", HttpStatus.OK);

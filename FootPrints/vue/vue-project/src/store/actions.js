@@ -35,8 +35,8 @@ export default{
         console.log("API:FETCH_USER\n멤버 가져오기 성공",response.data);
         const member = {
           nick: response.data.nick,
-          email: "test",
-          pw: "test",
+          email: response.data.email,
+          pw: "",
           area: response.data.area
         }
         commit('SET_MEMBER',member)
@@ -86,7 +86,7 @@ export default{
         if (response.data == "SUCCESS") {
           console.log('API:POST_MEMBER\n회원가입 성공', response.data);
           router.replace({
-            name: "signupCompleted",
+            name: "signupCompleted", 
             query: { nickName: member.nick, }
           });
         }
@@ -107,6 +107,8 @@ export default{
       })
       .catch(error => {
         console.log('API:CHANGE_PWD\n비밀번호 변경 실패', error);
+        alert("비밀번호 변경에 실패하였습니다.\n다시 시도해주세요.");
+        router.replace("/change-password");
       })
   },
 
@@ -300,6 +302,7 @@ export default{
       })
       .catch(error => {
         console.log('API:FETCH_MY_DPOST\n작성한 글 받아오기 실패', error);
+        commit('SET_MY_DPOST', []);
       })
   },
 
@@ -312,6 +315,7 @@ export default{
       })
       .catch(error => {
         console.log('API:FETCH_MY_PARTICI\n참여한 글 받아오기 실패', error);
+        commit('SET_MY_PARTICI', []);
       })
   },
 
@@ -460,6 +464,7 @@ export default{
           router.replace("/home");
         }
         else {
+          router.replace("/forbidden");
           console.log("API:FETCH_DELIVERY_DETAIL\n상세페이지 정보 받아오기 실패", error);
         }
       })

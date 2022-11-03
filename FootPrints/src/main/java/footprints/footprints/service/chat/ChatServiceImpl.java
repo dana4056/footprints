@@ -1,6 +1,5 @@
 package footprints.footprints.service.chat;
 
-import footprints.footprints.domain.chat.ChatData;
 import footprints.footprints.domain.chat.ChatDataDTO;
 import footprints.footprints.domain.post.Post;
 import footprints.footprints.repository.chat.ChatRepository;
@@ -42,7 +41,6 @@ public class ChatServiceImpl implements ChatService {
     @Override
     public List<ChatDataDTO> getChatList(Long post_id) {
         List<ChatDataDTO> chatList = chatRepository.getChatList(post_id);
-
         return chatList;
     }
 

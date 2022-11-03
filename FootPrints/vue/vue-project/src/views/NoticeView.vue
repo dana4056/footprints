@@ -6,7 +6,8 @@
       <div id="header">
         <h1>공지사항</h1>
         <!--------------- 관리자 계정만 볼 수 있음 ----------------->
-        <div class="add-btn" v-if="authority==='ROLE_ADMIN'?true:false">
+        <!-- <div class="add-btn" v-if="authority==='ROLE_ADMIN'?true:false"> -->
+        <div class="add-btn" v-if="this.$store.state.member.nick==='admin'?true:false">
             <router-link to="/notice/new-notice" class="link">
               <i class="fa-solid fa-circle-plus fa-2x"></i>
             </router-link>

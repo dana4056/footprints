@@ -24,14 +24,12 @@ public class MyPageServiceImpl implements MyPageService {
     @Override
     public List<Post> getMyPost(String nick) {
         List<Post> myPost = myPageRepository.getMyPost(nick);
-
         return myPost;
     }
 
     @Override
     public List<Post> getAttendPost(String nick) {
         List<Post> attendPost = myPageRepository.getAttendPost(nick);
-
         return attendPost;
     }
 

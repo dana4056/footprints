@@ -44,7 +44,7 @@ export default {
         let lon = position.coords.longitude;
         let coord = new kakao.maps.LatLng(lat, lon);
         console.log(lat, lon);
-        console.log(coord);
+        console.log(coord);            
         geocoder.coord2Address(coord.getLng(), coord.getLat(), callback)
       }
 

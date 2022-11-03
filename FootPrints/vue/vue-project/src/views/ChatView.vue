@@ -137,19 +137,30 @@ export default {
      this.isSocketConnected = true;
      var socket = new SockJS('/socket-open/chat');  // WebSocketConfig랑 통일할 주소 , 소켓 열 주소
      stompClient = Stomp.over(socket);
-    //  console.log("소켓 열기 시도", socket);
      stompClient.connect({}, this.onConnected, this.onError);
     },
     onConnected(){
-      stompClient.subscribe(`/sub/send`, this.onMessageReceived)
+      var postIdList = this.$store.state.postIdList;
+      for(var i = 0; i < postIdList.length; i++){
+        // 구독도 되는 듯 근데 onMessageReceived 함수가 안 먹음
+        stompClient.subscribe(`/sub/send/${postIdList[i]}`, this.onMessageReceived);
+      }
+      // for 문 써서 
+      // stompClient.subscribe(`/sub/send/방 번호`, this.onMessageReceived)
+      // 번호 별로 구독 시키고
+      // stompClient.subscribe(`/sub/send`, this.onMessageReceived)
     },
     onError(){
       console.log("소켓 연결 실패");
     },
     onMessageReceived(res){
-      console.log('구독으로 받은 메시지', res.body);
-      const post_id = this.$store.state.postIdList[this.$store.state.roomIndex];
-      this.$store.dispatch('FIND_CHAT_LOGS', post_id);
+      // 이게 안 먹음
+      setTimeout(() => {
+        console.log('구독으로 받은 메시지', res.body);
+        const post_id = this.$store.state.postIdList[this.$store.state.roomIndex];
+        this.$store.dispatch('FIND_CHAT_LOGS', post_id);
+      }, 100);
+
     },
     submitMessage() {
       if (this.msg) {
@@ -183,9 +194,13 @@ export default {
         }
         this.$store.dispatch('CHANGE_LAST_CHAT', changeLastChat);
         
-          // 소켓 관련 메세지 전송 부분
-        stompClient.send(`/receive`, JSON.stringify(chatData), {});
-
+        // 파라미터로 방 번호 가져와서
+        // stompClient.send(`/receive/방 번호`, JSON.stringify(chatData), {});
+        // 방 번호에게만 보내주고
+        // 소켓 관련 메세지 전송 부분
+        // stompClient.send(`pub/receive/${post_id}`, JSON.stringify(chatData), {});
+        stompClient.send(`/receive/${post_id}`, JSON.stringify(chatData), {});
+        // 여기는 되는 듯
         this.$store.dispatch('FIND_CHAT_LOGS', post_id);
 
         this.msg = "";

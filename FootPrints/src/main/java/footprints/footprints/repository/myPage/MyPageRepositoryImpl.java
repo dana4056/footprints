@@ -25,8 +25,12 @@ public class MyPageRepositoryImpl implements MyPageRepository {
                 Post.class).setParameter("nick", nick);
 
         List<Post> resultList = postList.getResultList();
-
-        return resultList;
+        if(resultList.size() == 0){
+            return null;
+        }
+        else{
+            return resultList;
+        }
     }
 
     @Override
@@ -35,7 +39,12 @@ public class MyPageRepositoryImpl implements MyPageRepository {
                 Post.class).setParameter("nick", nick);
 
         List<Post> resultList = postList.getResultList();
-
+        if(resultList.size() == 0){
+            return null;
+        }
+        else{
+            return resultList;
+        }
 //        log.info("-------------getAttendPost-------- {}", resultList);
 //
 //
@@ -45,13 +54,10 @@ public class MyPageRepositoryImpl implements MyPageRepository {
 //        List<RoomInfo> resultList2 = postList2.getResultList();
 //
 //        log.info("-------------getAttendPost2-------- {}", resultList2);
-        return resultList;
     }
 
     @Override
     public void changeInfo(Member member) {
         em.merge(member);
     }
-
-
 }

@@ -62,7 +62,6 @@ export default {
     },
     deleteNotice() {
       this.$store.dispatch('DELETE_NOTICE', this.notice_id);
-
       Swal.fire({
         icon: 'success',
         title: '공지사항 삭제 완료!',

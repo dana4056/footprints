@@ -16,5 +16,4 @@ public class PageController implements ErrorController {
             log.info("에러페이지->리다이렉트");
             return "index.html";
         }
-
 }

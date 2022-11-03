@@ -23,7 +23,9 @@
     <div class="inputDiv" v-bind:class="{errorType:this.isDupliEmail, correctType:this.isUniqEmail}">
       <label>이메일</label>
       <div class="emailGroup">
-        <span> <input class="emailItem1" v-model="Email1" v-on:focus="ignoreInputE" type="text" autoComplete="off" placeholder="아이디" required v-on:focusout="checkEmail"> </span>
+        <span> <input class="emailItem1" v-model="Email1" v-on:focus="ignoreInputE" type="text" autoComplete="off" 
+        placeholder="아이디" v-on:focusout="checkEmail" required> 
+        </span>
         <span><span class="emailItem2">@</span></span>
         <span>
           <select v-if="isSelectBox" v-on:change="directInput" class="emailItem3" name="domain" id='userId2' v-model="Email2" v-on:focus="ignoreInputE" v-on:focusout="checkEmail">
@@ -79,8 +81,10 @@ export default {
       },
       Image: require("../assets/user.png"),
       Nick: this.$store.state.member.nick,
-      Email1: this.$store.state.member.email.split('@')[0],
-      Email2: this.$store.state.member.email.split('@')[1],
+      Email1: "",
+      Email2: "",
+      sun_Email1: this.$store.state.member.email.split('@')[0],
+      sun_Email2: this.$store.state.member.email.split('@')[1],
       Pw1: "",
       Pw2: "",
       Area: this.$store.state.member.area,
@@ -93,7 +97,9 @@ export default {
   },
   created() {
     // this.Image = require("../assets/" + this.$store.state.member.nick +".png");
-    this.Image = require('../assets/user.png')
+    this.Image = require('../assets/user.png');
+    this.Email1 = this.sun_Email1;
+    this.Email2 = this.sun_Email2;
   },
   computed: {
     email() {
@@ -198,7 +204,7 @@ export default {
       }).open();
     },
     isValidAll() {
-      if (this.Id1 != "" && this.Id2 != "" && this.Pw1 != "" && this.Pw2 != "" && this.Nick != "" && this.Area != "") {
+      if (!this.isDupliEmail && this.Id1 != "" && this.Id2 != "" && this.Pw1 != "" && this.Pw2 != "" && this.Nick != "" && this.Area != "") {
         if (this.isValidNick() && !this.isDiferrentPw()) {
           return true;
         } else {
@@ -222,8 +228,14 @@ export default {
         this.represent() ;
         }, 200); 	
 			}
-      else 
-				alert("형식을 다시 확인해주세요.")
+      else {
+        if(!this.isDupliNick){
+          alert("사용할 수 없는 이메일입니다.");
+        }
+        else{
+          alert("형식을 다시 확인해주세요.")
+        }
+      }
     },
     represent() {
       if(this.GET_MEMBER_CHANGE_DONE == 'SUCCESS'){
