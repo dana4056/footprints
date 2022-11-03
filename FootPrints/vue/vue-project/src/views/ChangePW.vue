@@ -77,10 +77,6 @@ export default {
         alert("비밀번호가 성공적으로 변경되었습니다.")
         this.$router.replace("/login");
       }
-      else{
-        alert("비밀번호 변경에 실패하였습니다.\n다시 시도해주세요.");
-        this.$router.replace("/change-password");
-      }
     },
 		submitData() {
       if (!this.isDiffrentPw && this.isValidPw)

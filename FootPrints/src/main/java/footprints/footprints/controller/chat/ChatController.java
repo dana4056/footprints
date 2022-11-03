@@ -6,10 +6,12 @@ import footprints.footprints.service.chat.ChatService;
 import footprints.footprints.domain.post.Post;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.logging.log4j.message.SimpleMessage;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,11 +26,12 @@ public class ChatController {
 
     private final ChatService chatService;
 
-    @MessageMapping("/receive")
-    @SendTo("/sub/send")
+    @MessageMapping("/receive/{post_id}")
+    @SendTo("/sub/send/{post_id}")
     public String sendMessage(ChatDataDTO chatDataDTO){
         return chatDataDTO.getMessage();
     }
+
 
     @GetMapping(value = "/chat/post-id-list") // 사용자가 속한 한 post_id를 리스트(Integer) 형태로 가져온다.
     public ResponseEntity<List<Long>> getPostIdList(@RequestParam String nick){

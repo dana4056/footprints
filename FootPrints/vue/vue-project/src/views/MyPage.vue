@@ -62,6 +62,7 @@ export default {
       router.replace("/home");
     }
     else {
+      this.$store.dispatch('FETCH_USER');
       this.$store.dispatch('FETCH_MY_DPOST', this.$store.state.member.nick);
       this.$store.dispatch('FETCH_MY_PARTICI', this.$store.state.member.nick);
     }

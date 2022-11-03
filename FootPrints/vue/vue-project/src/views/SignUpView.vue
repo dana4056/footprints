@@ -34,7 +34,7 @@
             <div class="emailGroup">
               <span>
                   <input class="emailItem1" v-on:focus="ignoreInputE" v-model="Email1" type="text" 
-                  autoComplete="off" placeholder="아이디" required>
+                  autoComplete="off" placeholder="아이디" v-on:focusout="checkEmail" required>
               </span>
               <span><span class="emailItem2">@</span></span>
               <span>

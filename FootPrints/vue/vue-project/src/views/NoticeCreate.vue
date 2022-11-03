@@ -46,14 +46,14 @@ export default {
     register() {
         const noticeDTO = {
           title: this.notice_title,           // 글 제목
-          author: "관리자",
+          author: "admin",
           post_time: dayjs().format("YYYY.MM.DD"),
           content: this.notice_content,     // 글 내용
           view_num: 0,
         }
         console.log("NOTICEDTO\n",noticeDTO);
         this.$store.dispatch('POST_NOTICE', noticeDTO);
-        this.$router.replace(`/notice/post`);
+        this.$router.replace(`/home`);
 			},
       submitData(){
         if(this.notice_title != "" && this.notice_content != ""){

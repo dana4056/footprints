@@ -31,14 +31,9 @@ public class MemberController {
     @GetMapping(value = "/token")
     public ResponseEntity<ResLoginedMemberDTO> fetchMember(Authentication authentication){
         Member principal = (Member)authentication.getPrincipal();
-        if(principal == null){
-            return new ResponseEntity<>(null, HttpStatus.FORBIDDEN);
-        }
-        else{
-            ResLoginedMemberDTO loginMember = new ResLoginedMemberDTO(principal.getNick(), principal.getEmail(), principal.getArea());
-            log.info("-----[MemberController fetchMember] return {}",loginMember.getNick());
-            return new ResponseEntity<>(loginMember, HttpStatus.OK);
-        }
+        ResLoginedMemberDTO loginMember = new ResLoginedMemberDTO(principal.getNick(), principal.getEmail(), principal.getArea());
+        log.info("-----[MemberController fetchMember] return {}",loginMember.getNick());
+        return new ResponseEntity<>(loginMember, HttpStatus.OK);
     }
 
     @GetMapping(value = "/authority")
@@ -70,10 +65,23 @@ public class MemberController {
     @PatchMapping(value = "/member")
     public ResponseEntity<String> ChangePW(@RequestBody ReqChangePwDTO changePwDTO){
         log.info("-----[MemberController ChangePW] email:{}", changePwDTO.getEmail());
+
+        Member member = memberRepository.findByEmail(changePwDTO.getEmail());
+        String beforePassword = member.getPassword();
+        log.info("-----[MemberController ChangePW] pw 변경전 -> {}", beforePassword);
+
         memberService.changeDBPwd(changePwDTO);
         log.info("-----[MemberController ChangePW] pw 변경 완료 -> {}", changePwDTO.getPw());
 
-        return new ResponseEntity<>("SUCCESS", HttpStatus.OK); //비밀번호 변경 성공
+        String afterPassword = changePwDTO.getPw();
+        log.info("-----[MemberController ChangePW] pw 변경후 -> {}", afterPassword);
+
+        if(beforePassword.equals(afterPassword)){
+            return new ResponseEntity<>("FAILED", HttpStatus.CONFLICT); //비밀번호 변경 실패
+        }
+        else{
+            return new ResponseEntity<>("SUCCESS", HttpStatus.OK); //비밀번호 변경 성공
+        }
     }
 
     // 지역 찾기
