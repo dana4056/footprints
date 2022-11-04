@@ -96,7 +96,7 @@ public class PostRepositoryImpl implements PostRepository{
 
     @Override
     public List<Post> findAll(String area_name) {
-        TypedQuery<Post> sameArea = em.createQuery("select p from Post p where p.member.area = :area_name",
+        TypedQuery<Post> sameArea = em.createQuery("select p from Post p where p.post_area = :area_name",
                 Post.class).setParameter("area_name", area_name);
         List<Post> resultList = sameArea.getResultList();
         return resultList;
@@ -112,7 +112,7 @@ public class PostRepositoryImpl implements PostRepository{
         log.info("SORT 레파지토리에 진입 with {}, {}, {}", category, sort_criteria, area);
         if(category.equals("")){
             if(sort_criteria.equals("near")){
-                TypedQuery<Post> nearTimeSort = em.createQuery("select p from Post p where p.member.area = :areaName order by p.valid_time", Post.class)
+                TypedQuery<Post> nearTimeSort = em.createQuery("select p from Post p where p.post_area = :areaName order by p.valid_time", Post.class)
                         .setParameter("areaName", area);
                 List<Post> resultList = nearTimeSort.getResultList();
                 if(resultList.size() == 0){

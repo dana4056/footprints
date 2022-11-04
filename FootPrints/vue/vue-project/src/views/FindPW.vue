@@ -52,7 +52,6 @@ export default {
 		represent() {
 			if(this.GET_FIND_MEMBER_EMAIL != "CANNOT_FIND_ID"){
 				this.sysCode = Math.floor(Math.random() * 900001) + 100000;
-				console.log(this.sysCode);
 				this.emailtext = false;
 				this.inputVisible = true;
 				this.getBtnVisible = false;

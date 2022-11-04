@@ -34,7 +34,6 @@ function patchChangePwd(changePwMemberDTO) {
 }
 
 function getUserArea(nick) {
-    console.log("function findUserArea 실행")
     return axios.get(`${config.baseUrl}/member/login`, {
         params: {
             nick: nick,
@@ -255,7 +254,6 @@ function getPostIdList(nick) {
 }
 
 function getPostInfoList(list) {
-    console.log("postIDList: " + list);
     return axios.post(`${config.baseUrl}/chat/get-PostInfoList`, list, {
         headers: {
             'Content-Type': 'application/json',
@@ -289,7 +287,6 @@ function getChatList(post_id) {
   }
   
   function postChatData(chatData) {
-    console.log(chatData);
     return axios.post(`${config.baseUrl}/chat`, chatData, {
         headers: {
             'X-AUTH-TOKEN': localStorage.getItem('jwt')
@@ -303,11 +300,11 @@ function deleteChatData(post_id) {
             post_id: post_id,
         },
         headers: {
-            'Content-Type': 'application/json',
-            'X-AUTH-TOKEN': localStorage.getItem('jwt')
+            'Content-Type': 'application/json'
         }
     });
-  }
+}
+  
 ////////////////////////// ROOMINFO //////////////////////////
 
 
@@ -316,7 +313,11 @@ function postRoomInfo(roomInfo) {
 }
 
 function patchRoomInfo(roomInfo) {
-    return axios.patch(`${config.baseUrl}/room-info`, roomInfo, {
+    return axios.patch(`${config.baseUrl}/room-info`, {
+        params: {
+            nick : roomInfo.nick,
+            post_id: roomInfo.post_id,
+        },
         headers: {
             'X-AUTH-TOKEN': localStorage.getItem('jwt'),
             'Content-Type': 'application/json'
@@ -378,7 +379,7 @@ export{
     getChatList,
     postChatData,
     deleteChatData,
-
+    
     //RoomInfo
     postRoomInfo,
     patchRoomInfo,

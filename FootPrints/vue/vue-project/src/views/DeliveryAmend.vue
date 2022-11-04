@@ -110,8 +110,6 @@ export default {
       this.latitude = post.lat;
       this.ongtitude = post.lon;
 
-      console.log("fetch nick: ",this.$store.state.member.nick);
-      console.log("this.user_name: ",post.member.nick);
       if(this.$store.state.member.nick !== post.member.nick){
         alert("게시물을 수정할 수 있는 권한이 없습니다.");
         this.$router.replace(`/delivery/post/${this.post_id}`);

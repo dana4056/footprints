@@ -20,5 +20,7 @@ public interface ChatRepository {
 
     void delete_all(Long post_id);
 
+    String getLastMsg(Long post_id);
+
     String getLastChatting(Long post_id);
 }

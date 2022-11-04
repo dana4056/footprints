@@ -110,10 +110,28 @@ public class ChatRepositoryImpl implements ChatRepository {
     }
 
     @Override
+    public String getLastMsg(Long post_id) {
+        TypedQuery<String> stringTypedQuery = em.createQuery("select cd.message from ChatData cd " +
+                "where cd.post.post_id = :post_id "
+                +"order by cd.chat_id desc", String.class).setParameter("post_id", post_id).setMaxResults(1);
+        List<String> resultList = stringTypedQuery.getResultList();
+
+        if (resultList.size() == 0) return "";
+        else return resultList.get(0);
+    }
+
+
+    @Override
     public String getLastChatting(Long post_id) {
         TypedQuery<String> stringTypedQuery = em.createQuery("select cd.message from ChatData cd " +
                 "where cd.post.post_id = :post_id", String.class).setParameter("post_id", post_id);
+        List<String> resultList = stringTypedQuery.getResultList();
+        String lastMsg = "";
+        if(resultList.size() > 0){
+            resultList.get(resultList.size()-1);
+        }
+        log.info("------------chat Messages {}",resultList);
 
-        return String.valueOf(stringTypedQuery);
+        return lastMsg;
     }
 }

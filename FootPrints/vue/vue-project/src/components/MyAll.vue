@@ -6,14 +6,14 @@
         <p class="category">내 글</p>
         <p class="seeAll" id="Mine" @click="setting">전체보기</p>
       </div>
-      <div v-for="(myDelivery, index) in this.$store.state.myDPostList" v-bind:key="myDelivery">
+      <div v-for="(myDelivery, index) in isVaild" v-bind:key="myDelivery">
         <router-link class="list" v-if="index < 4" v-bind:to="`/delivery/post/${myDelivery.post_id}`">
           <img class="image" :src="require('../assets/category/' + myDelivery.category + '.png')">
           <p class="title">{{myDelivery.post_name}}</p>
         </router-link>
       </div>
-      <div v-if="this.$store.state.myDPostList.length < 4">
-        <div v-for="index in (4-this.$store.state.myDPostList.length)" v-bind:key="index">
+      <div v-if="isVaild.length < 4">
+        <div v-for="index in (4-isVaild.length)" v-bind:key="index">
           <div class="list">
             <div class="image empty"></div>
           </div>
@@ -26,14 +26,14 @@
         <p class="category">참여</p>
         <p class="seeAll" id="Participation" @click="setting">전체보기</p>
       </div>
-      <div v-for="(myPartici, index) in this.$store.state.myParticiList" v-bind:key="myPartici">
+      <div v-for="(myPartici, index) in isVaild_p" v-bind:key="myPartici">
         <router-link class="list" v-if="index < 4" v-bind:to="`/delivery/post/${myPartici.post_id}`">
           <img class="image" :src="require('../assets/category/' + myPartici.category + '.png')">
           <p class="title">{{myPartici.post_name}}</p>
         </router-link>
       </div>
-      <div v-if="this.$store.state.myParticiList.length < 4">
-        <div v-for="index in (4-this.$store.state.myParticiList.length)" v-bind:key="index">
+      <div v-if="isVaild_p.length < 4">
+        <div v-for="index in (4-isVaild_p.length)" v-bind:key="index">
           <div class="list">
             <div class="image empty"></div>
           </div>
@@ -45,6 +45,8 @@
 </template>
 
 <script>
+import dayjs from 'dayjs'
+
 export default {
   data(){
     return {
@@ -55,6 +57,38 @@ export default {
         'ETC': '기타'
       },
     } 
+  },
+  computed: {
+    isVaild() {
+      let posts = this.$store.state.myDPostList;
+      let list = [];
+      let now = dayjs();
+      let idx = 0;
+      for(let post of posts){
+        let post_time = dayjs(post.valid_time);
+
+        if(post_time.diff(now) > 0){
+          list[idx] = post;
+          idx += 1;
+        }
+      }
+      return list;
+    },
+    isVaild_p() {
+      let posts = this.$store.state.myParticiList;
+      let list = [];
+      let now = dayjs();
+      let idx = 0;
+      for(let post of posts){
+        let post_time = dayjs(post.valid_time);
+
+        if(post_time.diff(now) > 0){
+          list[idx] = post;
+          idx += 1;
+        }
+      }
+      return list;
+    }
   },
   methods: {
     setting(evnet){
