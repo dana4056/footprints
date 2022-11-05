@@ -81,6 +81,7 @@ export default {
       user_name: this.$store.state.deliveryPost.member.nick,     // 작성자 이름
       area_name: this.$store.state.deliveryPost.post_area,     // 행정지역명
       minDate: "",
+      valueDate: "",
       latitude: this.$store.state.deliveryPost.lat,
       longtitude: this.$store.state.deliveryPost.lon,
       inputVisible: true,
@@ -100,7 +101,12 @@ export default {
       this.take_loc = post.take_loc;      // 음식 나눌 장소
       this.participant_num = post.participant_num;  // 현재 참가 인원
       this.max_person_num = post.max_person_num;   // 모집 인원
-      this.valid_time = post.valid_time;       // 게시물 유효 시간
+      
+      const tmp_date1 = new Date(post.valid_time);
+      const tmp_date2 = new Date(tmp_date1.getTime() - (tmp_date1.getTimezoneOffset() * 60000));
+      const tmp_date3 = tmp_date2.toISOString();
+
+      this.valid_time = tmp_date3.split('.')[0];
       this.view_num = post.view_num;         // 조회수
       this.user_name = post.member.nick;     // 작성자 이름
       this.area_name = post.post_area;     // 행정지역명
