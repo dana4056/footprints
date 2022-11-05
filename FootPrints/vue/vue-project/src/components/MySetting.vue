@@ -46,7 +46,7 @@
     </div>
 
     <div class="inputDiv" v-bind:class="{errorType:!isValidPw()}">
-      <label>비밀번호 - 채워져 있으면 안 됨! 무조건 한 번은 입력해야함</label>
+      <label>비밀번호</label>
       <input id='password1' autoComplete="off" v-on:focusout="isValidPw" v-model="Pw1" type="password" placeholder="비밀번호 (영어, 숫자, 특수문자 포함 8~20자)" required>
       <span class="errorType" v-if="!isValidPw()">비밀번호는 영어, 숫자, 특수문자 포함 8~20자여야 합니다.</span>
     </div>

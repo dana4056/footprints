@@ -168,7 +168,6 @@ export default {
     register() {
       if (this.submitData()){
         // this.$store.dispatch('FETCH_USER') //의도가 뭐지
-        console.log(this.area_name);
           const post = {
             post_id: this.post_id,
             post_name: this.post_name,           // 글 제목
@@ -182,7 +181,6 @@ export default {
             nick: this.user_name,
             post_area :this.area_name
         }
-        console.log("AMEND_DELIVERY_POST\n",post); 
         this.$store.dispatch('AMEND_DELIVERY_POST', post);
 
 				Swal.fire({

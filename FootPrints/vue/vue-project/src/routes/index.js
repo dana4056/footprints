@@ -54,5 +54,8 @@ const routes = [
 export const router = new createRouter({
     // plugins: [createPersistedState()],
     history: createWebHistory(),
-    routes
+    routes,
+    scrollBehavior(){
+        return { top: 0 }
+      },
 });
