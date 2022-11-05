@@ -30,14 +30,12 @@
           <div id="peopleNum">
             <p>모집할 인원을 정해주세요.</p>
             <select v-model.number="max_person_num">
-              <option value="0" selected="selected">상관없음</option>
-              <option value="2">2명</option>
+              <option value="2" selected="selected">2명</option>
               <option value="3">3명</option>
               <option value="4">4명</option>
               <option value="5">5명</option>
               <option value="6">6명</option>
               <option value="7">7명</option>
-              <!-- <option value="etc">그 외</option> -->
             </select>
           </div>
 
@@ -81,8 +79,7 @@ export default {
       valid_time: this.$store.state.deliveryPost.valid_time,       // 게시물 유효 시간
       view_num: this.$store.state.deliveryPost.view_num,         // 조회수
       user_name: this.$store.state.deliveryPost.member.nick,     // 작성자 이름
-      area_name: this.$store.state.deliveryPost.member.area,     // 행정지역명
-
+      area_name: this.$store.state.deliveryPost.post_area,     // 행정지역명
       minDate: "",
       latitude: this.$store.state.deliveryPost.lat,
       longtitude: this.$store.state.deliveryPost.lon,
@@ -106,7 +103,7 @@ export default {
       this.valid_time = post.valid_time;       // 게시물 유효 시간
       this.view_num = post.view_num;         // 조회수
       this.user_name = post.member.nick;     // 작성자 이름
-      this.area_name = post.member.area;     // 행정지역명
+      this.area_name = post.post_area;     // 행정지역명
       this.latitude = post.lat;
       this.ongtitude = post.lon;
 
@@ -151,7 +148,10 @@ export default {
 
       let callback = function(result, status) {
         if (status === kakao.maps.services.Status.OK) {
-            console.log(result[0].address_name);
+          let depth1 = result[0].address.region_1depth_name;
+          let depth2 = result[0].address.region_2depth_name;
+          let depth3 = result[0].address.region_3depth_name;
+          $vm.area_name = depth1+" "+depth2+" "+depth3;
         }
       }
       geocoder.coord2RegionCode(latlng.getLng(), latlng.getLat(), callback);

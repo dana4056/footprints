@@ -124,7 +124,7 @@ export default {
       category: "카테고리",  // 음식 카테고리
       take_loc: "",         // 음식 나눌 장소 이름(ex. 북악관)
       participant_num: 0,   // 현재 참가 인원
-      max_person_num: 0,    // 모집 인원
+      max_person_num: 2,    // 모집 인원
       valid_time: "",       // 게시물 유효 시간
       view_num:0,           // 조회수
       area_name: "",        // 행정지역명(선택 장소)
