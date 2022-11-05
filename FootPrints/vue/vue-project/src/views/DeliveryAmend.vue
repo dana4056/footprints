@@ -105,8 +105,8 @@ export default {
       const tmp_date1 = new Date(post.valid_time);
       const tmp_date2 = new Date(tmp_date1.getTime() - (tmp_date1.getTimezoneOffset() * 60000));
       const tmp_date3 = tmp_date2.toISOString();
-
       this.valid_time = tmp_date3.split('.')[0];
+
       this.view_num = post.view_num;         // 조회수
       this.user_name = post.member.nick;     // 작성자 이름
       this.area_name = post.post_area;     // 행정지역명
@@ -168,6 +168,7 @@ export default {
     register() {
       if (this.submitData()){
         // this.$store.dispatch('FETCH_USER') //의도가 뭐지
+        console.log(this.area_name);
           const post = {
             post_id: this.post_id,
             post_name: this.post_name,           // 글 제목
@@ -179,7 +180,7 @@ export default {
             valid_time: this.valid_time,         // 게시물 유효 시간
             view_num: this.view_num ,            // 조회수
             nick: this.user_name,
-            area :this.area_name
+            post_area :this.area_name
         }
         console.log("AMEND_DELIVERY_POST\n",post); 
         this.$store.dispatch('AMEND_DELIVERY_POST', post);
