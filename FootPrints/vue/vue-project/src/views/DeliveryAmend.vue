@@ -26,21 +26,17 @@
             <input v-model="valid_time" type="datetime-local" 
             v-bind:min=minDate v-on:focusout="setMinValue">
           </div>
-
           <div id="peopleNum">
             <p>모집할 인원을 정해주세요.</p>
             <select v-model.number="max_person_num">
-              <option value="0" selected="selected">상관없음</option>
-              <option value="2">2명</option>
+              <option value="2" selected="selected">2명</option>
               <option value="3">3명</option>
               <option value="4">4명</option>
               <option value="5">5명</option>
               <option value="6">6명</option>
               <option value="7">7명</option>
-              <!-- <option value="etc">그 외</option> -->
             </select>
           </div>
-
           <div id="place">
             <label>음식을 나눌 장소를 지정해주세요.</label>
             <div class="kmap" ref="map"></div>
@@ -48,7 +44,6 @@
             placeholder="장소 별명: ex) 세븐일레븐 앞">
           </div>
         </div>
-
         <div style="float:right; width:350px;">
           <input v-model="post_name" id="post_name" placeholder="제목을 입력하세요.">
           <hr>
@@ -59,12 +54,10 @@
     </div>
   </div>
 </template>
-
 <script>
 import ToolBar from '../components/ToolBar.vue'
 import Swal from 'sweetalert2';
 import dayjs from 'dayjs'
-
 export default {
   components:{
         ToolBar,
@@ -81,9 +74,9 @@ export default {
       valid_time: this.$store.state.deliveryPost.valid_time,       // 게시물 유효 시간
       view_num: this.$store.state.deliveryPost.view_num,         // 조회수
       user_name: this.$store.state.deliveryPost.member.nick,     // 작성자 이름
-      area_name: this.$store.state.deliveryPost.member.area,     // 행정지역명
-
+      area_name: this.$store.state.deliveryPost.post_area,     // 행정지역명
       minDate: "",
+      valueDate: "",
       latitude: this.$store.state.deliveryPost.lat,
       longtitude: this.$store.state.deliveryPost.lon,
       inputVisible: true,
@@ -103,25 +96,26 @@ export default {
       this.take_loc = post.take_loc;      // 음식 나눌 장소
       this.participant_num = post.participant_num;  // 현재 참가 인원
       this.max_person_num = post.max_person_num;   // 모집 인원
-      this.valid_time = post.valid_time;       // 게시물 유효 시간
+      
+      const tmp_date1 = new Date(post.valid_time);
+      const tmp_date2 = new Date(tmp_date1.getTime() - (tmp_date1.getTimezoneOffset() * 60000));
+      const tmp_date3 = tmp_date2.toISOString();
+      this.valid_time = tmp_date3.split('.')[0];
       this.view_num = post.view_num;         // 조회수
       this.user_name = post.member.nick;     // 작성자 이름
-      this.area_name = post.member.area;     // 행정지역명
+      this.area_name = post.post_area;     // 행정지역명
       this.latitude = post.lat;
       this.ongtitude = post.lon;
-
       if(this.$store.state.member.nick !== post.member.nick){
         alert("게시물을 수정할 수 있는 권한이 없습니다.");
         this.$router.replace(`/delivery/post/${this.post_id}`);
       }
     }, 800);
-
   },
   mounted() {
     let $vm = this;
     // 날짜 입력 최소값 지정(현시간)
     $vm.minDate = dayjs().format("YYYY-MM-DDTHH:mm");
-
     // 지도 창 생성
     let kakao = window.kakao;
     let container = this.$refs.map;
@@ -130,31 +124,33 @@ export default {
       level: 3
     };
     let mapInstance = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
-
     let geocoder = new kakao.maps.services.Geocoder();
-
     // 마커 생성
     let marker = new kakao.maps.Marker({
       position: mapInstance.getCenter(),
     }); 
     marker.setMap(mapInstance);
-
     // 줌인 줌아웃
     let zoomControl = new kakao.maps.ZoomControl();
     mapInstance.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
-
     // 클릭 이벤트 등록
     kakao.maps.event.addListener(mapInstance, 'click', function(mouseEvent) {        
       let latlng = mouseEvent.latLng;
 
       marker.setPosition(latlng);
 
+      $vm.latitude = latlng.getLat();  // 클릭 장소 위도
+      $vm.longtitude = latlng.getLng(); // 클릭 장소 경도
+
       let callback = function(result, status) {
         if (status === kakao.maps.services.Status.OK) {
-            console.log(result[0].address_name);
+          let depth1 = result[0].address.region_1depth_name;
+          let depth2 = result[0].address.region_2depth_name;
+          let depth3 = result[0].address.region_3depth_name;
+          $vm.area_name = depth1+" "+depth2+" "+depth3;
         }
       }
-      geocoder.coord2RegionCode(latlng.getLng(), latlng.getLat(), callback);
+      geocoder.coord2Address(latlng.getLng(), latlng.getLat(), callback);
       $vm.inputVisible = true;
     });
   },
@@ -162,6 +158,7 @@ export default {
     register() {
       if (this.submitData()){
         // this.$store.dispatch('FETCH_USER') //의도가 뭐지
+        console.log(this.area_name);
           const post = {
             post_id: this.post_id,
             post_name: this.post_name,           // 글 제목
@@ -173,11 +170,12 @@ export default {
             valid_time: this.valid_time,         // 게시물 유효 시간
             view_num: this.view_num ,            // 조회수
             nick: this.user_name,
-            area :this.area_name
+            post_area :this.area_name,
+            lat: this.latitude,
+            lon: this.longtitude,
         }
         console.log("AMEND_DELIVERY_POST\n",post); 
         this.$store.dispatch('AMEND_DELIVERY_POST', post);
-
 				Swal.fire({
           icon: 'success',
           title: '글이 수정되었습니다.',
@@ -208,7 +206,6 @@ export default {
   }
 }
 </script>
-
 <style scoped>
 #wrap {
   height: 800px;
