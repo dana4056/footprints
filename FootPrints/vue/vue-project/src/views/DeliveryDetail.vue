@@ -155,6 +155,16 @@ export default {
       this.$router.replace("/delivery/post/" + this.post_id + "/amend"); 
     },
     exitPost() {
+      //************* 채팅데이터 초기화부분 *************
+      // 채팅관련 초기화(채팅방 들어갈때 알아서 다시 가져와 필요한거? 아마두)
+      this.$store.state.chatLogs = [];
+      this.$store.state.postIdList = [];
+      this.$store.state.roomIndex = "0";
+      this.$store.state.roomList = [];
+      this.$store.state.userList= [];
+      //***********************************************
+
+
       const roomInfo = {
         nick: this.$store.state.member.nick,
         post_id: this.post_id

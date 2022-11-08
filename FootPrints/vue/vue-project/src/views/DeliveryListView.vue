@@ -7,7 +7,7 @@
       <div id="sort-box">
         <label>음식 카테고리</label>
           <div class="selectBox">
-            <select class="sortThing" v-model="category" v-on:focus="NoneCategory" v-on:focusout="SelectCategory">
+            <select class="sortThing" v-model="category" v-on:focus="NoneCategory" v-on:change="SelectCategory">
               <option value="" selected="selected" disabled hidden>----- 선택 -----</option>
               <!-- 여기서 값들 스트링으로 안 넣고 data.categories로 넣을 수 있을거같은데 -->
               <option value="KOR">한식</option>
@@ -25,7 +25,7 @@
 
         <label>정렬 기준</label>
           <div class="selectBox">
-            <select class="sortThing" v-model="sort_criteria" v-on:focus="BeforeSort" v-on:focusout="SelectSortCriteria">
+            <select class="sortThing" v-model="sort_criteria" v-on:focus="BeforeSort" v-on:change="SelectSortCriteria">
               <option value="" selected="selected" disabled hidden>----- 선택 -----</option>
               <option value="default">글 작성 시간 순</option>
               <option value="near">마감기한 가까운 순</option>

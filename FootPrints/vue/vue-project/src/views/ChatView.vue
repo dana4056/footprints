@@ -31,7 +31,12 @@
         </div>
 
         <div class="chat__body" id="chat__body">
-          <div v-for="(chat) in this.$store.state.chatLogs" :key="chat">
+          <div class="noContent" v-if="post_id=='noselect'">
+            <img src="../assets/smile.png">
+            <p>채팅목록에서 채팅방을 선택해주세요</p>
+          </div>
+
+          <div v-else v-for="(chat) in this.$store.state.chatLogs" :key="chat">
             <div v-if="chat.from_name === this.my_nick" class="chat__mymessage" :class="[isSame ? '' : 'chat__first']">
               <p class="chat__yourmessage__time">{{ chat.time.slice(10, 16) }}</p>
               <p class="chat__mymessage__paragraph">{{ chat.message }}</p>
@@ -89,7 +94,7 @@ export default {
       isSame: false,
       my_nick: "",
       msg: "",
-      post_id: 0,
+      post_id: "noselect",
       isSocketConnected : false,
     }
   },
@@ -109,12 +114,8 @@ export default {
     }
     else if(post_id_list.length != 0) {
 
-      this.post_id = this.$store.state.postIdList[this.$store.state.roomIndex];
+      // this.post_id = this.$store.state.postIdList[this.$store.state.roomIndex];
 
-      // 확인
-      //this.$store.dispatch('FIND_USER', this.post_id);
-      //this.$store.dispatch('FIND_CHAT_LOGS', this.post_id);
-      
       if(this.isSocketConnected == false){
         this.connect(); // 일단 채팅방 입장하면 소켓 여는 개념
       }
@@ -160,10 +161,19 @@ export default {
     onMessageReceived(res){
       setTimeout(() => {
         console.log('구독으로 받은 메시지', res.body);
+        console.log('res',res);
         const post_id = this.$store.state.postIdList[this.$store.state.roomIndex];
         this.$store.dispatch('FIND_CHAT_LOGS', post_id);
         this.liftMessage();
+
+        console.log("방번호;;;",res.headers.destination.split("/")[3]);
+
         // 라스트 메시지 갱신
+        const changeLastChat = {
+          post_id: res.headers.destination.split("/")[3],
+          message: res.body
+        };
+        this.$store.commit('SET_LAST_CHAT', changeLastChat);
       }, 100);
     },
     liftMessage(){
@@ -213,11 +223,27 @@ export default {
       this.$store.state.roomIndex = li.currentTarget.id;
       this.chekcedArr[this.$store.state.roomIndex] = true;
 
-      let post_id = this.$store.state.postIdList[this.$store.state.roomIndex];
-      this.$store.dispatch('FIND_USER', post_id);
-      this.$store.dispatch('FIND_CHAT_LOGS', post_id);
+      this.post_id = this.$store.state.postIdList[this.$store.state.roomIndex];
+      this.$store.dispatch('FIND_USER', this.post_id);
+      this.$store.dispatch('FIND_CHAT_LOGS', this.post_id);
     },
     exitPost() {
+      //************* 채팅데이터 초기화부분 *************
+      // 채팅관련 초기화
+      this.$store.state.chatLogs = [];
+      this.$store.state.postIdList.splice(this.$store.state.roomIndex,1);  //해당 post_id 삭제
+      this.$store.state.roomIndex = "0";
+      this.$store.state.roomList.splice(this.$store.state.roomIndex,1);
+
+      let users = this.$store.state.userList;
+
+      for(var i = 0; i < users.length; i++){ 
+        if (users[i] == this.my_nick) { 
+          this.$store.state.userList.splice(i, 1); 
+          break;
+        }
+      }
+      //***********************************************
       const roomInfo = {
         nick: this.$store.state.member.nick,
         post_id: this.$store.state.roomList[this.$store.state.roomIndex].post_id
@@ -347,6 +373,13 @@ ul::-webkit-scrollbar {
   font-weight: bold;
   float:right;
   cursor: pointer;
+}
+
+.noContent{
+  padding: 36% 0;
+}
+.noContent p{
+  color: #ababab;
 }
 
 .chat__body {
