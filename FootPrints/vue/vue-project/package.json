@@ -11,6 +11,7 @@
     "axios": "^0.26.1",
     "core-js": "^3.8.3",
     "dayjs": "^1.11.3",
+    "emailjs-com": "^3.2.0",
     "sockjs-client": "^1.6.1",
     "sweetalert2": "^11.4.17",
     "vue": "^3.2.13",

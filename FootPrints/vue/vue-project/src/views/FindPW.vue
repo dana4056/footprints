@@ -24,6 +24,8 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import emailjs from 'emailjs-com';
+
 export default {
 	data() {
 		return {
@@ -60,7 +62,14 @@ export default {
       }
       else{
 				this.sysCode = Math.floor(Math.random() * 900001) + 100000;
-				console.log(this.sysCode);
+
+				let templateParams  = { 
+					user_email: this.email,
+					sys_code: this.sysCode,
+				}
+				emailjs.init('W7k47_dvkdb6q5-5Y');
+				emailjs.send('email', 'template_ecvcwyw', templateParams)
+
         this.isSend = true;
       }
 		},
