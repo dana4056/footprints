@@ -5,6 +5,10 @@
       <div id="wrap2">
         <div style="float:left; width:300px;">
           <div id="category">
+            <!-- <input type="datetime-local" id="meeting-time"
+       name="meeting-time" value="2018-06-12T19:30"
+       min="2018-06-07T00:00" max="2018-06-14T00:00"> -->
+
             <p>음식 카테고리를 설정해주세요.</p>
             <select v-model="category">
               <option value="카테고리" selected="selected" disabled hidden>카테고리</option>
@@ -24,7 +28,7 @@
           <div id="postTTL">
             <p>게시물이 유효한 시간을 정해주세요.</p>
             <input v-model="valid_time" type="datetime-local" 
-            v-bind:min=minDate v-on:focusout="setMinValue">
+            v-bind:min=minDate v-on:focusout="setMinValue" >
           </div>
 
           <div id="peopleNum">
@@ -124,7 +128,7 @@ export default {
       category: "카테고리",  // 음식 카테고리
       take_loc: "",         // 음식 나눌 장소 이름(ex. 북악관)
       participant_num: 0,   // 현재 참가 인원
-      max_person_num: 0,    // 모집 인원
+      max_person_num: 2,    // 모집 인원
       valid_time: "",       // 게시물 유효 시간
       view_num:0,           // 조회수
       area_name: "",        // 행정지역명(선택 장소)

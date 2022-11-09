@@ -18,7 +18,7 @@ export const store = new Vuex.Store({
         isDuplicateNick:false,
         isDuplicateEmail:false,
         find_nick: 'CANNOT_FIND_ID',
-        find_email: 'CANNOT_FIND_ID',
+        find_email: 'CANNOT_FIND_EMAIL',
         pwchange_done: 'FAILED',
         memberChange_done: 'FAILED',
         member:{      // 로그인 계정

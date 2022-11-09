@@ -58,6 +58,7 @@
 import ToolBar from '../components/ToolBar.vue'
 import Swal from 'sweetalert2';
 import dayjs from 'dayjs'
+
 export default {
   components:{
         ToolBar,
@@ -96,11 +97,12 @@ export default {
       this.take_loc = post.take_loc;      // 음식 나눌 장소
       this.participant_num = post.participant_num;  // 현재 참가 인원
       this.max_person_num = post.max_person_num;   // 모집 인원
-      
+
       const tmp_date1 = new Date(post.valid_time);
       const tmp_date2 = new Date(tmp_date1.getTime() - (tmp_date1.getTimezoneOffset() * 60000));
       const tmp_date3 = tmp_date2.toISOString();
       this.valid_time = tmp_date3.split('.')[0];
+
       this.view_num = post.view_num;         // 조회수
       this.user_name = post.member.nick;     // 작성자 이름
       this.area_name = post.post_area;     // 행정지역명
@@ -158,7 +160,6 @@ export default {
     register() {
       if (this.submitData()){
         // this.$store.dispatch('FETCH_USER') //의도가 뭐지
-        console.log(this.area_name);
           const post = {
             post_id: this.post_id,
             post_name: this.post_name,           // 글 제목
@@ -174,7 +175,6 @@ export default {
             lat: this.latitude,
             lon: this.longtitude,
         }
-        console.log("AMEND_DELIVERY_POST\n",post); 
         this.$store.dispatch('AMEND_DELIVERY_POST', post);
 				Swal.fire({
           icon: 'success',
