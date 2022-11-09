@@ -6,14 +6,19 @@
 			<div v-if="!isSend">
         <label>가입한 이메일 주소를 입력해주세요.</label>
         <div id="btnBox" v-bind:class="{errorType:this.cannotFind}">
-          <input v-on:keyup.enter="findID" id="email" v-model="email" type="text" autocomplete="off" placeholder="이메일 입력" required>
+          <input v-on:keyup.enter="findID" id="email" class="input" v-model="email" type="text" autocomplete="off" placeholder="이메일 입력" required>
           <span v-if="this.cannotFind" class="errorType">가입 되지 않은 회원입니다.</span>
         </div>
         <button type="submit" v-on:click="getCode">이메일로 인증코드 받기</button>
       </div>
       <div v-else>
-				<label id="sendMail"><span>{{ GET_FIND_MEMBER_EMAIL }}</span>에게 인증번호를 보냈습니다.</label>
-				<input id="userCode" autocomplete="off" maxlength="6" v-model="userCode" type="text" v-on:keyup.enter="checkCode" placeholder="인증번호" required>
+				<label id="sendMail"><span>{{ GET_FIND_MEMBER_EMAIL }}</span> 으로 인증번호를 보냈습니다.</label>
+				
+				<div class="input">
+					<input id="userCode" autocomplete="off" maxlength="6" v-model="userCode" type="text" v-on:keyup.enter="checkCode" placeholder="인증번호" required>
+					<input id="timerStr" v-model="timerStr" type="text" readonly>
+				</div>
+				
 				<button type="submit" v-on:click="checkCode">확인</button>
       </div>
 		</div>
@@ -34,6 +39,9 @@ export default {
 			userCode: "",
 			isSend: false,
       cannotFind: false,
+      timer: null,
+      timeCounter: 300,
+      timerStr: "05:00"
 		}
 	},
 	created() {
@@ -68,13 +76,43 @@ export default {
 					sys_code: this.sysCode,
 				}
 				emailjs.init('W7k47_dvkdb6q5-5Y');
-				emailjs.send('email', 'template_ecvcwyw', templateParams)
+				emailjs.send('email', 'template_ecvcwyw', templateParams);
 
         this.isSend = true;
+
+				if(this.Timer != null){
+					this.timerStop(this.Timer);
+					this.timer = null;
+				}
+				this.timer = this.timerStart();
       }
 		},
+		timerStart() {
+      this.timeCounter = 300;
+      var interval = setInterval(() => {
+        this.timeCounter--;
+        this.timerStr = this.prettyTime();
+        if (this.timeCounter <= 0){
+					this.timerStop(interval);
+					this.sysCode = "INVALID"
+					this.timerStr = "00:00"
+					alert("인증번호 유효시간이 초과되었습니다.")
+				}
+      }, 1000);
+      return interval;
+    },
+    timerStop(timer) {
+      clearInterval(timer);
+      this.timeCounter = 0;
+    },
+    prettyTime() {
+      let time = this.timeCounter / 60;
+      let minutes = parseInt(time);
+      let secondes = Math.round((time - minutes) * 60);
+      return minutes.toString().padStart(2, "0") + ":" + secondes.toString().padStart(2, "0");
+    },
 		checkCode() {
-			if (this.sysCode == parseInt(this.userCode) && this.userCode != "") {
+			if (this.sysCode == parseInt(this.userCode) && this.userCode != "" && this.sysCode != "INVALID") {
 				localStorage.setItem('email', this.email);
 				this.$router.replace("/change-password");
 			}
@@ -119,26 +157,28 @@ label{
 	text-align: left;
 	display: block;
 }
-input{
+.input{
 	box-sizing: border-box;
   width: 100%;
   height: 50px;
-	padding: 8px 15px 9px;
+	padding: 0 15px;
   background: #FaFaFa;
   border: 1px solid #BDBDBD;
 	border-radius: 10px;
-	font-family: Noto Sans KR,sans-serif;
-  outline: none;
+	vertical-align:middle;
 }
-input:focus {
+#email {
+	padding: 8px 15px 9px;
+}
+.input:focus {
 	background: #F3F3F3;
   border-color: #999999;
 	outline: none;
 }
-input:hover {
+.input:hover {
   background: #F3F3F3;
 }
-input::placeholder {
+.input::placeholder {
   color: #BDBDBD;
   font-weight: 100;
 }
@@ -171,5 +211,25 @@ button:hover {
   color: #eb7373;
   font-size: 12px;
   text-align: left;
+}
+.input > * {
+	padding: 0 0;
+	border: none;
+	background: transparent;
+	font-family: Noto Sans KR,sans-serif;
+	outline: none;
+	vertical-align:middle;
+	font-size: 14px; 
+}
+#userCode {
+	width:70%;
+	height: 50px;
+	float:left;
+}
+#timerStr {
+	width:13%;
+	height: 50px;
+	float: right;
+	color: #BDBDBD;
 }
 </style>
