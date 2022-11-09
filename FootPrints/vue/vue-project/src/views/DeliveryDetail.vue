@@ -148,7 +148,7 @@ export default {
       }else{
         const ago_D = now.diff(created, "day");
         return String(ago_D)+"일 ";
-      }
+      } 
     },
     amendPost() {
       // 수정했는데 안 되면 바꿔야함
@@ -157,9 +157,17 @@ export default {
     exitPost() {
       const roomInfo = {
         nick: this.$store.state.member.nick,
-        post_id: this.post_id
+        post_id: this.$route.params.id
       };
       this.$store.dispatch('EXIT_DELIVERY_POST', roomInfo);
+
+      Swal.fire({
+        icon: 'success',
+        title: '참여 취소 성공!',
+        confirmButtonText: '배달 모집 목록 보러가기',
+      }).then(() => {
+        this.$router.replace("/delivery/post");
+      })
     },
     deletePost() {
       this.$store.dispatch('DELETE_DELIVERY_POST', this.post_id);

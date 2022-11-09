@@ -112,8 +112,8 @@ export default {
       this.post_id = this.$store.state.postIdList[this.$store.state.roomIndex];
 
       // 확인
-      //this.$store.dispatch('FIND_USER', this.post_id);
-      //this.$store.dispatch('FIND_CHAT_LOGS', this.post_id);
+      this.$store.dispatch('FIND_USER', this.post_id);
+      this.$store.dispatch('FIND_CHAT_LOGS', this.post_id);
       
       if(this.isSocketConnected == false){
         this.connect(); // 일단 채팅방 입장하면 소켓 여는 개념
