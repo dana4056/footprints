@@ -96,7 +96,6 @@ export default {
 					this.timerStop(interval);
 					this.sysCode = "INVALID"
 					this.timerStr = "00:00"
-					alert("인증번호 유효시간이 초과되었습니다.")
 				}
       }, 1000);
       return interval;
