@@ -116,6 +116,10 @@ export default {
 
       // this.post_id = this.$store.state.postIdList[this.$store.state.roomIndex];
 
+      // 확인
+      this.$store.dispatch('FIND_USER', this.post_id);
+      this.$store.dispatch('FIND_CHAT_LOGS', this.post_id);
+      
       if(this.isSocketConnected == false){
         this.connect(); // 일단 채팅방 입장하면 소켓 여는 개념
       }
@@ -161,13 +165,9 @@ export default {
     onMessageReceived(res){
       setTimeout(() => {
         console.log('구독으로 받은 메시지', res.body);
-        console.log('res',res);
         const post_id = this.$store.state.postIdList[this.$store.state.roomIndex];
         this.$store.dispatch('FIND_CHAT_LOGS', post_id);
         this.liftMessage();
-
-        console.log("방번호;;;",res.headers.destination.split("/")[3]);
-
         // 라스트 메시지 갱신
         const changeLastChat = {
           post_id: res.headers.destination.split("/")[3],
@@ -237,9 +237,9 @@ export default {
 
       let users = this.$store.state.userList;
 
-      for(var i = 0; i < users.length; i++){ 
-        if (users[i] == this.my_nick) { 
-          this.$store.state.userList.splice(i, 1); 
+      for(var i = 0; i < users.length; i++){
+        if (users[i] == this.my_nick) {
+          this.$store.state.userList.splice(i, 1);
           break;
         }
       }

@@ -18,10 +18,6 @@
             <p id="areaName">{{this.$store.state.member.area}}</p>
           </div>
           <div class="router">
-            <router-link to="/home" id="like">
-              <img id="likeImage" src="../assets/heart.png">
-              <p>좋아요</p>
-            </router-link>
             <router-link v-bind:to="`/chat/${this.$store.state.member.nick}`" id="chat">
               <img id="chatImage" src="../assets/chatting.png">
               <p>채팅</p>

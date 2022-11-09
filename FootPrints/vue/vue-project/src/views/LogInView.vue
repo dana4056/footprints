@@ -119,7 +119,7 @@ export default {
     margin: 3px 8px 3px 0px;
 }
 img{
-  widows: 25px;
+  widows: 25;
 }
 .Div{
   margin: 0;
