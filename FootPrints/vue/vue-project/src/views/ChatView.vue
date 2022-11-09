@@ -22,11 +22,18 @@
       </div>
 
       <div class="chat">
-        <div class="chatHeader">
+        <div v-if="post_id!='noselect'" class="chatHeader">
           <div v-if="this.$store.state.postIdList[0] != 0">
             <p id="title">{{ this.$store.state.roomList[this.$store.state.roomIndex].post_name }}</p>
             <p id="userList" v-for="user in this.$store.state.userList" v-bind:key="user"> {{ user }}</p>
             <button v-if="this.$store.state.roomList[this.$store.state.roomIndex].nick != this.$store.state.member.nick" v-on:click="exitPost">나가기</button>
+          </div>
+        </div>
+
+        <div v-else class="chatHeader">
+          <div>
+            <p id="title"></p>
+            <p id="userList"></p>
           </div>
         </div>
 
@@ -57,7 +64,7 @@
           </div>
         </div>
 
-        <div class="chatForm">
+        <div :class="{chatForm:(post_id!='noselect'), chatFormHide:(post_id=='noselect')}">
           <input class="form__input" type="text" placeholder="메세지를 입력하세요."  v-model.trim="msg" @keyup.enter="submitMessage"/>
           <div @click="submitMessage" class="form__submit">
             <svg  width="30" height="30" viewBox="0 0 68 68" fill="#CCCCCC" xmlns="http://www.w3.org/2000/svg">
@@ -169,9 +176,17 @@ export default {
         this.$store.dispatch('FIND_CHAT_LOGS', post_id);
         this.liftMessage();
         // 라스트 메시지 갱신
+        let message = "";
+        if(res.body.length < 20){
+           message = res.body;
+        } 
+        else{
+           message = res.body.slice(0,10);
+           message = message + "..."
+        }
         const changeLastChat = {
           post_id: res.headers.destination.split("/")[3],
-          message: res.body
+          message: message
         };
         this.$store.commit('SET_LAST_CHAT', changeLastChat);
       }, 100);
@@ -205,9 +220,17 @@ export default {
 
         this.$store.dispatch('POST_CHAT_DATA', chatData);
         
+        let message = "";
+        if(this.msg.length < 20){
+           message = this.msg;
+        } 
+        else{
+           message = this.msg.slice(0,10);
+           message = message + "..."
+        }
         const changeLastChat = {
           post_id: post_id,
-          message: this.msg
+          message: message
         }
         this.$store.commit('SET_LAST_CHAT', changeLastChat);
         
@@ -457,6 +480,22 @@ ul::-webkit-scrollbar {
   display: flex;
   justify-content: space-between;
 }
+
+.chatFormHide{
+  padding: 1.3rem;
+  background: #ffffff;
+  border-radius: 0px 0px 24px 0px;
+  box-shadow: 0px 5px 20px 0 rgb(0 0 0 / 5%);
+  display: flex;
+  justify-content: space-between;
+}
+.chatFormHide input{
+  display: none;
+}
+.chatFormHide .form__submit{
+  visibility: hidden;
+}
+
 .form__input {
   width: calc(100% - 60px);
   padding: 0.5rem;
