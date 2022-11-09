@@ -240,6 +240,7 @@ export default {
       if(this.GET_MEMBER_CHANGE_DONE == 'SUCCESS'){
         alert("회원정보가 성공적으로 변경되었습니다.")
         this.$router.replace("/home");
+        this.$store.state.memberChange_done = 'FAILED';
       }
     }
   }

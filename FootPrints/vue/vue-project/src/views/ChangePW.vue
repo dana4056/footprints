@@ -76,6 +76,7 @@ export default {
       if(this.GET_PWCHANGE_DONE == 'SUCCESS'){
         alert("비밀번호가 성공적으로 변경되었습니다.")
         this.$router.replace("/login");
+        this.$store.state.pwchange_done = 'FAILED';
       }
     },
 		submitData() {
