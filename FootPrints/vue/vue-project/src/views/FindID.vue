@@ -3,16 +3,20 @@
   <div id="wrap">
 		<router-link to="/home" class="logo"><img src="../assets/logo.png">발자취</router-link>
 		<div class="Div">
-			<label v-if="inputtext">회원정보에 등록한 이메일을 입력해주세요.</label>
-			<input id="email" autocomplete="off" v-model="email" type="text" v-on:keyup.enter="findID" v-if="inputemail" placeholder="이메일 입력" required>
-			<button type="submit" v-if="getBtnVisible" v-on:click="findID">이메일로 아이디 찾기</button>
-      <div>
-        <div id="showID" v-if="this.getIDVisible">회원님의 아이디는 <span>{{ GET_FIND_MEMBER_NICK }}</span> 입니다.</div>
-        <div v-if="this.canNotFindID">회원님의 아이디를 찾을 수 없습니다.</div>
+      <div v-if="!isFind">
+        <label>회원정보에 등록한 이메일을 입력해주세요.</label>
+        <div id="btnBox" v-bind:class="{errorType:this.cannotFind}">
+          <input v-on:keyup.enter="findID" id="email" v-model="email" type="text" autocomplete="off" placeholder="이메일 입력" required>
+          <span v-if="this.cannotFind" class="errorType">가입되지 않은 회원입니다.</span>
+        </div>
+        <button type="submit" v-on:click="findID">이메일로 아이디 찾기</button>
       </div>
-      <div id="btnBox">
-        <router-link to="/home" class="item"><button id="home" v-if="chkBtnVisible">홈페이지</button></router-link>
-        <router-link to="/login" class="item"><button id="login" v-if="chkBtnVisible">로그인</button></router-link>
+      <div v-else>
+        <label id="showID">회원님의 아이디는 <span>{{ GET_FIND_MEMBER_NICK }}</span> 입니다.</label>
+        <div id="btnBox">
+          <router-link to="/home" class="item"><button id="home">홈페이지</button></router-link>
+          <router-link to="/login" class="item"><button id="login">로그인</button></router-link>
+        </div>
       </div>
 		</div>
 	</div>
@@ -27,14 +31,13 @@ export default {
 	data() {
 		return {
 			email: "",
-      inputtext: true,
-			inputemail: true,
-			getBtnVisible: true,
-			chkBtnVisible: false,
-			getIDVisible: false,
-      canNotFindID: false,
+      isFind: false,
+      cannotFind: false,
 		}
 	},
+  created() {
+		this.$store.state.find_nick = "CANNOT_FIND_ID";
+  },
 	computed:{
     ...mapGetters([
       'GET_FIND_MEMBER_NICK'
@@ -48,19 +51,13 @@ export default {
         }, 100);    
     },
     represent(){
-      this.getBtnVisible = false;
       if (this.GET_FIND_MEMBER_NICK == "CANNOT_FIND_ID"){
-        this.getIDVisible = false;
-        this.canNotFindID = true;
+        this.cannotFind = true;
       }
       else{
-        this.canNotFindID = false;
-        this.getIDVisible = true;
+        this.isFind = true;
       }
-      this.chkBtnVisible = true;
-      this.inputtext = false;
-      this.inputemail = false;
-    }
+    },
   }
 }
 </script>
@@ -139,6 +136,16 @@ input:hover {
 input::placeholder {
   color: #BDBDBD;
   font-weight: 100;
+}
+.errorType input {
+  background: #fff6f6;
+  border-color: #eb7373;
+  outline: none;
+}
+.errorType span {
+  color: #eb7373;
+  font-size: 12px;
+  text-align: left;
 }
 button{
   box-sizing: border-box;

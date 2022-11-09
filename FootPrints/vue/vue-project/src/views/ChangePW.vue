@@ -94,6 +94,7 @@ export default {
 }
 #wrap{
   width: 330px;
+  height: 650px;
   margin: 0 auto;
   padding: 211px 0;
 }
