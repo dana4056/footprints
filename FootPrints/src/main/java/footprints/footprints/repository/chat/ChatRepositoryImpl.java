@@ -30,7 +30,7 @@ public class ChatRepositoryImpl implements ChatRepository {
     @Override
     public List<Long> getPostIdList(String nick) {
         TypedQuery<Long> integerTypedQuery = em.createQuery("select r.post.post_id from RoomInfo r " +
-                "where r.member.nick = :nick", Long.class).setParameter("nick", nick);
+                "where r.member.nick = :nick order by r.post.post_id desc", Long.class).setParameter("nick", nick);
 
         List<Long> resultList = integerTypedQuery.getResultList();
         if (resultList.size() == 0) return null;
