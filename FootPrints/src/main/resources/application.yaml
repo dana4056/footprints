@@ -7,6 +7,9 @@ spring:
 #    password: 19980727  #다은
     password: Jhk9458062! #선진
 #    password: pass # 지원
+    testWhileIdle: true
+    timeBetweenEvictionRunsMillis: 7200000
+    validationQuery: "SELECT 1"
 
   jpa:
     database: mysql
