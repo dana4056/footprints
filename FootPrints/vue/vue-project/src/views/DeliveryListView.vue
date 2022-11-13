@@ -1,7 +1,7 @@
 <template>
   <div id="wrap" :class="{fixedWrapper:isShowmap, scrollWrapper:!isShowmap}">
     <tool-bar></tool-bar>
-    <show-map ref="showMap" v-on:change="change()"></show-map>
+    <show-map ref="showMap"></show-map>
     <div id="content">
       <div id="area">현재 설정된 지역은 <b>{{this.$store.state.persistedStore.deliveryPost_presentArea}}</b> 입니다.</div>
       <div id="sort-box">
@@ -142,13 +142,6 @@ export default {
     }
   },
   beforeCreate(){
-    // if(localStorage.getItem('jwt') == null){
-    //   //지금 새로고침하면 store날라가는거 때문에 store.js에 plugins 설정해줬는데
-    //   //그러면 로그아웃을해도 vuex가 남아있는 현상 때문에 주석처리하고
-    //   //페이지마다 토큰으로 로그인 유저 정보 가져오려는 작업 중이었음
-    //   //근데 그러면 꽤나 복잡해져서 로그아웃 혹은 로그인 안했ㄴ을 때
-    //   //store 비우는 작업을 하는게 좋을 듯
-    // }
     this.$store.dispatch('FETCH_DELIVERY_LIST', this.$store.state.persistedStore.deliveryPost_presentArea);
   },
   created() {

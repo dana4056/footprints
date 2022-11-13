@@ -3,13 +3,17 @@
       <div id="intro" class="textBox">
         <div class="logo">
           <img src="../assets/logo_gray.png">
-          <span>발자취</span>
+          <span><b>발자취</b></span>
         </div>
-        <p>여기는 footer인데 무엇을 써야할까요.<br>일단 뭐라도 있어보이게 블라블라 적어볼게요.</p>
+        <p><b>Since 2022</b></p>
+        <p>이메일 (문의 및 피드백): <a href= "mailto:skufootprints@gmail.com" >skufootprints@gmail.com</a></p>
+        <p><router-link to="/info" style="text-decoration:underline;">개인정보 수집·이용 안내</router-link></p>
       </div>
-      <div id="contact" class="textBox">
-        <p>CONTACT<br>SKUfootprints@gmail.com</p>
-        <p>Team Page<br>www.footprints.com(미정)</p>
+      <div id="contact" class="textBox"> 
+        <p style="margin:0;"><b>CATEGORY</b></p>
+        <p><router-link to="/signup">회원가입</router-link> 및 <router-link to="/">로그인</router-link></p>
+        <p><router-link to="/delivery/post">배달 함께하기</router-link></p>
+        <p><a href= "mailto:skufootprints@gmail.com" >오류신고 및 피드백</a></p>
       </div>
   </div>
 </template>
@@ -21,6 +25,10 @@ export default {
 </script>
 
 <style scoped>
+a {
+  text-decoration: none;
+  color: #d0d0d0;
+}
 
 .footer{
   /* height: 200px; */
@@ -31,7 +39,7 @@ export default {
 }
 .textBox{
   margin: 30px auto;
-  padding: 10px;
+  padding: 50px 10px;
   font-size: small;
 }
 #intro{

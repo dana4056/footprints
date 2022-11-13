@@ -86,46 +86,42 @@ public class MemberController {
 
     // 지역 찾기
     @GetMapping(value="/member/login")
-    public ResponseEntity<ResLoginedMemberDTO> findArea(@RequestParam String nick){
+    public ResponseEntity<?> findArea(@RequestParam String nick){
         Member member = memberRepository.findByNick(nick);
         if(member == null){
-            return new ResponseEntity<>(null, HttpStatus.FORBIDDEN);
+            return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
         }
         else{
             ResLoginedMemberDTO resLoginedMemberDTO = new ResLoginedMemberDTO(member.getNick(), member.getEmail(), member.getArea());
-            return new ResponseEntity<>(resLoginedMemberDTO, HttpStatus.OK);
+            return new ResponseEntity<ResLoginedMemberDTO>(resLoginedMemberDTO, HttpStatus.OK);
         }
     }
 
     // 로그인
     @PostMapping(value = "/member/login")
-    public ResponseEntity<String> login(@RequestBody ReqLoginMemberDTO loginMemberDTO){
+    public ResponseEntity<?> login(@RequestBody ReqLoginMemberDTO loginMemberDTO){
         int checkLogin = memberService.loginCheck(loginMemberDTO);
         if(checkLogin == 1){  //로그인 성공
             log.info("-----[MemberController login] 로그인 성공");
 
             Member loginMember = memberRepository.findByNick(loginMemberDTO.getNick());
             String token = jwtTokenProvider.createToken(loginMember);
-            return new ResponseEntity<>(token, HttpStatus.OK);
-        }
-        else if(checkLogin == 0){ // 해당 닉네임 없음(없는 계정)
-            log.info("-----[MemberController login] 로그인 실패: 해당 닉네임 존재하지 않음");
-            return new ResponseEntity<>("LOGIN_FAILED:NO_ID", HttpStatus.FORBIDDEN);
+            return new ResponseEntity<String>(token, HttpStatus.OK);
         }
         else{  // 비밀번호 불일치
-            log.info("-----[MemberController login] 로그인 실패: 비밀번호가 일치하지 않음");
-            return new ResponseEntity<>("LOGIN_FAILED:NOT_MATCH_PW", HttpStatus.CONFLICT);
+            log.info("-----[MemberController login] 로그인 실패");
+            return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
         }
     }
 
     // 아이디 찾기
     @GetMapping(value = "/member/find-id")
-    public ResponseEntity<String> findID(@RequestParam String email){
+    public ResponseEntity<?> findID(@RequestParam String email){
         log.info("-----[MemberController findID] 찾을 Email:{}", email);
 
         String Nick = memberService.findID(email);
         if(Nick == null){
-            return new ResponseEntity<>("CANNOT_FIND_ID", HttpStatus.FORBIDDEN);
+            return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
         }
         else{
             return new ResponseEntity<>(Nick, HttpStatus.OK);
@@ -134,14 +130,14 @@ public class MemberController {
 
     // 비밀번호 찾기(비번 변경 전 이메일로 사용자 확인)
     @GetMapping(value = "/member/find-password")
-    public ResponseEntity<String> findPW(@RequestParam String email){
+    public ResponseEntity<?> findPW(@RequestParam String email){
         log.info("-----[MemberController findPW] Email:{}", email);
         String f_email = memberService.findPwd(email);
         if(f_email == null){
-            return new ResponseEntity<>("CANNOT_FIND_ID", HttpStatus.FORBIDDEN);
+            return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
         }
         else{
-            return new ResponseEntity<>(f_email, HttpStatus.OK);
+            return new ResponseEntity<String>(f_email, HttpStatus.OK);
         }
     }
 

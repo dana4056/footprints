@@ -13,7 +13,7 @@
         <form>
           <div class="inputDiv" v-bind:class="{errorType:!isValidNick() | this.isDupliNick, correctType:this.isUniqNick}">
             <label>닉네임</label>
-            <input id='nickname' v-model="Nick" v-on:focus="ignoreInputN" v-on:focusout="checkNick()" 
+            <input class="input" id='nickname' v-model="Nick" v-on:focus="ignoreInputN" v-on:focusout="checkNick()" 
                    type="text" placeholder="별명 (2~8자)" autoComplete="off" required>
             <span class="errorType" v-if="!isValidNick()">닉네임은 2~8글자이어야 합니다.</span>
             <span class="errorType" v-if="this.isDupliNick">이미 사용 중인 닉네임입니다.</span>
@@ -25,7 +25,7 @@
             <label>이메일</label>
             <div class="emailGroup">
               <span>
-                  <input class="emailItem1" v-on:focus="ignoreInputE" v-model="Email1" type="text" 
+                  <input class="emailItem1 input" v-on:focus="ignoreInputE" v-model="Email1" type="text" 
                   autoComplete="off" placeholder="아이디" v-on:focusout="checkEmail" required>
               </span>
               <span><span class="emailItem2">@</span></span>
@@ -38,7 +38,7 @@
                     <option value="direct">직접입력</option>
                 </select>
                 <span id="directInputBox" v-if="!isSelectBox">
-                  <input autofocus type="text" class="emailItem3" v-on:focus="ignoreInputE" v-model="Email2" autoComplete="off" placeholder="직접입력" required>
+                  <input autofocus type="text" class="emailItem3 input" v-on:focus="ignoreInputE" v-model="Email2" autoComplete="off" placeholder="직접입력" required>
                   <i v-on:click="changeSelectBox" class="fa-solid fa-xmark"></i>
                 </span>
 
@@ -50,21 +50,36 @@
 
           <div class="inputDiv" v-bind:class="{errorType:!isValidPw()}">
             <label>비밀번호</label>
-            <input id='password1' autoComplete="off" v-on:focusout="isValidPw"
+            <input class="input" id='password1' autoComplete="off" v-on:focusout="isValidPw"
                    v-model="Pw1" type="password" placeholder="비밀번호 (영어, 숫자, 특수문자 포함 8~20자)" required>
             <span class="errorType" v-if="!isValidPw()">비밀번호는 영어, 숫자, 특수문자 포함 8~20자여야 합니다.</span>
           </div>
 
           <div class="inputDiv" v-bind:class="{errorType:isDiferrentPw()}">
             <label>비밀번호 확인</label>
-            <input id='password2' autoComplete="off" v-model="Pw2" type="password" placeholder="비밀번호 재입력" required>
+            <input class="input" id='password2' autoComplete="off" v-model="Pw2" type="password" placeholder="비밀번호 재입력" required>
             <span class="errorType" v-if="isDiferrentPw()">비밀번호가 일치하지 않습니다.</span>
           </div>
 
           <div class="inputDiv">
             <label>지역설정</label>
-            <input id='userArea' v-model="Area" type="text" readOnly placeholder="지역명(ex. 성북구 정릉동)">
+            <input class="input" id='userArea' v-model="Area" type="text" readOnly placeholder="지역명(ex. 성북구 정릉동)">
             <button type="button" class="btn2" v-on:click="searchArea">지역 검색</button>
+          </div>
+
+          <div class="inputDiv">
+            <label>개인정보 수집 및 이용 안내</label>
+            <div id="textBox">
+              <small><b>개인정보 수집·이용 안내</b></small>
+              <small><br>발자취 서비스에서는 아래와 같이 개인정보를 수집 및 이용합니다.</small>
+              <small><br>- 개인정보 수집 목적:  회원관리</small>
+              <small><br>- 개인정보 수집 항목:  아이디, 비밀번호, 이메일</small>
+              <small><br>- 보유 및 이용기간:  회원 탈퇴시까지</small><br><br>
+              <div id="agreeBox">
+                <input id="agree" type="checkbox" v-model="isAgree" true-value="yes" false-value="no">
+                <label for="agree">개인정보 수집 및 이용에 동의합니다.</label> 
+              </div>
+            </div>
           </div>
 
           <button type="submit" class="submitBtn" v-on:click.prevent="submitData" v-on:keyup.enter="submitData">회원가입하기</button>
@@ -89,7 +104,8 @@ export default {
       isDupliNick:false,
       isUniqEmail:false,
       isDupliEmail:false,
-      isSelectBox:true
+      isSelectBox:true,
+      isAgree:"",
     }
   },
   computed: {
@@ -151,7 +167,7 @@ export default {
     },
     isValidAll() {
       if (this.Id1 != "" && this.Id2 != "" && this.Pw1 != "" && this.Pw2 != "" &&
-          this.Nick != "" && this.Phone != "" && this.Area != "") {
+          this.Nick != "" && this.Phone != "" && this.Area != "" && this.isAgree == "yes") {
         if (this.isValidNick() && !this.isDiferrentPw()) {
           return true;
         } else {
@@ -276,7 +292,7 @@ label {
   text-align: left;
   display: block;
 }
-input, select {
+.input, select {
   box-sizing: border-box;
   width: 100%;
   height: 40px;
@@ -297,15 +313,28 @@ input, select {
     bottom: 2px;
     color:#BDBDBD;
 }
-input:focus {
+#textBox{
+  padding: 30px;
+  font-size: 13px;
+  border-radius: 10px;
+  background-color: #f8f8f8;
+  display: inline-block;
+  text-align: left;
+}
+#agreeBox label {
+  font-size: 12px;
+  display: inline-block;
+  margin:0;
+}
+.input:focus {
   background: #F3F3F3;
   border-color: #999999;
   outline: none;
 }
-input:hover {
+.input:hover {
   background: #F3F3F3;
 }
-input::placeholder {
+.input::placeholder {
   color: #BDBDBD;
   font-weight: 100;
 }
@@ -319,7 +348,7 @@ input::placeholder {
   font-size: 12px;
   text-align: left;
 }
-.correctType input, .correctType select{
+.correctType .input, .correctType select{
   background: #e8f0fe;
   border-color: #6ea7f2;
   outline: none;

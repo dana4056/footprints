@@ -49,18 +49,10 @@ public class MemberServiceImpl implements MemberService{
     public int loginCheck(ReqLoginMemberDTO loginMemberDTO) {
         Member member = memberRepository.findByNick(loginMemberDTO.getNick());
 
-        if(member == null){
-            return 0;  //닉네임 존재x
-        }
-        else{
-            String real_pwd = member.getPw();
-
-            if(loginMemberDTO.getPw().equals(real_pwd)){
-                return 1; //로그인 성금
-            }
-            else{
-                return -1; // 비번 불일치
-            }
+        if(member != null && loginMemberDTO.getPw().equals(member.getPw())){
+            return 1;
+        }else{
+            return 0;
         }
     }
 

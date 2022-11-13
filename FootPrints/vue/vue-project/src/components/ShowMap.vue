@@ -1,10 +1,3 @@
-<!-- 해당 컴포넌트 사용시 부모 컴포넌트에서 해야할 것 
-    1. :class="{fixedWrapper:isShowmap, scrollWrapper:!isShowmap}"
-    2. 컴포넌트 태그에 ref="showMap" v-on:change="change()" 속성 추가
-    3. 해당 컴포넌트 실행시키는 버튼 추가
-        <button v-on:click="this.$refs.showMap.showMap(), change()">지도보기</button>
-    4. isShowmap : false변수와 change() 메서드 생성
-    5. .fixedWrapper .scrollWrapper 클래스 스타일 지정-->
 <template>
     <div v-show="Loading" class="loadingBox">
         <img src="../assets/loading.gif" alt="">
@@ -15,7 +8,6 @@
         <h4>나눔 장소 확인</h4>
         <div id="map" ref="map"></div>
         <p>{{this.detail_loc}}</p>
-        <!-- <p>{{실제 주소 띄우자}}</p> -->
         <button v-on:click="closeMap" class="close">닫기</button>
       </div>
     </div>
