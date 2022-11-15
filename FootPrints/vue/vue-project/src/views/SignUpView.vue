@@ -222,8 +222,14 @@ export default {
           const sido = data.sido;
           const sigoongu = data.sigungu;
           const eupmyeondong = data.bname;
+
+          let a = eupmyeondong.lastIndexOf("읍");
+          let b = eupmyeondong.lastIndexOf("면");
+          let c = eupmyeondong.lastIndexOf("동");
+          let max = Math.max(a,b,c);
+          const sliceUpmyeondong = eupmyeondong.slice(0, max+1);
           
-          this.Area = sido+" "+sigoongu+" "+eupmyeondong;
+          this.Area = sido+" "+sigoongu+" "+ sliceUpmyeondong;
         }
       }).open();
     }
