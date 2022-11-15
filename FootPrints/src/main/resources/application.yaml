@@ -5,8 +5,8 @@ spring:
     username: root
 #    password: 12345678  #혁진
 #    password: 19980727  #다은
-    password: Jhk9458062! #선진
-#    password: pass # 지원
+#   password: Jhk9458062! #선진
+    password: pass # 지원
     testWhileIdle: true
     timeBetweenEvictionRunsMillis: 7200000
     validationQuery: SELECT 1

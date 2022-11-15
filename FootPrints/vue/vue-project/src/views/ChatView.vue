@@ -195,7 +195,7 @@ export default {
       setTimeout(() => {
         const element = document.getElementById("chat__body");
         element.scrollTop = element.scrollHeight;
-      }, 0);
+      }, 1000);
     },
     submitMessage() {
       if (this.msg) {
