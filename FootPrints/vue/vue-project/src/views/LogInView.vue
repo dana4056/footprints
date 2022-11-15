@@ -50,7 +50,10 @@ export default {
           nick: this.Nick,
           pw: this.Pw,
         }
-        this.$store.dispatch('POST_LOGIN', loginMember)
+        
+        this.$store.dispatch('POST_LOGIN', loginMember);
+        this.Nick = this.$store.state.member.nick;
+        this.Pw = this.$store.state.member.pw;
       }
     },
     PostValid(){

@@ -52,13 +52,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .authorizeRequests() // 요청에 대한 사용권한 체크
             .antMatchers("/token/**").hasAnyRole("USER", "ADMIN")
             .antMatchers("/delivery/post").permitAll()
-                .antMatchers("/delivery/post/**").hasRole("USER")
-                .antMatchers("/delivery/post/new-post").hasRole("USER")
-//            .antMatchers("/delivery/post/{post_id}/amend").hasRole("USER")
+            .antMatchers("/delivery/post/**").permitAll()
+            .antMatchers("/delivery/post/new-post").hasRole("USER")
             .antMatchers("/user/**").hasRole("USER")
             .antMatchers("/chat/**").hasRole("USER")
             .antMatchers("/notice/new-notice").hasRole("ADMIN")
-//            .antMatchers("/post/**").hasRole("USER")
             .anyRequest().permitAll() // 그외 나머지 요청은 누구나 접근 가능
         .and()
             .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider),UsernamePasswordAuthenticationFilter.class);

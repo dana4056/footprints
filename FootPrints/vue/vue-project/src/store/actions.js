@@ -85,8 +85,14 @@ export default{
       .then(response => {
         commit('SET_PWCHANGE_DONE', response.data);
       })
-      .catch(function() {
-        alert("비밀번호 변경에 실패하였습니다.\n다시 시도해주세요.");
+      .catch(error => {
+        const code = error.response.status;
+
+        if (code == 409) {
+          alert("이전 비밀번호와 다른 비밀번호로 설정해주세요.");
+        }else{
+          alert("비밀번호 변경에 실패하였습니다.\n다시 시도해주세요.");
+        }
         router.replace("/change-password");
       })
   },
@@ -95,9 +101,13 @@ export default{
   POST_LOGIN({ commit }, loginMember) {
     return postLogin(loginMember)
       .then(response => {
-        localStorage.setItem('jwt', response.data); // 로컬 스토리지에 저장
 
-        return getUserArea(loginMember.nick)
+        if(response.status == 200){
+          console.log("로그인 성공");
+
+          localStorage.setItem('jwt', response.data); // 로컬 스토리지에 저장
+
+          return getUserArea(loginMember.nick)
           .then(response => {
             const member = {
               nick: loginMember.nick,
@@ -105,32 +115,27 @@ export default{
               pw: "",
               area: response.data.area
             }
+
             commit('SET_MEMBER', member);
             commit('SET_DELIVERY_AREA', member.area);
             router.replace("/home");
             store.dispatch("FETCH_AUTHORITY");
           })
-          .catch(function() {
-            router.replace("/home");
-          })
-        })
-        .catch(error => {
-          const code = error.response.status;
-          if (code == 400) {
-            alert("API:POST_LOGIN\n로그인 실패 - 존재하지 않는 닉네임입니다.");
-          }
-          else if (code == 404) {
-            alert("비밀번호가 일치하지 않습니다.");
-          }
-          else { alert("로그인 실패"); }
-        })
+        }else if(response.status == 204){
+          console.log("로그인 실패");
+          alert("아이디나 비밀번호가 틀립니다");
+        }
+      })
   },
+        
 
   // 아이디 찾기
   FIND_NICK({ commit }, email) {
     return getFindId(email)
       .then(response => {
-        commit('SET_FIND_MEMBER_NICK', response.data)
+        if(response.status == 200){
+          commit('SET_FIND_MEMBER_NICK', response.data)  
+        }
       })
       .catch(function() {
 
@@ -141,7 +146,9 @@ export default{
   FIND_PWD({ commit }, email) {
     return getFindPwd(email)
       .then(response => {
-        commit('SET_FIND_MEMBER_EMAIL', response.data)
+        if(response.status == 200){
+          commit('SET_FIND_MEMBER_EMAIL', response.data);
+        }
       })
       .catch(function() {
 
@@ -358,17 +365,11 @@ export default{
     return getDeliveryPostDetail(post_id)
       .then(response => {
         commit('SET_DELIVERY_POST', response.data);
+        console.log("상세페이지 데이터 로드 끝..?");
         commit('SET_ISLOADING', false);
       })
-      .catch(error => {
-        const code = error.response.status;
-        if (code == 403) {
-          alert("FETCH_DELIVERY_DETAIL 로그인 후 이용하세요");
-          router.replace("/home");
-        }
-        else {
-          router.replace("/forbidden");
-        }
+      .catch(function() {
+
       })
   },
 
