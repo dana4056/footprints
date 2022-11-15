@@ -146,10 +146,15 @@ export default {
 
       let callback = function(result, status) {
         if (status === kakao.maps.services.Status.OK) {
-          let depth1 = result[0].address.region_1depth_name;
-          let depth2 = result[0].address.region_2depth_name;
-          let depth3 = result[0].address.region_3depth_name;
-          $vm.area_name = depth1+" "+depth2+" "+depth3;
+            let depth1 = result[0].address.region_1depth_name;
+            let depth2 = result[0].address.region_2depth_name;
+            let depth3 = result[0].address.region_3depth_name;
+            let a = depth3.lastIndexOf("읍");
+            let b = depth3.lastIndexOf("면");
+            let c = depth3.lastIndexOf("동");
+            let max = Math.max(a,b,c);
+            const sliceDepth3 = depth3.slice(0, max+1);
+            $vm.area_name = depth1+" "+depth2+" "+ sliceDepth3;
         }
       }
       geocoder.coord2Address(latlng.getLng(), latlng.getLat(), callback);

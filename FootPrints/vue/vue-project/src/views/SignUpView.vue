@@ -114,15 +114,6 @@ export default {
     },
   },
   methods: {
-    checkAgree(){
-      if(this.isAgree){
-        return true;
-      }
-      else{
-        alert("개인정보 수집 및 이용 내용을 확인해주세요.");
-        return false;
-      }
-    },
     ignoreInputN() {
       this.isUniqNick = false;
       this.isDupliNick = false;
@@ -161,7 +152,7 @@ export default {
       }
     },
     submitData() {
-      if (this.isValidAll() && this.checkAgree()) {
+      if (this.isValidAll() && this.isAgree) {
         const member = {
           nick: this.Nick,
           email: this.email,
@@ -170,8 +161,11 @@ export default {
         }
         this.$store.dispatch('POST_MEMBER', member); 
       }
-      else {
+      else if(!this.isValidAll()){
         alert("입력한 정보들을 확인해주세요");
+      }
+      else {
+        alert("개인정보 수집 및 이용 내용을 확인해주세요.");
       }
     },
     isValidAll() {
