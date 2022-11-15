@@ -195,7 +195,7 @@ export default {
       setTimeout(() => {
         const element = document.getElementById("chat__body");
         element.scrollTop = element.scrollHeight;
-      }, 1000);
+      }, 500);
     },
     submitMessage() {
       if (this.msg) {
@@ -254,9 +254,9 @@ export default {
       //************* 채팅데이터 초기화부분 *************
       // 채팅관련 초기화
       this.$store.state.chatLogs = [];
-      this.$store.state.postIdList.splice(this.$store.state.roomIndex,1);  //해당 post_id 삭제
+      // this.$store.state.postIdList.splice(this.$store.state.roomIndex,1);  //해당 post_id 삭제
       this.$store.state.roomIndex = "0";
-      this.$store.state.roomList.splice(this.$store.state.roomIndex,1);
+      // this.$store.state.roomList.splice(this.$store.state.roomIndex,1);    // 코드 중복 (불필요) 에러 발생
 
       let users = this.$store.state.userList;
 

@@ -50,18 +50,16 @@ export default {
           nick: this.Nick,
           pw: this.Pw,
         }
-        
         this.$store.dispatch('POST_LOGIN', loginMember);
-        this.Nick = this.$store.state.member.nick;
-        this.Pw = this.$store.state.member.pw;
       }
     },
     PostValid(){
       if(this.Nick != "" && this.Pw != ""){
         if(this.isValidPassword)
           return true;
-        else
+        else{
           alert("비밀번호는 영어, 숫자, 특수문자 포함 8~20자입니다.");
+        }
       }
       else{
         alert("빈 칸을 두면 로그인이 안돼요.");

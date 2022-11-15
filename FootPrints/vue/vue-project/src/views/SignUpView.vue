@@ -105,7 +105,7 @@ export default {
       isUniqEmail:false,
       isDupliEmail:false,
       isSelectBox:true,
-      isAgree:"",
+      isAgree:false,
     }
   },
   computed: {
@@ -161,7 +161,7 @@ export default {
       }
     },
     submitData() {
-      if (this.isValidAll()&& this.checkAgree()) {
+      if (this.isValidAll() && this.checkAgree()) {
         const member = {
           nick: this.Nick,
           email: this.email,
@@ -176,7 +176,7 @@ export default {
     },
     isValidAll() {
       if (this.Id1 != "" && this.Id2 != "" && this.Pw1 != "" && this.Pw2 != "" &&
-          this.Nick != "" && this.Phone != "" && this.Area != "" && this.isAgree == "yes") {
+          this.Nick != "" && this.Phone != "" && this.Area != "") {
         if (this.isValidNick() && !this.isDiferrentPw()) {
           return true;
         } else {
