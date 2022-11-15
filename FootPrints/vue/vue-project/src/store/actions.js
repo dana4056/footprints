@@ -103,8 +103,6 @@ export default{
       .then(response => {
 
         if(response.status == 200){
-          console.log("로그인 성공");
-
           localStorage.setItem('jwt', response.data); // 로컬 스토리지에 저장
 
           return getUserArea(loginMember.nick)
@@ -122,7 +120,6 @@ export default{
             store.dispatch("FETCH_AUTHORITY");
           })
         }else if(response.status == 204){
-          console.log("로그인 실패");
           alert("아이디나 비밀번호가 틀립니다");
         }
       })
@@ -365,7 +362,6 @@ export default{
     return getDeliveryPostDetail(post_id)
       .then(response => {
         commit('SET_DELIVERY_POST', response.data);
-        console.log("상세페이지 데이터 로드 끝..?");
         commit('SET_ISLOADING', false);
       })
       .catch(function() {

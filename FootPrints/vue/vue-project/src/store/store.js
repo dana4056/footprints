@@ -164,11 +164,11 @@ export const store = new Vuex.Store({
         SET_LAST_CHAT(state, changeLastChat){
             var list = state.roomList;
             let idx = 0;
-            console.log("SET_LAST_CHAT list:", list);
-            console.log("SET_LAST_CHAT changeLastChat:", changeLastChat);
+            // console.log("SET_LAST_CHAT list:", list);
+            // console.log("SET_LAST_CHAT changeLastChat:", changeLastChat);
             
             for (let obj of list) {
-                console.log("SET_LAST_CHAT obj:", obj);
+                // console.log("SET_LAST_CHAT obj:", obj);
                 if( changeLastChat.post_id == obj.post_id){
                     state.roomList[idx].last_message = changeLastChat.message;
                     break;

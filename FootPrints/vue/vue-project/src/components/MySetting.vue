@@ -8,7 +8,7 @@
       <form  class="imageField"> 
         <img v-bind:src=Image class="profileImage">
         <input type="file" name="file" ref="file" accept="image/*" v-on:change="fileSelect" style="display:none">
-        <button class="btn1" type="button" v-on:click="setImage">선택</button>
+        <!-- <button class="btn1" type="button" v-on:click="setImage">선택</button> -->
       </form >
     </div>
 
@@ -220,7 +220,6 @@ export default {
         this.memberDTO.pw = this.Pw1;
         this.memberDTO.area = this.Area;
 
-        console.log(this.memberDTO);
         this.$store.dispatch('CHANGE_MEMBER', this.memberDTO);
         
         setTimeout(() => { 

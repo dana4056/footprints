@@ -40,7 +40,6 @@ export default {
       }
     },
     mounted(){
-        // console.log("show map mounted");
     },
     methods:{
       updateLoading(){
@@ -48,7 +47,6 @@ export default {
         return this.isLoading;
       },
       showMap(){
-        // console.log("쇼맵 시작");
         this.take_loc = this.$store.getters.GET_DELIVERY_POST.take_loc;     // 음식 나눌 장소
         this.latitude = this.$store.getters.GET_DELIVERY_POST.lat;
         this.longtitude = this.$store.getters.GET_DELIVERY_POST.lon;
@@ -80,7 +78,6 @@ export default {
 
         let callback = function(result, status) {
           if (status === kakao.maps.services.Status.OK) {
-            console.log(result[0]);
             $vm.detail_loc = result[0].address.address_name;
           }
         }
@@ -102,7 +99,6 @@ export default {
 
 
         this.openMap = true;
-        // console.log("쇼맵 끝");
         return;
       },
       closeMap(){

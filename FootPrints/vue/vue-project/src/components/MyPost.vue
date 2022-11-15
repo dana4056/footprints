@@ -24,7 +24,7 @@
       </div>
     </div>
     <div v-else id="nothing">
-      <p>아직 참여한 글이 없습니다!</p>
+      <p>아직 작성한 글이 없습니다!</p>
       <router-link to="/delivery/post/new-post">배달 게시물 작성하기</router-link> 
     </div>
   </div>

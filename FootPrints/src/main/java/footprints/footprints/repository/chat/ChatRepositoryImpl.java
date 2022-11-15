@@ -104,8 +104,10 @@ public class ChatRepositoryImpl implements ChatRepository {
         TypedQuery<ChatData> chatDataTypedQuery = em.createQuery("select c from ChatData c where c.post.post_id = :post_id", ChatData.class)
                 .setParameter("post_id", post_id);
         List<ChatData> resultList = chatDataTypedQuery.getResultList();
-        for (ChatData c : resultList) {
-            em.remove(c);
+        if(resultList.size() != 0){
+            for (ChatData c : resultList) {
+                em.remove(c);
+            }
         }
     }
 

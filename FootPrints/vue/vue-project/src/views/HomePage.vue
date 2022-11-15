@@ -76,7 +76,7 @@ export default {
       }
 
       function handleGeoError() {
-        console.log("Can't access geo location");
+        // console.log("Can't access geo location");
         return;
       }
 
@@ -134,9 +134,6 @@ img{
 #sec1{
   display: block;
   /* background-color: #E6F3E6; */
-}
-#sec2{
-  /* background-color: #f2e6f3; */
 }
 #sec2 img{
   width:25%;

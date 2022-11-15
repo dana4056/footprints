@@ -171,7 +171,7 @@ export default {
     },
     onMessageReceived(res){
       setTimeout(() => {
-        console.log('구독으로 받은 메시지', res.body);
+        // console.log('구독으로 받은 메시지', res.body);
         const post_id = this.$store.state.postIdList[this.$store.state.roomIndex];
         this.$store.dispatch('FIND_CHAT_LOGS', post_id);
         this.liftMessage();

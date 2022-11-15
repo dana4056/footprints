@@ -65,9 +65,14 @@ public class ChatController {
 
     @GetMapping(value = "/chat") // 채팅 기록 (from_name, time, message)를 리스트(String) 형태로 가져온다.
     public ResponseEntity<List<ChatDataDTO>> getChatList(@RequestParam String post_id){
-        log.info("-------------------getChatList id:{}",post_id);
-        List<ChatDataDTO> chatList = chatService.getChatList(Long.parseLong(post_id));
-        return new ResponseEntity<>(chatList, HttpStatus.OK);
+        if(post_id.equals("noselect")){
+            return new ResponseEntity<>(null, HttpStatus.OK);
+        }
+        else{
+            log.info("-------------------getChatList id:{}",post_id);
+            List<ChatDataDTO> chatList = chatService.getChatList(Long.parseLong(post_id));
+            return new ResponseEntity<>(chatList, HttpStatus.OK);
+        }
     }
 
     @GetMapping(value = "/chat/{post_id}") // 각 채팅방의 마지막 메시지
