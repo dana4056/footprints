@@ -1,21 +1,17 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://database-1.cbaveuqvrll1.ap-northeast-2.rds.amazonaws.com:3306/test_db?serverTimezone=UTC&characterEncoding=UTF-8
+    url: jdbc:mysql://localhost:3306/test_db?serverTimezone=UTC&characterEncoding=UTF-8
     username: root
-#    password: 12345678  #혁진
-#    password: 19980727  #다은
-#   password: Jhk9458062! #선진
-    password: pass # 지원
+    password: Jhk9458062! 
+#	password: qkfwkcnl1115!
     testWhileIdle: true
     timeBetweenEvictionRunsMillis: 7200000
     validationQuery: SELECT 1
 
   jpa:
     database: mysql
-    #database-platform: org.hibernate.dialect.MySQLDialect
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
-    #database-platform: org.hibernate.dialect.MySQL8Dialect
     open-in-view: false
     show-sql: true
     hibernate:
