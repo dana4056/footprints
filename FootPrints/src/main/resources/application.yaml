@@ -1,10 +1,9 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/test_db?serverTimezone=UTC&characterEncoding=UTF-8
-    username: root
-    password: Jhk9458062! 
-#	password: qkfwkcnl1115!
+    url: jdbc:mysql://footprintsdb.ctwovvwfddxm.ap-northeast-2.rds.amazonaws.com:3306/test_db?serverTimezone=UTC&characterEncoding=UTF-8
+    username: root 
+    password: qkfwkcnl1115!
     testWhileIdle: true
     timeBetweenEvictionRunsMillis: 7200000
     validationQuery: SELECT 1
