@@ -162,15 +162,13 @@ export default {
         console.log('구독으로 받은 메시지', res.body);
         const post_id = this.$store.state.postIdList[this.$store.state.roomIndex];
         this.$store.dispatch('FIND_CHAT_LOGS', post_id);
-        this.liftMessage();
         // 라스트 메시지 갱신
-      }, 100);
+      }, 200);
+      this.liftMessage();
     },
     liftMessage(){
-      setTimeout(() => {
         const element = document.getElementById("chat__body");
         element.scrollTop = element.scrollHeight;
-      }, 0);
     },
     submitMessage() {
       if (this.msg) {
