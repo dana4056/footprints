@@ -148,18 +148,36 @@ export default {
       }else{
         const ago_D = now.diff(created, "day");
         return String(ago_D)+"일 ";
-      }
+      } 
     },
     amendPost() {
       // 수정했는데 안 되면 바꿔야함
       this.$router.replace("/delivery/post/" + this.post_id + "/amend"); 
     },
     exitPost() {
+      //************* 채팅데이터 초기화부분 *************
+      // 채팅관련 초기화(채팅방 들어갈때 알아서 다시 가져와 필요한거? 아마두)
+      this.$store.state.chatLogs = [];
+      this.$store.state.postIdList = [];
+      this.$store.state.roomIndex = "0";
+      this.$store.state.roomList = [];
+      this.$store.state.userList= [];
+      //***********************************************
+
+
       const roomInfo = {
         nick: this.$store.state.member.nick,
-        post_id: this.post_id
+        post_id: this.$route.params.id
       };
       this.$store.dispatch('EXIT_DELIVERY_POST', roomInfo);
+
+      Swal.fire({
+        icon: 'success',
+        title: '참여 취소 성공!',
+        confirmButtonText: '배달 모집 목록 보러가기',
+      }).then(() => {
+        this.$router.replace("/delivery/post");
+      })
     },
     deletePost() {
       this.$store.dispatch('DELETE_DELIVERY_POST', this.post_id);

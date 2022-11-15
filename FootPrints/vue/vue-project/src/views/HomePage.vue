@@ -2,9 +2,40 @@
   <div class="wrap">
       <tool-bar></tool-bar>
       <div id="content">
+        <section id="sec1" class="sec">
+          <div>
+            <h2>혼자 시키기 힘든 배달을 함께</h2>
+            <p>1인분 배달 안되는 곳의 음식을 함께 주문해요</p>
+          </div>
+          <img src="../assets/home1.png" alt="">
+        </section>
+
+        <section id="sec2" class="sec">
+          <img src="../assets/home2.png" alt="">
+          <div class="textBox">
+            <h2>부담을 나눠요</h2>
+            <p>나날이 비싸지는 최소주문 금액과 배달팁을 함께 나눠요</p>
+          </div>
+        </section>
+
+        <section id="sec3" class="sec">
+          <img src="../assets/home3.png" alt="">
+          <div class="textBox"> 
+            <h2>개인정보 공유 노!</h2>
+            <p>연락처를 따로 공유하지 않고 사이트 내의 채팅으로 연락해요!</p>
+          </div>
+        </section>
+
+        <section id="sec4" class="sec">
+          <div>
+            <h2>쉽게 만나도록 도와드려요</h2>
+            <p>동네 사람들끼리 부르는 장소 별명을 지정할 수 있어요!<br>또한 실제 주소와 지도로 장소에 찾아가실 수 있도록 도와드립니다.</p>
+          </div>
+          <img src="../assets/home4.png" alt="">
+        </section>
+
       </div>
       <up-button id="up_button"></up-button>
-      <!-- footer 지역에 닿으면 사라지는 이슈 -->
       <footer-area id="footer"></footer-area>
   </div> 
 </template>
@@ -76,18 +107,49 @@ export default {
 
 <style scoped>
 .wrap{
-  min-height: 100%;
-  position: relative;
+  height: 1000px;
+}
+img{
+  width: 900px;
 }
 #content{
-  height: 1000px;
-  padding-bottom: 300px;
+  height: auto;
+  min-height: 100%;
+    /* footer높이 */
+  padding-bottom: 300px; 
+}
+.textBox{
+  display:inline-block;
+  padding:0 20px; 
+  text-align: left;
+}
+.sec{
+  background-color:#dee1e9;
+  padding: 6rem 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+#sec1{
+  display: block;
+  /* background-color: #E6F3E6; */
+}
+#sec2{
+  /* background-color: #f2e6f3; */
+}
+#sec2 img{
+  width:25%;
+}
+#sec4{
+  display: block;
 }
 #footer{
-  width: 100%;
+
   height: 300px;
-  position: absolute;  
-  left: 0;
+  position : relative;
+  transform : translateY(-100%);
+
 }
 #up_button{
   position: fixed;

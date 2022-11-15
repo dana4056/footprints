@@ -13,7 +13,6 @@
           <div class="listbox-foot">
             <div class="detail-info">
               <small>{{myDelivery.area_name}}</small>
-              <button class="area-btn"><img src="../assets/placeholder.png">{{ myDelivery.take_loc }}</button>
               <img src="../assets/people.png" alt="">
               <small class="cnt">{{ myDelivery.participant_num }}/{{ myDelivery.max_person_num }}</small>
             </div>

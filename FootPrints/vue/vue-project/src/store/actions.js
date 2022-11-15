@@ -286,6 +286,9 @@ export default{
       })
       .catch(error => {
         const code = error.response.status;
+        if (code == 400){
+          commit('SET_DELIVERIES', []);
+        }
         if (code == 403) {
           alert("FETCH_DELIVERY_LIST_CATEGORY 로그인 후 이용하세요");
           router.replace("/home");

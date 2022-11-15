@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // 1. HTTP Request & Response와 관련된 기본 설정
 const config = {
-    baseUrl:"http://localhost:8080"
+    baseUrl:"http://43.201.6.123:8080"
 };
 
 ////////////////////////// TOKEN //////////////////////////
@@ -313,11 +313,7 @@ function postRoomInfo(roomInfo) {
 }
 
 function patchRoomInfo(roomInfo) {
-    return axios.patch(`${config.baseUrl}/room-info`, {
-        params: {
-            nick : roomInfo.nick,
-            post_id: roomInfo.post_id,
-        },
+    return axios.patch(`${config.baseUrl}/room-info`, roomInfo, {
         headers: {
             'X-AUTH-TOKEN': localStorage.getItem('jwt'),
             'Content-Type': 'application/json'

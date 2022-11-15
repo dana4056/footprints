@@ -20,15 +20,15 @@
         <router-link to="/find-password" class="link">비밀번호 찾기</router-link>| 
         <router-link to="/signup" class="link">회원가입</router-link> 
       </div>
-      <hr>
-      <div class="SnsBox">
+      <!-- <hr> -->
+      <!-- <div class="SnsBox">
         <p>SNS 계정으로 간편 로그인</p>
         <ul>
           <li><img class="brandLogo" src="../assets/kakaoLogo.png"></li>
           <li><img class="brandLogo" src="../assets/NaverLogo.png"></li>
           <li><img class="brandLogo" src="../assets/facebookLogo.png"></li>
         </ul>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
@@ -99,9 +99,12 @@ export default {
 }
 #wrap { 
   width: 330px;
-  height: 650px;
+  height: 100vh; 
   margin: 0 auto;
-  padding: 200px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
 }
 .logo {
   margin: 15px 0px;
@@ -116,7 +119,7 @@ export default {
     margin: 3px 8px 3px 0px;
 }
 img{
-  widows: 25px;
+  widows: 25;
 }
 .Div{
   margin: 0;

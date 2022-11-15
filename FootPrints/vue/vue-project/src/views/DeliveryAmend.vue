@@ -26,7 +26,6 @@
             <input v-model="valid_time" type="datetime-local" 
             v-bind:min=minDate v-on:focusout="setMinValue">
           </div>
-
           <div id="peopleNum">
             <p>모집할 인원을 정해주세요.</p>
             <select v-model.number="max_person_num">
@@ -38,7 +37,6 @@
               <option value="7">7명</option>
             </select>
           </div>
-
           <div id="place">
             <label>음식을 나눌 장소를 지정해주세요.</label>
             <div class="kmap" ref="map"></div>
@@ -46,7 +44,6 @@
             placeholder="장소 별명: ex) 세븐일레븐 앞">
           </div>
         </div>
-
         <div style="float:right; width:350px;">
           <input v-model="post_name" id="post_name" placeholder="제목을 입력하세요.">
           <hr>
@@ -57,7 +54,6 @@
     </div>
   </div>
 </template>
-
 <script>
 import ToolBar from '../components/ToolBar.vue'
 import Swal from 'sweetalert2';
@@ -101,7 +97,7 @@ export default {
       this.take_loc = post.take_loc;      // 음식 나눌 장소
       this.participant_num = post.participant_num;  // 현재 참가 인원
       this.max_person_num = post.max_person_num;   // 모집 인원
-      
+
       const tmp_date1 = new Date(post.valid_time);
       const tmp_date2 = new Date(tmp_date1.getTime() - (tmp_date1.getTimezoneOffset() * 60000));
       const tmp_date3 = tmp_date2.toISOString();
@@ -112,19 +108,16 @@ export default {
       this.area_name = post.post_area;     // 행정지역명
       this.latitude = post.lat;
       this.ongtitude = post.lon;
-
       if(this.$store.state.member.nick !== post.member.nick){
         alert("게시물을 수정할 수 있는 권한이 없습니다.");
         this.$router.replace(`/delivery/post/${this.post_id}`);
       }
     }, 800);
-
   },
   mounted() {
     let $vm = this;
     // 날짜 입력 최소값 지정(현시간)
     $vm.minDate = dayjs().format("YYYY-MM-DDTHH:mm");
-
     // 지도 창 생성
     let kakao = window.kakao;
     let container = this.$refs.map;
@@ -133,24 +126,23 @@ export default {
       level: 3
     };
     let mapInstance = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
-
     let geocoder = new kakao.maps.services.Geocoder();
-
     // 마커 생성
     let marker = new kakao.maps.Marker({
       position: mapInstance.getCenter(),
     }); 
     marker.setMap(mapInstance);
-
     // 줌인 줌아웃
     let zoomControl = new kakao.maps.ZoomControl();
     mapInstance.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
-
     // 클릭 이벤트 등록
     kakao.maps.event.addListener(mapInstance, 'click', function(mouseEvent) {        
       let latlng = mouseEvent.latLng;
 
       marker.setPosition(latlng);
+
+      $vm.latitude = latlng.getLat();  // 클릭 장소 위도
+      $vm.longtitude = latlng.getLng(); // 클릭 장소 경도
 
       let callback = function(result, status) {
         if (status === kakao.maps.services.Status.OK) {
@@ -160,7 +152,7 @@ export default {
           $vm.area_name = depth1+" "+depth2+" "+depth3;
         }
       }
-      geocoder.coord2RegionCode(latlng.getLng(), latlng.getLat(), callback);
+      geocoder.coord2Address(latlng.getLng(), latlng.getLat(), callback);
       $vm.inputVisible = true;
     });
   },
@@ -179,10 +171,11 @@ export default {
             valid_time: this.valid_time,         // 게시물 유효 시간
             view_num: this.view_num ,            // 조회수
             nick: this.user_name,
-            post_area :this.area_name
+            post_area :this.area_name,
+            lat: this.latitude,
+            lon: this.longtitude,
         }
         this.$store.dispatch('AMEND_DELIVERY_POST', post);
-
 				Swal.fire({
           icon: 'success',
           title: '글이 수정되었습니다.',
@@ -213,7 +206,6 @@ export default {
   }
 }
 </script>
-
 <style scoped>
 #wrap {
   height: 800px;

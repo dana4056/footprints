@@ -13,7 +13,6 @@
           <div class="listbox-foot">
             <div class="detail-info">
               <small>{{myPartici.area_name}}</small>
-              <button class="area-btn"><img src="../assets/placeholder.png">{{ myPartici.take_loc }}</button>
               <img src="../assets/people.png" alt="">
               <small class="cnt">{{ myPartici.participant_num }}/{{ myPartici.max_person_num }}</small>
             </div>
