@@ -37,7 +37,7 @@ export default {
       if (this.submitData()){
         setTimeout(() => { 
             this.register();
-        }, 100);   
+        }, 500);   
       }
       else {
         alert("입력이 올바른지 확인해주세요.")
