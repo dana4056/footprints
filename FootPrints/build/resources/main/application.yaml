@@ -5,16 +5,17 @@ spring:
     username: root
 #    password: 12345678  #혁진
 #    password: 19980727  #다은
-    password: Jhk9458062! #선진
-#    password: pass # 지원
+#   password: Jhk9458062! #선진
+    password: pass # 지원
     testWhileIdle: true
     timeBetweenEvictionRunsMillis: 7200000
     validationQuery: SELECT 1
 
   jpa:
     database: mysql
-    #database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
-    database-platform: org.hibernate.dialect.MySQL8Dialect
+    #database-platform: org.hibernate.dialect.MySQLDialect
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    #database-platform: org.hibernate.dialect.MySQL8Dialect
     open-in-view: false
     show-sql: true
     hibernate:
