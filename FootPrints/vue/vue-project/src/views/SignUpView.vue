@@ -76,8 +76,8 @@
               <small><br>- 개인정보 수집 항목:  아이디, 비밀번호, 이메일</small>
               <small><br>- 보유 및 이용기간:  회원 탈퇴시까지</small><br><br>
               <div id="agreeBox">
-                <input id="agree" type="checkbox" v-model="isAgree" true-value="yes" false-value="no">
-                <label for="agree">개인정보 수집 및 이용에 동의합니다.</label> 
+                
+                <label for="agree"><input id="agree" type="checkbox" v-model="isAgree" @change="agreeBox">개인정보 수집 및 이용에 동의합니다.</label> 
               </div>
             </div>
           </div>
@@ -114,6 +114,15 @@ export default {
     },
   },
   methods: {
+    checkAgree(){
+      if(this.isAgree){
+        return true;
+      }
+      else{
+        alert("개인정보 수집 및 이용 내용을 확인해주세요.");
+        return false;
+      }
+    },
     ignoreInputN() {
       this.isUniqNick = false;
       this.isDupliNick = false;
@@ -152,7 +161,7 @@ export default {
       }
     },
     submitData() {
-      if (this.isValidAll()) {
+      if (this.isValidAll()&& this.checkAgree()) {
         const member = {
           nick: this.Nick,
           email: this.email,
