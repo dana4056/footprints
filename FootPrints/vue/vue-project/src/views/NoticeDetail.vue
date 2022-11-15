@@ -54,7 +54,7 @@ export default {
     this.$store.dispatch('FETCH_NOTICE_DETAIL', this.notice_id);
     setTimeout(() => { 
       return this.$store.state.notice;
-    }, 100); 	
+    }, 500); 	
   },
   methods: {
     amendNotice() {

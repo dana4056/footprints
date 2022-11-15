@@ -112,7 +112,7 @@ export default {
         setTimeout(() => { 
           this.isDupliNick =  this.$store.state.isDuplicateNick;
           this.isUniqNick = !this.$store.state.isDuplicateNick;
-        }, 100); 
+        }, 500); 
       }
     },
     directInput(){
@@ -132,7 +132,7 @@ export default {
         setTimeout(() => { 
           this.isDupliEmail =  this.$store.state.isDuplicateEmail;
           this.isUniqEmail = !this.$store.state.isDuplicateEmail;
-        }, 100);    
+        }, 500);    
       }
     },
     submitData() {

@@ -151,7 +151,7 @@ export default {
 
       const e = document.getElementsByClassName("room_list")
       e.scrollTop = e.scrollHeight;
-    }, 0);
+    }, 200);
   },
   methods: {
     connect(){
@@ -189,13 +189,13 @@ export default {
           message: message
         };
         this.$store.commit('SET_LAST_CHAT', changeLastChat);
-      }, 100);
+      }, 500);
     },
     liftMessage(){
       setTimeout(() => {
         const element = document.getElementById("chat__body");
         element.scrollTop = element.scrollHeight;
-      }, 0);
+      }, 200);
     },
     submitMessage() {
       if (this.msg) {

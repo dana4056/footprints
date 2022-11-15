@@ -58,7 +58,7 @@ export default {
 				this.$store.dispatch('FIND_PWD', this.email);
 				setTimeout(() => { 
         this.represent() ;
-        }, 100); 	
+        }, 500); 	
 			}
 			else{
 				alert("메일을 입력해주세요.");
