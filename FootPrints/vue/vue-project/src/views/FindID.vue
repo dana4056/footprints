@@ -48,7 +48,7 @@ export default {
       this.$store.dispatch('FIND_NICK', this.email);
       setTimeout(() => { 
         this.represent() 
-        }, 500);    
+        }, 300);    
     },
     represent(){
       if (this.GET_FIND_MEMBER_NICK == "CANNOT_FIND_ID"){

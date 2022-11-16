@@ -112,7 +112,7 @@ export default {
         alert("게시물을 수정할 수 있는 권한이 없습니다.");
         this.$router.replace(`/delivery/post/${this.post_id}`);
       }
-    }, 800);
+    }, 300);
   },
   mounted() {
     let $vm = this;

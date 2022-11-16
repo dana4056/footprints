@@ -67,7 +67,7 @@ export default {
         this.$store.dispatch('CHANGE_PWD', this.changePwMemberDTO);
         setTimeout(() => { 
           this.represent();
-        }, 500); 	
+        }, 300); 	
 			}
       else 
 				alert("비밀번호를 다시 확인해주세요.")

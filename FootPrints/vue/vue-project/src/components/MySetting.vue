@@ -133,7 +133,7 @@ export default {
         setTimeout(() => { 
           this.isDupliNick =  this.$store.state.isDuplicateNick;
           this.isUniqNick = !this.$store.state.isDuplicateNick;
-        }, 500); 
+        }, 300); 
       }
     },
     directInput(){
@@ -153,7 +153,7 @@ export default {
         setTimeout(() => { 
           this.isDupliEmail =  this.$store.state.isDuplicateEmail;
           this.isUniqEmail = !this.$store.state.isDuplicateEmail;
-        }, 500); 
+        }, 300); 
       }
     },
     isDiferrentPw() {      // 비밀번호 & 비밀번호 확인란 일치 여부
@@ -230,7 +230,7 @@ export default {
         
         setTimeout(() => { 
         this.represent() ;
-        }, 500); 	
+        }, 300); 	
 			}
       else {
         if(!this.isDupliNick){

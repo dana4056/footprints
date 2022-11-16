@@ -128,7 +128,7 @@ export default {
         setTimeout(() => { 
           this.isDupliNick =  this.$store.state.isDuplicateNick;
           this.isUniqNick = !this.$store.state.isDuplicateNick;
-        }, 500); 
+        }, 300); 
       }
     },
     directInput(){
@@ -148,7 +148,7 @@ export default {
         setTimeout(() => { 
           this.isDupliEmail =  this.$store.state.isDuplicateEmail;
           this.isUniqEmail = !this.$store.state.isDuplicateEmail;
-        }, 500);    
+        }, 300);    
       }
     },
     submitData() {

@@ -190,7 +190,7 @@ export default {
       this.$store.dispatch('FETCH_DELIVERY_LIST_SORT', sortDTO);
       setTimeout(() => {
           this.$store.getters.GET_DELIVERIES;
-        }, 500);
+        }, 300);
     },
     BeforeSort(){
       this.sort_criteria = "";
@@ -204,7 +204,7 @@ export default {
       this.$store.dispatch('FETCH_DELIVERY_LIST_SORT', sortDTO);
       setTimeout(() => {
           this.$store.getters.GET_DELIVERIES;
-        }, 500);
+        }, 300);
     },
     searchArea() {
       new window.daum.Postcode({
@@ -221,7 +221,7 @@ export default {
             this.NoneCategory();
             this.BeforeSort();
             this.$store.getters.GET_DELIVERIES;
-          }, 500);
+          }, 300);
         }
       }).open();
     }

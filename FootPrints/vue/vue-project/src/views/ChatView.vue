@@ -189,13 +189,13 @@ export default {
           message: message
         };
         this.$store.commit('SET_LAST_CHAT', changeLastChat);
-      }, 500);
+      }, 300);
     },
     liftMessage(){
       setTimeout(() => {
         const element = document.getElementById("chat__body");
         element.scrollTop = element.scrollHeight;
-      }, 500);
+      }, 300);
     },
     submitMessage() {
       if (this.msg) {
